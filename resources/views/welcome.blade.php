@@ -752,6 +752,28 @@
             flex-wrap: wrap;
         }
 
+        /* --- GALLERY GRID --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            height: 250px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
         /* --- QUICK INFO GRID --- */
         .quick-grid {
             display: grid;
@@ -1211,16 +1233,41 @@
         </div>
     </section>
 
+    <!-- GALERI DESA -->
+    <section id="galeri" class="section" style="background-color: var(--bg-main);">
+        <div class="section-header">
+            <span class="section-subtitle">Pesona Desa</span>
+            <h2 class="section-title">Galeri Desa</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1505506874110-6a7a4c9d2433?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Galeri 1">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Galeri 2">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Galeri 3">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Galeri 4">
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
     <footer>
         <div class="footer-grid">
             <div>
-                <div class="footer-brand">
-                    <i class="fa-solid fa-leaf"></i> DurenTengaran
-                </div>
+                <a href="#" class="logo-wrapper" style="margin-bottom: 20px; text-decoration: none;">
+                    <img src="{{ asset('img/logo-semarang.png') }}" alt="Logo Kab Semarang" class="logo-img">
+                    <div class="logo-text">
+                        <span class="logo-title">DESA DUREN</span>
+                        <span class="logo-subtitle">KECAMATAN TENGARAN<br>KABUPATEN SEMARANG</span>
+                    </div>
+                </a>
                 <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 25px; color: #cbd5e1;">
-                    Website resmi informasi Pemerintah Desa Duren Tengaran. Wadah keterbukaan publik yang menyajikan
-                    data dan potensi desa secara aktual.
+                    Website resmi Desa Duren sebagai media informasi dan pelayanan kepada masyarakat.
                 </p>
                 <div style="display: flex; gap: 15px;">
                     <a href="#"
@@ -1236,22 +1283,22 @@
             </div>
 
             <div class="footer-col">
-                <h4>Informasi Desa</h4>
+                <h4>Profil & Pemerintahan</h4>
                 <ul>
-                    <li><a href="#">Profil Desa</a></li>
-                    <li><a href="#">Aparatur Desa</a></li>
-                    <li><a href="#">Potensi UMKM</a></li>
-                    <li><a href="#">Galeri Desa</a></li>
+                    <li><a href="#profil">Profil Desa</a></li>
+                    <li><a href="#">Perangkat Desa</a></li>
+                    <li><a href="#">Peraturan Desa</a></li>
+                    <li><a href="#berita">Berita Desa</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
-                <h4>Transparansi Publik</h4>
+                <h4>Potensi & Kelembagaan</h4>
                 <ul>
-                    <li><a href="#">Data Demografi</a></li>
-                    <li><a href="#">Peraturan Desa</a></li>
-                    <li><a href="#">APBDes</a></li>
+                    <li><a href="#umkm">Potensi UMKM</a></li>
+                    <li><a href="#galeri">Wisata & Budaya</a></li>
                     <li><a href="#">Lembaga Masyarakat</a></li>
+                    <li><a href="#kontak">Kontak Kami</a></li>
                 </ul>
             </div>
 
