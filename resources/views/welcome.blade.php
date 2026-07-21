@@ -361,10 +361,10 @@
 
         .demo-icon {
             font-size: 1.4rem;
-            /* Reduced icon size */
             color: #713f12;
-            /* Dark brown */
             transition: var(--transition);
+            width: 35px;
+            text-align: center;
         }
 
         .demo-item:hover .demo-icon {
@@ -1004,28 +1004,28 @@
                     <i class="fa-solid fa-users demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Total Penduduk</div>
-                        <div class="demo-number">{{ $demografi->total_penduduk ?? '2.450' }}</div>
+                        <div class="demo-number">{{ $demografi->total_penduduk ? number_format($demografi->total_penduduk->male_count + $demografi->total_penduduk->female_count, 0, ',', '.') : '2.450' }}</div>
                     </div>
                 </div>
                 <div class="demo-item">
                     <i class="fa-solid fa-house-chimney demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Rukun Tetangga</div>
-                        <div class="demo-number">{{ $demografi->rt ?? '32' }}</div>
+                        <div class="demo-number">{{ $demografi->rt->male_count ?? '32' }}</div>
                     </div>
                 </div>
                 <div class="demo-item">
                     <i class="fa-solid fa-building demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Rukun Warga</div>
-                        <div class="demo-number">{{ $demografi->rw ?? '7' }}</div>
+                        <div class="demo-number">{{ $demografi->rw->male_count ?? '7' }}</div>
                     </div>
                 </div>
                 <div class="demo-item">
                     <i class="fa-solid fa-map-location-dot demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Luas Wilayah</div>
-                        <div class="demo-number">{{ $demografi->luas_wilayah ?? '350' }} Ha</div>
+                        <div class="demo-number">{{ $demografi->luas_wilayah->male_count ?? '350' }} Ha</div>
                     </div>
                 </div>
             </div>
@@ -1059,14 +1059,18 @@
                     <div class="kades-img-wrapper">
                         <!-- NOTE: Ganti div di bawah ini dengan tag <img ...> jika foto aslinya sudah ada -->
                         <!-- Contoh: <img src="{{ asset('img/foto-kades.jpg') }}" alt="Slamet Riyadi" class="kades-img"> -->
-                        <div class="kades-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 10px; min-height: 160px; height: 100%;">
-                            [ Foto Kades ]
+                        <div class="kades-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 0; min-height: 160px; height: 100%; overflow: hidden; border-radius: var(--radius-lg);">
+                            @if($profile && $profile->headman_photo)
+                                <img src="{{ Str::startsWith($profile->headman_photo, 'http') ? $profile->headman_photo : asset('storage/' . $profile->headman_photo) }}" alt="{{ $profile->headman_name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            @else
+                                [ Foto Kades ]
+                            @endif
                         </div>
                     </div>
                     <div class="kades-info">
-                        <h3 class="kades-name">Slamet Riyadi, S.E.</h3>
-                        <div class="kades-title">Kepala Desa Duren</div>
-                        <p class="kades-quote">Bersama mewujudkan Desa Duren yang maju, mandiri, dan sejahtera melalui pelayanan yang transparan dan partisipatif.</p>
+                        <h3 class="kades-name">{{ $profile->headman_name ?? 'Slamet Riyadi, S.E.' }}</h3>
+                        <div class="kades-title">Kepala Desa {{ $profile->village_name ?? 'Duren' }}</div>
+                        <p class="kades-quote">{{ $profile->headman_greeting ?? 'Bersama mewujudkan Desa Duren yang maju, mandiri, dan sejahtera melalui pelayanan yang transparan dan partisipatif.' }}</p>
                         <a href="#pemerintahan" class="welcome-btn btn-small">Struktur Organisasi <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -1121,59 +1125,25 @@
         </div>
 
         <div class="umkm-scroll">
+            @foreach($umkms as $umkm)
             <div class="info-card">
-                <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Keripik Pisang" class="card-img">
+                <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
+                    alt="{{ $umkm->title }}" class="card-img">
                 <div class="card-content">
                     <div class="card-meta">
-                        <span class="tag" style="background-color: #fef3c7; color: #d97706;">Makanan Ringan</span>
+                        <span class="tag" style="background-color: #fef3c7; color: #d97706;">{{ $umkm->category->name ?? 'UMKM' }}</span>
                     </div>
-                    <h3 class="card-title">Keripik Pisang Aneka Rasa</h3>
-                    <p class="card-desc">Camilan khas Desa Duren yang terbuat dari pisang pilihan dengan berbagai varian rasa seperti cokelat, keju, dan balado.</p>
+                    <h3 class="card-title">{{ $umkm->title }}</h3>
+                    <p class="card-desc">{{ $umkm->description }}</p>
                     <div class="umkm-socials">
-                        <a href="#" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
-                        <a href="#" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
-                        <a href="#" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
-                        <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
+                        <a href="{{ $umkm->google_maps_url ?? '#' }}" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
+                        <a href="{{ $umkm->instagram ? 'https://instagram.com/'.$umkm->instagram : '#' }}" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
+                        <a href="{{ $umkm->whatsapp ? 'https://wa.me/'.$umkm->whatsapp : '#' }}" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
+                        <a href="{{ $umkm->facebook ?? '#' }}" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
                     </div>
                 </div>
             </div>
-
-            <div class="info-card">
-                <img src="https://images.unsplash.com/photo-1599839619722-39751411ea63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Kerajinan Bambu" class="card-img">
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="tag" style="background-color: #fef3c7; color: #d97706;">Kerajinan</span>
-                    </div>
-                    <h3 class="card-title">Kerajinan Anyaman Bambu</h3>
-                    <p class="card-desc">Berbagai produk dekorasi dan perabotan rumah tangga ramah lingkungan dari anyaman bambu asli karya warga.</p>
-                    <div class="umkm-socials">
-                        <a href="#" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
-                        <a href="#" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
-                        <a href="#" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
-                        <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Kopi Lokal" class="card-img">
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="tag" style="background-color: #fef3c7; color: #d97706;">Minuman</span>
-                    </div>
-                    <h3 class="card-title">Kopi Bubuk Asli Duren</h3>
-                    <p class="card-desc">Biji kopi robusta pilihan yang dipetik langsung dari kebun desa dan dipanggang secara tradisional.</p>
-                    <div class="umkm-socials">
-                        <a href="#" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
-                        <a href="#" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
-                        <a href="#" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
-                        <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 
@@ -1186,50 +1156,21 @@
         </div>
 
         <div class="grid-3">
+            @foreach($news as $item)
             <div class="info-card">
-                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Posyandu" class="card-img">
+                <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset('storage/' . $item->featured_image) }}"
+                    alt="{{ $item->title }}" class="card-img">
                 <div class="card-content">
                     <div class="card-meta">
-                        <span class="tag">Kesehatan Publik</span>
-                        <span><i class="fa-regular fa-clock"></i> 17 Jul 2026</span>
+                        <span class="tag">{{ $item->category->name ?? 'Berita' }}</span>
+                        <span><i class="fa-regular fa-clock"></i> {{ \Carbon\Carbon::parse($item->published_at)->format('d M Y') }}</span>
                     </div>
-                    <h3 class="card-title">Pelaksanaan Posyandu Bulan Juli</h3>
-                    <p class="card-desc">Rekapitulasi data kesehatan balita dan lansia pada kegiatan posyandu rutin
-                        bulan ini di Balai Desa Duren Tengaran.</p>
+                    <h3 class="card-title">{{ $item->title }}</h3>
+                    <p class="card-desc">{{ Str::limit($item->content, 120) }}</p>
                     <a href="#" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
                 </div>
             </div>
-
-            <div class="info-card">
-                <img src="https://images.unsplash.com/photo-1555617781-64d1f2a3a804?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Rapat Desa" class="card-img">
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="tag">Pemerintahan</span>
-                        <span><i class="fa-regular fa-clock"></i> 15 Jul 2026</span>
-                    </div>
-                    <h3 class="card-title">Hasil Musyawarah Desa (Musdes) 2026</h3>
-                    <p class="card-desc">Keputusan musyawarah terkait alokasi anggaran pembangunan infrastruktur dan
-                        program pemberdayaan masyarakat tahun anggaran berjalan.</p>
-                    <a href="#" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <img src="https://images.unsplash.com/photo-1594708767771-a7502209ff51?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Kerja Bakti" class="card-img">
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="tag">Kegiatan Warga</span>
-                        <span><i class="fa-regular fa-clock"></i> 10 Jul 2026</span>
-                    </div>
-                    <h3 class="card-title">Kerja Bakti Rutin di Lingkungan RW 03</h3>
-                    <p class="card-desc">Dokumentasi kegiatan gotong royong warga RW 03 membersihkan saluran pembuangan
-                        air sebagai langkah antisipasi musim penghujan.</p>
-                    <a href="#" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 
@@ -1240,18 +1181,11 @@
             <h2 class="section-title">Galeri Desa</h2>
         </div>
         <div class="gallery-grid">
+            @foreach($galleries as $gallery)
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1505506874110-6a7a4c9d2433?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Galeri 1">
+                <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset('storage/' . $gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
             </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Galeri 2">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Galeri 3">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Galeri 4">
-            </div>
+            @endforeach
         </div>
     </section>
 
