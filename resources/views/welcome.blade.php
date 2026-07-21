@@ -569,6 +569,29 @@
             }
         }
 
+        /* --- HORIZONTAL SCROLL FOR UMKM --- */
+        .umkm-scroll {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .umkm-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .umkm-scroll .info-card {
+            flex: 0 0 350px;
+            scroll-snap-align: start;
+        }
+        @media (max-width: 768px) {
+            .umkm-scroll .info-card {
+                flex: 0 0 280px;
+            }
+        }
+
         /* --- SECTIONS --- */
         .section {
             padding: 50px 5%; /* Reduced from 80px */
@@ -614,6 +637,8 @@
             transition: var(--transition);
             border: 1px solid var(--border-color);
             border-bottom: 4px solid var(--primary);
+            display: flex;
+            flex-direction: column;
         }
 
         .info-card:hover {
@@ -629,6 +654,9 @@
 
         .card-content {
             padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .card-meta {
@@ -660,7 +688,33 @@
             color: var(--text-muted);
             font-size: 1.05rem;
             margin-bottom: 25px;
+            flex-grow: 1;
         }
+
+        /* UMKM Social Links */
+        .umkm-socials {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 10px;
+            margin-top: auto;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            background: transparent;
+        }
+        .social-btn.wa { color: #25D366; }
+        .social-btn.ig { color: #E1306C; }
+        .social-btn.fb { color: #1877F2; }
+        .social-btn.maps { color: var(--text-dark); }
+        .social-btn:hover { opacity: 0.7; }
 
         .card-action {
             display: inline-flex;
@@ -998,46 +1052,106 @@
         </div>
     </section>
 
-    <!-- AKSES CEPAT INFORMASI -->
-    <section id="informasi" class="section">
+    <!-- POTENSI DESA -->
+    <section id="potensi" class="section">
         <div class="section-header">
-            <span class="section-subtitle">Akses Data Publik</span>
-            <h2 class="section-title">Informasi & Transparansi</h2>
+            <span class="section-subtitle">Potensi Desa</span>
+            <h2 class="section-title">Kekayaan & Komoditas Unggulan</h2>
         </div>
 
         <div class="quick-grid">
             <a href="#" style="text-decoration: none;">
                 <div class="quick-box">
-                    <i class="fa-solid fa-scale-balanced quick-icon"></i>
-                    <h3>Peraturan Desa</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Dokumen perundang-undangan dan regulasi
-                        desa.</p>
+                    <i class="fa-solid fa-wheat-awn quick-icon"></i>
+                    <h3>Pertanian</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Lahan subur dengan komoditas unggulan padi dan palawija.</p>
                 </div>
             </a>
             <a href="#" style="text-decoration: none;">
                 <div class="quick-box">
-                    <i class="fa-solid fa-chart-pie quick-icon"></i>
-                    <h3>APBDes</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Laporan alokasi dan transparansi dana desa.
-                    </p>
+                    <i class="fa-solid fa-cow quick-icon"></i>
+                    <h3>Peternakan</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Pusat pengembangan hewan ternak seperti sapi dan kambing.</p>
                 </div>
             </a>
             <a href="#" style="text-decoration: none;">
                 <div class="quick-box">
-                    <i class="fa-solid fa-users-viewfinder quick-icon"></i>
-                    <h3>Data Demografi</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Statistik kependudukan berdasarkan usia dan
-                        gender.</p>
+                    <i class="fa-solid fa-shop quick-icon"></i>
+                    <h3>UMKM</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Produk kerajinan dan makanan khas hasil karya warga desa.</p>
                 </div>
             </a>
             <a href="#" style="text-decoration: none;">
                 <div class="quick-box">
-                    <i class="fa-solid fa-sitemap quick-icon"></i>
-                    <h3>Lembaga Desa</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Informasi kelembagaan seperti PKK dan Karang
-                        Taruna.</p>
+                    <i class="fa-solid fa-mountain-sun quick-icon"></i>
+                    <h3>Pariwisata</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Pesona alam asri yang menarik bagi wisatawan lokal.</p>
                 </div>
             </a>
+        </div>
+    </section>
+
+    <!-- UMKM UNGGULAN -->
+    <section id="umkm" class="section" style="background-color: var(--white); border-top: 1px solid var(--border-color);">
+        <div class="section-header">
+            <span class="section-subtitle">Produk Lokal</span>
+            <h2 class="section-title">UMKM Unggulan Desa</h2>
+        </div>
+
+        <div class="umkm-scroll">
+            <div class="info-card">
+                <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Keripik Pisang" class="card-img">
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="tag" style="background-color: #fef3c7; color: #d97706;">Makanan Ringan</span>
+                    </div>
+                    <h3 class="card-title">Keripik Pisang Aneka Rasa</h3>
+                    <p class="card-desc">Camilan khas Desa Duren yang terbuat dari pisang pilihan dengan berbagai varian rasa seperti cokelat, keju, dan balado.</p>
+                    <div class="umkm-socials">
+                        <a href="#" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
+                        <a href="#" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
+                        <a href="#" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
+                        <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <img src="https://images.unsplash.com/photo-1599839619722-39751411ea63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Kerajinan Bambu" class="card-img">
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="tag" style="background-color: #fef3c7; color: #d97706;">Kerajinan</span>
+                    </div>
+                    <h3 class="card-title">Kerajinan Anyaman Bambu</h3>
+                    <p class="card-desc">Berbagai produk dekorasi dan perabotan rumah tangga ramah lingkungan dari anyaman bambu asli karya warga.</p>
+                    <div class="umkm-socials">
+                        <a href="#" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
+                        <a href="#" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
+                        <a href="#" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
+                        <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Kopi Lokal" class="card-img">
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="tag" style="background-color: #fef3c7; color: #d97706;">Minuman</span>
+                    </div>
+                    <h3 class="card-title">Kopi Bubuk Asli Duren</h3>
+                    <p class="card-desc">Biji kopi robusta pilihan yang dipetik langsung dari kebun desa dan dipanggang secara tradisional.</p>
+                    <div class="umkm-socials">
+                        <a href="#" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
+                        <a href="#" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
+                        <a href="#" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
+                        <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
