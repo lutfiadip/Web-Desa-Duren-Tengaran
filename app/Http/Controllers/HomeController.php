@@ -41,4 +41,18 @@ class HomeController extends Controller
 
         return view('welcome', compact('profile', 'demografi', 'umkms', 'news', 'galleries'));
     }
+
+    public function profile()
+    {
+        $profile = VillageProfile::first();
+        
+        // Mengambil statistik demografi
+        $demografi = new \stdClass();
+        $demografi->total_penduduk = DemographicStatistic::where('label', 'Total Penduduk')->first();
+        $demografi->rt = DemographicStatistic::where('label', 'Rukun Tetangga')->first();
+        $demografi->rw = DemographicStatistic::where('label', 'Rukun Warga')->first();
+        $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();
+
+        return view('profile', compact('profile', 'demografi'));
+    }
 }
