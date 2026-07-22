@@ -1241,15 +1241,15 @@
                 <ul style="color: #94a3b8; font-size: 0.95rem; line-height: 1.8;">
                     <li style="display: flex; gap: 10px;">
                         <i class="fa-solid fa-map-location-dot" style="margin-top: 5px; color: var(--accent);"></i>
-                        Jl. Raya Tengaran No. 123, Kab. Semarang, Jawa Tengah 50775
+                        {{ $profile->address ?? 'Jl. Raya Tengaran No. 123, Kab. Semarang, Jawa Tengah 50775' }}
                     </li>
                     <li style="display: flex; gap: 10px;">
                         <i class="fa-solid fa-phone" style="margin-top: 5px; color: var(--accent);"></i>
-                        (0298) 123456
+                        {{ $profile->phone ?? '(0298) 123456' }}
                     </li>
                     <li style="display: flex; gap: 10px;">
                         <i class="fa-solid fa-envelope" style="margin-top: 5px; color: var(--accent);"></i>
-                        info@durentengaran.desa.id
+                        {{ $profile->email ?? 'info@durentengaran.desa.id' }}
                     </li>
                 </ul>
             </div>
