@@ -13,6 +13,8 @@ use App\Models\OfficialCategory;
 use App\Models\Official;
 use App\Models\RegulationCategory;
 use App\Models\Regulation;
+use App\Models\TouristAttraction;
+use App\Models\Culture;
 
 class HomeController extends Controller
 {
@@ -97,5 +99,59 @@ class HomeController extends Controller
         $categories = RegulationCategory::all();
 
         return view('regulations', compact('profile', 'villageDetail', 'regulations', 'categories'));
+    }
+
+    public function tourism()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $attractions = TouristAttraction::where('status', 'published')
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        $cultures = Culture::where('status', 'published')
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        return view('tourism', compact('profile', 'villageDetail', 'attractions', 'cultures'));
+    }
+
+    public function tourismDetail($slug)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $attraction = TouristAttraction::where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        // Mengambil wisata lainnya untuk rekomendasi
+        $otherAttractions = TouristAttraction::where('id', '!=', $attraction->id)
+            ->where('status', 'published')
+            ->take(3)
+            ->get();
+
+        return view('tourism-detail', compact('profile', 'villageDetail', 'attraction', 'otherAttractions'));
+    }
+
+    public function cultureDetail($slug)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $culture = Culture::where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        // Mengambil kebudayaan lainnya untuk rekomendasi
+        $otherCultures = Culture::where('id', '!=', $culture->id)
+            ->where('status', 'published')
+            ->take(3)
+            ->get();
+
+        return view('culture-detail', compact('profile', 'villageDetail', 'culture', 'otherCultures'));
     }
 }

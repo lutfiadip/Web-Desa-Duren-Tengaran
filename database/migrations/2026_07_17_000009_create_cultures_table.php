@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('location')->nullable();
             $table->string('implementation_time')->nullable();
+            $table->string('contact')->nullable();
+            $table->json('gallery')->nullable();
             $table->enum('status', ['draft', 'published'])->default('draft');
             $table->boolean('is_featured')->default(false);
             $table->softDeletes();

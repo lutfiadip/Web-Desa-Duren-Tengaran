@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('ticket_price')->default(0);
             $table->string('contact')->nullable();
             $table->text('facilities')->nullable();
+            $table->json('gallery')->nullable();
             $table->enum('status', ['draft', 'published'])->default('draft');
             $table->boolean('is_featured')->default(false);
             $table->softDeletes();
