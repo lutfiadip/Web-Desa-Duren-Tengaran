@@ -6,7 +6,7 @@
 <style>
     /* --- PROFILE HERO --- */
     .profile-hero {
-        background: linear-gradient(180deg, rgba(5, 46, 22, 0.9) 0%, rgba(5, 46, 22, 0.75) 100%),
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.75) 100%),
                     url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
         padding: 160px 5% 140px;
         text-align: center;
@@ -86,7 +86,7 @@
     }
     
     .profile-section-card:hover {
-        border-color: rgba(45, 106, 50, 0.15);
+        border-color: rgba(37, 99, 235, 0.15);
         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
     }
     
@@ -291,7 +291,7 @@
         background-color: var(--primary);
         border-color: var(--primary);
         color: var(--white);
-        box-shadow: 0 4px 15px rgba(26, 77, 46, 0.2);
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
     }
     .dusun-btn.active .dusun-icon,
     .dusun-btn.active .dusun-btn-info h4,
@@ -339,7 +339,7 @@
     }
     
     .office-hours-box {
-        background: linear-gradient(135deg, #052e16, #022c22);
+        background: linear-gradient(135deg, #1e3a8a, #172554);
         color: var(--white);
         padding: 25px;
         border-radius: var(--radius-md);

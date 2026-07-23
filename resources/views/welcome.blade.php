@@ -8,7 +8,7 @@
         /* --- HERO SECTION --- */
         .hero {
             /* Dark gradient on the left, fading to right. Background image of agriculture/village */
-            background: linear-gradient(90deg, rgba(10, 25, 10, 0.95) 0%, rgba(10, 25, 10, 0.7) 45%, rgba(10, 25, 10, 0.2) 100%),
+            background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.7) 45%, rgba(15, 23, 42, 0.2) 100%),
                 url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             min-height: calc(100vh - 80px);
             /* Adjusted for solid header */
@@ -294,7 +294,7 @@
         .welcome-btn {
             align-self: flex-start;
             padding: 12px 25px;
-            background-color: #064e3b; 
+            background-color: var(--primary); 
             color: white;
             border-radius: var(--radius-md);
             text-decoration: none;
@@ -375,7 +375,7 @@
         }
 
         .section-card:hover {
-            border-color: rgba(45, 106, 50, 0.15);
+            border-color: rgba(37, 99, 235, 0.15);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
         }
 

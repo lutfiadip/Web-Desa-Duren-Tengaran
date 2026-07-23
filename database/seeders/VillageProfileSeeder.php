@@ -5,14 +5,21 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\VillageProfile;
 use App\Models\VillageDetail;
+use App\Models\OfficialCategory;
+use App\Models\Official;
+use Illuminate\Support\Facades\Schema;
 
 class VillageProfileSeeder extends Seeder
 {
     public function run(): void
     {
         // Truncate table to prevent duplicate entries
+        Schema::disableForeignKeyConstraints();
         VillageProfile::truncate();
         VillageDetail::truncate();
+        Official::truncate();
+        OfficialCategory::truncate();
+        Schema::enableForeignKeyConstraints();
 
         VillageProfile::create([
             'village_name' => 'Duren',
@@ -41,6 +48,38 @@ class VillageProfileSeeder extends Seeder
             'dusun_count' => 8,
             'rt_count' => 35,
             'rw_count' => 8,
+        ]);
+
+        $pemdes = OfficialCategory::create(['name' => 'Pemerintah Desa']);
+
+        // 1. Pimpinan (Kepala Desa)
+        Official::create([
+            'category_id' => $pemdes->id,
+            'name' => 'Wahyudi, S.M.',
+            'position' => 'Kepala Desa',
+            'photo' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            'nip' => '-',
+            'sort_order' => 1
+        ]);
+
+        // 2. Kaur/Kasi (Kaur Keuangan)
+        Official::create([
+            'category_id' => $pemdes->id,
+            'name' => 'Indah Lestari, A.Md.',
+            'position' => 'Kaur Keuangan',
+            'photo' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            'nip' => '-',
+            'sort_order' => 3
+        ]);
+
+        // 3. Kepala Dusun (Kepala Dusun Miri)
+        Official::create([
+            'category_id' => $pemdes->id,
+            'name' => 'Triyono',
+            'position' => 'Kepala Dusun Miri',
+            'photo' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            'nip' => '-',
+            'sort_order' => 9
         ]);
     }
 }

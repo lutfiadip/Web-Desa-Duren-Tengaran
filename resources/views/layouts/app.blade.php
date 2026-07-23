@@ -17,13 +17,13 @@
 
     <style>
         :root {
-            /* Colors based on the Ecoland reference */
-            --primary: #2d6a32;
-            /* Forest green */
-            --primary-hover: #1f4f24;
-            --accent: #facc15;
-            /* Bright yellow */
-            --accent-hover: #eab308;
+            /* Colors based on Blue & White modern layout */
+            --primary: #2563eb;
+            /* Sapphire Blue */
+            --primary-hover: #1d4ed8;
+            --accent: #f59e0b;
+            /* Amber Gold */
+            --accent-hover: #d97706;
 
             --text-dark: #1e293b;
             --text-muted: #475569;
@@ -59,13 +59,13 @@
             flex-grow: 1;
         }
 
-        /* --- HEADER (Solid Green) --- */
+        /* --- HEADER (Solid Navy) --- */
         header {
             position: sticky;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: #052e16;
+            background-color: #1e3a8a;
             /* Same as footer */
             padding: 15px 5%;
             display: flex;
@@ -240,7 +240,7 @@
 
         /* --- FOOTER --- */
         footer {
-            background-color: #052e16;
+            background-color: #1e3a8a;
             color: #94a3b8;
             padding: 80px 5% 40px;
             margin-top: 60px;
@@ -302,7 +302,7 @@
 
         @media (max-width: 768px) {
             header {
-                background: #052e16;
+                background: #1e3a8a;
                 padding: 1rem 5%;
             }
 
@@ -335,10 +335,10 @@
             <li><a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') ? 'active' : '' }}">Profil Desa</a></li>
 
             <li class="dropdown">
-                <a href="#">Pemerintahan <i class="fa-solid fa-chevron-down"
+                <a href="#" class="{{ request()->routeIs('officials') ? 'active' : '' }}">Pemerintahan <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Perangkat Desa</a></li>
+                    <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
                     <li><a href="#">Peraturan Desa</a></li>
                 </ul>
             </li>
@@ -402,7 +402,7 @@
                 <h4>Profil & Pemerintahan</h4>
                 <ul>
                     <li><a href="{{ route('profile') }}">Profil Desa</a></li>
-                    <li><a href="#">Perangkat Desa</a></li>
+                    <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
                     <li><a href="#">Peraturan Desa</a></li>
                     <li><a href="{{ request()->routeIs('home') ? '#berita' : route('home') . '#berita' }}">Berita Desa</a></li>
                 </ul>

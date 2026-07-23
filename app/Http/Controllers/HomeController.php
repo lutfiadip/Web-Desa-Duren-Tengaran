@@ -9,6 +9,8 @@ use App\Models\Umkm;
 use App\Models\News;
 use App\Models\Gallery;
 use App\Models\VillageDetail;
+use App\Models\OfficialCategory;
+use App\Models\Official;
 
 class HomeController extends Controller
 {
@@ -57,5 +59,23 @@ class HomeController extends Controller
         $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();
 
         return view('profile', compact('profile', 'demografi', 'villageDetail'));
+    }
+
+    public function officials()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        // Get officials grouped by hierarchy
+        $kades = Official::where('position', 'Kepala Desa')->first();
+        $sekdes = Official::where('position', 'Sekretaris Desa')->first();
+        
+        // Staff/Kaur/Kasi (sort_order between 3 and 8)
+        $staff = Official::whereIn('sort_order', [3, 4, 5, 6, 7, 8])->orderBy('sort_order')->get();
+        
+        // Kewilayahan/Kadus (sort_order >= 9)
+        $kadus = Official::where('sort_order', '>=', 9)->orderBy('sort_order')->get();
+
+        return view('officials', compact('profile', 'villageDetail', 'kades', 'sekdes', 'staff', 'kadus'));
     }
 }
