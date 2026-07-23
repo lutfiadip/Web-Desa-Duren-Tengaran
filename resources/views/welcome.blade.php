@@ -9,7 +9,7 @@
         .hero {
             /* Dark gradient on the left, fading to right. Background image of agriculture/village */
             background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.7) 45%, rgba(15, 23, 42, 0.2) 100%),
-                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+                url('{{ asset($profile->hero_bg_image ?? "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") }}') center/cover no-repeat;
             min-height: calc(100vh - 80px);
             /* Adjusted for solid header */
             display: flex;

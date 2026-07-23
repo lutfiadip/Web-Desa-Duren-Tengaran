@@ -7,7 +7,7 @@
     /* --- HERO --- */
     .regulations-hero {
         background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.75) 100%),
-                    url('https://images.unsplash.com/photo-1450133064473-71024230f91b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+                    url('{{ asset($profile->hero_bg_image ?? "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") }}') center/cover no-repeat;
         padding: 160px 5% 140px;
         text-align: center;
         color: var(--white);
@@ -118,6 +118,33 @@
         border-color: var(--primary);
         background-color: var(--white);
         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .search-wrapper {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-search {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background-color: var(--primary);
+        color: var(--white);
+        border: none;
+        border-radius: var(--radius-md);
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: var(--transition);
+        white-space: nowrap;
+    }
+
+    .btn-search:hover {
+        background-color: var(--primary-hover);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
     }
 
     /* --- REGULATIONS TABLE --- */
@@ -267,7 +294,12 @@
                 <!-- Search -->
                 <div class="form-group">
                     <label for="search-input">Cari Regulasi</label>
-                    <input type="text" id="search-input" class="form-control" placeholder="Tulis judul atau nomor peraturan...">
+                    <div class="search-wrapper">
+                        <input type="text" id="search-input" class="form-control" placeholder="Tulis judul atau nomor peraturan...">
+                        <button type="button" id="search-button" class="btn-search">
+                            <i class="fa-solid fa-magnifying-glass"></i> Cari
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Category -->
@@ -371,6 +403,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
             const categoryFilter = document.getElementById('category-filter');
             const yearFilter = document.getElementById('year-filter');
             const rows = document.querySelectorAll('.regulation-row');
@@ -413,6 +446,7 @@
             }
 
             if (searchInput) searchInput.addEventListener('input', filterTable);
+            if (searchButton) searchButton.addEventListener('click', filterTable);
             if (categoryFilter) categoryFilter.addEventListener('change', filterTable);
             if (yearFilter) yearFilter.addEventListener('change', filterTable);
         });

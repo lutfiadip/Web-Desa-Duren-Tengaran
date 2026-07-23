@@ -30,6 +30,7 @@ return new class extends Migration
             $table->text('google_maps_url')->nullable();
             $table->string('office_hours')->nullable();
             $table->string('organization_structure_image')->nullable();
+            $table->string('hero_bg_image')->nullable();
             $table->timestamps();
         });
     }
