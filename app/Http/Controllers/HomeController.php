@@ -8,12 +8,14 @@ use App\Models\DemographicStatistic;
 use App\Models\Umkm;
 use App\Models\News;
 use App\Models\Gallery;
+use App\Models\VillageDetail;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
         
         // Mengambil statistik demografi
         $demografi = new \stdClass();
@@ -39,12 +41,13 @@ class HomeController extends Controller
         // Mengambil 4 galeri terbaru
         $galleries = Gallery::latest()->take(4)->get();
 
-        return view('welcome', compact('profile', 'demografi', 'umkms', 'news', 'galleries'));
+        return view('welcome', compact('profile', 'demografi', 'umkms', 'news', 'galleries', 'villageDetail'));
     }
 
     public function profile()
     {
         $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
         
         // Mengambil statistik demografi
         $demografi = new \stdClass();
@@ -53,6 +56,6 @@ class HomeController extends Controller
         $demografi->rw = DemographicStatistic::where('label', 'Rukun Warga')->first();
         $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();
 
-        return view('profile', compact('profile', 'demografi'));
+        return view('profile', compact('profile', 'demografi', 'villageDetail'));
     }
 }

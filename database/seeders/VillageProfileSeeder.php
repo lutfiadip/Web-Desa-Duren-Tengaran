@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\VillageProfile;
+use App\Models\VillageDetail;
 
 class VillageProfileSeeder extends Seeder
 {
@@ -11,6 +12,7 @@ class VillageProfileSeeder extends Seeder
     {
         // Truncate table to prevent duplicate entries
         VillageProfile::truncate();
+        VillageDetail::truncate();
 
         VillageProfile::create([
             'village_name' => 'Duren',
@@ -29,6 +31,16 @@ class VillageProfileSeeder extends Seeder
             'youtube' => '@durentengaran',
             'google_maps_url' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15822.428399581895!2d110.49061099684128!3d-7.442340578648174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a783709b0bfa5%3A0xc3cf9c98bc97149a!2sDuren%2C%20Tengaran%2C%20Semarang%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid',
             'office_hours' => 'Senin - Kamis (08.00 - 15.00 WIB) | Jumat (08.00 - 11.30 WIB)'
+        ]);
+
+        VillageDetail::create([
+            'kecamatan' => 'Tengaran',
+            'kabupaten' => 'Semarang',
+            'provinsi' => 'Jawa Tengah',
+            'zip_code' => '50775',
+            'dusun_count' => 8,
+            'rt_count' => 35,
+            'rw_count' => 8,
         ]);
     }
 }

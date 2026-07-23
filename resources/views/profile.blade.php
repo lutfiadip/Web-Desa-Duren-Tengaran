@@ -72,7 +72,22 @@
     }
 
     .profile-section {
-        margin-bottom: 80px;
+        margin-bottom: 60px;
+    }
+
+    .profile-section-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 45px;
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.015), 0 1px 3px rgba(0, 0, 0, 0.01);
+        transition: var(--transition);
+        margin-bottom: 40px;
+    }
+    
+    .profile-section-card:hover {
+        border-color: rgba(45, 106, 50, 0.15);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
     }
     
     .profile-section-title {
@@ -99,18 +114,18 @@
     .visi-misi-grid {
         display: grid;
         grid-template-columns: 1fr 1.2fr;
-        gap: 40px;
+        gap: 30px;
     }
     
     .visi-card, .misi-card {
-        background: var(--white);
+        background: var(--bg-main);
         border-radius: var(--radius-lg);
-        padding: 40px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        padding: 35px;
         border: 1px solid var(--border-color);
         transition: var(--transition);
         position: relative;
         overflow: hidden;
+        box-shadow: none;
     }
     
     .visi-card::before, .misi-card::before {
@@ -119,13 +134,15 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 6px;
+        height: 5px;
         background: linear-gradient(90deg, var(--primary), var(--accent));
     }
     
     .visi-card:hover, .misi-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px);
+        background: var(--white);
+        border-color: var(--primary);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
     
     .card-icon-wrapper {
@@ -194,7 +211,7 @@
     .history-img-wrapper {
         border-radius: var(--radius-lg);
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         height: 400px;
     }
     
@@ -217,67 +234,108 @@
         gap: 50px;
     }
     
-    .geo-info-card {
-        background: var(--white);
-        border-radius: var(--radius-lg);
-        padding: 40px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        border: 1px solid var(--border-color);
+    .geo-info-content {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
     
-    .batas-grid {
+    /* --- DUSUN BUTTONS & MAPS --- */
+    .dusun-buttons-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-top: 25px;
-        margin-bottom: 35px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 15px;
+        margin-bottom: 25px;
     }
-    
-    .batas-box {
+    .dusun-btn {
         background-color: var(--bg-main);
-        padding: 20px;
-        border-radius: var(--radius-md);
         border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 14px 16px;
         display: flex;
         align-items: center;
         gap: 15px;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: left;
+    }
+    .dusun-btn .dusun-icon {
+        font-size: 1.25rem;
+        color: var(--text-muted);
         transition: var(--transition);
     }
-
-    .batas-box:hover {
-        border-color: var(--primary);
-        background-color: var(--white);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-    }
-    
-    .batas-icon {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        background-color: rgba(45, 106, 50, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--primary);
-        font-size: 1.2rem;
-        flex-shrink: 0;
-    }
-    
-    .batas-content h5 {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        letter-spacing: 0.5px;
-        margin-bottom: 2px;
-    }
-    
-    .batas-content p {
-        font-size: 1rem;
+    .dusun-btn-info h4 {
+        font-size: 0.95rem;
         font-weight: 700;
         color: var(--text-dark);
+        margin: 0 0 2px 0;
+        transition: var(--transition);
+    }
+    .dusun-btn-info p {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin: 0;
+        transition: var(--transition);
+    }
+    .dusun-btn:hover {
+        border-color: var(--primary);
+        background-color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .dusun-btn:hover .dusun-icon {
+        color: var(--primary);
+    }
+    .dusun-btn.active {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: var(--white);
+        box-shadow: 0 4px 15px rgba(26, 77, 46, 0.2);
+    }
+    .dusun-btn.active .dusun-icon,
+    .dusun-btn.active .dusun-btn-info h4,
+    .dusun-btn.active .dusun-btn-info p {
+        color: var(--white);
+    }
+    .dusun-map-panel {
+        background-color: var(--bg-main);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 400px;
+        position: relative;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        width: 100%;
+        height: 100%;
+    }
+    .dusun-map-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        color: var(--text-muted);
+        text-align: center;
+        padding: 40px;
+    }
+    .dusun-map-placeholder i {
+        font-size: 3rem;
+        color: var(--primary);
+        opacity: 0.8;
+        animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+    @media (max-width: 480px) {
+        .dusun-buttons-grid {
+            grid-template-columns: 1fr;
+        }
     }
     
     .office-hours-box {
@@ -310,7 +368,7 @@
     .map-wrapper {
         border-radius: var(--radius-lg);
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         height: 100%;
         min-height: 450px;
         border: 1px solid var(--border-color);
@@ -324,11 +382,6 @@
 
     /* --- DETAIL PROFILE CARD --- */
     .detail-profile-card {
-        background: var(--white);
-        border-radius: var(--radius-lg);
-        padding: 40px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        border: 1px solid var(--border-color);
         display: grid;
         grid-template-columns: 1.1fr 1fr;
         gap: 50px;
@@ -467,6 +520,10 @@
     }
     
     @media (max-width: 768px) {
+        .profile-section-card {
+            padding: 30px 20px;
+        }
+        
         .visi-misi-grid {
             grid-template-columns: 1fr;
         }
@@ -497,6 +554,40 @@
             width: 100%;
         }
     }
+
+    /* --- KADES GREETING --- */
+    .kades-greeting-layout {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 50px;
+        align-items: flex-start;
+    }
+    
+    .kades-profile-img-wrapper {
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        border: 1px solid var(--border-color);
+    }
+    
+    .kades-profile-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+    
+    @media (max-width: 768px) {
+        .kades-greeting-layout {
+            grid-template-columns: 1fr;
+            gap: 30px;
+            text-align: center;
+        }
+        .kades-profile-img-wrapper {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+    }
 </style>
 @endsection
 
@@ -510,79 +601,113 @@
             <span class="current">Profil Desa</span>
         </nav>
         <h1>Profil Desa {{ $profile->village_name ?? 'Duren' }}</h1>
-        <p>Mengenal lebih dekat sejarah, visi misi, tata geografis, dan komitmen pelayanan Pemerintah Desa Duren Tengaran.</p>
+        <p>Mengenal lebih dekat mengenai Desa Duren Tengaran.</p>
     </section>
 
     <div class="profile-container">
 
+        <!-- SAMBUTAN KEPALA DESA SECTION -->
+        <section class="profile-section">
+            <div class="profile-section-card">
+                <div class="kades-greeting-layout">
+                    <div class="kades-profile-img-wrapper">
+                        @if($profile && $profile->headman_photo)
+                            <img src="{{ Str::startsWith($profile->headman_photo, 'http') ? $profile->headman_photo : asset('storage/' . $profile->headman_photo) }}" 
+                                 alt="{{ $profile->headman_name }}" class="kades-profile-img">
+                        @else
+                            <div style="background-color: #e2e8f0; min-height: 250px; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600;">
+                                [ Foto Kepala Desa ]
+                            </div>
+                        @endif
+                    </div>
+                    <div>
+                        <h2 class="profile-section-title">Sambutan Kepala Desa</h2>
+                        <h3 style="font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">
+                            {{ $profile->headman_name ?? 'Wahyudi, S.M.' }}
+                        </h3>
+                        <p style="font-size: 0.95rem; color: var(--primary); font-weight: 600; margin-bottom: 20px;">
+                            Kepala Desa {{ $profile->village_name ?? 'Duren' }}
+                        </p>
+                        <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted);">
+                            {{ $profile->headman_greeting ?? 'Selamat datang di Website Resmi Desa Duren Tengaran...' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- VISI & MISI SECTION -->
         <section class="profile-section">
-            <h2 class="profile-section-title">Visi & Misi</h2>
-            <div class="visi-misi-grid">
-                <!-- Visi Card -->
-                <div class="visi-card">
-                    <div class="card-icon-wrapper">
-                        <i class="fa-solid fa-eye"></i>
+            <div class="profile-section-card">
+                <h2 class="profile-section-title">Visi & Misi</h2>
+                <div class="visi-misi-grid">
+                    <!-- Visi Card -->
+                    <div class="visi-card">
+                        <div class="card-icon-wrapper">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3>Visi</h3>
+                        <p class="visi-content">
+                            "{{ $profile->vision ?? 'Terwujudnya Desa Duren yang Mandiri, Sejahtera, Transparan, dan Berdaya Saing Tinggi melalui Optimalisasi Potensi Lokal dan Pelayanan Prima.' }}"
+                        </p>
                     </div>
-                    <h3>Visi</h3>
-                    <p class="visi-content">
-                        "{{ $profile->vision ?? 'Terwujudnya Desa Duren yang Mandiri, Sejahtera, Transparan, dan Berdaya Saing Tinggi melalui Optimalisasi Potensi Lokal dan Pelayanan Prima.' }}"
-                    </p>
-                </div>
-                
-                <!-- Misi Card -->
-                <div class="misi-card">
-                    <div class="card-icon-wrapper">
-                        <i class="fa-solid fa-bullseye"></i>
+                    
+                    <!-- Misi Card -->
+                    <div class="misi-card">
+                        <div class="card-icon-wrapper">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3>Misi</h3>
+                        @php
+                            $missions = explode("\n", $profile->mission ?? '');
+                        @endphp
+                        <ul class="misi-list">
+                            @forelse($missions as $mission)
+                                @if(trim($mission))
+                                    <li>{{ trim(preg_replace('/^\d+\.\s*/', '', $mission)) }}</li>
+                                @endif
+                            @empty
+                                <li>Mewujudkan tata kelola pemerintahan desa yang bersih, transparan, dan akuntabel.</li>
+                                <li>Meningkatkan pelayanan publik berbasis teknologi informasi yang cepat dan ramah.</li>
+                                <li>Mengembangkan perekonomian warga melalui pemberdayaan UMKM, pertanian, dan peternakan.</li>
+                            @endforelse
+                        </ul>
                     </div>
-                    <h3>Misi</h3>
-                    @php
-                        $missions = explode("\n", $profile->mission ?? '');
-                    @endphp
-                    <ul class="misi-list">
-                        @forelse($missions as $mission)
-                            @if(trim($mission))
-                                <li>{{ trim(preg_replace('/^\d+\.\s*/', '', $mission)) }}</li>
-                            @endif
-                        @empty
-                            <li>Mewujudkan tata kelola pemerintahan desa yang bersih, transparan, dan akuntabel.</li>
-                            <li>Meningkatkan pelayanan publik berbasis teknologi informasi yang cepat dan ramah.</li>
-                            <li>Mengembangkan perekonomian warga melalui pemberdayaan UMKM, pertanian, dan peternakan.</li>
-                        @endforelse
-                    </ul>
                 </div>
             </div>
         </section>
 
         <!-- SEJARAH SECTION -->
-        <section class="profile-section" style="border-top: 1px solid var(--border-color); padding-top: 60px;">
-            <div class="history-layout">
-                <div class="history-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                         alt="Pertanian Desa Duren" class="history-img">
-                </div>
-                <div>
-                    <h2 class="profile-section-title">Sejarah Desa</h2>
-                    <div class="history-text">
-                        <p style="margin-bottom: 20px;">
-                            {{ $profile->history ?? 'Desa Duren memiliki sejarah panjang yang kaya akan nilai budaya. Nama \'Duren\' diyakini berasal dari melimpahnya pohon durian di wilayah ini pada masa lampau, yang menjadi penanda khas bagi para pendatang. Seiring berjalannya waktu, Desa Duren bertransformasi dari kawasan agraris tradisional menjadi desa yang berkembang menuju kemandirian ekonomi.' }}
-                        </p>
-                        <p>
-                            Melalui semangat gotong royong warga, desa ini berhasil mengintegrasikan sektor pertanian, peternakan, dan UMKM lokal sebagai pilar ekonomi utama. Kini Pemerintah Desa terus berupaya mengadopsi kemajuan teknologi untuk meningkatkan pelayanan masyarakat dan transparansi informasi demi terwujudnya kemakmuran bersama yang berkesinambungan.
-                        </p>
+        <section class="profile-section">
+            <div class="profile-section-card">
+                <div class="history-layout">
+                    <div class="history-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Pertanian Desa Duren" class="history-img">
+                    </div>
+                    <div>
+                        <h2 class="profile-section-title">Sejarah Desa</h2>
+                        <div class="history-text">
+                            <p style="margin-bottom: 20px;">
+                                {{ $profile->history ?? 'Desa Duren memiliki sejarah panjang yang kaya akan nilai budaya. Nama \'Duren\' diyakini berasal dari melimpahnya pohon durian di wilayah ini pada masa lampau, yang menjadi penanda khas bagi para pendatang. Seiring berjalannya waktu, Desa Duren bertransformasi dari kawasan agraris tradisional menjadi desa yang berkembang menuju kemandirian ekonomi.' }}
+                            </p>
+                            <p>
+                                Melalui semangat gotong royong warga, desa ini berhasil mengintegrasikan sektor pertanian, peternakan, dan UMKM lokal sebagai pilar ekonomi utama. Kini Pemerintah Desa terus berupaya mengadopsi kemajuan teknologi untuk meningkatkan pelayanan masyarakat dan transparansi informasi demi terwujudnya kemakmuran bersama yang berkesinambungan.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- DETAIL PROFIL DESA SECTION -->
-        <section class="profile-section" style="border-top: 1px solid var(--border-color); padding-top: 60px;">
-            <div class="detail-profile-card">
+        <section class="profile-section">
+            <div class="profile-section-card detail-profile-card">
                 <div class="detail-profile-left">
                     <h2 class="detail-title">Profil Desa</h2>
                     <div class="title-underline"></div>
                     <p class="detail-description">
-                        Desa Duren terletak di Kecamatan Tengaran, Kabupaten Semarang, Provinsi Jawa Tengah. Desa ini memiliki potensi sumber daya alam yang melimpah serta masyarakat yang guyub dan berbudaya.
+                        Desa Duren terletak di Kecamatan {{ $villageDetail->kecamatan ?? 'Tengaran' }}, Kabupaten {{ $villageDetail->kabupaten ?? 'Semarang' }}, Provinsi {{ $villageDetail->provinsi ?? 'Jawa Tengah' }}. Desa ini memiliki potensi sumber daya alam yang melimpah serta masyarakat yang guyub dan berbudaya.
                     </p>
                     
                     <div class="detail-info-list">
@@ -600,7 +725,7 @@
                                 <span class="info-label-text">Kecamatan</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">Tengaran</span>
+                            <span class="info-value">{{ $villageDetail->kecamatan ?? 'Tengaran' }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -608,7 +733,7 @@
                                 <span class="info-label-text">Kabupaten</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">Semarang</span>
+                            <span class="info-value">{{ $villageDetail->kabupaten ?? 'Semarang' }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -616,7 +741,7 @@
                                 <span class="info-label-text">Provinsi</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">Jawa Tengah</span>
+                            <span class="info-value">{{ $villageDetail->provinsi ?? 'Jawa Tengah' }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -624,7 +749,7 @@
                                 <span class="info-label-text">Kode Pos</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">50775</span>
+                            <span class="info-value">{{ $villageDetail->zip_code ?? '50775' }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -654,13 +779,25 @@
                                 <span class="info-label-text">Jumlah Dusun</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">4 Dusun</span>
+                            <span class="info-value">{{ $villageDetail->dusun_count ?? '8' }} Dusun</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label-wrapper">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span class="info-label-text">Jumlah RW</span>
+                            </span>
+                            <span class="info-colon">:</span>
+                            <span class="info-value">{{ $villageDetail->rw_count ?? '8' }} RW</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label-wrapper">
+                                <i class="fa-solid fa-people-roof"></i>
+                                <span class="info-label-text">Jumlah RT</span>
+                            </span>
+                            <span class="info-colon">:</span>
+                            <span class="info-value">{{ $villageDetail->rt_count ?? '35' }} RT</span>
                         </div>
                     </div>
-                    
-                    <a href="#peta-desa" class="btn-map-link">
-                        <i class="fa-solid fa-location-dot"></i> Lihat Peta Desa
-                    </a>
                 </div>
                 <div class="detail-profile-right">
                     <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
@@ -669,79 +806,159 @@
             </div>
         </section>
 
-        <!-- GEOGRAFIS SECTION -->
-        <section id="peta-desa" class="profile-section" style="border-top: 1px solid var(--border-color); padding-top: 60px; margin-bottom: 0;">
-            <h2 class="profile-section-title">Geografis & Batas Wilayah</h2>
-            <div class="geografis-layout">
-                <!-- Info Grid -->
-                <div class="geo-info-card">
-                    <div>
-                        <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 10px;">
-                            Secara geografis, Desa Duren terletak di Kecamatan Tengaran, Kabupaten Semarang. Desa ini berada di dataran tinggi yang memiliki suhu udara sejuk dengan tanah subur yang mendukung sektor pertanian dan peternakan.
-                        </p>
+        <!-- GEOGRAFIS & WILAYAH DUSUN SECTION -->
+        <section id="peta-desa" class="profile-section" style="margin-bottom: 0;">
+            <div class="profile-section-card">
+                <h2 class="profile-section-title">Geografis & Wilayah Dusun</h2>
+                <div class="geografis-layout">
+                    <!-- Info Grid -->
+                    <div class="geo-info-content">
+                        <div>
+                            <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px;">
+                                Secara geografis, Desa Duren terletak di Kecamatan Tengaran, Kabupaten Semarang. Desa ini berada di dataran tinggi yang memiliki suhu udara sejuk dengan tanah subur.
+                            </p>
+                            
+                            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Pilih Peta Wilayah:</h4>
+                            <div class="dusun-buttons-grid">
+                                <div class="dusun-btn active" data-dusun="all">
+                                    <div class="dusun-icon"><i class="fa-solid fa-map"></i></div>
+                                    <div class="dusun-btn-info">
+                                        <h4>Semua Wilayah</h4>
+                                        <p>Peta Umum Desa</p>
+                                    </div>
+                                </div>
+                                <div class="dusun-btn" data-dusun="Miri">
+                                    <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="dusun-btn-info">
+                                        <h4>Dusun Miri</h4>
+                                        <p>Klik untuk detail</p>
+                                    </div>
+                                </div>
+                                <div class="dusun-btn" data-dusun="Dukuh">
+                                    <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="dusun-btn-info">
+                                        <h4>Dusun Dukuh</h4>
+                                        <p>Klik untuk detail</p>
+                                    </div>
+                                </div>
+                                <div class="dusun-btn" data-dusun="Krajan">
+                                    <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="dusun-btn-info">
+                                        <h4>Dusun Krajan</h4>
+                                        <p>Klik untuk detail</p>
+                                    </div>
+                                </div>
+                                <div class="dusun-btn" data-dusun="Babadan">
+                                    <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="dusun-btn-info">
+                                        <h4>Dusun Babadan</h4>
+                                        <p>Klik untuk detail</p>
+                                    </div>
+                                </div>
+                                <div class="dusun-btn" data-dusun="Ngepringan">
+                                    <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="dusun-btn-info">
+                                        <h4>Dusun Ngepringan</h4>
+                                        <p>Klik untuk detail</p>
+                                    </div>
+                                </div>
+                                <div class="dusun-btn" data-dusun="Tanubayu">
+                                    <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="dusun-btn-info">
+                                        <h4>Dusun Tanubayu</h4>
+                                        <p>Klik untuk detail</p>
+                                    </div>
+                                </div>
+                                <div class="dusun-btn" data-dusun="Gading">
+                                    <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="dusun-btn-info">
+                                        <h4>Dusun Gading</h4>
+                                        <p>Klik untuk detail</p>
+                                    </div>
+                                </div>
+                                <div class="dusun-btn" data-dusun="Karangwuni">
+                                    <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="dusun-btn-info">
+                                        <h4>Dusun Karangwuni</h4>
+                                        <p>Klik untuk detail</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <div class="batas-grid">
-                            <div class="batas-box">
-                                <div class="batas-icon"><i class="fa-solid fa-arrow-up"></i></div>
-                                <div class="batas-content">
-                                    <h5>Batas Utara</h5>
-                                    <p>Desa Patemon</p>
-                                </div>
+                        <!-- Office Hours -->
+                        <div class="office-hours-box">
+                            <div class="office-hours-icon">
+                                <i class="fa-regular fa-clock"></i>
                             </div>
-                            <div class="batas-box">
-                                <div class="batas-icon"><i class="fa-solid fa-arrow-right"></i></div>
-                                <div class="batas-content">
-                                    <h5>Batas Timur</h5>
-                                    <p>Desa Karangduren</p>
-                                </div>
-                            </div>
-                            <div class="batas-box">
-                                <div class="batas-icon"><i class="fa-solid fa-arrow-down"></i></div>
-                                <div class="batas-content">
-                                    <h5>Batas Selatan</h5>
-                                    <p>Desa Barukan</p>
-                                </div>
-                            </div>
-                            <div class="batas-box">
-                                <div class="batas-icon"><i class="fa-solid fa-arrow-left"></i></div>
-                                <div class="batas-content">
-                                    <h5>Batas Barat</h5>
-                                    <p>Desa Klero</p>
-                                </div>
+                            <div class="office-hours-content">
+                                <h4>Jam Pelayanan Kantor Desa</h4>
+                                <p>{{ $profile->office_hours ?? 'Senin - Kamis (08.00 - 15.00 WIB) | Jumat (08.00 - 11.30 WIB)' }}</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Office Hours -->
-                    <div class="office-hours-box">
-                        <div class="office-hours-icon">
-                            <i class="fa-regular fa-clock"></i>
+                    <!-- Google Map Embed & Dusun Map panel -->
+                    <div class="map-wrapper" style="min-height: 400px; display: flex; flex-direction: column;">
+                        <!-- Main Village Map -->
+                        <div id="main-village-map" style="width: 100%; height: 100%; min-height: 400px; display: block;">
+                            @if($profile && $profile->google_maps_url)
+                                <iframe src="{{ $profile->google_maps_url }}" 
+                                        class="map-frame" 
+                                        allowfullscreen="" 
+                                        loading="lazy" 
+                                        referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            @else
+                                <div style="background-color: #cbd5e1; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600;">
+                                    [ Google Maps Tidak Tersedia ]
+                                </div>
+                            @endif
                         </div>
-                        <div class="office-hours-content">
-                            <h4>Jam Pelayanan Kantor Desa</h4>
-                            <p>{{ $profile->office_hours ?? 'Senin - Kamis (08.00 - 15.00 WIB) | Jumat (08.00 - 11.30 WIB)' }}</p>
+
+                        <!-- Specific Dusun Map Viewer -->
+                        <div id="dusun-map-viewer" class="dusun-map-panel" style="display: none; min-height: 400px;">
+                            <div class="dusun-map-placeholder">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin: 0;" id="dusun-map-title">Peta Dusun Miri</h3>
+                                <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 320px; margin: 0;">
+                                    [ Placeholder Peta Google Maps Wilayah Dusun Miri ]
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Google Map Embed -->
-                <div class="map-wrapper">
-                    @if($profile && $profile->google_maps_url)
-                        <iframe src="{{ $profile->google_maps_url }}" 
-                                class="map-frame" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    @else
-                        <div style="background-color: #cbd5e1; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600;">
-                            [ Google Maps Tidak Tersedia ]
-                        </div>
-                    @endif
                 </div>
             </div>
         </section>
 
-    </div>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.dusun-btn');
+            const mainMap = document.getElementById('main-village-map');
+            const dusunMap = document.getElementById('dusun-map-viewer');
+            const mapTitle = document.getElementById('dusun-map-title');
+            const mapDesc = dusunMap.querySelector('p');
+            
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const dusunName = this.getAttribute('data-dusun');
+                    
+                    if (dusunName === 'all') {
+                        // Show main Google Map
+                        mainMap.style.display = 'block';
+                        dusunMap.style.display = 'none';
+                    } else {
+                        // Show specific Dusun placeholder map
+                        mainMap.style.display = 'none';
+                        dusunMap.style.display = 'flex';
+                        mapTitle.textContent = `Peta Dusun ${dusunName}`;
+                        mapDesc.textContent = `[ Placeholder Peta Google Maps Wilayah Dusun ${dusunName} ]`;
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

@@ -227,9 +227,9 @@
             max-width: 1400px;
             width: 100%;
             display: grid;
-            grid-template-columns: 1.2fr 1fr 1.5fr;
-            gap: 40px;
-            align-items: stretch;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            align-items: center;
         }
 
         /* Col 1 */
@@ -318,57 +318,6 @@
             padding: 20px 0;
         }
 
-        .kades-card {
-            margin-top: 25px;
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
-            display: flex;
-            padding: 20px;
-            gap: 20px;
-            flex: 1;
-            align-items: center;
-        }
-
-        .kades-img-wrapper {
-            flex: 0 0 140px;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            background-color: #f1f5f9;
-        }
-
-        .kades-img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-
-        .kades-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .kades-name {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            margin-bottom: 2px;
-        }
-
-        .kades-title {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        .kades-quote {
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: var(--text-dark);
-            margin-bottom: 20px;
-        }
-
         .btn-small {
             padding: 10px 20px;
             font-size: 0.85rem;
@@ -380,14 +329,6 @@
             }
             .balai-desa-img {
                 height: 300px;
-            }
-            .kades-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .kades-img-wrapper {
-                flex: none;
-                width: 140px;
             }
         }
 
@@ -409,6 +350,9 @@
             scroll-snap-align: start;
         }
         @media (max-width: 768px) {
+            .section-card {
+                padding: 30px 20px;
+            }
             .umkm-scroll .info-card {
                 flex: 0 0 280px;
             }
@@ -416,9 +360,23 @@
 
         /* --- SECTIONS --- */
         .section {
-            padding: 50px 5%; /* Reduced from 80px */
+            padding: 30px 5%;
             max-width: 1400px;
             margin: 0 auto;
+        }
+
+        .section-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 45px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.015), 0 1px 3px rgba(0, 0, 0, 0.01);
+            transition: var(--transition);
+        }
+
+        .section-card:hover {
+            border-color: rgba(45, 106, 50, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
         }
 
         .section-header {
@@ -599,9 +557,21 @@
         /* --- QUICK INFO GRID --- */
         .quick-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             margin-top: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .quick-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .quick-box {
@@ -678,14 +648,14 @@
                     <i class="fa-solid fa-house-chimney demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Rukun Tetangga</div>
-                        <div class="demo-number">{{ $demografi->rt->male_count ?? '32' }}</div>
+                        <div class="demo-number">{{ $villageDetail->rt_count ?? '35' }}</div>
                     </div>
                 </div>
                 <div class="demo-item">
                     <i class="fa-solid fa-building demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Rukun Warga</div>
-                        <div class="demo-number">{{ $demografi->rw->male_count ?? '7' }}</div>
+                        <div class="demo-number">{{ $villageDetail->rw_count ?? '8' }}</div>
                     </div>
                 </div>
                 <div class="demo-item">
@@ -700,46 +670,24 @@
     </section>
 
     <!-- SAMBUTAN KEPALA DESA SECTION -->
-    <section class="welcome-section">
-        <div class="welcome-grid">
-            <!-- Col 1: Balai Desa Image -->
-            <div class="welcome-col-image">
-                <!-- NOTE: Ganti div di bawah ini dengan tag <img ...> jika foto aslinya sudah ada -->
-                <!-- Contoh: <img src="{{ asset('img/foto-balai.jpg') }}" alt="Balai Desa Duren" class="balai-desa-img"> -->
-                <div class="balai-desa-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 20px;">
-                    [ Tempat Foto Balai Desa ]
+    <section class="welcome-section" style="padding: 20px 5%;">
+        <div class="section-card" style="width: 100%; max-width: 1400px; margin: 0 auto;">
+            <div class="welcome-grid">
+                <!-- Col 1: Balai Desa Image -->
+                <div class="welcome-col-image">
+                    <!-- NOTE: Ganti div di bawah ini dengan tag <img ...> jika foto aslinya sudah ada -->
+                    <!-- Contoh: <img src="{{ asset('img/foto-balai.jpg') }}" alt="Balai Desa Duren" class="balai-desa-img"> -->
+                    <div class="balai-desa-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 20px;">
+                        [ Tempat Foto Balai Desa ]
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Col 2: Tentang Desa Text -->
-            <div class="welcome-col-text">
-                <div class="section-badge">TENTANG DESA</div>
-                <h2 class="welcome-title">Desa Duren</h2>
-                <p>Desa Duren merupakan salah satu desa di Kecamatan Tengaran, Kabupaten Semarang yang memiliki potensi besar di bidang pertanian, peternakan, dan pariwisata. Dengan semangat gotong royong, berkembang menuju masyarakat sejahtera, dan berdaya saing.</p>
-                <a href="{{ route('profile') }}" class="welcome-btn">Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-            
-            <!-- Col 3: Pemerintahan Desa Card -->
-            <div class="welcome-col-card">
-                <div class="section-badge">PEMERINTAHAN DESA</div>
-                <div class="kades-card">
-                    <div class="kades-img-wrapper">
-                        <!-- NOTE: Ganti div di bawah ini dengan tag <img ...> jika foto aslinya sudah ada -->
-                        <!-- Contoh: <img src="{{ asset('img/foto-kades.jpg') }}" alt="Slamet Riyadi" class="kades-img"> -->
-                        <div class="kades-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 0; min-height: 160px; height: 100%; overflow: hidden; border-radius: var(--radius-lg);">
-                            @if($profile && $profile->headman_photo)
-                                <img src="{{ Str::startsWith($profile->headman_photo, 'http') ? $profile->headman_photo : asset('storage/' . $profile->headman_photo) }}" alt="{{ $profile->headman_name }}" style="width: 100%; height: 100%; object-fit: cover;">
-                            @else
-                                [ Foto Kades ]
-                            @endif
-                        </div>
-                    </div>
-                    <div class="kades-info">
-                        <h3 class="kades-name">{{ $profile->headman_name ?? 'Slamet Riyadi, S.E.' }}</h3>
-                        <div class="kades-title">Kepala Desa {{ $profile->village_name ?? 'Duren' }}</div>
-                        <p class="kades-quote">{{ $profile->headman_greeting ?? 'Bersama mewujudkan Desa Duren yang maju, mandiri, dan sejahtera melalui pelayanan yang transparan dan partisipatif.' }}</p>
-                        <a href="#pemerintahan" class="welcome-btn btn-small">Struktur Organisasi <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
+                
+                <!-- Col 2: Tentang Desa Text -->
+                <div class="welcome-col-text">
+                    <div class="section-badge">TENTANG DESA</div>
+                    <h2 class="welcome-title">Desa Duren</h2>
+                    <p>Desa Duren merupakan salah satu desa di Kecamatan Tengaran, Kabupaten Semarang yang memiliki potensi besar di bidang pertanian, peternakan, dan pariwisata. Dengan semangat gotong royong, berkembang menuju masyarakat sejahtera, dan berdaya saing.</p>
+                    <a href="{{ route('profile') }}" class="welcome-btn">Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -747,112 +695,119 @@
 
     <!-- POTENSI DESA -->
     <section id="potensi" class="section">
-        <div class="section-header">
-            <span class="section-subtitle">Potensi Desa</span>
-            <h2 class="section-title">Kekayaan & Komoditas Unggulan</h2>
-        </div>
-
-        <div class="quick-grid">
-            <a href="#" style="text-decoration: none;">
-                <div class="quick-box">
-                    <i class="fa-solid fa-wheat-awn quick-icon"></i>
-                    <h3>Pertanian</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Lahan subur dengan komoditas unggulan padi dan palawija.</p>
-                </div>
-            </a>
-            <a href="#" style="text-decoration: none;">
-                <div class="quick-box">
-                    <i class="fa-solid fa-cow quick-icon"></i>
-                    <h3>Peternakan</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Pusat pengembangan hewan ternak seperti sapi dan kambing.</p>
-                </div>
-            </a>
-            <a href="#" style="text-decoration: none;">
-                <div class="quick-box">
-                    <i class="fa-solid fa-shop quick-icon"></i>
-                    <h3>UMKM</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Produk kerajinan dan makanan khas hasil karya warga desa.</p>
-                </div>
-            </a>
-            <a href="#" style="text-decoration: none;">
-                <div class="quick-box">
-                    <i class="fa-solid fa-mountain-sun quick-icon"></i>
-                    <h3>Pariwisata</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Pesona alam asri yang menarik bagi wisatawan lokal.</p>
-                </div>
-            </a>
+        <div class="section-card">
+            <div class="section-header" style="margin-bottom: 30px;">
+                <span class="section-subtitle">Potensi Desa</span>
+                <h2 class="section-title">Kekayaan & Komoditas Unggulan</h2>
+            </div>
+    
+            <div class="quick-grid" style="margin-top: 0;">
+                <a href="#" style="text-decoration: none;">
+                    <div class="quick-box">
+                        <i class="fa-solid fa-wheat-awn quick-icon"></i>
+                        <h3>Pertanian</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Lahan subur dengan komoditas unggulan padi dan palawija.</p>
+                    </div>
+                </a>
+                <a href="#" style="text-decoration: none;">
+                    <div class="quick-box">
+                        <i class="fa-solid fa-cow quick-icon"></i>
+                        <h3>Peternakan</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Pusat pengembangan hewan ternak seperti sapi dan kambing.</p>
+                    </div>
+                </a>
+                <a href="#" style="text-decoration: none;">
+                    <div class="quick-box">
+                        <i class="fa-solid fa-shop quick-icon"></i>
+                        <h3>UMKM</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Produk kerajinan dan makanan khas hasil karya warga desa.</p>
+                    </div>
+                </a>
+                <a href="#" style="text-decoration: none;">
+                    <div class="quick-box">
+                        <i class="fa-solid fa-mountain-sun quick-icon"></i>
+                        <h3>Pariwisata</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Pesona alam asri yang menarik bagi wisatawan lokal.</p>
+                    </div>
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- UMKM UNGGULAN -->
-    <section id="umkm" class="section" style="background-color: var(--white); border-top: 1px solid var(--border-color);">
-        <div class="section-header">
-            <span class="section-subtitle">Produk Lokal</span>
-            <h2 class="section-title">UMKM Unggulan Desa</h2>
-        </div>
-
-        <div class="umkm-scroll">
-            @foreach($umkms as $umkm)
-            <div class="info-card">
-                <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
-                    alt="{{ $umkm->title }}" class="card-img">
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="tag" style="background-color: #fef3c7; color: #d97706;">{{ $umkm->category->name ?? 'UMKM' }}</span>
-                    </div>
-                    <h3 class="card-title">{{ $umkm->title }}</h3>
-                    <p class="card-desc">{{ $umkm->description }}</p>
-                    <div class="umkm-socials">
-                        <a href="{{ $umkm->google_maps_url ?? '#' }}" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
-                        <a href="{{ $umkm->instagram ? 'https://instagram.com/'.$umkm->instagram : '#' }}" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
-                        <a href="{{ $umkm->whatsapp ? 'https://wa.me/'.$umkm->whatsapp : '#' }}" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
-                        <a href="{{ $umkm->facebook ?? '#' }}" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
+    <section id="umkm" class="section">
+        <div class="section-card">
+            <div class="section-header" style="margin-bottom: 30px;">
+                <span class="section-subtitle">Produk Lokal</span>
+                <h2 class="section-title">UMKM Unggulan Desa</h2>
+            </div>
+    
+            <div class="umkm-scroll" style="padding-bottom: 0;">
+                @foreach($umkms as $umkm)
+                <div class="info-card">
+                    <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
+                        alt="{{ $umkm->title }}" class="card-img">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="tag" style="background-color: #fef3c7; color: #d97706;">{{ $umkm->category->name ?? 'UMKM' }}</span>
+                        </div>
+                        <h3 class="card-title">{{ $umkm->title }}</h3>
+                        <p class="card-desc">{{ $umkm->description }}</p>
+                        <div class="umkm-socials">
+                            <a href="{{ $umkm->google_maps_url ?? '#' }}" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
+                            <a href="{{ $umkm->instagram ? 'https://instagram.com/'.$umkm->instagram : '#' }}" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
+                            <a href="{{ $umkm->whatsapp ? 'https://wa.me/'.$umkm->whatsapp : '#' }}" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
+                            <a href="{{ $umkm->facebook ?? '#' }}" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
+                        </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
     </section>
 
     <!-- BERITA & PENGUMUMAN -->
-    <section id="berita" class="section"
-        style="background-color: var(--white); border-top: 1px solid var(--border-color);">
-        <div class="section-header">
-            <span class="section-subtitle">Kabar Terkini</span>
-            <h2 class="section-title">Berita & Pengumuman</h2>
-        </div>
-
-        <div class="grid-3">
-            @foreach($news as $item)
-            <div class="info-card">
-                <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset('storage/' . $item->featured_image) }}"
-                    alt="{{ $item->title }}" class="card-img">
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="tag">{{ $item->category->name ?? 'Berita' }}</span>
-                        <span><i class="fa-regular fa-clock"></i> {{ \Carbon\Carbon::parse($item->published_at)->format('d M Y') }}</span>
-                    </div>
-                    <h3 class="card-title">{{ $item->title }}</h3>
-                    <p class="card-desc">{{ Str::limit($item->content, 120) }}</p>
-                    <a href="#" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
-                </div>
+    <section id="berita" class="section">
+        <div class="section-card">
+            <div class="section-header" style="margin-bottom: 30px;">
+                <span class="section-subtitle">Kabar Terkini</span>
+                <h2 class="section-title">Berita & Pengumuman</h2>
             </div>
-            @endforeach
+    
+            <div class="grid-3">
+                @foreach($news as $item)
+                <div class="info-card">
+                    <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset('storage/' . $item->featured_image) }}"
+                        alt="{{ $item->title }}" class="card-img">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="tag">{{ $item->category->name ?? 'Berita' }}</span>
+                            <span><i class="fa-regular fa-clock"></i> {{ \Carbon\Carbon::parse($item->published_at)->format('d M Y') }}</span>
+                        </div>
+                        <h3 class="card-title">{{ $item->title }}</h3>
+                        <p class="card-desc">{{ Str::limit($item->content, 120) }}</p>
+                        <a href="#" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </section>
 
     <!-- GALERI DESA -->
-    <section id="galeri" class="section" style="background-color: var(--bg-main);">
-        <div class="section-header">
-            <span class="section-subtitle">Pesona Desa</span>
-            <h2 class="section-title">Galeri Desa</h2>
-        </div>
-        <div class="gallery-grid">
-            @foreach($galleries as $gallery)
-            <div class="gallery-item">
-                <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset('storage/' . $gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
+    <section id="galeri" class="section">
+        <div class="section-card">
+            <div class="section-header" style="margin-bottom: 30px;">
+                <span class="section-subtitle">Pesona Desa</span>
+                <h2 class="section-title">Galeri Desa</h2>
             </div>
-            @endforeach
+            <div class="gallery-grid">
+                @foreach($galleries as $gallery)
+                <div class="gallery-item">
+                    <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset('storage/' . $gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
+                </div>
+                @endforeach
+            </div>
         </div>
     </section>
 
