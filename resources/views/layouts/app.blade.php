@@ -335,11 +335,11 @@
             <li><a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') ? 'active' : '' }}">Profil Desa</a></li>
 
             <li class="dropdown">
-                <a href="#" class="{{ request()->routeIs('officials') ? 'active' : '' }}">Pemerintahan <i class="fa-solid fa-chevron-down"
+                <a href="#" class="{{ request()->routeIs('officials') || request()->routeIs('regulations') ? 'active' : '' }}">Pemerintahan <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
-                    <li><a href="#">Peraturan Desa</a></li>
+                    <li><a href="{{ route('regulations') }}">Peraturan Desa</a></li>
                 </ul>
             </li>
 
@@ -403,7 +403,7 @@
                 <ul>
                     <li><a href="{{ route('profile') }}">Profil Desa</a></li>
                     <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
-                    <li><a href="#">Peraturan Desa</a></li>
+                    <li><a href="{{ route('regulations') }}">Peraturan Desa</a></li>
                     <li><a href="{{ request()->routeIs('home') ? '#berita' : route('home') . '#berita' }}">Berita Desa</a></li>
                 </ul>
             </div>

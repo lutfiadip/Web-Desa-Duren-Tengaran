@@ -11,6 +11,8 @@ use App\Models\Gallery;
 use App\Models\VillageDetail;
 use App\Models\OfficialCategory;
 use App\Models\Official;
+use App\Models\RegulationCategory;
+use App\Models\Regulation;
 
 class HomeController extends Controller
 {
@@ -77,5 +79,23 @@ class HomeController extends Controller
         $kadus = Official::where('sort_order', '>=', 9)->orderBy('sort_order')->get();
 
         return view('officials', compact('profile', 'villageDetail', 'kades', 'sekdes', 'staff', 'kadus'));
+    }
+
+    public function regulations()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        // Get all published regulations
+        $regulations = Regulation::with('category')
+            ->where('status', 'published')
+            ->orderBy('year', 'desc')
+            ->orderBy('number', 'asc')
+            ->get();
+
+        // Get all categories for filter
+        $categories = RegulationCategory::all();
+
+        return view('regulations', compact('profile', 'villageDetail', 'regulations', 'categories'));
     }
 }

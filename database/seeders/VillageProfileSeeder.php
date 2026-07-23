@@ -7,6 +7,9 @@ use App\Models\VillageProfile;
 use App\Models\VillageDetail;
 use App\Models\OfficialCategory;
 use App\Models\Official;
+use App\Models\RegulationCategory;
+use App\Models\Regulation;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 
 class VillageProfileSeeder extends Seeder
@@ -19,6 +22,8 @@ class VillageProfileSeeder extends Seeder
         VillageDetail::truncate();
         Official::truncate();
         OfficialCategory::truncate();
+        Regulation::truncate();
+        RegulationCategory::truncate();
         Schema::enableForeignKeyConstraints();
 
         VillageProfile::create([
@@ -80,6 +85,58 @@ class VillageProfileSeeder extends Seeder
             'photo' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             'nip' => '-',
             'sort_order' => 9
+        ]);
+
+        // Create user if none exists (to link with news & regulations user_id)
+        $user = User::first();
+        if (!$user) {
+            $user = User::create([
+                'name' => 'Admin Desa Duren',
+                'email' => 'admin@duren.desa.id',
+                'password' => bcrypt('password123'),
+            ]);
+        }
+
+        // Seed Regulation Categories
+        $catPerdes = RegulationCategory::create(['name' => 'Peraturan Desa (Perdes)']);
+        $catPerkades = RegulationCategory::create(['name' => 'Peraturan Kepala Desa (Perkades)']);
+        $catKeputusan = RegulationCategory::create(['name' => 'Keputusan Kepala Desa']);
+
+        // Seed Sample Regulations
+        Regulation::create([
+            'category_id' => $catPerdes->id,
+            'user_id' => $user->id,
+            'title' => 'Rencana Pembangunan Jangka Menengah Desa (RPJMDes) Tahun 2026-2032',
+            'number' => '01',
+            'year' => 2026,
+            'description' => 'Dokumen rencana strategis pembangunan Desa Duren untuk jangka waktu 6 tahun ke depan.',
+            'document_file' => 'rpjmdes_2026_2032.pdf',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        Regulation::create([
+            'category_id' => $catPerdes->id,
+            'user_id' => $user->id,
+            'title' => 'Anggaran Pendapatan dan Belanja Desa (APBDes) Tahun Anggaran 2026',
+            'number' => '02',
+            'year' => 2026,
+            'description' => 'Rincian rencana keuangan tahunan Pemerintahan Desa Duren untuk tahun anggaran 2026.',
+            'document_file' => 'apbdes_2026.pdf',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        Regulation::create([
+            'category_id' => $catPerkades->id,
+            'user_id' => $user->id,
+            'title' => 'Rencana Kerja Pemerintah Desa (RKPDes) Tahun 2026',
+            'number' => '03',
+            'year' => 2025,
+            'description' => 'Penjabaran dari RPJM Desa Duren untuk jangka waktu 1 tahun anggaran (tahun 2026).',
+            'document_file' => 'rkpdes_2026.pdf',
+            'status' => 'published',
+            'published_at' => now()->subDays(30),
         ]);
     }
 }
