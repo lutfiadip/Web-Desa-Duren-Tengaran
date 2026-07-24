@@ -79,9 +79,13 @@
         border: 1px solid var(--border-color);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
         margin-bottom: 50px;
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
+    }
+
+    .filter-grid {
+        display: grid;
+        grid-template-columns: 3fr 1.2fr;
+        gap: 20px;
+        width: 100%;
     }
 
     .search-box-wrapper {
@@ -117,37 +121,49 @@
         box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     }
 
-    .category-tabs {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        border-top: 1px solid var(--border-color);
-        padding-top: 20px;
+    .select-box-wrapper {
+        position: relative;
+        width: 100%;
     }
 
-    .category-tab-btn {
-        background-color: var(--bg-main);
+    .select-box-wrapper i {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         color: var(--text-muted);
-        border: 1px solid var(--border-color);
-        padding: 10px 22px;
+        pointer-events: none;
+    }
+
+    .select-box-wrapper i.fa-filter {
+        left: 20px;
+        font-size: 1.1rem;
+    }
+
+    .select-box-wrapper i.fa-chevron-down {
+        right: 20px;
+        font-size: 0.9rem;
+    }
+
+    .category-select {
+        width: 100%;
+        padding: 16px 45px 16px 50px;
         border-radius: var(--radius-pill);
-        font-size: 0.95rem;
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-main);
+        font-size: 1rem;
+        color: var(--text-dark);
         font-weight: 600;
-        cursor: pointer;
         transition: var(--transition);
+        outline: none;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
     }
 
-    .category-tab-btn:hover {
-        background-color: #f1f5f9;
-        color: var(--primary);
-    }
-
-    .category-tab-btn.active {
-        background-color: var(--primary);
-        color: var(--white);
+    .category-select:focus {
         border-color: var(--primary);
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        background-color: var(--white);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     }
 
     /* --- GRID --- */
@@ -392,6 +408,11 @@
             font-size: 1rem;
         }
 
+        .filter-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
         .search-filter-card {
             padding: 20px;
         }
@@ -420,16 +441,22 @@
         
         <!-- SEARCH & FILTER -->
         <div class="search-filter-card">
-            <div class="search-box-wrapper">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="search-input" class="search-input" placeholder="Cari nama UMKM atau produk...">
-            </div>
-            
-            <div class="category-tabs">
-                <button class="category-tab-btn active" data-category="all">Semua Kategori</button>
-                @foreach($categories as $category)
-                    <button class="category-tab-btn" data-category="{{ $category->id }}">{{ $category->name }}</button>
-                @endforeach
+            <div class="filter-grid">
+                <div class="search-box-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-input" class="search-input" placeholder="Cari nama UMKM atau produk...">
+                </div>
+                
+                <div class="select-box-wrapper">
+                    <i class="fa-solid fa-filter"></i>
+                    <select id="category-select" class="category-select">
+                        <option value="all">Semua Kategori</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
             </div>
         </div>
 
@@ -509,7 +536,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search-input');
-            const categoryBtns = document.querySelectorAll('.category-tab-btn');
+            const categorySelect = document.getElementById('category-select');
             const umkmGrid = document.getElementById('umkm-grid');
             const cards = umkmGrid.querySelectorAll('.umkm-card');
             const emptyState = document.getElementById('empty-state');
@@ -517,14 +544,10 @@
             let activeCategory = 'all';
             let searchQuery = '';
 
-            // Handle Category Filter click
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    activeCategory = this.getAttribute('data-category');
-                    filterUMKM();
-                });
+            // Handle Category Filter change
+            categorySelect.addEventListener('change', function() {
+                activeCategory = this.value;
+                filterUMKM();
             });
 
             // Handle Search typing

@@ -472,29 +472,67 @@
         }
 
         /* UMKM Social Links */
-        .umkm-socials {
+        .umkm-actions {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px 10px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
             margin-top: auto;
         }
 
-        .social-btn {
-            display: flex;
+        .action-btn {
+            display: inline-flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             gap: 8px;
-            font-size: 0.9rem;
-            font-weight: 700;
+            padding: 10px 15px;
+            border-radius: var(--radius-md);
             text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
             transition: var(--transition);
-            background: transparent;
+            border: none;
+            cursor: pointer;
         }
-        .social-btn.wa { color: #25D366; }
-        .social-btn.ig { color: #E1306C; }
-        .social-btn.fb { color: #1877F2; }
-        .social-btn.maps { color: var(--text-dark); }
-        .social-btn:hover { opacity: 0.7; }
+
+        .btn-wa {
+            background-color: #25d366;
+            color: var(--white);
+        }
+
+        .btn-wa:hover {
+            background-color: #128c7e;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+        }
+
+        .btn-ig {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: var(--white);
+        }
+
+        .btn-ig:hover {
+            opacity: 0.9;
+            box-shadow: 0 4px 12px rgba(220, 39, 67, 0.2);
+        }
+
+        .btn-fb {
+            background-color: #1877f2;
+            color: var(--white);
+        }
+
+        .btn-fb:hover {
+            background-color: #0d65d9;
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.2);
+        }
+
+        .btn-maps {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-maps:hover {
+            background-color: #e2e8f0;
+        }
 
         .card-action {
             display: inline-flex;
@@ -753,11 +791,31 @@
                         </div>
                         <h3 class="card-title">{{ $umkm->title }}</h3>
                         <p class="card-desc">{{ $umkm->description }}</p>
-                        <div class="umkm-socials">
-                            <a href="{{ $umkm->google_maps_url ?? '#' }}" class="social-btn maps"><i class="fa-solid fa-location-dot"></i> Maps</a>
-                            <a href="{{ $umkm->instagram ? 'https://instagram.com/'.$umkm->instagram : '#' }}" class="social-btn ig"><i class="fa-brands fa-instagram"></i> IG</a>
-                            <a href="{{ $umkm->whatsapp ? 'https://wa.me/'.$umkm->whatsapp : '#' }}" class="social-btn wa"><i class="fa-brands fa-whatsapp"></i> WA</a>
-                            <a href="{{ $umkm->facebook ?? '#' }}" class="social-btn fb"><i class="fa-brands fa-facebook"></i> FB</a>
+                        <div class="umkm-actions">
+                            @if($umkm->whatsapp)
+                                <a href="https://wa.me/{{ $umkm->whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." 
+                                   target="_blank" class="action-btn btn-wa">
+                                    <i class="fa-brands fa-whatsapp"></i> WA
+                                </a>
+                            @endif
+                            
+                            @if($umkm->instagram)
+                                <a href="https://instagram.com/{{ $umkm->instagram }}" target="_blank" class="action-btn btn-ig">
+                                    <i class="fa-brands fa-instagram"></i> IG
+                                </a>
+                            @endif
+
+                            @if($umkm->facebook)
+                                <a href="https://facebook.com/{{ $umkm->facebook }}" target="_blank" class="action-btn btn-fb">
+                                    <i class="fa-brands fa-facebook-f"></i> FB
+                                </a>
+                            @endif
+
+                            @if($umkm->google_maps_url)
+                                <a href="{{ $umkm->google_maps_url }}" target="_blank" class="action-btn btn-maps">
+                                    <i class="fa-solid fa-location-dot"></i> Maps
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
