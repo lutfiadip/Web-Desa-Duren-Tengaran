@@ -344,11 +344,11 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="{{ request()->routeIs('tourism') ? 'active' : '' }}">Potensi <i class="fa-solid fa-chevron-down"
+                <a href="#" class="{{ request()->routeIs('tourism') || request()->routeIs('umkm') ? 'active' : '' }}">Potensi <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('tourism') }}">Wisata dan Budaya</a></li>
-                    <li><a href="{{ request()->routeIs('home') ? '#umkm' : route('home') . '#umkm' }}">UMKM</a></li>
+                    <li><a href="{{ route('umkm') }}">UMKM</a></li>
                 </ul>
             </li>
 
@@ -411,8 +411,8 @@
             <div class="footer-col">
                 <h4>Potensi & Kelembagaan</h4>
                 <ul>
-                    <li><a href="{{ request()->routeIs('home') ? '#umkm' : route('home') . '#umkm' }}">Potensi UMKM</a></li>
-                    <li><a href="{{ request()->routeIs('home') ? '#galeri' : route('home') . '#galeri' }}">Wisata & Budaya</a></li>
+                    <li><a href="{{ route('umkm') }}">Potensi UMKM</a></li>
+                    <li><a href="{{ route('tourism') }}">Wisata & Budaya</a></li>
                     <li><a href="#">Lembaga Masyarakat</a></li>
                     <li><a href="#kontak">Kontak Kami</a></li>
                 </ul>

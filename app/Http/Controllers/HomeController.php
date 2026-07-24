@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\VillageProfile;
 use App\Models\DemographicStatistic;
 use App\Models\Umkm;
+use App\Models\UmkmCategory;
 use App\Models\News;
 use App\Models\Gallery;
 use App\Models\VillageDetail;
@@ -153,5 +154,20 @@ class HomeController extends Controller
             ->get();
 
         return view('culture-detail', compact('profile', 'villageDetail', 'culture', 'otherCultures'));
+    }
+
+    public function umkm()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $umkms = Umkm::with('category')
+            ->where('status', 'published')
+            ->latest()
+            ->get();
+
+        $categories = UmkmCategory::all();
+
+        return view('umkm', compact('profile', 'villageDetail', 'umkms', 'categories'));
     }
 }
