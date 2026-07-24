@@ -827,56 +827,56 @@
                                         <p>Peta Umum Desa</p>
                                     </div>
                                 </div>
-                                <div class="dusun-btn" data-dusun="Miri">
+                                <div class="dusun-btn" data-dusun="Miri" data-map-url="">
                                     <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
                                     <div class="dusun-btn-info">
                                         <h4>Dusun Miri</h4>
                                         <p>Klik untuk detail</p>
                                     </div>
                                 </div>
-                                <div class="dusun-btn" data-dusun="Dukuh">
+                                <div class="dusun-btn" data-dusun="Dukuh" data-map-url="">
                                     <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
                                     <div class="dusun-btn-info">
                                         <h4>Dusun Dukuh</h4>
                                         <p>Klik untuk detail</p>
                                     </div>
                                 </div>
-                                <div class="dusun-btn" data-dusun="Krajan">
+                                <div class="dusun-btn" data-dusun="Krajan" data-map-url="">
                                     <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
                                     <div class="dusun-btn-info">
                                         <h4>Dusun Krajan</h4>
                                         <p>Klik untuk detail</p>
                                     </div>
                                 </div>
-                                <div class="dusun-btn" data-dusun="Babadan">
+                                <div class="dusun-btn" data-dusun="Babadan" data-map-url="">
                                     <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
                                     <div class="dusun-btn-info">
                                         <h4>Dusun Babadan</h4>
                                         <p>Klik untuk detail</p>
                                     </div>
                                 </div>
-                                <div class="dusun-btn" data-dusun="Ngepringan">
+                                <div class="dusun-btn" data-dusun="Ngepringan" data-map-url="">
                                     <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
                                     <div class="dusun-btn-info">
                                         <h4>Dusun Ngepringan</h4>
                                         <p>Klik untuk detail</p>
                                     </div>
                                 </div>
-                                <div class="dusun-btn" data-dusun="Tanubayu">
+                                <div class="dusun-btn" data-dusun="Tanubayu" data-map-url="">
                                     <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
                                     <div class="dusun-btn-info">
                                         <h4>Dusun Tanubayu</h4>
                                         <p>Klik untuk detail</p>
                                     </div>
                                 </div>
-                                <div class="dusun-btn" data-dusun="Gading">
+                                <div class="dusun-btn" data-dusun="Gading" data-map-url="">
                                     <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
                                     <div class="dusun-btn-info">
                                         <h4>Dusun Gading</h4>
                                         <p>Klik untuk detail</p>
                                     </div>
                                 </div>
-                                <div class="dusun-btn" data-dusun="Karangwuni">
+                                <div class="dusun-btn" data-dusun="Karangwuni" data-map-url="">
                                     <div class="dusun-icon"><i class="fa-solid fa-location-dot"></i></div>
                                     <div class="dusun-btn-info">
                                         <h4>Dusun Karangwuni</h4>
@@ -903,7 +903,13 @@
                         <!-- Main Village Map -->
                         <div id="main-village-map" style="width: 100%; height: 100%; min-height: 400px; display: block;">
                             @if($profile && $profile->google_maps_url)
-                                <iframe src="{{ $profile->google_maps_url }}" 
+                                @php
+                                    $mapUrl = $profile->google_maps_url;
+                                    if (str_contains($mapUrl, '/maps/d/')) {
+                                        $mapUrl = str_replace(['/maps/d/edit', '/maps/d/viewer'], '/maps/d/embed', $mapUrl);
+                                    }
+                                @endphp
+                                <iframe src="{{ $mapUrl }}" 
                                         class="map-frame" 
                                         allowfullscreen="" 
                                         loading="lazy" 
@@ -917,11 +923,19 @@
                         </div>
 
                         <!-- Specific Dusun Map Viewer -->
-                        <div id="dusun-map-viewer" class="dusun-map-panel" style="display: none; min-height: 400px;">
-                            <div class="dusun-map-placeholder">
-                                <i class="fa-solid fa-map-location-dot"></i>
+                        <div id="dusun-map-viewer" class="dusun-map-panel" style="display: none; min-height: 400px; padding: 0; overflow: hidden; position: relative;">
+                            <iframe id="dusun-map-iframe" 
+                                    src="" 
+                                    class="map-frame" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    style="width: 100%; height: 100%; min-height: 400px; border: 0; display: none;">
+                            </iframe>
+                            <div class="dusun-map-placeholder" id="dusun-map-placeholder-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 40px; text-align: center; margin: auto;">
+                                <i class="fa-solid fa-map-location-dot" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 15px;"></i>
                                 <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin: 0;" id="dusun-map-title">Peta Dusun Miri</h3>
-                                <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 320px; margin: 0;">
+                                <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 320px; margin: 10px 0 0 0;">
                                     [ Placeholder Peta Google Maps Wilayah Dusun Miri ]
                                 </p>
                             </div>
@@ -936,8 +950,10 @@
             const buttons = document.querySelectorAll('.dusun-btn');
             const mainMap = document.getElementById('main-village-map');
             const dusunMap = document.getElementById('dusun-map-viewer');
+            const dusunIframe = document.getElementById('dusun-map-iframe');
+            const dusunPlaceholder = document.getElementById('dusun-map-placeholder-box');
             const mapTitle = document.getElementById('dusun-map-title');
-            const mapDesc = dusunMap.querySelector('p');
+            const mapDesc = dusunPlaceholder.querySelector('p');
             
             buttons.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -945,17 +961,34 @@
                     this.classList.add('active');
                     
                     const dusunName = this.getAttribute('data-dusun');
+                    let mapUrl = this.getAttribute('data-map-url');
                     
                     if (dusunName === 'all') {
                         // Show main Google Map
                         mainMap.style.display = 'block';
                         dusunMap.style.display = 'none';
                     } else {
-                        // Show specific Dusun placeholder map
+                        // Show specific Dusun map panel
                         mainMap.style.display = 'none';
                         dusunMap.style.display = 'flex';
-                        mapTitle.textContent = `Peta Dusun ${dusunName}`;
-                        mapDesc.textContent = `[ Placeholder Peta Google Maps Wilayah Dusun ${dusunName} ]`;
+                        
+                        if (mapUrl && mapUrl.trim() !== '') {
+                            // If My Maps URL, ensure embed format is used
+                            if (mapUrl.includes('/maps/d/')) {
+                                mapUrl = mapUrl.replace('/maps/d/edit', '/maps/d/embed').replace('/maps/d/viewer', '/maps/d/embed');
+                            }
+                            // Display iframe with map
+                            dusunIframe.src = mapUrl;
+                            dusunIframe.style.display = 'block';
+                            dusunPlaceholder.style.display = 'none';
+                        } else {
+                            // Display placeholder text if no map URL
+                            dusunIframe.src = '';
+                            dusunIframe.style.display = 'none';
+                            dusunPlaceholder.style.display = 'flex';
+                            mapTitle.textContent = `Peta Dusun ${dusunName}`;
+                            mapDesc.textContent = `[ Placeholder Peta Google Maps Wilayah Dusun ${dusunName} ]`;
+                        }
                     }
                 });
             });
