@@ -234,5 +234,83 @@ class CommunityInstitutionSeeder extends Seeder
             'photo' => 'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
             'sort_order' => 3,
         ]);
+
+        // ==========================================
+        // SEED ORGANISASI KEMASYARAKATAN (ORMAS)
+        // ==========================================
+
+        // 1. MUI Desa Duren
+        $mui = CommunityInstitution::create([
+            'category_id' => $ormasCategory->id,
+            'user_id' => $user->id,
+            'name' => 'Majelis Ulama Indonesia (MUI) Desa Duren',
+            'slug' => 'mui-desa',
+            'description' => 'Majelis Ulama Indonesia (MUI) Desa Duren adalah organisasi kemasyarakatan keagamaan wadah musyawarah para ulama, zuama, dan cendekiawan muslim di Desa Duren untuk membimbing, membina, dan mengayomi umat Islam setempat agar terwujud kerukunan hidup beragama.',
+            'vision' => 'Terwujudnya masyarakat Desa Duren yang religius, harmonis, toleran, dan berakhlak mulia di bawah naungan keridaan Allah SWT.',
+            'mission' => "1. Memperkuat ukhuwah Islamiyah dan jalinan kerukunan antar umat beragama.\n2. Memberikan bimbingan moral keagamaan dan fatwa kemaslahatan umat.\n3. Membina kerukunan umat beragama demi ketenteraman desa.",
+            'logo' => 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+            'contact' => '0813-9000-8888',
+            'email' => 'mui@duren.desa.id',
+            'status' => 'published',
+        ]);
+
+        CommunityInstitutionMember::create([
+            'institution_id' => $mui->id,
+            'name' => 'K.H. Ahmad Dahlan',
+            'position' => 'Ketua MUI Desa',
+            'photo' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+            'sort_order' => 1,
+        ]);
+        CommunityInstitutionMember::create([
+            'institution_id' => $mui->id,
+            'name' => 'Ustadz Nur Hadi',
+            'position' => 'Sekretaris',
+            'photo' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+            'sort_order' => 2,
+        ]);
+        CommunityInstitutionMember::create([
+            'institution_id' => $mui->id,
+            'name' => 'H. Syamsudin',
+            'position' => 'Bendahara',
+            'photo' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+            'sort_order' => 3,
+        ]);
+
+        // 2. Duren FC
+        $durenfc = CommunityInstitution::create([
+            'category_id' => $ormasCategory->id,
+            'user_id' => $user->id,
+            'name' => 'Klub Sepak Bola Duren FC',
+            'slug' => 'duren-fc',
+            'description' => 'Duren Football Club (Duren FC) adalah organisasi kemasyarakatan di bidang kepemudaan dan olahraga sepak bola yang didirikan secara swadaya oleh pemuda Desa Duren untuk mengembangkan bakat, meningkatkan kebugaran jasmani, dan membina prestasi olahraga pemuda desa.',
+            'vision' => 'Menjadi wadah pembinaan sepak bola usia dini dan pemuda Desa Duren yang berprestasi, sportif, dan berjiwa kepemimpinan.',
+            'mission' => "1. Mengadakan latihan rutin mingguan bagi pemuda desa.\n2. Mengikuti turnamen sepak bola tingkat kecamatan maupun kabupaten.\n3. Membina sportivitas dan menjauhkan generasi muda dari pergaulan negatif.",
+            'logo' => 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+            'contact' => '0877-3344-5566',
+            'email' => 'durenfc@duren.desa.id',
+            'status' => 'published',
+        ]);
+
+        CommunityInstitutionMember::create([
+            'institution_id' => $durenfc->id,
+            'name' => 'Roni Wijaya',
+            'position' => 'Ketua / Manajer Duren FC',
+            'photo' => 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+            'sort_order' => 1,
+        ]);
+        CommunityInstitutionMember::create([
+            'institution_id' => $durenfc->id,
+            'name' => 'Coach Gunawan',
+            'position' => 'Pelatih Kepala',
+            'photo' => 'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+            'sort_order' => 2,
+        ]);
+        CommunityInstitutionMember::create([
+            'institution_id' => $durenfc->id,
+            'name' => 'Aris Setiawan',
+            'position' => 'Kapten Tim',
+            'photo' => 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+            'sort_order' => 3,
+        ]);
     }
 }

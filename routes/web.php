@@ -16,6 +16,8 @@ Route::get('/wisata/{slug}', [HomeController::class, 'tourismDetail'])->name('to
 Route::get('/budaya/{slug}', [HomeController::class, 'cultureDetail'])->name('culture.detail');
 Route::get('/lembaga', [HomeController::class, 'institutions'])->name('institutions');
 Route::get('/lembaga/{slug}', [HomeController::class, 'institutionDetail'])->name('institution.detail');
+Route::get('/organisasi', [HomeController::class, 'organizations'])->name('organizations');
+Route::get('/organisasi/{slug}', [HomeController::class, 'organizationDetail'])->name('organization.detail');
 
 
 

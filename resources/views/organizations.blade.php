@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lembaga Kemasyarakatan Desa (LKD) - Portal Resmi Desa Duren')
+@section('title', 'Organisasi Kemasyarakatan (Ormas) - Portal Resmi Desa Duren')
 
 @section('styles')
 <style>
@@ -231,10 +231,10 @@
         <nav class="breadcrumb">
             <a href="{{ route('home') }}"><i class="fa-solid fa-house" style="font-size: 0.85rem;"></i> Beranda</a>
             <span class="separator">/</span>
-            <span class="current">Lembaga Masyarakat</span>
+            <span class="current">Organisasi Masyarakat</span>
         </nav>
-        <h1>Lembaga Kemasyarakatan Desa</h1>
-        <p>Mengenal lembaga-lembaga kemasyarakatan yang berperan penting dalam pembangunan dan kesejahteraan sosial warga Desa Duren</p>
+        <h1>Organisasi Kemasyarakatan</h1>
+        <p>Mengenal berbagai organisasi sosial, keagamaan, olahraga, dan kepemudaan yang aktif bergerak di tengah masyarakat Desa Duren secara swadaya</p>
     </section>
 
     <!-- CONTENT -->
@@ -271,8 +271,8 @@
                                 </div>
                                 
                                 <div class="inst-action-wrapper">
-                                    <a href="{{ route('institution.detail', $inst->slug) }}" class="inst-btn">
-                                        Lihat Profil Lembaga <i class="fa-solid fa-arrow-right"></i>
+                                    <a href="{{ route('organization.detail', $inst->slug) }}" class="inst-btn">
+                                        Lihat Profil Organisasi <i class="fa-solid fa-arrow-right"></i>
                                     </a>
                                 </div>
                             </div>
@@ -283,7 +283,7 @@
         @empty
             <div style="text-align: center; padding: 50px; background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--border-color); color: var(--text-muted);">
                 <i class="fa-solid fa-folder-open" style="font-size: 3rem; color: #cbd5e1; margin-bottom: 15px;"></i>
-                <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0;">Belum ada lembaga kemasyarakatan yang terdaftar.</p>
+                <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0;">Belum ada organisasi kemasyarakatan yang terdaftar.</p>
             </div>
         @endforelse
 

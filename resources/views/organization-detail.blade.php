@@ -214,17 +214,6 @@
         position: relative;
     }
 
-    .leader-row::after {
-        content: '';
-        position: absolute;
-        bottom: -25px;
-        left: 50%;
-        width: 2px;
-        height: 25px;
-        background-color: var(--border-color);
-        display: none; /* Can be enabled for connector lines */
-    }
-
     .staff-row {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 240px));
@@ -391,7 +380,7 @@
         <nav class="breadcrumb">
             <a href="{{ route('home') }}"><i class="fa-solid fa-house" style="font-size: 0.85rem;"></i> Beranda</a>
             <span class="separator">/</span>
-            <a href="{{ route('institutions') }}">Lembaga Masyarakat</a>
+            <a href="{{ route('organizations') }}">Organisasi Masyarakat</a>
             <span class="separator">/</span>
             <span class="current">{{ $institution->name }}</span>
         </nav>
@@ -405,7 +394,7 @@
                 @endif
             </div>
             <div class="hero-text">
-                <span class="hero-badge">{{ $institution->category->name ?? 'Lembaga Masyarakat' }}</span>
+                <span class="hero-badge">{{ $institution->category->name ?? 'Organisasi Masyarakat' }}</span>
                 <h1>{{ $institution->name }}</h1>
             </div>
         </div>
@@ -417,9 +406,9 @@
         <!-- LEFT COLUMN: PROFILE, VISION, MEMBERS -->
         <div class="main-content-column">
             
-            <!-- TENTANG LEMBAGA -->
+            <!-- TENTANG ORMAS -->
             <div class="card-section">
-                <h2 class="section-title"><i class="fa-solid fa-circle-nodes"></i> Profil & Tugas Pokok</h2>
+                <h2 class="section-title"><i class="fa-solid fa-circle-nodes"></i> Profil & Kegiatan Organisasi</h2>
                 <div class="about-text">
                     {!! nl2br(e($institution->description)) !!}
                 </div>
@@ -428,7 +417,7 @@
             <!-- VISI & MISI -->
             @if($institution->vision || $institution->mission)
                 <div class="card-section">
-                    <h2 class="section-title"><i class="fa-solid fa-bullseye"></i> Visi & Misi Lembaga</h2>
+                    <h2 class="section-title"><i class="fa-solid fa-bullseye"></i> Visi & Misi Organisasi</h2>
                     
                     <div class="vimi-grid">
                         @if($institution->vision)
@@ -453,9 +442,8 @@
             <!-- STRUKTUR KEPENGURUSAN -->
             @if(count($members) > 0)
                 <div class="card-section">
-                    <h2 class="section-title"><i class="fa-solid fa-sitemap"></i> Struktur Organisasi Pengurus</h2>
+                    <h2 class="section-title"><i class="fa-solid fa-sitemap"></i> Struktur Pengurus Organisasi</h2>
                     
-                    <!-- LKD Hierarchy layout -->
                     @php
                         $leader = $members->first();
                         $staff = $members->slice(1);
@@ -506,8 +494,8 @@
                             <i class="fa-solid fa-folder"></i>
                         </div>
                         <div class="info-text-wrapper">
-                            <div class="info-label">Jenis Lembaga</div>
-                            <div class="info-val">{{ $institution->category->name ?? 'Lembaga Masyarakat' }}</div>
+                            <div class="info-label">Jenis Organisasi</div>
+                            <div class="info-val">{{ $institution->category->name ?? 'Organisasi Masyarakat' }}</div>
                         </div>
                     </div>
 
@@ -518,7 +506,7 @@
                         </div>
                         <div class="info-text-wrapper">
                             <div class="info-label">Alamat Sekretariat</div>
-                            <div class="info-val">Kantor Desa Duren, Kec. Tengaran, Kab. Semarang, 50775</div>
+                            <div class="info-val">Wilayah Desa Duren, Kec. Tengaran, Kab. Semarang, 50775</div>
                         </div>
                     </div>
 

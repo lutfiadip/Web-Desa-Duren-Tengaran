@@ -341,8 +341,6 @@
         <nav class="breadcrumb">
             <a href="{{ route('home') }}"><i class="fa-solid fa-house" style="font-size: 0.85rem;"></i> Beranda</a>
             <span class="separator">/</span>
-            <span class="separator">Potensi</span>
-            <span class="separator">/</span>
             <span class="current">Pertanian & Peternakan</span>
         </nav>
         <h1>{{ $agriProfile->title ?? 'Pertanian & Peternakan' }}</h1>

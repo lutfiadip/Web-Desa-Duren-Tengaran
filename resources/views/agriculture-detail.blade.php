@@ -6,9 +6,9 @@
 <style>
     /* --- BREADCRUMB --- */
     .breadcrumb-wrapper {
-        background-color: #f8fafc;
-        border-bottom: 1px solid var(--border-color);
-        padding: 20px 5%;
+        background-color: transparent;
+        border-bottom: none;
+        padding: 30px 5% 10px;
     }
     
     .breadcrumb {
@@ -407,8 +407,6 @@
     <div class="breadcrumb-wrapper">
         <nav class="breadcrumb">
             <a href="{{ route('home') }}"><i class="fa-solid fa-house" style="font-size: 0.85rem;"></i> Beranda</a>
-            <span class="separator">/</span>
-            <span class="separator">Potensi</span>
             <span class="separator">/</span>
             <a href="{{ route('potensi.agriculture') }}">Pertanian & Peternakan</a>
             <span class="separator">/</span>

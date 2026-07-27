@@ -232,9 +232,10 @@ class HomeController extends Controller
         $profile = VillageProfile::first();
         $villageDetail = VillageDetail::first();
 
-        $categories = CommunityInstitutionCategory::with(['institutions' => function($query) {
-            $query->where('status', 'published');
-        }])->get();
+        $categories = CommunityInstitutionCategory::where('name', 'LIKE', '%Lembaga Kemasyarakatan%')
+            ->with(['institutions' => function($query) {
+                $query->where('status', 'published');
+            }])->get();
 
         return view('institutions', compact('profile', 'villageDetail', 'categories'));
     }
@@ -253,6 +254,35 @@ class HomeController extends Controller
             ->get();
 
         return view('institution-detail', compact('profile', 'villageDetail', 'institution', 'members'));
+    }
+
+    public function organizations()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $categories = CommunityInstitutionCategory::where('name', 'LIKE', '%Organisasi Kemasyarakatan%')
+            ->with(['institutions' => function($query) {
+                $query->where('status', 'published');
+            }])->get();
+
+        return view('organizations', compact('profile', 'villageDetail', 'categories'));
+    }
+
+    public function organizationDetail($slug)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $institution = CommunityInstitution::where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        $members = CommunityInstitutionMember::where('institution_id', $institution->id)
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('organization-detail', compact('profile', 'villageDetail', 'institution', 'members'));
     }
 }
 
