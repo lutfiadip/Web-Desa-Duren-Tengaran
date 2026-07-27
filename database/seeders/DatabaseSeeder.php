@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             GallerySeeder::class,
             AgricultureSeeder::class,
+            AgricultureCommoditySeeder::class,
         ]);
     }
 }

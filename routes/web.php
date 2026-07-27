@@ -9,6 +9,7 @@ Route::get('/pemerintahan/perangkat', [HomeController::class, 'officials'])->nam
 Route::get('/pemerintahan/peraturan', [HomeController::class, 'regulations'])->name('regulations');
 Route::get('/wisata-budaya', [HomeController::class, 'tourism'])->name('tourism');
 Route::get('/potensi/pertanian-peternakan', [HomeController::class, 'agriculture'])->name('potensi.agriculture');
+Route::get('/potensi/pertanian-peternakan/{slug}', [HomeController::class, 'agricultureDetail'])->name('potensi.agriculture.detail');
 Route::get('/umkm', [HomeController::class, 'umkm'])->name('umkm');
 Route::get('/umkm/{slug}', [HomeController::class, 'umkmDetail'])->name('umkm.detail');
 Route::get('/wisata/{slug}', [HomeController::class, 'tourismDetail'])->name('tourism.detail');

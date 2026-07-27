@@ -397,57 +397,21 @@
                 <h2 class="agri-section-title" style="border-bottom: 2px solid var(--border-color); padding-bottom: 15px; background: var(--white); padding: 25px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; margin-bottom: 0;"><i class="fa-solid fa-wheat-awn"></i> Komoditas Unggulan Desa</h2>
                 
                 <div class="com-grid">
-                    <!-- Durian -->
-                    <div class="com-card">
-                        <div class="com-img-wrapper">
-                            <span class="com-badge">Hortikultura</span>
-                            <img src="https://images.unsplash.com/photo-1621841315897-b5425231de3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Durian Lokal" class="com-img">
+                    @forelse($commodities as $com)
+                        <div class="com-card">
+                            <div class="com-img-wrapper">
+                                <span class="com-badge">{{ $com->category }}</span>
+                                <img src="{{ $com->thumbnail ?? 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" alt="{{ $com->title }}" class="com-img">
+                            </div>
+                            <div class="com-body">
+                                <h3 class="com-title">{{ $com->title }}</h3>
+                                <p class="com-desc">{{ Str::limit(strip_tags($com->description), 150) }}</p>
+                                <a href="{{ route('potensi.agriculture.detail', $com->slug) }}" class="com-link">Lihat Detail Komoditas <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
                         </div>
-                        <div class="com-body">
-                            <h3 class="com-title">Buah Durian Lokal</h3>
-                            <p class="com-desc">Sesuai namanya, Desa Duren terkenal dengan pohon durian lokal berbuah lebat yang manis-pahit legit dengan daging tebal. Menjadi andalan agrowisata tahunan desa saat musim panen tiba.</p>
-                            <a href="{{ route('tourism.detail', 'agrowisata-kebun-durian-duren') }}" class="com-link">Lihat Agrowisata Kebun <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Kopi -->
-                    <div class="com-card">
-                        <div class="com-img-wrapper">
-                            <span class="com-badge">Perkebunan</span>
-                            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Kopi Lereng Merbabu" class="com-img">
-                        </div>
-                        <div class="com-body">
-                            <h3 class="com-title">Kopi Lereng Merbabu</h3>
-                            <p class="com-desc">Biji kopi robusta pilihan dari perbukitan lereng Gunung Merbabu diolah secara tradisional oleh warga setempat menghasilkan cita rasa harum yang mantap dan tebal.</p>
-                            <a href="{{ route('umkm.detail', 'kopi-bubuk-asli-duren') }}" class="com-link">Beli Kopi Lokal <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Susu Sapi -->
-                    <div class="com-card">
-                        <div class="com-img-wrapper">
-                            <span class="com-badge">Peternakan</span>
-                            <img src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sapi Perah" class="com-img">
-                        </div>
-                        <div class="com-body">
-                            <h3 class="com-title">Susu Sapi Perah</h3>
-                            <p class="com-desc">Pusat peternakan sapi perah rakyat memproduksi ratusan liter susu murni higienis berkualitas tinggi setiap hari, dipasok untuk kebutuhan konsumsi lokal dan industri susu olahan regional.</p>
-                            <span class="com-desc" style="color: var(--text-muted); font-size: 0.85rem; font-style: italic;">*Komoditas unggulan komersial desa</span>
-                        </div>
-                    </div>
-
-                    <!-- Madu Hutan -->
-                    <div class="com-card">
-                        <div class="com-img-wrapper">
-                            <span class="com-badge">Kehutanan</span>
-                            <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Madu Hutan" class="com-img">
-                        </div>
-                        <div class="com-body">
-                            <h3 class="com-title">Madu Hutan Rimba</h3>
-                            <p class="com-desc">Madu murni alami tanpa bahan campuran kimia yang dipanen dari budidaya lebah madu liar di area sekitar hutan bambu rindang wilayah desa.</p>
-                            <a href="{{ route('umkm.detail', 'madu-hutan-rimba-duren') }}" class="com-link">Beli Madu Murni <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
+                    @empty
+                        <div style="text-align: center; grid-column: 1 / -1; color: var(--text-muted); padding: 30px; background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--border-color);">Data komoditas belum tersedia.</div>
+                    @endforelse
                 </div>
             </div>
         </div>

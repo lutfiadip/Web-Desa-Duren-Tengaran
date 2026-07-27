@@ -19,6 +19,7 @@ use App\Models\Culture;
 use App\Models\AgricultureProfile;
 use App\Models\LandStatistic;
 use App\Models\FarmerGroup;
+use App\Models\AgricultureCommodity;
 
 
 class HomeController extends Controller
@@ -202,8 +203,25 @@ class HomeController extends Controller
         $agriProfile = AgricultureProfile::first();
         $landStats = LandStatistic::orderBy('sort_order')->get();
         $farmerGroups = FarmerGroup::all();
+        $commodities = AgricultureCommodity::where('status', 'published')->get();
 
-        return view('agriculture', compact('profile', 'villageDetail', 'agriProfile', 'landStats', 'farmerGroups'));
+        return view('agriculture', compact('profile', 'villageDetail', 'agriProfile', 'landStats', 'farmerGroups', 'commodities'));
+    }
+
+    public function agricultureDetail($slug)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $commodity = AgricultureCommodity::where('slug', $slug)->where('status', 'published')->firstOrFail();
+
+        // Mengambil komoditas lainnya untuk rekomendasi
+        $otherCommodities = AgricultureCommodity::where('id', '!=', $commodity->id)
+            ->where('status', 'published')
+            ->take(3)
+            ->get();
+
+        return view('agriculture-detail', compact('profile', 'villageDetail', 'commodity', 'otherCommodities'));
     }
 }
 
