@@ -783,13 +783,17 @@
             <div class="umkm-scroll" style="padding-bottom: 0;">
                 @foreach($umkms as $umkm)
                 <div class="info-card">
-                    <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
-                        alt="{{ $umkm->title }}" class="card-img">
+                    <a href="{{ route('umkm.detail', $umkm->slug) }}" style="display: block;">
+                        <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
+                            alt="{{ $umkm->title }}" class="card-img">
+                    </a>
                     <div class="card-content">
                         <div class="card-meta">
                             <span class="tag" style="background-color: #fef3c7; color: #d97706;">{{ $umkm->category->name ?? 'UMKM' }}</span>
                         </div>
-                        <h3 class="card-title">{{ $umkm->title }}</h3>
+                        <a href="{{ route('umkm.detail', $umkm->slug) }}" style="text-decoration: none; color: inherit;">
+                            <h3 class="card-title">{{ $umkm->title }}</h3>
+                        </a>
                         <p class="card-desc">{{ $umkm->description }}</p>
                         <div class="umkm-actions">
                             @if($umkm->whatsapp)

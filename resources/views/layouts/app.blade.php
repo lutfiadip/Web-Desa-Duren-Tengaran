@@ -344,11 +344,12 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="{{ request()->routeIs('tourism') || request()->routeIs('umkm') ? 'active' : '' }}">Potensi <i class="fa-solid fa-chevron-down"
+                <a href="#" class="{{ request()->routeIs('tourism') || request()->routeIs('umkm') || request()->routeIs('potensi.agriculture') ? 'active' : '' }}">Potensi <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('tourism') }}">Wisata dan Budaya</a></li>
                     <li><a href="{{ route('umkm') }}">UMKM</a></li>
+                    <li><a href="{{ route('potensi.agriculture') }}">Pertanian & Peternakan</a></li>
                 </ul>
             </li>
 

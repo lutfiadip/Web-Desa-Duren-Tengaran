@@ -195,6 +195,7 @@
         position: relative;
         height: 240px;
         overflow: hidden;
+        display: block;
     }
 
     .umkm-image {
@@ -282,6 +283,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        min-height: 56px; /* Menjaga stabilitas tinggi ketika waktu operasional kosong */
     }
 
     .meta-item {
@@ -305,6 +307,8 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
+        min-height: 90px; /* Menjaga stabilitas tinggi untuk 2 baris tombol kontak */
+        align-content: start; /* Merapatkan tombol ke atas agar sejajar dengan informasi di atasnya */
     }
 
     .action-btn {
@@ -464,16 +468,18 @@
         <div class="umkm-grid" id="umkm-grid">
             @foreach($umkms as $umkm)
                 <div class="umkm-card" data-category-id="{{ $umkm->category_id }}" data-title="{{ strtolower($umkm->title) }}" data-desc="{{ strtolower($umkm->description) }}">
-                    <div class="umkm-image-wrapper">
+                    <a href="{{ route('umkm.detail', $umkm->slug) }}" class="umkm-image-wrapper">
                         <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
                              alt="{{ $umkm->title }}" class="umkm-image" loading="lazy">
                         <span class="category-badge">{{ $umkm->category->name ?? 'Lokal' }}</span>
                         @if($umkm->is_featured)
                             <span class="featured-badge"><i class="fa-solid fa-star"></i> Unggulan</span>
                         @endif
-                    </div>
+                    </a>
                     <div class="umkm-details">
-                        <h3 class="umkm-title">{{ $umkm->title }}</h3>
+                        <a href="{{ route('umkm.detail', $umkm->slug) }}" style="text-decoration: none; color: inherit;">
+                            <h3 class="umkm-title">{{ $umkm->title }}</h3>
+                        </a>
                         <div class="owner-info">
                             <i class="fa-solid fa-circle-user"></i> Pemilik: {{ $umkm->owner_name }}
                         </div>

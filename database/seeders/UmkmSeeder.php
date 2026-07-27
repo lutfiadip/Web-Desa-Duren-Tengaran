@@ -42,6 +42,11 @@ class UmkmSeeder extends Seeder
             'facebook' => 'Keripik Pisang Ibu Siti',
             'operating_hours' => 'Setiap Hari (08.00 - 20.00 WIB)',
             'google_maps_url' => 'https://maps.google.com/?q=Desa+Duren+Tengaran',
+            'gallery' => [
+                'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1528825871115-3581a5387919?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+            ],
             'status' => 'published',
             'is_featured' => true
         ]);
@@ -58,6 +63,11 @@ class UmkmSeeder extends Seeder
             'whatsapp' => '6281234567891',
             'operating_hours' => 'Senin - Sabtu (08.00 - 16.00 WIB)',
             'google_maps_url' => 'https://maps.google.com/?q=Desa+Duren+Tengaran',
+            'gallery' => [
+                'https://images.unsplash.com/photo-1544967082-29ee1d713c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1590736969955-71cc94801759?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1507290439931-a8e02da938c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+            ],
             'status' => 'published',
             'is_featured' => true
         ]);
@@ -75,6 +85,11 @@ class UmkmSeeder extends Seeder
             'instagram' => 'kopi.asli.duren',
             'operating_hours' => 'Setiap Hari (24 Jam untuk pemesanan online)',
             'google_maps_url' => 'https://maps.google.com/?q=Desa+Duren+Tengaran',
+            'gallery' => [
+                'https://images.unsplash.com/photo-1559525839-b184a4d698c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+            ],
             'status' => 'published',
             'is_featured' => true
         ]);
@@ -91,6 +106,11 @@ class UmkmSeeder extends Seeder
             'whatsapp' => '6281234567893',
             'operating_hours' => 'Senin - Jumat (07.00 - 15.00 WIB)',
             'google_maps_url' => 'https://maps.google.com/?q=Desa+Duren+Tengaran',
+            'gallery' => [
+                'https://images.unsplash.com/photo-1608039829572-78524f79c4c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1596450514966-7f4c47b0ecb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1622484211148-717df2c1f5ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+            ],
             'status' => 'published',
             'is_featured' => false
         ]);
@@ -108,6 +128,11 @@ class UmkmSeeder extends Seeder
             'instagram' => 'madu.rimba.duren',
             'operating_hours' => 'Setiap Hari (08.00 - 17.00 WIB)',
             'google_maps_url' => 'https://maps.google.com/?q=Desa+Duren+Tengaran',
+            'gallery' => [
+                'https://images.unsplash.com/photo-1587049352846-4a222e784d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1473081556163-2a17de81fc97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1558583055-d7ac00b1adca?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+            ],
             'status' => 'published',
             'is_featured' => false
         ]);

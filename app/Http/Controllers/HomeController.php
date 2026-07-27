@@ -170,4 +170,32 @@ class HomeController extends Controller
 
         return view('umkm', compact('profile', 'villageDetail', 'umkms', 'categories'));
     }
+
+    public function umkmDetail($slug)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $umkm = Umkm::with('category')
+            ->where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        // Mengambil UMKM lainnya untuk rekomendasi
+        $otherUmkms = Umkm::where('id', '!=', $umkm->id)
+            ->where('status', 'published')
+            ->take(3)
+            ->get();
+
+        return view('umkm-detail', compact('profile', 'villageDetail', 'umkm', 'otherUmkms'));
+    }
+
+    public function agriculture()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        return view('agriculture', compact('profile', 'villageDetail'));
+    }
 }
+

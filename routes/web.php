@@ -8,6 +8,11 @@ Route::get('/profil', [HomeController::class, 'profile'])->name('profile');
 Route::get('/pemerintahan/perangkat', [HomeController::class, 'officials'])->name('officials');
 Route::get('/pemerintahan/peraturan', [HomeController::class, 'regulations'])->name('regulations');
 Route::get('/wisata-budaya', [HomeController::class, 'tourism'])->name('tourism');
+Route::get('/potensi/pertanian-peternakan', [HomeController::class, 'agriculture'])->name('potensi.agriculture');
 Route::get('/umkm', [HomeController::class, 'umkm'])->name('umkm');
+Route::get('/umkm/{slug}', [HomeController::class, 'umkmDetail'])->name('umkm.detail');
 Route::get('/wisata/{slug}', [HomeController::class, 'tourismDetail'])->name('tourism.detail');
 Route::get('/budaya/{slug}', [HomeController::class, 'cultureDetail'])->name('culture.detail');
+
+
+
