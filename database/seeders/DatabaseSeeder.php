@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             GallerySeeder::class,
             AgricultureSeeder::class,
             AgricultureCommoditySeeder::class,
+            CommunityInstitutionSeeder::class,
         ]);
     }
 }

@@ -354,10 +354,10 @@
             </li>
 
             <li class="dropdown">
-                <a href="#">Kelembagaan <i class="fa-solid fa-chevron-down"
+                <a href="#" class="{{ request()->routeIs('institutions') || request()->routeIs('institution.detail') ? 'active' : '' }}">Kelembagaan <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Lembaga Masyarakat</a></li>
+                    <li><a href="{{ route('institutions') }}">Lembaga Masyarakat</a></li>
                     <li><a href="#">Organisasi Masyarakat</a></li>
                 </ul>
             </li>

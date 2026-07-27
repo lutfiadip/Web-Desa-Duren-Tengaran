@@ -14,6 +14,8 @@ Route::get('/umkm', [HomeController::class, 'umkm'])->name('umkm');
 Route::get('/umkm/{slug}', [HomeController::class, 'umkmDetail'])->name('umkm.detail');
 Route::get('/wisata/{slug}', [HomeController::class, 'tourismDetail'])->name('tourism.detail');
 Route::get('/budaya/{slug}', [HomeController::class, 'cultureDetail'])->name('culture.detail');
+Route::get('/lembaga', [HomeController::class, 'institutions'])->name('institutions');
+Route::get('/lembaga/{slug}', [HomeController::class, 'institutionDetail'])->name('institution.detail');
 
 
 

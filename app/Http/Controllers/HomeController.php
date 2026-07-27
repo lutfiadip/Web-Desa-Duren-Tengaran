@@ -20,6 +20,9 @@ use App\Models\AgricultureProfile;
 use App\Models\LandStatistic;
 use App\Models\FarmerGroup;
 use App\Models\AgricultureCommodity;
+use App\Models\CommunityInstitutionCategory;
+use App\Models\CommunityInstitution;
+use App\Models\CommunityInstitutionMember;
 
 
 class HomeController extends Controller
@@ -222,6 +225,34 @@ class HomeController extends Controller
             ->get();
 
         return view('agriculture-detail', compact('profile', 'villageDetail', 'commodity', 'otherCommodities'));
+    }
+
+    public function institutions()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $categories = CommunityInstitutionCategory::with(['institutions' => function($query) {
+            $query->where('status', 'published');
+        }])->get();
+
+        return view('institutions', compact('profile', 'villageDetail', 'categories'));
+    }
+
+    public function institutionDetail($slug)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $institution = CommunityInstitution::where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        $members = CommunityInstitutionMember::where('institution_id', $institution->id)
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('institution-detail', compact('profile', 'villageDetail', 'institution', 'members'));
     }
 }
 
