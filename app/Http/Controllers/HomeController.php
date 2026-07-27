@@ -16,6 +16,10 @@ use App\Models\RegulationCategory;
 use App\Models\Regulation;
 use App\Models\TouristAttraction;
 use App\Models\Culture;
+use App\Models\AgricultureProfile;
+use App\Models\LandStatistic;
+use App\Models\FarmerGroup;
+
 
 class HomeController extends Controller
 {
@@ -195,7 +199,11 @@ class HomeController extends Controller
         $profile = VillageProfile::first();
         $villageDetail = VillageDetail::first();
 
-        return view('agriculture', compact('profile', 'villageDetail'));
+        $agriProfile = AgricultureProfile::first();
+        $landStats = LandStatistic::orderBy('sort_order')->get();
+        $farmerGroups = FarmerGroup::all();
+
+        return view('agriculture', compact('profile', 'villageDetail', 'agriProfile', 'landStats', 'farmerGroups'));
     }
 }
 
