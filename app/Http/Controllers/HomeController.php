@@ -23,6 +23,7 @@ use App\Models\AgricultureCommodity;
 use App\Models\CommunityInstitutionCategory;
 use App\Models\CommunityInstitution;
 use App\Models\CommunityInstitutionMember;
+use App\Models\NewsCategory;
 
 
 class HomeController extends Controller
@@ -283,6 +284,57 @@ class HomeController extends Controller
             ->get();
 
         return view('organization-detail', compact('profile', 'villageDetail', 'institution', 'members'));
+    }
+
+    public function news(Request $request)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $query = News::where('status', 'published')->with('category')->orderBy('published_at', 'desc');
+
+        // Search text
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'LIKE', '%' . $search . '%')
+                  ->orWhere('content', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+        // Filter by category slug
+        if ($request->filled('category')) {
+            $categorySlug = $request->input('category');
+            $query->whereHas('category', function($q) use ($categorySlug) {
+                $q->where('slug', $categorySlug);
+            });
+        }
+
+        $news = $query->paginate(6)->withQueryString();
+        $categories = NewsCategory::all();
+
+        return view('news', compact('profile', 'villageDetail', 'news', 'categories'));
+    }
+
+    public function newsDetail($slug)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $article = News::where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        // 3 newest other published news
+        $recentNews = News::where('id', '!=', $article->id)
+            ->where('status', 'published')
+            ->orderBy('published_at', 'desc')
+            ->limit(3)
+            ->get();
+
+        $categories = NewsCategory::all();
+
+        return view('news-detail', compact('profile', 'villageDetail', 'article', 'recentNews', 'categories'));
     }
 }
 

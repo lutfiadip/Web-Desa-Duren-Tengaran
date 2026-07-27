@@ -18,6 +18,8 @@ Route::get('/lembaga', [HomeController::class, 'institutions'])->name('instituti
 Route::get('/lembaga/{slug}', [HomeController::class, 'institutionDetail'])->name('institution.detail');
 Route::get('/organisasi', [HomeController::class, 'organizations'])->name('organizations');
 Route::get('/organisasi/{slug}', [HomeController::class, 'organizationDetail'])->name('organization.detail');
+Route::get('/berita', [HomeController::class, 'news'])->name('news');
+Route::get('/berita/{slug}', [HomeController::class, 'newsDetail'])->name('news.detail');
 
 
 

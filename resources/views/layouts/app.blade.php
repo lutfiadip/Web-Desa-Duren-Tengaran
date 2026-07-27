@@ -362,7 +362,7 @@
                 </ul>
             </li>
 
-            <li><a href="{{ request()->routeIs('home') ? '#berita' : route('home') . '#berita' }}">Berita</a></li>
+            <li><a href="{{ route('news') }}" class="{{ request()->routeIs('news') || request()->routeIs('news.detail') ? 'active' : '' }}">Berita</a></li>
             <li><a href="#kontak">Kontak</a></li>
         </ul>
     </header>
@@ -405,7 +405,7 @@
                     <li><a href="{{ route('profile') }}">Profil Desa</a></li>
                     <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
                     <li><a href="{{ route('regulations') }}">Peraturan Desa</a></li>
-                    <li><a href="{{ request()->routeIs('home') ? '#berita' : route('home') . '#berita' }}">Berita Desa</a></li>
+                    <li><a href="{{ route('news') }}">Berita Desa</a></li>
                 </ul>
             </div>
 
@@ -414,7 +414,7 @@
                 <ul>
                     <li><a href="{{ route('umkm') }}">Potensi UMKM</a></li>
                     <li><a href="{{ route('tourism') }}">Wisata & Budaya</a></li>
-                    <li><a href="#">Lembaga Masyarakat</a></li>
+                    <li><a href="{{ route('institutions') }}">Lembaga Masyarakat</a></li>
                     <li><a href="#kontak">Kontak Kami</a></li>
                 </ul>
             </div>
