@@ -119,35 +119,43 @@
         font-size: 0.95rem;
     }
 
-    /* Category Filter Links */
-    .category-filters {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
+    /* Category Filter Select Dropdown */
+    .category-select-wrapper {
+        position: relative;
+        min-width: 220px;
     }
 
-    .cat-btn {
-        display: inline-block;
-        padding: 10px 20px;
+    .category-select {
+        width: 100%;
+        padding: 12px 45px 12px 20px;
         border-radius: var(--radius-pill);
-        font-size: 0.9rem;
-        font-weight: 700;
-        text-decoration: none;
-        color: var(--text-muted);
-        background-color: #f1f5f9;
+        border: 1px solid var(--border-color);
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        background-color: #f8fafc;
+        outline: none;
         transition: var(--transition);
-        border: 1px solid transparent;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
     }
 
-    .cat-btn:hover {
-        background-color: #eff6ff;
-        color: var(--primary);
+    .category-select:focus {
+        border-color: var(--primary);
+        background-color: var(--white);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
-    .cat-btn.active {
-        background-color: var(--primary);
-        color: var(--white);
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    .select-icon {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        pointer-events: none;
+        font-size: 0.95rem;
     }
 
     /* --- NEWS GRID --- */
@@ -393,15 +401,18 @@
                 <input type="text" name="search" class="search-input" placeholder="Cari judul atau isi berita..." value="{{ request('search') }}">
             </form>
 
-            <!-- Categories -->
-            <div class="category-filters">
-                <a href="{{ route('news', request()->only('search')) }}" class="cat-btn {{ !request('category') ? 'active' : '' }}">Semua</a>
-                @foreach($categories as $category)
-                    <a href="{{ route('news', array_merge(request()->only('search'), ['category' => $category->slug])) }}" 
-                       class="cat-btn {{ request('category') === $category->slug ? 'active' : '' }}">
-                        {{ $category->name }}
-                    </a>
-                @endforeach
+            <!-- Categories Select Dropdown -->
+            <div class="category-select-wrapper">
+                <select class="category-select" onchange="window.location.href = this.value">
+                    <option value="{{ route('news', request()->only('search')) }}" {{ !request('category') ? 'selected' : '' }}>Semua Kategori</option>
+                    @foreach($categories as $category)
+                        <option value="{{ route('news', array_merge(request()->only('search'), ['category' => $category->slug])) }}" 
+                                {{ request('category') === $category->slug ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <i class="fa-solid fa-chevron-down select-icon"></i>
             </div>
         </div>
 
@@ -426,7 +437,7 @@
                         </a>
                         
                         <p class="card-excerpt">
-                            {{ Str::limit(strip_tags($item->content), 120) }}
+                            {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}
                         </p>
                         
                         <div class="card-action">

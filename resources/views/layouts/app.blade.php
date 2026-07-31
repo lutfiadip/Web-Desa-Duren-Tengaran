@@ -363,7 +363,7 @@
             </li>
 
             <li><a href="{{ route('news') }}" class="{{ request()->routeIs('news') || request()->routeIs('news.detail') ? 'active' : '' }}">Berita</a></li>
-            <li><a href="#kontak">Kontak</a></li>
+            <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Kontak</a></li>
         </ul>
     </header>
 
@@ -415,7 +415,7 @@
                     <li><a href="{{ route('umkm') }}">Potensi UMKM</a></li>
                     <li><a href="{{ route('tourism') }}">Wisata & Budaya</a></li>
                     <li><a href="{{ route('institutions') }}">Lembaga Masyarakat</a></li>
-                    <li><a href="#kontak">Kontak Kami</a></li>
+                    <li><a href="{{ route('contact') }}">Kontak Kami</a></li>
                 </ul>
             </div>
 

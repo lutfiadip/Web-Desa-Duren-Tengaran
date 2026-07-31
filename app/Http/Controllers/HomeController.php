@@ -336,5 +336,12 @@ class HomeController extends Controller
 
         return view('news-detail', compact('profile', 'villageDetail', 'article', 'recentNews', 'categories'));
     }
+
+    public function contact()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+        return view('contact', compact('profile', 'villageDetail'));
+    }
 }
 

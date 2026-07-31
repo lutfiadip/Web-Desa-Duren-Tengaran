@@ -853,7 +853,7 @@
                             <span><i class="fa-regular fa-clock"></i> {{ \Carbon\Carbon::parse($item->published_at)->format('d M Y') }}</span>
                         </div>
                         <h3 class="card-title">{{ $item->title }}</h3>
-                        <p class="card-desc">{{ Str::limit($item->content, 120) }}</p>
+                        <p class="card-desc">{{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}</p>
                         <a href="#" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
                     </div>
                 </div>
