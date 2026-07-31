@@ -21,6 +21,7 @@ Route::get('/organisasi/{slug}', [HomeController::class, 'organizationDetail'])-
 Route::get('/berita', [HomeController::class, 'news'])->name('news');
 Route::get('/berita/{slug}', [HomeController::class, 'newsDetail'])->name('news.detail');
 Route::get('/kontak', [HomeController::class, 'contact'])->name('contact');
+Route::get('/statistik', [HomeController::class, 'statistics'])->name('statistics');
 
 
 

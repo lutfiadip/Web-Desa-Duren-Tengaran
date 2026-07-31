@@ -24,6 +24,7 @@ use App\Models\CommunityInstitutionCategory;
 use App\Models\CommunityInstitution;
 use App\Models\CommunityInstitutionMember;
 use App\Models\NewsCategory;
+use App\Models\PopulationStatistic;
 
 
 class HomeController extends Controller
@@ -342,6 +343,33 @@ class HomeController extends Controller
         $profile = VillageProfile::first();
         $villageDetail = VillageDetail::first();
         return view('contact', compact('profile', 'villageDetail'));
+    }
+
+    public function statistics()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        // Fetch latest data for each statistic type
+        $gender = PopulationStatistic::with('details')
+            ->where('type', 'gender')
+            ->orderBy('year', 'desc')
+            ->orderBy('semester', 'desc')
+            ->first();
+
+        $age = PopulationStatistic::with('details')
+            ->where('type', 'age')
+            ->orderBy('year', 'desc')
+            ->orderBy('semester', 'desc')
+            ->first();
+
+        $kk = PopulationStatistic::with('details')
+            ->where('type', 'family_card')
+            ->orderBy('year', 'desc')
+            ->orderBy('semester', 'desc')
+            ->first();
+
+        return view('statistics', compact('profile', 'villageDetail', 'gender', 'age', 'kk'));
     }
 }
 

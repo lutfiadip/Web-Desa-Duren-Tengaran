@@ -363,6 +363,7 @@
             </li>
 
             <li><a href="{{ route('news') }}" class="{{ request()->routeIs('news') || request()->routeIs('news.detail') ? 'active' : '' }}">Berita</a></li>
+            <li><a href="{{ route('statistics') }}" class="{{ request()->routeIs('statistics') ? 'active' : '' }}">Statistik</a></li>
             <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Kontak</a></li>
         </ul>
     </header>
@@ -406,6 +407,7 @@
                     <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
                     <li><a href="{{ route('regulations') }}">Peraturan Desa</a></li>
                     <li><a href="{{ route('news') }}">Berita Desa</a></li>
+                    <li><a href="{{ route('statistics') }}">Statistik Penduduk</a></li>
                 </ul>
             </div>
 
@@ -444,6 +446,6 @@
         </div>
     </footer>
 
+    @yield('scripts')
 </body>
-
 </html>
