@@ -47,6 +47,8 @@ class VillageProfileSeeder extends Seeder
             'youtube' => '@durentengaran',
             'google_maps_url' => 'https://www.google.com/maps/d/embed?mid=1Lv4o2niiyagzukl-M6ttkVtDrmUATxA&usp=sharing',
             'office_hours' => 'Senin - Kamis (08.00 - 15.00 WIB) | Jumat (08.00 - 11.30 WIB)',
+            'about_text' => 'Desa Duren merupakan salah satu desa di Kecamatan Tengaran, Kabupaten Semarang yang memiliki potensi besar di bidang pertanian, peternakan, dan pariwisata. Dengan semangat gotong royong, berkembang menuju masyarakat sejahtera, dan berdaya saing.',
+            'about_image' => null,
             'hero_bg_image' => 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
         ]);
 

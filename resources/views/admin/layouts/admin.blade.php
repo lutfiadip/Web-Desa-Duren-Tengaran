@@ -459,6 +459,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.statistics.index') }}" class="{{ request()->routeIs('admin.statistics.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-chart-pie"></i> Statistik Penduduk
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.officials.index') }}" class="{{ request()->routeIs('admin.officials.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-users"></i> Perangkat Desa
                 </a>

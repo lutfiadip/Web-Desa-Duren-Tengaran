@@ -165,7 +165,11 @@
                         </div>
                         <div class="info-details">
                             <h4>Email Resmi</h4>
-                            <p>{{ $profile->email ?? '332202.duren@gmail.com' }}</p>
+                            <p>
+                                <a href="mailto:{{ $profile->email ?? '332202.duren@gmail.com' }}" style="color: inherit; text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='inherit'">
+                                    {{ $profile->email ?? '332202.duren@gmail.com' }}
+                                </a>
+                            </p>
                         </div>
                     </li>
 

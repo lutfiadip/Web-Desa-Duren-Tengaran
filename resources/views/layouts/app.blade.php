@@ -388,13 +388,13 @@
                     Website resmi Desa Duren sebagai media informasi dan pelayanan kepada masyarakat.
                 </p>
                 <div style="display: flex; gap: 15px;">
-                    <a href="{{ $profile->facebook ?? '#' }}"
+                    <a href="{{ $profile ? $profile->getFacebookLink() : '#' }}"
                         style="background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white);"><i
                             class="fa-brands fa-facebook-f"></i></a>
-                    <a href="https://instagram.com/{{ $profile->instagram ?? 'desa.duren' }}"
+                    <a href="{{ $profile ? $profile->getInstagramLink() : 'https://instagram.com/desa.duren' }}"
                         style="background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white);"><i
                             class="fa-brands fa-instagram"></i></a>
-                    <a href="https://youtube.com/{{ $profile->youtube ?? '@durentengaran' }}"
+                    <a href="{{ $profile ? $profile->getYoutubeLink() : 'https://youtube.com/@durentengaran' }}"
                         style="background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white);"><i
                             class="fa-brands fa-youtube"></i></a>
                 </div>
@@ -434,7 +434,9 @@
                     </li>
                     <li style="display: flex; gap: 10px;">
                         <i class="fa-solid fa-envelope" style="margin-top: 5px; color: var(--accent);"></i>
-                        {{ $profile->email ?? '332202.duren@gmail.com' }}
+                        <a href="mailto:{{ $profile->email ?? '332202.duren@gmail.com' }}" style="color: inherit; text-decoration: none;">
+                            {{ $profile->email ?? '332202.duren@gmail.com' }}
+                        </a>
                     </li>
                 </ul>
             </div>

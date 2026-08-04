@@ -40,12 +40,14 @@ class ProfileController extends Controller
             'office_hours' => 'nullable|string|max:255',
             'organization_structure_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
             'hero_bg_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'about_text' => 'nullable|string',
+            'about_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        $data = $request->except(['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image']);
+        $data = $request->except(['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image', 'about_image']);
 
         // Upload images
-        $imageFields = ['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image'];
+        $imageFields = ['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image', 'about_image'];
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
                 // Delete old image

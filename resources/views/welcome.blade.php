@@ -679,7 +679,13 @@
                     <i class="fa-solid fa-users demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Total Penduduk</div>
-                        <div class="demo-number">{{ $demografi->total_penduduk ? number_format($demografi->total_penduduk->male_count + $demografi->total_penduduk->female_count, 0, ',', '.') : '2.450' }}</div>
+                        <div class="demo-number">
+                            @if(isset($populationGender) && $populationGender->details->count() > 0)
+                                {{ number_format($populationGender->details->first()->male_total + $populationGender->details->first()->female_total, 0, ',', '.') }}
+                            @else
+                                {{ $demografi->total_penduduk ? number_format($demografi->total_penduduk->male_count + $demografi->total_penduduk->female_count, 0, ',', '.') : '2.450' }}
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="demo-item">
@@ -713,18 +719,20 @@
             <div class="welcome-grid">
                 <!-- Col 1: Balai Desa Image -->
                 <div class="welcome-col-image">
-                    <!-- NOTE: Ganti div di bawah ini dengan tag <img ...> jika foto aslinya sudah ada -->
-                    <!-- Contoh: <img src="{{ asset('img/foto-balai.jpg') }}" alt="Balai Desa Duren" class="balai-desa-img"> -->
-                    <div class="balai-desa-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 20px;">
-                        [ Tempat Foto Balai Desa ]
-                    </div>
+                    @if($profile && $profile->about_image)
+                        <img src="{{ asset($profile->about_image) }}" alt="Balai Desa {{ $profile->village_name ?? 'Duren' }}" class="balai-desa-img">
+                    @else
+                        <div class="balai-desa-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 20px;">
+                            [ Tempat Foto Balai Desa ]
+                        </div>
+                    @endif
                 </div>
                 
                 <!-- Col 2: Tentang Desa Text -->
                 <div class="welcome-col-text">
                     <div class="section-badge">TENTANG DESA</div>
-                    <h2 class="welcome-title">Desa Duren</h2>
-                    <p>Desa Duren merupakan salah satu desa di Kecamatan Tengaran, Kabupaten Semarang yang memiliki potensi besar di bidang pertanian, peternakan, dan pariwisata. Dengan semangat gotong royong, berkembang menuju masyarakat sejahtera, dan berdaya saing.</p>
+                    <h2 class="welcome-title">Desa {{ $profile->village_name ?? 'Duren' }}</h2>
+                    <p>{{ $profile->about_text ?? 'Desa Duren merupakan salah satu desa di Kecamatan Tengaran, Kabupaten Semarang yang memiliki potensi besar di bidang pertanian, peternakan, dan pariwisata. Dengan semangat gotong royong, berkembang menuju masyarakat sejahtera, dan berdaya saing.' }}</p>
                     <a href="{{ route('profile') }}" class="welcome-btn">Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>

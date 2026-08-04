@@ -40,6 +40,11 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     Route::resource('umkm', App\Http\Controllers\Admin\UmkmController::class)->except(['show']);
     Route::resource('tourism', App\Http\Controllers\Admin\TourismController::class)->except(['show']);
     Route::resource('culture', App\Http\Controllers\Admin\CultureController::class)->except(['show']);
+    
+    // Statistics Management
+    Route::get('/statistics', [App\Http\Controllers\Admin\StatisticController::class, 'index'])->name('statistics.index');
+    Route::get('/statistics/{type}/edit', [App\Http\Controllers\Admin\StatisticController::class, 'edit'])->name('statistics.edit');
+    Route::put('/statistics/{type}', [App\Http\Controllers\Admin\StatisticController::class, 'update'])->name('statistics.update');
 });
 
 

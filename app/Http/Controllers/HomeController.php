@@ -41,6 +41,13 @@ class HomeController extends Controller
         $demografi->rw = DemographicStatistic::where('label', 'Rukun Warga')->first();
         $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();
 
+        // Mengambil statistik jenis kelamin untuk total penduduk di widget beranda
+        $populationGender = PopulationStatistic::with('details')
+            ->where('type', 'gender')
+            ->orderBy('year', 'desc')
+            ->orderBy('semester', 'desc')
+            ->first();
+
         // Mengambil 3 UMKM unggulan terbaru yang dipublish
         $umkms = Umkm::where('status', 'published')
                      ->where('is_featured', true)
@@ -58,7 +65,7 @@ class HomeController extends Controller
         // Mengambil 4 galeri terbaru
         $galleries = Gallery::latest()->take(4)->get();
 
-        return view('welcome', compact('profile', 'demografi', 'umkms', 'news', 'galleries', 'villageDetail'));
+        return view('welcome', compact('profile', 'demografi', 'umkms', 'news', 'galleries', 'villageDetail', 'populationGender'));
     }
 
     public function profile()
