@@ -65,19 +65,9 @@
 
     /* --- CONTACT LAYOUT --- */
     .contact-container {
-        max-width: 1400px;
+        max-width: 800px;
         margin: 0 auto;
         padding: 60px 5% 80px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-    }
-
-    @media (max-width: 992px) {
-        .contact-container {
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
     }
 
     /* --- INFO CARD --- */
@@ -134,21 +124,7 @@
         line-height: 1.6;
     }
 
-    /* --- MAP BOX --- */
-    .map-box {
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        border: 1px solid var(--border-color);
-        height: 100%;
-        min-height: 450px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-    }
 
-    .map-box iframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }
 </style>
 @endsection
 
@@ -167,7 +143,7 @@
     <!-- CONTACT CONTAINER -->
     <div class="contact-container">
         
-        <!-- LEFT COLUMN: INFO BOX -->
+        <!-- INFO BOX -->
         <div class="info-box">
             <div>
                 <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 25px;">Informasi Kontak Resmi</h3>
@@ -225,10 +201,7 @@
             @endif
         </div>
 
-        <!-- RIGHT COLUMN: MAP BOX -->
-        <div class="map-box">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.511364506308!2d110.4616223!3d-7.4428807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a79fbb24a04d3%3A0xc3f83737b4200676!2sKantor+Kepala+Desa+Duren!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+
 
     </div>
 @endsection
