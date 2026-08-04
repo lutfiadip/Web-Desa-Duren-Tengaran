@@ -23,5 +23,25 @@ Route::get('/berita/{slug}', [HomeController::class, 'newsDetail'])->name('news.
 Route::get('/kontak', [HomeController::class, 'contact'])->name('contact');
 Route::get('/statistik', [HomeController::class, 'statistics'])->name('statistics');
 
+// Admin Authentication Routes
+Route::get('/admin/login', [App\Http\Controllers\Admin\AdminAuthController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin/login', [App\Http\Controllers\Admin\AdminAuthController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [App\Http\Controllers\Admin\AdminAuthController::class, 'logout'])->name('admin.logout');
+
+// Protected Admin Dashboard & CRUD Routes
+Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile/edit', [App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
+    
+    Route::resource('news', App\Http\Controllers\Admin\NewsController::class)->except(['show']);
+    Route::resource('regulations', App\Http\Controllers\Admin\RegulationController::class)->except(['show']);
+    Route::resource('officials', App\Http\Controllers\Admin\OfficialController::class)->except(['show']);
+    Route::resource('umkm', App\Http\Controllers\Admin\UmkmController::class)->except(['show']);
+    Route::resource('tourism', App\Http\Controllers\Admin\TourismController::class)->except(['show']);
+    Route::resource('culture', App\Http\Controllers\Admin\CultureController::class)->except(['show']);
+});
+
+
 
 
