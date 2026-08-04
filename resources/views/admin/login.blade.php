@@ -170,6 +170,24 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease, padding 0.4s ease, margin-bottom 0.4s ease;
+            overflow: hidden;
+            max-height: 150px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .alert.hide {
+            opacity: 0;
+            transform: translateY(-10px);
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-top-width: 0;
+            border-bottom-width: 0;
+            border-left-width: 0;
+            border-right-width: 0;
         }
 
         .alert-error {
@@ -249,4 +267,47 @@
     </div>
 
 </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                // Create close button
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '&times;';
+                closeBtn.className = 'alert-close-btn';
+                
+                // Style close button dynamically
+                closeBtn.style.background = 'none';
+                closeBtn.style.border = 'none';
+                closeBtn.style.fontSize = '1.3rem';
+                closeBtn.style.lineHeight = '1';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.marginLeft = 'auto';
+                closeBtn.style.padding = '0 0 0 12px';
+                closeBtn.style.color = 'inherit';
+                closeBtn.style.opacity = '0.5';
+                closeBtn.style.transition = 'opacity 0.2s';
+                closeBtn.setAttribute('aria-label', 'Close alert');
+                
+                closeBtn.addEventListener('mouseenter', () => closeBtn.style.opacity = '1');
+                closeBtn.addEventListener('mouseleave', () => closeBtn.style.opacity = '0.5');
+
+                alert.appendChild(closeBtn);
+
+                // Dismiss function
+                const dismiss = () => {
+                    alert.classList.add('hide');
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 400); // Wait for CSS transition
+                };
+
+                // Close button click listener
+                closeBtn.addEventListener('click', dismiss);
+
+                // Auto-dismiss after 4 seconds
+                setTimeout(dismiss, 4000);
+            });
+        });
+    </script>
 </html>

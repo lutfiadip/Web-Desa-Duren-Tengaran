@@ -126,14 +126,6 @@
             <p style="color: var(--text-muted); font-size: 1rem;">Kelola visualisasi data kependudukan dan demografi Desa Duren.</p>
         </div>
     </div>
-
-    @if(session('success'))
-        <div style="background-color: #dcfce7; border: 1px solid #bbf7d0; color: #15803d; padding: 15px 20px; border-radius: var(--radius-md); margin-bottom: 30px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
-            <i class="fa-solid fa-circle-check"></i>
-            {{ session('success') }}
-        </div>
-    @endif
-
     <div class="stats-card-grid">
         <!-- 1. GENDER -->
         <div class="stat-manage-card">
