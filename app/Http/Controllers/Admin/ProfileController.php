@@ -42,12 +42,13 @@ class ProfileController extends Controller
             'hero_bg_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'about_text' => 'nullable|string',
             'about_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'history_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        $data = $request->except(['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image', 'about_image']);
+        $data = $request->except(['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image', 'about_image', 'history_image']);
 
         // Upload images
-        $imageFields = ['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image', 'about_image'];
+        $imageFields = ['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image', 'about_image', 'history_image'];
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
                 // Delete old image

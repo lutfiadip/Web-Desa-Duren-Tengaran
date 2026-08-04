@@ -207,6 +207,10 @@
         gap: 50px;
         align-items: center;
     }
+
+    .history-layout.no-image {
+        display: block;
+    }
     
     .history-img-wrapper {
         border-radius: var(--radius-lg);
@@ -676,11 +680,13 @@
         <!-- SEJARAH SECTION -->
         <section class="profile-section">
             <div class="profile-section-card">
-                <div class="history-layout">
+                <div class="history-layout {{ $profile && $profile->history_image ? '' : 'no-image' }}">
+                    @if($profile && $profile->history_image)
                     <div class="history-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                             alt="Pertanian Desa Duren" class="history-img">
+                        <img src="{{ asset($profile->history_image) }}" 
+                             alt="Sejarah Desa {{ $profile->village_name ?? '' }}" class="history-img">
                     </div>
+                    @endif
                     <div>
                         <h2 class="profile-section-title">Sejarah Desa</h2>
                         <div class="history-text">

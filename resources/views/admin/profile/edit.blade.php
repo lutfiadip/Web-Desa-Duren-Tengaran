@@ -88,31 +88,57 @@
                     placeholder="Tuliskan sambutan resmi Kepala Desa untuk pengunjung website...">{{ old('headman_greeting', $profile->headman_greeting) }}</textarea>
             </div>
 
-            <!-- KELOMPOK 3: SEJARAH, VISI, MISI -->
+            <!-- KELOMPOK 3: SEJARAH DESA -->
             <h3
                 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                <i class="fa-solid fa-book-open"></i> Sejarah, Visi, & Misi Desa
+                <i class="fa-solid fa-clock-rotate-left"></i> Sejarah Desa
             </h3>
 
-            <div class="form-group">
-                <label for="history">Sejarah Singkat Desa</label>
-                <textarea id="history" name="history" class="form-control"
-                    style="min-height: 150px;">{{ old('history', $profile->history) }}</textarea>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 25px;">
+                <div class="form-group">
+                    <label for="history">Sejarah Singkat Desa</label>
+                    <textarea id="history" name="history" class="form-control"
+                        style="min-height: 150px;">{{ old('history', $profile->history) }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="history_image">Foto Sejarah Desa</label>
+                    @if($profile->history_image)
+                        <div style="margin-bottom: 10px;">
+                            <img src="{{ asset($profile->history_image) }}" alt="Foto Sejarah Desa"
+                                style="height: 100px; width: 150px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-color);">
+                        </div>
+                    @endif
+                    <input type="file" id="history_image" name="history_image" class="form-control" accept="image/*">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal file: 2 MB.</span>
+                </div>
             </div>
 
-            <div class="form-group">
+            <!-- KELOMPOK 4: VISI & MISI DESA -->
+            <h3
+                style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <i class="fa-solid fa-bullseye"></i> Visi & Misi Desa
+            </h3>
+
+            <div class="form-group" style="margin-bottom: 20px;">
                 <label for="vision">Visi Desa</label>
                 <textarea id="vision" name="vision" class="form-control" style="min-height: 80px;"
                     placeholder="Visi pembangunan jangka panjang desa...">{{ old('vision', $profile->vision) }}</textarea>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 25px;">
                 <label for="mission">Misi Desa (Gunakan baris baru untuk setiap poin misi)</label>
                 <textarea id="mission" name="mission" class="form-control" style="min-height: 120px;"
                     placeholder="Misi 1. ...&#10;Misi 2. ...">{{ old('mission', $profile->mission) }}</textarea>
             </div>
 
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-top: 20px;">
+            <!-- KELOMPOK 5: DESKRIPSI & FOTO TENTANG DESA (BERANDA) -->
+            <h3
+                style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <i class="fa-solid fa-house-chimney"></i> Deskripsi & Foto Beranda (Tentang Desa)
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 25px;">
                 <div class="form-group">
                     <label for="about_text">Deskripsi Tentang Desa (Beranda)</label>
                     <textarea id="about_text" name="about_text" class="form-control" style="min-height: 100px;"
@@ -131,7 +157,7 @@
                 </div>
             </div>
 
-            <!-- KELOMPOK 4: KONTAK & MEDIA SOSIAL -->
+            <!-- KELOMPOK 6: KONTAK & MEDIA SOSIAL -->
             <h3
                 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                 <i class="fa-solid fa-address-book"></i> Kontak & Media Sosial Resmi
@@ -184,7 +210,7 @@
                     placeholder="Masukkan link maps embed...">
             </div>
 
-            <!-- KELOMPOK 5: STRUKTUR ORGANISASI -->
+            <!-- KELOMPOK 7: STRUKTUR ORGANISASI -->
             <h3
                 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                 <i class="fa-solid fa-sitemap"></i> Struktur Organisasi
