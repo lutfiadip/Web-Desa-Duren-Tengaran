@@ -149,16 +149,19 @@
                 <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 25px;">Informasi Kontak Resmi</h3>
                 
                 <ul class="info-list">
+                    @if($profile && $profile->address)
                     <li class="info-item">
                         <div class="info-icon">
                             <i class="fa-solid fa-map-location-dot"></i>
                         </div>
                         <div class="info-details">
                             <h4>Alamat Kantor</h4>
-                            <p>{{ $profile->address ?? 'Miri, Duren, Kec. Tengaran, Kabupaten Semarang, Jawa Tengah 50775' }}</p>
+                            <p>{{ $profile->address }}</p>
                         </div>
                     </li>
+                    @endif
 
+                    @if($profile && $profile->email)
                     <li class="info-item">
                         <div class="info-icon">
                             <i class="fa-solid fa-envelope"></i>
@@ -166,32 +169,37 @@
                         <div class="info-details">
                             <h4>Email Resmi</h4>
                             <p>
-                                <a href="mailto:{{ $profile->email ?? '332202.duren@gmail.com' }}" style="color: inherit; text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='inherit'">
-                                    {{ $profile->email ?? '332202.duren@gmail.com' }}
+                                <a href="mailto:{{ $profile->email }}" style="color: inherit; text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='inherit'">
+                                    {{ $profile->email }}
                                 </a>
                             </p>
                         </div>
                     </li>
+                    @endif
 
+                    @if($profile && $profile->phone)
                     <li class="info-item">
                         <div class="info-icon">
                             <i class="fa-solid fa-phone"></i>
                         </div>
                         <div class="info-details">
                             <h4>Telepon / Fax</h4>
-                            <p>{{ $profile->phone ?? '-' }}</p>
+                            <p>{{ $profile->phone }}</p>
                         </div>
                     </li>
+                    @endif
 
+                    @if($profile && $profile->office_hours)
                     <li class="info-item">
                         <div class="info-icon">
                             <i class="fa-solid fa-clock"></i>
                         </div>
                         <div class="info-details">
                             <h4>Jam Operasional Kantor</h4>
-                            <p>Senin - Jumat: 08:00 - 15:30 WIB</p>
+                            <p>{{ $profile->office_hours }}</p>
                         </div>
                     </li>
+                    @endif
                 </ul>
             </div>
 

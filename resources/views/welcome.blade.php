@@ -9,7 +9,7 @@
         .hero {
             /* Dark gradient on the left, fading to right. Background image of agriculture/village */
             background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.7) 45%, rgba(15, 23, 42, 0.2) 100%),
-                url('{{ asset($profile->hero_bg_image ?? "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") }}') center/cover no-repeat;
+                url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
             min-height: calc(100vh - 80px);
             /* Adjusted for solid header */
             display: flex;
@@ -682,8 +682,8 @@
                         <div class="demo-number">
                             @if(isset($populationGender) && $populationGender->details->count() > 0)
                                 {{ number_format($populationGender->details->first()->male_total + $populationGender->details->first()->female_total, 0, ',', '.') }}
-                            @else
-                                {{ $demografi->total_penduduk ? number_format($demografi->total_penduduk->male_count + $demografi->total_penduduk->female_count, 0, ',', '.') : '2.450' }}
+                            @elseif($demografi->total_penduduk)
+                                {{ number_format($demografi->total_penduduk->male_count + $demografi->total_penduduk->female_count, 0, ',', '.') }}
                             @endif
                         </div>
                     </div>
@@ -692,21 +692,21 @@
                     <i class="fa-solid fa-house-chimney demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Rukun Tetangga</div>
-                        <div class="demo-number">{{ $villageDetail->rt_count ?? '35' }}</div>
+                        <div class="demo-number">{{ $villageDetail->rt_count ?? '' }}</div>
                     </div>
                 </div>
                 <div class="demo-item">
                     <i class="fa-solid fa-building demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Rukun Warga</div>
-                        <div class="demo-number">{{ $villageDetail->rw_count ?? '8' }}</div>
+                        <div class="demo-number">{{ $villageDetail->rw_count ?? '' }}</div>
                     </div>
                 </div>
                 <div class="demo-item">
                     <i class="fa-solid fa-map-location-dot demo-icon"></i>
                     <div class="demo-content">
                         <div class="demo-label">Luas Wilayah</div>
-                        <div class="demo-number">{{ $demografi->luas_wilayah->male_count ?? '350' }} Ha</div>
+                        <div class="demo-number">{{ $demografi->luas_wilayah->male_count ?? '' }} Ha</div>
                     </div>
                 </div>
             </div>
@@ -720,7 +720,7 @@
                 <!-- Col 1: Balai Desa Image -->
                 <div class="welcome-col-image">
                     @if($profile && $profile->about_image)
-                        <img src="{{ asset($profile->about_image) }}" alt="Balai Desa {{ $profile->village_name ?? 'Duren' }}" class="balai-desa-img">
+                        <img src="{{ asset($profile->about_image) }}" alt="Balai Desa {{ $profile->village_name ?? '' }}" class="balai-desa-img">
                     @else
                         <div class="balai-desa-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 20px;">
                             [ Tempat Foto Balai Desa ]
@@ -731,8 +731,8 @@
                 <!-- Col 2: Tentang Desa Text -->
                 <div class="welcome-col-text">
                     <div class="section-badge">TENTANG DESA</div>
-                    <h2 class="welcome-title">Desa {{ $profile->village_name ?? 'Duren' }}</h2>
-                    <p>{{ $profile->about_text ?? 'Desa Duren merupakan salah satu desa di Kecamatan Tengaran, Kabupaten Semarang yang memiliki potensi besar di bidang pertanian, peternakan, dan pariwisata. Dengan semangat gotong royong, berkembang menuju masyarakat sejahtera, dan berdaya saing.' }}</p>
+                    <h2 class="welcome-title">Desa {{ $profile->village_name ?? '' }}</h2>
+                    <p>{{ $profile->about_text ?? '' }}</p>
                     <a href="{{ route('profile') }}" class="welcome-btn">Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>

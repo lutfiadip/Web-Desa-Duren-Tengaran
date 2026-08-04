@@ -388,15 +388,21 @@
                     Website resmi Desa Duren sebagai media informasi dan pelayanan kepada masyarakat.
                 </p>
                 <div style="display: flex; gap: 15px;">
-                    <a href="{{ $profile ? $profile->getFacebookLink() : '#' }}"
+                    @if($profile && $profile->facebook && $profile->facebook !== '#')
+                    <a href="{{ $profile->getFacebookLink() }}"
                         style="background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white);"><i
                             class="fa-brands fa-facebook-f"></i></a>
-                    <a href="{{ $profile ? $profile->getInstagramLink() : 'https://instagram.com/desa.duren' }}"
+                    @endif
+                    @if($profile && $profile->instagram && $profile->instagram !== '#')
+                    <a href="{{ $profile->getInstagramLink() }}"
                         style="background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white);"><i
                             class="fa-brands fa-instagram"></i></a>
-                    <a href="{{ $profile ? $profile->getYoutubeLink() : 'https://youtube.com/@durentengaran' }}"
+                    @endif
+                    @if($profile && $profile->youtube && $profile->youtube !== '#')
+                    <a href="{{ $profile->getYoutubeLink() }}"
                         style="background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white);"><i
                             class="fa-brands fa-youtube"></i></a>
+                    @endif
                 </div>
             </div>
 
@@ -424,20 +430,26 @@
             <div class="footer-col">
                 <h4>Hubungi Kami</h4>
                 <ul style="color: #94a3b8; font-size: 0.95rem; line-height: 1.8;">
+                    @if($profile && $profile->address)
                     <li style="display: flex; gap: 10px;">
                         <i class="fa-solid fa-map-location-dot" style="margin-top: 5px; color: var(--accent);"></i>
-                        {{ $profile->address ?? 'Miri, Duren, Kec. Tengaran, Kabupaten Semarang, Jawa Tengah 50775' }}
+                        {{ $profile->address }}
                     </li>
+                    @endif
+                    @if($profile && $profile->phone)
                     <li style="display: flex; gap: 10px;">
                         <i class="fa-solid fa-phone" style="margin-top: 5px; color: var(--accent);"></i>
-                        {{ $profile->phone ?? '-' }}
+                        {{ $profile->phone }}
                     </li>
+                    @endif
+                    @if($profile && $profile->email)
                     <li style="display: flex; gap: 10px;">
                         <i class="fa-solid fa-envelope" style="margin-top: 5px; color: var(--accent);"></i>
-                        <a href="mailto:{{ $profile->email ?? '332202.duren@gmail.com' }}" style="color: inherit; text-decoration: none;">
-                            {{ $profile->email ?? '332202.duren@gmail.com' }}
+                        <a href="mailto:{{ $profile->email }}" style="color: inherit; text-decoration: none;">
+                            {{ $profile->email }}
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </div>

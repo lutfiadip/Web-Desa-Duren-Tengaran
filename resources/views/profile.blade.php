@@ -7,7 +7,7 @@
     /* --- PROFILE HERO --- */
     .profile-hero {
         background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.75) 100%),
-                    url('{{ asset($profile->hero_bg_image ?? "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") }}') center/cover no-repeat;
+                    url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
         padding: 160px 5% 140px;
         text-align: center;
         color: var(--white);
@@ -600,7 +600,7 @@
             <span class="separator">/</span>
             <span class="current">Profil Desa</span>
         </nav>
-        <h1>Profil Desa {{ $profile->village_name ?? 'Duren' }}</h1>
+        <h1>Profil Desa {{ $profile->village_name ?? '' }}</h1>
         <p>Mengenal lebih dekat mengenai Desa Duren Tengaran.</p>
     </section>
 
@@ -623,13 +623,13 @@
                     <div>
                         <h2 class="profile-section-title">Sambutan Kepala Desa</h2>
                         <h3 style="font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">
-                            {{ $profile->headman_name ?? 'Wahyudi, S.M.' }}
+                            {{ $profile->headman_name ?? '' }}
                         </h3>
                         <p style="font-size: 0.95rem; color: var(--primary); font-weight: 600; margin-bottom: 20px;">
-                            Kepala Desa {{ $profile->village_name ?? 'Duren' }}
+                            Kepala Desa {{ $profile->village_name ?? '' }}
                         </p>
                         <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted);">
-                            {{ $profile->headman_greeting ?? 'Selamat datang di Website Resmi Desa Duren Tengaran...' }}
+                            {{ $profile->headman_greeting ?? '' }}
                         </p>
                     </div>
                 </div>
@@ -648,7 +648,7 @@
                         </div>
                         <h3>Visi</h3>
                         <p class="visi-content">
-                            "{{ $profile->vision ?? 'Terwujudnya Desa Duren yang Mandiri, Sejahtera, Transparan, dan Berdaya Saing Tinggi melalui Optimalisasi Potensi Lokal dan Pelayanan Prima.' }}"
+                            "{{ $profile->vision ?? '' }}"
                         </p>
                     </div>
                     
@@ -659,18 +659,14 @@
                         </div>
                         <h3>Misi</h3>
                         @php
-                            $missions = explode("\n", $profile->mission ?? '');
+                            $missions = $profile && $profile->mission ? explode("\n", $profile->mission) : [];
                         @endphp
                         <ul class="misi-list">
-                            @forelse($missions as $mission)
+                            @foreach($missions as $mission)
                                 @if(trim($mission))
                                     <li>{{ trim(preg_replace('/^\d+\.\s*/', '', $mission)) }}</li>
                                 @endif
-                            @empty
-                                <li>Mewujudkan tata kelola pemerintahan desa yang bersih, transparan, dan akuntabel.</li>
-                                <li>Meningkatkan pelayanan publik berbasis teknologi informasi yang cepat dan ramah.</li>
-                                <li>Mengembangkan perekonomian warga melalui pemberdayaan UMKM, pertanian, dan peternakan.</li>
-                            @endforelse
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -688,12 +684,9 @@
                     <div>
                         <h2 class="profile-section-title">Sejarah Desa</h2>
                         <div class="history-text">
-                            <p style="margin-bottom: 20px;">
-                                {{ $profile->history ?? 'Desa Duren memiliki sejarah panjang yang kaya akan nilai budaya. Nama \'Duren\' diyakini berasal dari melimpahnya pohon durian di wilayah ini pada masa lampau, yang menjadi penanda khas bagi para pendatang. Seiring berjalannya waktu, Desa Duren bertransformasi dari kawasan agraris tradisional menjadi desa yang berkembang menuju kemandirian ekonomi.' }}
-                            </p>
-                            <p>
-                                Melalui semangat gotong royong warga, desa ini berhasil mengintegrasikan sektor pertanian, peternakan, dan UMKM lokal sebagai pilar ekonomi utama. Kini Pemerintah Desa terus berupaya mengadopsi kemajuan teknologi untuk meningkatkan pelayanan masyarakat dan transparansi informasi demi terwujudnya kemakmuran bersama yang berkesinambungan.
-                            </p>
+                            @if($profile && $profile->history)
+                                {!! nl2br(e($profile->history)) !!}
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -706,9 +699,11 @@
                 <div class="detail-profile-left">
                     <h2 class="detail-title">Profil Desa</h2>
                     <div class="title-underline"></div>
+                    @if($villageDetail && ($villageDetail->kecamatan || $villageDetail->kabupaten || $villageDetail->provinsi))
                     <p class="detail-description">
-                        Desa Duren terletak di Kecamatan {{ $villageDetail->kecamatan ?? 'Tengaran' }}, Kabupaten {{ $villageDetail->kabupaten ?? 'Semarang' }}, Provinsi {{ $villageDetail->provinsi ?? 'Jawa Tengah' }}. Desa ini memiliki potensi sumber daya alam yang melimpah serta masyarakat yang guyub dan berbudaya.
+                        Desa {{ $profile->village_name ?? '' }} terletak di Kecamatan {{ $villageDetail->kecamatan ?? '' }}, Kabupaten {{ $villageDetail->kabupaten ?? '' }}, Provinsi {{ $villageDetail->provinsi ?? '' }}.
                     </p>
+                    @endif
                     
                     <div class="detail-info-list">
                         <div class="info-item">
@@ -717,7 +712,7 @@
                                 <span class="info-label-text">Nama Desa</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">{{ $profile->village_name ?? 'Duren' }}</span>
+                            <span class="info-value">{{ $profile->village_name ?? '' }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -725,7 +720,7 @@
                                 <span class="info-label-text">Kecamatan</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">{{ $villageDetail->kecamatan ?? 'Tengaran' }}</span>
+                            <span class="info-value">{{ $villageDetail->kecamatan ?? '' }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -733,7 +728,7 @@
                                 <span class="info-label-text">Kabupaten</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">{{ $villageDetail->kabupaten ?? 'Semarang' }}</span>
+                            <span class="info-value">{{ $villageDetail->kabupaten ?? '' }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -741,7 +736,7 @@
                                 <span class="info-label-text">Provinsi</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">{{ $villageDetail->provinsi ?? 'Jawa Tengah' }}</span>
+                            <span class="info-value">{{ $villageDetail->provinsi ?? '' }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -749,7 +744,7 @@
                                 <span class="info-label-text">Kode Pos</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">{{ $villageDetail->zip_code ?? '50775' }}</span>
+                            <span class="info-value">{{ $villageDetail->zip_code ?? '' }}</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -757,7 +752,7 @@
                                 <span class="info-label-text">Luas Wilayah</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">{{ $demografi->luas_wilayah->male_count ?? '350' }} Ha</span>
+                            <span class="info-value">{{ $demografi->luas_wilayah->male_count ?? '' }} Ha</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -768,8 +763,6 @@
                             <span class="info-value">
                                 @if($demografi->total_penduduk)
                                     {{ number_format($demografi->total_penduduk->male_count + $demografi->total_penduduk->female_count, 0, ',', '.') }} Jiwa
-                                @else
-                                    2.450 Jiwa
                                 @endif
                             </span>
                         </div>
@@ -779,7 +772,7 @@
                                 <span class="info-label-text">Jumlah Dusun</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">{{ $villageDetail->dusun_count ?? '8' }} Dusun</span>
+                            <span class="info-value">{{ $villageDetail->dusun_count ?? '' }} Dusun</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -787,7 +780,7 @@
                                 <span class="info-label-text">Jumlah RW</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">{{ $villageDetail->rw_count ?? '8' }} RW</span>
+                            <span class="info-value">{{ $villageDetail->rw_count ?? '' }} RW</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label-wrapper">
@@ -795,7 +788,7 @@
                                 <span class="info-label-text">Jumlah RT</span>
                             </span>
                             <span class="info-colon">:</span>
-                            <span class="info-value">{{ $villageDetail->rt_count ?? '35' }} RT</span>
+                            <span class="info-value">{{ $villageDetail->rt_count ?? '' }} RT</span>
                         </div>
                     </div>
                 </div>
@@ -893,7 +886,7 @@
                             </div>
                             <div class="office-hours-content">
                                 <h4>Jam Pelayanan Kantor Desa</h4>
-                                <p>{{ $profile->office_hours ?? 'Senin - Kamis (08.00 - 15.00 WIB) | Jumat (08.00 - 11.30 WIB)' }}</p>
+                                <p>{{ $profile->office_hours ?? '' }}</p>
                             </div>
                         </div>
                     </div>

@@ -343,29 +343,27 @@
             <span class="separator">/</span>
             <span class="current">Pertanian & Peternakan</span>
         </nav>
-        <h1>{{ $agriProfile->title ?? 'Pertanian & Peternakan' }}</h1>
-        <p>{{ $agriProfile->subtitle ?? 'Menjelajahi potensi agraris dan kelimpahan sumber daya pangan lokal di Desa Duren, Kecamatan Tengaran' }}</p>
+        <h1>{{ $agriProfile->title ?? '' }}</h1>
+        <p>{{ $agriProfile->subtitle ?? '' }}</p>
     </section>
 
     <!-- CONTENT -->
     <div class="agri-container">
         
+        @if($agriProfile && ($agriProfile->description_1 || $agriProfile->description_2))
         <!-- PROFIL UMUM -->
         <div class="agri-section">
             <div class="agri-card">
                 <h2 class="agri-section-title"><i class="fa-solid fa-seedling"></i> Profil Sektor Agraris Desa</h2>
-                @if($agriProfile)
-                    @if($agriProfile->description_1)
-                        <p class="agri-desc-text">{{ $agriProfile->description_1 }}</p>
-                    @endif
-                    @if($agriProfile->description_2)
-                        <p class="agri-desc-text">{{ $agriProfile->description_2 }}</p>
-                    @endif
-                @else
-                    <p class="agri-desc-text">Data profil pertanian belum terisi.</p>
+                @if($agriProfile->description_1)
+                    <p class="agri-desc-text">{{ $agriProfile->description_1 }}</p>
+                @endif
+                @if($agriProfile->description_2)
+                    <p class="agri-desc-text">{{ $agriProfile->description_2 }}</p>
                 @endif
             </div>
         </div>
+        @endif
 
         <!-- STATISTIK LAHAN TANI -->
         <div class="agri-section">
