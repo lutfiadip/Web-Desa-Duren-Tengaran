@@ -37,7 +37,7 @@ class RegulationController extends Controller
             'number' => 'required|string|max:100',
             'year' => 'required|integer|min:1900|max:' . (date('Y') + 5),
             'description' => 'nullable|string',
-            'document_file' => 'required|file|mimes:pdf,doc,docx,zip|max:5120',
+            'document_file' => 'required|file|mimes:pdf,doc,docx,zip|max:2048',
             'status' => 'required|in:draft,published',
         ]);
 
@@ -71,7 +71,7 @@ class RegulationController extends Controller
             'number' => 'required|string|max:100',
             'year' => 'required|integer|min:1900|max:' . (date('Y') + 5),
             'description' => 'nullable|string',
-            'document_file' => 'nullable|file|mimes:pdf,doc,docx,zip|max:5120',
+            'document_file' => 'nullable|file|mimes:pdf,doc,docx,zip|max:2048',
             'status' => 'required|in:draft,published',
         ]);
 

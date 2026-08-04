@@ -191,32 +191,28 @@
 
         /* --- ALERTS --- */
         .alert {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            min-width: 320px;
+            max-width: 450px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             padding: 16px 20px;
             border-radius: var(--radius-md);
-            margin-bottom: 24px;
             font-weight: 600;
             font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease, padding 0.4s ease, margin-bottom 0.4s ease;
-            overflow: hidden;
-            max-height: 150px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             opacity: 1;
             transform: translateY(0);
         }
 
         .alert.hide {
             opacity: 0;
-            transform: translateY(-10px);
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            margin-bottom: 0;
-            border-top-width: 0;
-            border-bottom-width: 0;
-            border-left-width: 0;
-            border-right-width: 0;
+            transform: translateY(-20px);
         }
 
         .alert-success {

@@ -23,7 +23,7 @@ class ProfileController extends Controller
 
         $request->validate([
             'village_name' => 'required|string|max:255',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:1024',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'headman_name' => 'nullable|string|max:255',
             'headman_photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'headman_greeting' => 'nullable|string',
@@ -38,8 +38,8 @@ class ProfileController extends Controller
             'youtube' => 'nullable|string|max:255',
             'google_maps_url' => 'nullable|string',
             'office_hours' => 'nullable|string|max:255',
-            'organization_structure_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
-            'hero_bg_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'organization_structure_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'hero_bg_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'about_text' => 'nullable|string',
             'about_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);

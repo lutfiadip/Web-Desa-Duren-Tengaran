@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
             --primary: #1e3a8a;
@@ -162,32 +164,28 @@
         }
 
         .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            max-width: 400px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             padding: 12px 16px;
             border-radius: var(--radius-md);
-            margin-bottom: 20px;
             font-size: 0.9rem;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease, padding 0.4s ease, margin-bottom 0.4s ease;
-            overflow: hidden;
-            max-height: 150px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             opacity: 1;
             transform: translateY(0);
         }
 
         .alert.hide {
             opacity: 0;
-            transform: translateY(-10px);
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            margin-bottom: 0;
-            border-top-width: 0;
-            border-bottom-width: 0;
-            border-left-width: 0;
-            border-right-width: 0;
+            transform: translateY(-20px);
         }
 
         .alert-error {
@@ -203,6 +201,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="login-card">
@@ -213,7 +212,7 @@
 
         <div class="login-header">
             <h1>Login Admin</h1>
-            <p>Masukkan kredensial Anda untuk masuk ke panel admin.</p>
+            <p>Masukkan kredensial untuk masuk ke panel admin.</p>
         </div>
 
         @if(session('error'))
@@ -245,12 +244,14 @@
             @csrf
             <div class="form-group">
                 <label for="email">Alamat Email</label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="admin@duren.desa.id" required autofocus value="{{ old('email') }}">
+                <input type="email" id="email" name="email" class="form-control" placeholder="admin@duren.desa.id"
+                    required autofocus value="{{ old('email') }}">
             </div>
 
             <div class="form-group" style="margin-bottom: 25px;">
                 <label for="password">Kata Sandi</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+                <input type="password" id="password" name="password" class="form-control" placeholder="••••••••"
+                    required>
             </div>
 
             <div class="remember-forgot">
@@ -267,47 +268,48 @@
     </div>
 
 </body>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(function(alert) {
-                // Create close button
-                const closeBtn = document.createElement('button');
-                closeBtn.innerHTML = '&times;';
-                closeBtn.className = 'alert-close-btn';
-                
-                // Style close button dynamically
-                closeBtn.style.background = 'none';
-                closeBtn.style.border = 'none';
-                closeBtn.style.fontSize = '1.3rem';
-                closeBtn.style.lineHeight = '1';
-                closeBtn.style.cursor = 'pointer';
-                closeBtn.style.marginLeft = 'auto';
-                closeBtn.style.padding = '0 0 0 12px';
-                closeBtn.style.color = 'inherit';
-                closeBtn.style.opacity = '0.5';
-                closeBtn.style.transition = 'opacity 0.2s';
-                closeBtn.setAttribute('aria-label', 'Close alert');
-                
-                closeBtn.addEventListener('mouseenter', () => closeBtn.style.opacity = '1');
-                closeBtn.addEventListener('mouseleave', () => closeBtn.style.opacity = '0.5');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function (alert) {
+            // Create close button
+            const closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '&times;';
+            closeBtn.className = 'alert-close-btn';
 
-                alert.appendChild(closeBtn);
+            // Style close button dynamically
+            closeBtn.style.background = 'none';
+            closeBtn.style.border = 'none';
+            closeBtn.style.fontSize = '1.3rem';
+            closeBtn.style.lineHeight = '1';
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.style.marginLeft = 'auto';
+            closeBtn.style.padding = '0 0 0 12px';
+            closeBtn.style.color = 'inherit';
+            closeBtn.style.opacity = '0.5';
+            closeBtn.style.transition = 'opacity 0.2s';
+            closeBtn.setAttribute('aria-label', 'Close alert');
 
-                // Dismiss function
-                const dismiss = () => {
-                    alert.classList.add('hide');
-                    setTimeout(() => {
-                        alert.remove();
-                    }, 400); // Wait for CSS transition
-                };
+            closeBtn.addEventListener('mouseenter', () => closeBtn.style.opacity = '1');
+            closeBtn.addEventListener('mouseleave', () => closeBtn.style.opacity = '0.5');
 
-                // Close button click listener
-                closeBtn.addEventListener('click', dismiss);
+            alert.appendChild(closeBtn);
 
-                // Auto-dismiss after 4 seconds
-                setTimeout(dismiss, 4000);
-            });
+            // Dismiss function
+            const dismiss = () => {
+                alert.classList.add('hide');
+                setTimeout(() => {
+                    alert.remove();
+                }, 400); // Wait for CSS transition
+            };
+
+            // Close button click listener
+            closeBtn.addEventListener('click', dismiss);
+
+            // Auto-dismiss after 4 seconds
+            setTimeout(dismiss, 4000);
         });
-    </script>
+    });
+</script>
+
 </html>

@@ -201,7 +201,7 @@
                 <input type="file" id="organization_structure_image" name="organization_structure_image"
                     class="form-control" accept="image/*">
                 <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal file:
-                    3MB.</span>
+                    2 MB.</span>
             </div>
 
             <div
