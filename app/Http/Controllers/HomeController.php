@@ -80,7 +80,26 @@ class HomeController extends Controller
         $demografi->rw = DemographicStatistic::where('label', 'Rukun Warga')->first();
         $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();
 
-        return view('profile', compact('profile', 'demografi', 'villageDetail'));
+        $defaultOrder = [
+            'detail_wilayah',
+            'sambutan_kades',
+            'visi_misi',
+            'sejarah',
+            'struktur_organisasi',
+            'geografis_dusun'
+        ];
+        
+        $sectionsOrder = ($profile && $profile->profile_sections_order)
+            ? explode(',', $profile->profile_sections_order)
+            : $defaultOrder;
+            
+        foreach ($defaultOrder as $sec) {
+            if (!in_array($sec, $sectionsOrder)) {
+                $sectionsOrder[] = $sec;
+            }
+        }
+
+        return view('profile', compact('profile', 'demografi', 'villageDetail', 'sectionsOrder'));
     }
 
     public function officials()

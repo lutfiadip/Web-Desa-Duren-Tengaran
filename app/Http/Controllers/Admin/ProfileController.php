@@ -19,7 +19,26 @@ class ProfileController extends Controller
         $demografi->total_penduduk = DemographicStatistic::where('label', 'Total Penduduk')->first();
         $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();
 
-        return view('admin.profile.edit', compact('profile', 'villageDetail', 'demografi'));
+        $defaultOrder = [
+            'detail_wilayah',
+            'sambutan_kades',
+            'visi_misi',
+            'sejarah',
+            'struktur_organisasi',
+            'geografis_dusun'
+        ];
+        
+        $sectionsOrder = $profile->profile_sections_order 
+            ? explode(',', $profile->profile_sections_order) 
+            : $defaultOrder;
+            
+        foreach ($defaultOrder as $sec) {
+            if (!in_array($sec, $sectionsOrder)) {
+                $sectionsOrder[] = $sec;
+            }
+        }
+
+        return view('admin.profile.edit', compact('profile', 'villageDetail', 'demografi', 'sectionsOrder'));
     }
 
     public function update(Request $request)
@@ -72,6 +91,15 @@ class ProfileController extends Controller
             'rt_count' => 'nullable|integer|min:0',
             'publish_village_detail' => 'nullable|boolean',
             'village_detail_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'profile_sections_order' => 'nullable|string',
+            'map_miri' => 'nullable|string',
+            'map_dukuh' => 'nullable|string',
+            'map_krajan' => 'nullable|string',
+            'map_babadan' => 'nullable|string',
+            'map_ngepringan' => 'nullable|string',
+            'map_tanubayu' => 'nullable|string',
+            'map_gading' => 'nullable|string',
+            'map_karangwuni' => 'nullable|string',
         ]);
 
         $data = $request->except([
