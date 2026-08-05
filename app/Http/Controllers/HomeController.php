@@ -86,6 +86,9 @@ class HomeController extends Controller
     public function officials()
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_officials) {
+            return redirect()->route('home')->with('error', 'Halaman Perangkat Desa saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         // Get officials grouped by hierarchy
@@ -104,6 +107,9 @@ class HomeController extends Controller
     public function regulations()
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_regulations) {
+            return redirect()->route('home')->with('error', 'Halaman Peraturan Desa saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         // Get all published regulations
@@ -122,6 +128,9 @@ class HomeController extends Controller
     public function tourism()
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_tourism && !$profile->publish_culture) {
+            return redirect()->route('home')->with('error', 'Halaman Wisata dan Budaya saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $attractions = TouristAttraction::where('status', 'published')
@@ -140,6 +149,9 @@ class HomeController extends Controller
     public function tourismDetail($slug)
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_tourism) {
+            return redirect()->route('home')->with('error', 'Halaman Detail Wisata saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $attraction = TouristAttraction::where('slug', $slug)
@@ -158,6 +170,9 @@ class HomeController extends Controller
     public function cultureDetail($slug)
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_culture) {
+            return redirect()->route('home')->with('error', 'Halaman Detail Budaya saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $culture = Culture::where('slug', $slug)
@@ -176,6 +191,9 @@ class HomeController extends Controller
     public function umkm()
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_umkm) {
+            return redirect()->route('home')->with('error', 'Halaman UMKM Desa saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $umkms = Umkm::with('category')
@@ -191,6 +209,9 @@ class HomeController extends Controller
     public function umkmDetail($slug)
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_umkm) {
+            return redirect()->route('home')->with('error', 'Halaman Detail UMKM saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $umkm = Umkm::with('category')
@@ -210,6 +231,9 @@ class HomeController extends Controller
     public function agriculture()
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_agriculture) {
+            return redirect()->route('home')->with('error', 'Halaman Pertanian & Peternakan saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $agriProfile = AgricultureProfile::first();
@@ -223,6 +247,9 @@ class HomeController extends Controller
     public function agricultureDetail($slug)
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_agriculture) {
+            return redirect()->route('home')->with('error', 'Halaman Detail Komoditas saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $commodity = AgricultureCommodity::where('slug', $slug)->where('status', 'published')->firstOrFail();
@@ -239,6 +266,9 @@ class HomeController extends Controller
     public function institutions()
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_institutions) {
+            return redirect()->route('home')->with('error', 'Halaman Kelembagaan saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $categories = CommunityInstitutionCategory::where('name', 'LIKE', '%Lembaga Kemasyarakatan%')
@@ -252,6 +282,9 @@ class HomeController extends Controller
     public function institutionDetail($slug)
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_institutions) {
+            return redirect()->route('home')->with('error', 'Halaman Detail Lembaga saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $institution = CommunityInstitution::where('slug', $slug)
@@ -268,6 +301,9 @@ class HomeController extends Controller
     public function organizations()
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_institutions) {
+            return redirect()->route('home')->with('error', 'Halaman Organisasi Kemasyarakatan saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $categories = CommunityInstitutionCategory::where('name', 'LIKE', '%Organisasi Kemasyarakatan%')
@@ -281,6 +317,9 @@ class HomeController extends Controller
     public function organizationDetail($slug)
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_institutions) {
+            return redirect()->route('home')->with('error', 'Halaman Detail Organisasi saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $institution = CommunityInstitution::where('slug', $slug)
@@ -297,6 +336,9 @@ class HomeController extends Controller
     public function news(Request $request)
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_news) {
+            return redirect()->route('home')->with('error', 'Halaman Berita Desa saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $query = News::where('status', 'published')->with('category')->orderBy('published_at', 'desc');
@@ -327,6 +369,9 @@ class HomeController extends Controller
     public function newsDetail($slug)
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_news) {
+            return redirect()->route('home')->with('error', 'Halaman Detail Berita saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         $article = News::where('slug', $slug)
@@ -355,6 +400,9 @@ class HomeController extends Controller
     public function statistics()
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_statistics) {
+            return redirect()->route('home')->with('error', 'Halaman Statistik Penduduk saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
 
         // Fetch latest data for each statistic type

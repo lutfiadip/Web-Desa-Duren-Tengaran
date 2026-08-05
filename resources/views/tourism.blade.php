@@ -326,6 +326,7 @@
     <div class="tourism-container">
 
         <!-- TOURISM SECTION -->
+        @if($profile->publish_tourism ?? true)
         <section style="margin-bottom: 80px;">
             <div class="section-title-wrapper">
                 <span class="section-subtitle">Destinasi Alam</span>
@@ -400,8 +401,10 @@
                 @endforelse
             </div>
         </section>
+        @endif
 
         <!-- CULTURE SECTION -->
+        @if($profile->publish_culture ?? true)
         <section>
             <div class="section-title-wrapper">
                 <span class="section-subtitle">Warisan Leluhur</span>
@@ -455,6 +458,7 @@
                 @endforelse
             </div>
         </section>
+        @endif
 
     </div>
 

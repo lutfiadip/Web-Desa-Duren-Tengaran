@@ -120,6 +120,22 @@
 @endsection
 
 @section('content')
+    <!-- Toggle Publikasi Halaman -->
+    <div class="card" style="margin-bottom: 25px; padding: 24px; border: 1px solid var(--border-color); border-radius: var(--radius-lg); background-color: var(--white); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <i class="fa-solid fa-globe" style="color: var(--primary-light);"></i> Status Publikasi Halaman Statistik
+                </h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; margin-bottom: 0;">Tentukan apakah Halaman Statistik Penduduk & Widget Demografi dipublikasikan di website.</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" class="global-publish-toggle" data-key="publish_statistics" {{ ($profile->publish_statistics ?? true) ? 'checked' : '' }}>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
         <div>
             <h1 style="font-size: 2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px;">Manajemen Statistik Penduduk</h1>

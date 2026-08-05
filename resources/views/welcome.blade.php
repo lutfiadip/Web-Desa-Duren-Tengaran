@@ -673,6 +673,7 @@
         </div>
 
         <!-- DEMOGRAPHICS (Right Side Floating) -->
+        @if($profile->publish_statistics ?? true)
         <div class="demographics-section">
             <div class="demographics-row">
                 <div class="demo-item">
@@ -711,9 +712,11 @@
                 </div>
             </div>
         </div>
+        @endif
     </section>
 
     <!-- SAMBUTAN KEPALA DESA SECTION -->
+    @if($profile->publish_about ?? true)
     <section class="welcome-section" style="padding: 20px 5%;">
         <div class="section-card" style="width: 100%; max-width: 1400px; margin: 0 auto;">
             <div class="welcome-grid">
@@ -738,8 +741,10 @@
             </div>
         </div>
     </section>
+    @endif
 
     <!-- POTENSI DESA -->
+    @if(($profile->publish_agriculture ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_tourism ?? true))
     <section id="potensi" class="section">
         <div class="section-card">
             <div class="section-header" style="margin-bottom: 30px;">
@@ -748,39 +753,49 @@
             </div>
     
             <div class="quick-grid" style="margin-top: 0;">
-                <a href="#" style="text-decoration: none;">
+                @if($profile->publish_agriculture ?? true)
+                <a href="{{ route('potensi.agriculture') }}" style="text-decoration: none;">
                     <div class="quick-box">
                         <i class="fa-solid fa-wheat-awn quick-icon"></i>
                         <h3>Pertanian</h3>
                         <p style="color: var(--text-muted); font-size: 0.9rem;">Lahan subur dengan komoditas unggulan padi dan palawija.</p>
                     </div>
                 </a>
-                <a href="#" style="text-decoration: none;">
+                <a href="{{ route('potensi.agriculture') }}" style="text-decoration: none;">
                     <div class="quick-box">
                         <i class="fa-solid fa-cow quick-icon"></i>
                         <h3>Peternakan</h3>
                         <p style="color: var(--text-muted); font-size: 0.9rem;">Pusat pengembangan hewan ternak seperti sapi dan kambing.</p>
                     </div>
                 </a>
-                <a href="#" style="text-decoration: none;">
+                @endif
+
+                @if($profile->publish_umkm ?? true)
+                <a href="{{ route('umkm') }}" style="text-decoration: none;">
                     <div class="quick-box">
                         <i class="fa-solid fa-shop quick-icon"></i>
                         <h3>UMKM</h3>
                         <p style="color: var(--text-muted); font-size: 0.9rem;">Produk kerajinan dan makanan khas hasil karya warga desa.</p>
                     </div>
                 </a>
-                <a href="#" style="text-decoration: none;">
+                @endif
+
+                @if($profile->publish_tourism ?? true)
+                <a href="{{ route('tourism') }}" style="text-decoration: none;">
                     <div class="quick-box">
                         <i class="fa-solid fa-mountain-sun quick-icon"></i>
                         <h3>Pariwisata</h3>
                         <p style="color: var(--text-muted); font-size: 0.9rem;">Pesona alam asri yang menarik bagi wisatawan lokal.</p>
                     </div>
                 </a>
+                @endif
             </div>
         </div>
     </section>
+    @endif
 
     <!-- UMKM UNGGULAN -->
+    @if($profile->publish_umkm ?? true)
     <section id="umkm" class="section">
         <div class="section-card">
             <div class="section-header" style="margin-bottom: 30px;">
@@ -841,8 +856,10 @@
             </div>
         </div>
     </section>
+    @endif
 
     <!-- BERITA & PENGUMUMAN -->
+    @if($profile->publish_news ?? true)
     <section id="berita" class="section">
         <div class="section-card">
             <div class="section-header" style="margin-bottom: 30px;">
@@ -862,13 +879,14 @@
                         </div>
                         <h3 class="card-title">{{ $item->title }}</h3>
                         <p class="card-desc">{{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}</p>
-                        <a href="#" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
+                        <a href="{{ route('news.detail', $item->slug) }}" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
                     </div>
                 </div>
                 @endforeach
             </div>
         </div>
     </section>
+    @endif
 
     <!-- GALERI DESA -->
     <section id="galeri" class="section">

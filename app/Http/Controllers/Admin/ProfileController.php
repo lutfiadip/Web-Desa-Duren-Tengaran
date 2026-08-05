@@ -43,9 +43,38 @@ class ProfileController extends Controller
             'about_text' => 'nullable|string',
             'about_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'history_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'publish_headman_greeting' => 'nullable|boolean',
+            'publish_vision_mission' => 'nullable|boolean',
+            'publish_history' => 'nullable|boolean',
+            'publish_organization_structure' => 'nullable|boolean',
+            'publish_geographics' => 'nullable|boolean',
+            'publish_about' => 'nullable|boolean',
+            'publish_statistics' => 'nullable|boolean',
+            'publish_officials' => 'nullable|boolean',
+            'publish_regulations' => 'nullable|boolean',
+            'publish_news' => 'nullable|boolean',
+            'publish_tourism' => 'nullable|boolean',
+            'publish_umkm' => 'nullable|boolean',
+            'publish_agriculture' => 'nullable|boolean',
+            'publish_institutions' => 'nullable|boolean',
         ]);
 
         $data = $request->except(['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image', 'about_image', 'history_image']);
+
+        $profileToggleFields = [
+            'publish_headman_greeting',
+            'publish_vision_mission',
+            'publish_history',
+            'publish_organization_structure',
+            'publish_geographics',
+            'publish_about',
+            'publish_agriculture',
+            'publish_institutions',
+        ];
+
+        foreach ($profileToggleFields as $toggleField) {
+            $data[$toggleField] = $request->has($toggleField) ? true : false;
+        }
 
         // Upload images
         $imageFields = ['logo', 'headman_photo', 'organization_structure_image', 'hero_bg_image', 'about_image', 'history_image'];
@@ -70,5 +99,41 @@ class ProfileController extends Controller
         }
 
         return redirect()->route('admin.profile.edit')->with('success', 'Profil Desa berhasil diperbarui.');
+    }
+
+    public function updateSetting(Request $request)
+    {
+        $profile = VillageProfile::first();
+        if (!$profile) {
+            $profile = new VillageProfile();
+        }
+
+        $key = $request->input('key');
+        $value = $request->input('value') == '1' ? true : false;
+
+        $allowedKeys = [
+            'publish_headman_greeting',
+            'publish_vision_mission',
+            'publish_history',
+            'publish_organization_structure',
+            'publish_geographics',
+            'publish_about',
+            'publish_statistics',
+            'publish_officials',
+            'publish_regulations',
+            'publish_news',
+            'publish_tourism',
+            'publish_umkm',
+            'publish_agriculture',
+            'publish_institutions',
+        ];
+
+        if (in_array($key, $allowedKeys)) {
+            $profile->$key = $value;
+            $profile->save();
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Kunci tidak diperbolehkan.'], 400);
     }
 }

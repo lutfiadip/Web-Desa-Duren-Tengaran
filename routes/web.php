@@ -33,6 +33,7 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile/edit', [App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/update-setting', [App\Http\Controllers\Admin\ProfileController::class, 'updateSetting'])->name('profile.update-setting');
     
     Route::resource('news', App\Http\Controllers\Admin\NewsController::class)->except(['show']);
     Route::resource('regulations', App\Http\Controllers\Admin\RegulationController::class)->except(['show']);

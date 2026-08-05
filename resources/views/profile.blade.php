@@ -611,6 +611,7 @@
     <div class="profile-container">
 
         <!-- SAMBUTAN KEPALA DESA SECTION -->
+        @if($profile->publish_headman_greeting ?? true)
         <section class="profile-section">
             <div class="profile-section-card">
                 <div class="kades-greeting-layout">
@@ -639,8 +640,10 @@
                 </div>
             </div>
         </section>
+        @endif
 
         <!-- VISI & MISI SECTION -->
+        @if($profile->publish_vision_mission ?? true)
         <section class="profile-section">
             <div class="profile-section-card">
                 <h2 class="profile-section-title">Visi & Misi</h2>
@@ -676,8 +679,10 @@
                 </div>
             </div>
         </section>
+        @endif
 
         <!-- SEJARAH SECTION -->
+        @if($profile->publish_history ?? true)
         <section class="profile-section">
             <div class="profile-section-card">
                 <div class="history-layout {{ $profile && $profile->history_image ? '' : 'no-image' }}">
@@ -698,6 +703,19 @@
                 </div>
             </div>
         </section>
+        @endif
+
+        <!-- STRUKTUR ORGANISASI SECTION -->
+        @if(($profile->publish_organization_structure ?? true) && ($profile->organization_structure_image ?? false))
+        <section class="profile-section">
+            <div class="profile-section-card" style="text-align: center;">
+                <h2 class="profile-section-title">Struktur Organisasi</h2>
+                <div style="margin-top: 30px;">
+                    <img src="{{ asset($profile->organization_structure_image) }}" alt="Struktur Organisasi Desa {{ $profile->village_name ?? '' }}" style="max-width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                </div>
+            </div>
+        </section>
+        @endif
 
         <!-- DETAIL PROFIL DESA SECTION -->
         <section class="profile-section">
@@ -806,6 +824,7 @@
         </section>
 
         <!-- GEOGRAFIS & WILAYAH DUSUN SECTION -->
+        @if($profile->publish_geographics ?? true)
         <section id="peta-desa" class="profile-section" style="margin-bottom: 0;">
             <div class="profile-section-card">
                 <h2 class="profile-section-title">Geografis & Wilayah Dusun</h2>
@@ -943,6 +962,7 @@
                 </div>
             </div>
         </section>
+        @endif
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

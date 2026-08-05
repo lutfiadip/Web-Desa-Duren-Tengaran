@@ -449,6 +449,49 @@
             color: var(--white);
             border-color: var(--primary-light);
         }
+
+        /* Switch Toggle Styling */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: .25s ease;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .25s ease;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+        input:checked + .slider {
+            background-color: var(--primary-light);
+        }
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
     </style>
     @yield('styles')
 </head>
@@ -609,6 +652,75 @@
                 // Auto-dismiss after 4 seconds
                 setTimeout(dismiss, 4000);
             });
+
+            // AJAX toggle for global publish settings
+            const toggles = document.querySelectorAll('.global-publish-toggle');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    const key = this.getAttribute('data-key');
+                    const value = this.checked ? 1 : 0;
+                    
+                    fetch('{{ route("admin.profile.update-setting") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({ key: key, value: value })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Status publikasi berhasil diperbarui.', 'success');
+                        } else {
+                            showToast(data.message || 'Gagal memperbarui status publikasi.', 'error');
+                            this.checked = !this.checked;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating setting:', error);
+                        showToast('Terjadi kesalahan koneksi.', 'error');
+                        this.checked = !this.checked;
+                    });
+                });
+            });
+
+            function showToast(message, type) {
+                // Remove existing toast first if any
+                const existingToast = document.querySelector('.toast-notification');
+                if (existingToast) {
+                    existingToast.remove();
+                }
+
+                const toast = document.createElement('div');
+                toast.className = `alert alert-${type === 'success' ? 'success' : 'error'} toast-notification`;
+                toast.style.position = 'fixed';
+                toast.style.top = '24px';
+                toast.style.right = '24px';
+                toast.style.zIndex = '9999';
+                toast.style.minWidth = '320px';
+                toast.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+                toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-xmark'}"></i> <span style="flex-grow: 1;">${message}</span>`;
+                
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '&times;';
+                closeBtn.style.background = 'none';
+                closeBtn.style.border = 'none';
+                closeBtn.style.fontSize = '1.3rem';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.marginLeft = 'auto';
+                closeBtn.style.color = 'inherit';
+                closeBtn.style.paddingLeft = '12px';
+                closeBtn.addEventListener('click', () => toast.remove());
+                toast.appendChild(closeBtn);
+                
+                document.body.appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transition = 'opacity 0.4s ease';
+                    setTimeout(() => toast.remove(), 400);
+                }, 3000);
+            }
         });
     </script>
 </body>

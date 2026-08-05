@@ -334,25 +334,40 @@
             <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a></li>
             <li><a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') ? 'active' : '' }}">Profil Desa</a></li>
 
+            @if(($profile->publish_officials ?? true) || ($profile->publish_regulations ?? true))
             <li class="dropdown">
                 <a href="#" class="{{ request()->routeIs('officials') || request()->routeIs('regulations') ? 'active' : '' }}">Pemerintahan <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
-                    <li><a href="{{ route('regulations') }}">Peraturan Desa</a></li>
+                    @if($profile->publish_officials ?? true)
+                        <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
+                    @endif
+                    @if($profile->publish_regulations ?? true)
+                        <li><a href="{{ route('regulations') }}">Peraturan Desa</a></li>
+                    @endif
                 </ul>
             </li>
+            @endif
 
+            @if(($profile->publish_tourism ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_agriculture ?? true))
             <li class="dropdown">
                 <a href="#" class="{{ request()->routeIs('tourism') || request()->routeIs('umkm') || request()->routeIs('potensi.agriculture') ? 'active' : '' }}">Potensi <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ route('tourism') }}">Wisata dan Budaya</a></li>
-                    <li><a href="{{ route('umkm') }}">UMKM</a></li>
-                    <li><a href="{{ route('potensi.agriculture') }}">Pertanian & Peternakan</a></li>
+                    @if($profile->publish_tourism ?? true)
+                        <li><a href="{{ route('tourism') }}">Wisata dan Budaya</a></li>
+                    @endif
+                    @if($profile->publish_umkm ?? true)
+                        <li><a href="{{ route('umkm') }}">UMKM</a></li>
+                    @endif
+                    @if($profile->publish_agriculture ?? true)
+                        <li><a href="{{ route('potensi.agriculture') }}">Pertanian & Peternakan</a></li>
+                    @endif
                 </ul>
             </li>
+            @endif
 
+            @if($profile->publish_institutions ?? true)
             <li class="dropdown">
                 <a href="#" class="{{ request()->routeIs('institutions') || request()->routeIs('institution.detail') || request()->routeIs('organizations') || request()->routeIs('organization.detail') ? 'active' : '' }}">Kelembagaan <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
@@ -361,9 +376,14 @@
                     <li><a href="{{ route('organizations') }}">Organisasi Masyarakat</a></li>
                 </ul>
             </li>
+            @endif
 
-            <li><a href="{{ route('news') }}" class="{{ request()->routeIs('news') || request()->routeIs('news.detail') ? 'active' : '' }}">Berita</a></li>
-            <li><a href="{{ route('statistics') }}" class="{{ request()->routeIs('statistics') ? 'active' : '' }}">Statistik</a></li>
+            @if($profile->publish_news ?? true)
+                <li><a href="{{ route('news') }}" class="{{ request()->routeIs('news') || request()->routeIs('news.detail') ? 'active' : '' }}">Berita</a></li>
+            @endif
+            @if($profile->publish_statistics ?? true)
+                <li><a href="{{ route('statistics') }}" class="{{ request()->routeIs('statistics') ? 'active' : '' }}">Statistik</a></li>
+            @endif
             <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Kontak</a></li>
         </ul>
     </header>
@@ -410,19 +430,33 @@
                 <h4>Profil & Pemerintahan</h4>
                 <ul>
                     <li><a href="{{ route('profile') }}">Profil Desa</a></li>
-                    <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
-                    <li><a href="{{ route('regulations') }}">Peraturan Desa</a></li>
-                    <li><a href="{{ route('news') }}">Berita Desa</a></li>
-                    <li><a href="{{ route('statistics') }}">Statistik Penduduk</a></li>
+                    @if($profile->publish_officials ?? true)
+                        <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
+                    @endif
+                    @if($profile->publish_regulations ?? true)
+                        <li><a href="{{ route('regulations') }}">Peraturan Desa</a></li>
+                    @endif
+                    @if($profile->publish_news ?? true)
+                        <li><a href="{{ route('news') }}">Berita Desa</a></li>
+                    @endif
+                    @if($profile->publish_statistics ?? true)
+                        <li><a href="{{ route('statistics') }}">Statistik Penduduk</a></li>
+                    @endif
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h4>Potensi & Kelembagaan</h4>
                 <ul>
-                    <li><a href="{{ route('umkm') }}">Potensi UMKM</a></li>
-                    <li><a href="{{ route('tourism') }}">Wisata & Budaya</a></li>
-                    <li><a href="{{ route('institutions') }}">Lembaga Masyarakat</a></li>
+                    @if($profile->publish_umkm ?? true)
+                        <li><a href="{{ route('umkm') }}">Potensi UMKM</a></li>
+                    @endif
+                    @if($profile->publish_tourism ?? true)
+                        <li><a href="{{ route('tourism') }}">Wisata & Budaya</a></li>
+                    @endif
+                    @if($profile->publish_institutions ?? true)
+                        <li><a href="{{ route('institutions') }}">Lembaga Masyarakat</a></li>
+                    @endif
                     <li><a href="{{ route('contact') }}">Kontak Kami</a></li>
                 </ul>
             </div>

@@ -57,10 +57,18 @@
             </div>
 
             <!-- KELOMPOK 2: KEPALA DESA -->
-            <h3
-                style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                <i class="fa-solid fa-user-tie"></i> Profil Kepala Desa
-            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin: 0;">
+                    <i class="fa-solid fa-user-tie"></i> Profil Kepala Desa
+                </h3>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Sambutan:</span>
+                    <label class="switch">
+                        <input type="checkbox" name="publish_headman_greeting" value="1" {{ old('publish_headman_greeting', $profile->publish_headman_greeting) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
 
             <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
                 <div class="form-group">
@@ -89,10 +97,18 @@
             </div>
 
             <!-- KELOMPOK 3: SEJARAH DESA -->
-            <h3
-                style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                <i class="fa-solid fa-clock-rotate-left"></i> Sejarah Desa
-            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin: 0;">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Sejarah Desa
+                </h3>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Sejarah:</span>
+                    <label class="switch">
+                        <input type="checkbox" name="publish_history" value="1" {{ old('publish_history', $profile->publish_history) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
 
             <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 25px;">
                 <div class="form-group">
@@ -115,10 +131,18 @@
             </div>
 
             <!-- KELOMPOK 4: VISI & MISI DESA -->
-            <h3
-                style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                <i class="fa-solid fa-bullseye"></i> Visi & Misi Desa
-            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin: 0;">
+                    <i class="fa-solid fa-bullseye"></i> Visi & Misi Desa
+                </h3>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Visi Misi:</span>
+                    <label class="switch">
+                        <input type="checkbox" name="publish_vision_mission" value="1" {{ old('publish_vision_mission', $profile->publish_vision_mission) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
 
             <div class="form-group" style="margin-bottom: 20px;">
                 <label for="vision">Visi Desa</label>
@@ -133,10 +157,18 @@
             </div>
 
             <!-- KELOMPOK 5: DESKRIPSI & FOTO TENTANG DESA (BERANDA) -->
-            <h3
-                style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                <i class="fa-solid fa-house-chimney"></i> Deskripsi & Foto Beranda (Tentang Desa)
-            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin: 0;">
+                    <i class="fa-solid fa-house-chimney"></i> Deskripsi & Foto Beranda (Tentang Desa)
+                </h3>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Tentang Desa:</span>
+                    <label class="switch">
+                        <input type="checkbox" name="publish_about" value="1" {{ old('publish_about', $profile->publish_about) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
 
             <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 25px;">
                 <div class="form-group">
@@ -158,10 +190,18 @@
             </div>
 
             <!-- KELOMPOK 6: KONTAK & MEDIA SOSIAL -->
-            <h3
-                style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                <i class="fa-solid fa-address-book"></i> Kontak & Media Sosial Resmi
-            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin: 0;">
+                    <i class="fa-solid fa-address-book"></i> Kontak & Media Sosial Resmi
+                </h3>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Peta & Geografis:</span>
+                    <label class="switch">
+                        <input type="checkbox" name="publish_geographics" value="1" {{ old('publish_geographics', $profile->publish_geographics) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
@@ -211,10 +251,18 @@
             </div>
 
             <!-- KELOMPOK 7: STRUKTUR ORGANISASI -->
-            <h3
-                style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                <i class="fa-solid fa-sitemap"></i> Struktur Organisasi
-            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin: 0;">
+                    <i class="fa-solid fa-sitemap"></i> Struktur Organisasi
+                </h3>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Struktur Organisasi:</span>
+                    <label class="switch">
+                        <input type="checkbox" name="publish_organization_structure" value="1" {{ old('publish_organization_structure', $profile->publish_organization_structure) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label for="organization_structure_image">Bagan Struktur Organisasi Pemerintah Desa (Gambar)</label>
@@ -228,6 +276,37 @@
                     class="form-control" accept="image/*">
                 <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal file:
                     2 MB.</span>
+            </div>
+
+            <!-- KELOMPOK 8: HALAMAN LAINNYA (TANPA KELOLA MANUAL) -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin: 0;">
+                    <i class="fa-solid fa-cubes"></i> Publikasi Halaman Tambahan
+                </h3>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background-color: #f8fafc; padding: 15px; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin: 0;">
+                    <div>
+                        <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 2px; display: block;">Halaman Pertanian & Peternakan</label>
+                        <span style="font-size: 0.75rem; color: var(--text-muted); display: block; line-height: 1.3;">Tampilkan potensi komoditas pertanian dan peternakan di website.</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" name="publish_agriculture" value="1" {{ old('publish_agriculture', $profile->publish_agriculture) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background-color: #f8fafc; padding: 15px; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin: 0;">
+                    <div>
+                        <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 2px; display: block;">Halaman Lembaga & Organisasi</label>
+                        <span style="font-size: 0.75rem; color: var(--text-muted); display: block; line-height: 1.3;">Tampilkan informasi lembaga kemasyarakatan di website.</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" name="publish_institutions" value="1" {{ old('publish_institutions', $profile->publish_institutions) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </div>
 
             <div

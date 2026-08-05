@@ -3,6 +3,22 @@
 @section('title', 'Kelola UMKM Desa')
 
 @section('content')
+<!-- Toggle Publikasi Halaman -->
+<div class="card" style="margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div>
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 8px; margin: 0;">
+                <i class="fa-solid fa-globe" style="color: var(--primary-light);"></i> Status Publikasi Halaman UMKM
+            </h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Tentukan apakah Halaman UMKM Desa dipublikasikan secara umum di website.</p>
+        </div>
+        <label class="switch">
+            <input type="checkbox" class="global-publish-toggle" data-key="publish_umkm" {{ ($profile->publish_umkm ?? true) ? 'checked' : '' }}>
+            <span class="slider"></span>
+        </label>
+    </div>
+</div>
+
 <div class="card">
     <div class="card-header">
         <h2>Daftar Usaha Mikro Kecil Menengah (UMKM)</h2>
