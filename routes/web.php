@@ -31,6 +31,12 @@ Route::post('/admin/logout', [App\Http\Controllers\Admin\AdminAuthController::cl
 // Protected Admin Dashboard & CRUD Routes
 Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('dashboard');
+    
+    // Homepage Settings
+    Route::get('/homepage/edit', [App\Http\Controllers\Admin\ProfileController::class, 'editHomepage'])->name('homepage.edit');
+    Route::put('/homepage/update', [App\Http\Controllers\Admin\ProfileController::class, 'updateHomepage'])->name('homepage.update');
+
+    // Profile Settings
     Route::get('/profile/edit', [App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/update-setting', [App\Http\Controllers\Admin\ProfileController::class, 'updateSetting'])->name('profile.update-setting');

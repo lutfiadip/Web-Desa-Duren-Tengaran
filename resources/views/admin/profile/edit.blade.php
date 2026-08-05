@@ -33,26 +33,99 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+                <label for="logo">Logo Desa</label>
+                @if($profile->logo)
+                    <div style="margin-bottom: 10px;">
+                        <img src="{{ asset($profile->logo) }}" alt="Logo Desa" style="height: 60px; object-fit: contain;">
+                    </div>
+                @endif
+                <input type="file" id="logo" name="logo" class="form-control" accept="image/*">
+            </div>
+
+            <!-- KELOMPOK BARU: DETAIL WILAYAH & GEOGRAFIS -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin: 0;">
+                    <i class="fa-solid fa-map-location-dot"></i> Detail Wilayah & Geografis Desa
+                </h3>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Detail Profil Desa:</span>
+                    <label class="switch">
+                        <input type="checkbox" name="publish_village_detail" value="1" {{ old('publish_village_detail', $profile->publish_village_detail ?? true) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                 <div class="form-group">
-                    <label for="logo">Logo</label>
-                    @if($profile->logo)
-                        <div style="margin-bottom: 10px;">
-                            <img src="{{ asset($profile->logo) }}" alt="Logo Desa" style="height: 60px; object-fit: contain;">
-                        </div>
-                    @endif
-                    <input type="file" id="logo" name="logo" class="form-control" accept="image/*">
+                    <label for="kecamatan">Kecamatan</label>
+                    <input type="text" id="kecamatan" name="kecamatan" class="form-control"
+                        value="{{ old('kecamatan', $villageDetail->kecamatan ?? '') }}" placeholder="Kecamatan">
                 </div>
 
                 <div class="form-group">
-                    <label for="hero_bg_image">Gambar Latar Beranda</label>
-                    @if($profile->hero_bg_image)
+                    <label for="kabupaten">Kabupaten</label>
+                    <input type="text" id="kabupaten" name="kabupaten" class="form-control"
+                        value="{{ old('kabupaten', $villageDetail->kabupaten ?? '') }}" placeholder="Kabupaten">
+                </div>
+
+                <div class="form-group">
+                    <label for="provinsi">Provinsi</label>
+                    <input type="text" id="provinsi" name="provinsi" class="form-control"
+                        value="{{ old('provinsi', $villageDetail->provinsi ?? '') }}" placeholder="Provinsi">
+                </div>
+
+                <div class="form-group">
+                    <label for="zip_code">Kode Pos</label>
+                    <input type="text" id="zip_code" name="zip_code" class="form-control"
+                        value="{{ old('zip_code', $villageDetail->zip_code ?? '') }}" placeholder="Kode Pos">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div class="form-group">
+                    <label for="area_size">Luas Wilayah (Ha)</label>
+                    <input type="number" id="area_size" name="area_size" class="form-control"
+                        value="{{ old('area_size', $demografi->luas_wilayah->male_count ?? 0) }}" min="0" placeholder="Luas Wilayah (Ha)">
+                </div>
+
+                <div class="form-group">
+                    <label for="population_count">Jumlah Penduduk (Jiwa)</label>
+                    <input type="number" id="population_count" name="population_count" class="form-control"
+                        value="{{ old('population_count', ($demografi->total_penduduk->male_count ?? 0) + ($demografi->total_penduduk->female_count ?? 0)) }}" min="0" placeholder="Jumlah Penduduk (Jiwa)">
+                </div>
+
+                <div class="form-group">
+                    <label for="dusun_count">Jumlah Dusun</label>
+                    <input type="number" id="dusun_count" name="dusun_count" class="form-control"
+                        value="{{ old('dusun_count', $villageDetail->dusun_count ?? 0) }}" min="0" placeholder="Jumlah Dusun">
+                </div>
+
+                <div class="form-group">
+                    <label for="rw_count">Jumlah RW</label>
+                    <input type="number" id="rw_count" name="rw_count" class="form-control"
+                        value="{{ old('rw_count', $villageDetail->rw_count ?? 0) }}" min="0" placeholder="Jumlah RW">
+                </div>
+
+                <div class="form-group">
+                    <label for="rt_count">Jumlah RT</label>
+                    <input type="number" id="rt_count" name="rt_count" class="form-control"
+                        value="{{ old('rt_count', $villageDetail->rt_count ?? 0) }}" min="0" placeholder="Jumlah RT">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div class="form-group">
+                    <label for="village_detail_image">Foto Profil / Detail Desa (Sebelah Kanan Tabel)</label>
+                    @if($profile->village_detail_image)
                         <div style="margin-bottom: 10px;">
-                            <img src="{{ asset($profile->hero_bg_image) }}" alt="Hero Background"
-                                style="height: 60px; width: 120px; object-fit: cover; border-radius: 4px;">
+                            <img src="{{ asset($profile->village_detail_image) }}" alt="Foto Profil Desa"
+                                style="height: 100px; max-width: 100%; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-color);">
                         </div>
                     @endif
-                    <input type="file" id="hero_bg_image" name="hero_bg_image" class="form-control" accept="image/*">
+                    <input type="file" id="village_detail_image" name="village_detail_image" class="form-control" accept="image/*">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal file: 2 MB. Gambar ini akan tampil di sebelah kanan tabel profil desa.</span>
                 </div>
             </div>
 
@@ -154,39 +227,6 @@
                 <label for="mission">Misi Desa (Gunakan baris baru untuk setiap poin misi)</label>
                 <textarea id="mission" name="mission" class="form-control" style="min-height: 120px;"
                     placeholder="Misi 1. ...&#10;Misi 2. ...">{{ old('mission', $profile->mission) }}</textarea>
-            </div>
-
-            <!-- KELOMPOK 5: DESKRIPSI & FOTO TENTANG DESA (BERANDA) -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary-light); margin: 0;">
-                    <i class="fa-solid fa-house-chimney"></i> Deskripsi & Foto Beranda (Tentang Desa)
-                </h3>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Tentang Desa:</span>
-                    <label class="switch">
-                        <input type="checkbox" name="publish_about" value="1" {{ old('publish_about', $profile->publish_about) ? 'checked' : '' }}>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 25px;">
-                <div class="form-group">
-                    <label for="about_text">Deskripsi Tentang Desa (Beranda)</label>
-                    <textarea id="about_text" name="about_text" class="form-control" style="min-height: 100px;"
-                        placeholder="Deskripsi singkat tentang desa untuk halaman depan...">{{ old('about_text', $profile->about_text ?? 'Desa Duren merupakan salah satu desa di Kecamatan Tengaran, Kabupaten Semarang yang memiliki potensi besar di bidang pertanian, peternakan, dan pariwisata. Dengan semangat gotong royong, berkembang menuju masyarakat sejahtera, dan berdaya saing.') }}</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="about_image">Foto Balai Desa / Kantor Desa (Beranda)</label>
-                    @if($profile->about_image)
-                        <div style="margin-bottom: 10px;">
-                            <img src="{{ asset($profile->about_image) }}" alt="Foto Kantor Desa"
-                                style="height: 60px; width: 100px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-color);">
-                        </div>
-                    @endif
-                    <input type="file" id="about_image" name="about_image" class="form-control" accept="image/*">
-                </div>
             </div>
 
             <!-- KELOMPOK 6: KONTAK & MEDIA SOSIAL -->

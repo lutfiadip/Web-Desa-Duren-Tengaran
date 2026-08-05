@@ -511,6 +511,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.homepage.edit') }}" class="{{ request()->routeIs('admin.homepage.edit') ? 'active' : '' }}">
+                    <i class="fa-solid fa-home"></i> Beranda Desa
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.profile.edit') }}" class="{{ request()->routeIs('admin.profile.edit') ? 'active' : '' }}">
                     <i class="fa-solid fa-house-chimney"></i> Profil Desa
                 </a>
