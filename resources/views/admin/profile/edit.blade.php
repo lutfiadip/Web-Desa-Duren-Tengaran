@@ -400,66 +400,66 @@
                                 </div>
                                 <div class="sortable-content">
                                     <div class="form-group" style="margin-bottom: 25px;">
-                                        <label for="google_maps_url">Link Iframe Google Maps (Peta Utama Desa)</label>
+                                        <label for="google_maps_url">Link Google Maps (Peta Utama Desa)</label>
                                         <input type="text" id="google_maps_url" name="google_maps_url" class="form-control"
                                             value="{{ old('google_maps_url', $profile->google_maps_url) }}"
-                                            placeholder="Masukkan link maps embed (https://www.google.com/maps/embed?...)">
+                                            placeholder="Masukkan link Google Maps (https://www.google.com/maps/embed?...)">
                                         <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">
                                             Peta ini akan digunakan sebagai Google Maps interaktif utama di halaman profil desa.
                                         </span>
                                     </div>
 
                                     <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--primary-light); margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">
-                                        <i class="fa-solid fa-map-pin"></i> Link Iframe Google Maps Per Dusun
+                                        <i class="fa-solid fa-map-pin"></i> Link Google Maps Per Dusun
                                     </h4>
 
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                                         <div class="form-group">
                                             <label for="map_miri">Peta Dusun Miri</label>
                                             <input type="text" id="map_miri" name="map_miri" class="form-control"
-                                                value="{{ old('map_miri', $profile->map_miri) }}" placeholder="Link iframe embed Google Maps">
+                                                value="{{ old('map_miri', $profile->map_miri) }}" placeholder="Link Google Maps">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="map_dukuh">Peta Dusun Dukuh</label>
                                             <input type="text" id="map_dukuh" name="map_dukuh" class="form-control"
-                                                value="{{ old('map_dukuh', $profile->map_dukuh) }}" placeholder="Link iframe embed Google Maps">
+                                                value="{{ old('map_dukuh', $profile->map_dukuh) }}" placeholder="Link Google Maps">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="map_krajan">Peta Dusun Krajan</label>
                                             <input type="text" id="map_krajan" name="map_krajan" class="form-control"
-                                                value="{{ old('map_krajan', $profile->map_krajan) }}" placeholder="Link iframe embed Google Maps">
+                                                value="{{ old('map_krajan', $profile->map_krajan) }}" placeholder="Link Google Maps">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="map_babadan">Peta Dusun Babadan</label>
                                             <input type="text" id="map_babadan" name="map_babadan" class="form-control"
-                                                value="{{ old('map_babadan', $profile->map_babadan) }}" placeholder="Link iframe embed Google Maps">
+                                                value="{{ old('map_babadan', $profile->map_babadan) }}" placeholder="Link Google Maps">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="map_ngepringan">Peta Dusun Ngepringan</label>
                                             <input type="text" id="map_ngepringan" name="map_ngepringan" class="form-control"
-                                                value="{{ old('map_ngepringan', $profile->map_ngepringan) }}" placeholder="Link iframe embed Google Maps">
+                                                value="{{ old('map_ngepringan', $profile->map_ngepringan) }}" placeholder="Link Google Maps">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="map_tanubayu">Peta Dusun Tanubayu</label>
                                             <input type="text" id="map_tanubayu" name="map_tanubayu" class="form-control"
-                                                value="{{ old('map_tanubayu', $profile->map_tanubayu) }}" placeholder="Link iframe embed Google Maps">
+                                                value="{{ old('map_tanubayu', $profile->map_tanubayu) }}" placeholder="Link Google Maps">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="map_gading">Peta Dusun Gading</label>
                                             <input type="text" id="map_gading" name="map_gading" class="form-control"
-                                                value="{{ old('map_gading', $profile->map_gading) }}" placeholder="Link iframe embed Google Maps">
+                                                value="{{ old('map_gading', $profile->map_gading) }}" placeholder="Link Google Maps">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="map_karangwuni">Peta Dusun Karangwuni</label>
                                             <input type="text" id="map_karangwuni" name="map_karangwuni" class="form-control"
-                                                value="{{ old('map_karangwuni', $profile->map_karangwuni) }}" placeholder="Link iframe embed Google Maps">
+                                                value="{{ old('map_karangwuni', $profile->map_karangwuni) }}" placeholder="Link Google Maps">
                                         </div>
                                     </div>
                                 </div>
