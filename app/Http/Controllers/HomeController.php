@@ -25,6 +25,7 @@ use App\Models\CommunityInstitution;
 use App\Models\CommunityInstitutionMember;
 use App\Models\NewsCategory;
 use App\Models\PopulationStatistic;
+use App\Models\PopulationStatisticType;
 
 
 class HomeController extends Controller
@@ -42,11 +43,22 @@ class HomeController extends Controller
         $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();
 
         // Mengambil statistik jenis kelamin untuk total penduduk di widget beranda
-        $populationGender = PopulationStatistic::with('details')
-            ->where('type', 'gender')
-            ->orderBy('year', 'desc')
-            ->orderBy('semester', 'desc')
-            ->first();
+        $genderType = PopulationStatisticType::where('slug', 'gender')->first();
+        $populationGender = null;
+        if ($genderType) {
+            $populationGender = PopulationStatistic::with('details')
+                ->where('statistic_type_id', $genderType->id)
+                ->orderBy('year', 'desc')
+                ->orderBy('semester', 'desc')
+                ->first();
+                
+            if ($populationGender) {
+                // Attach dynamic total for the frontend widget
+                foreach ($populationGender->details as $d) {
+                    $d->total = $d->male_total + $d->female_total;
+                }
+            }
+        }
 
         // Mengambil 3 UMKM unggulan terbaru yang dipublish
         $umkms = Umkm::where('status', 'published')
@@ -445,26 +457,44 @@ class HomeController extends Controller
         }
         $villageDetail = VillageDetail::first();
 
-        // Fetch latest data for each statistic type
-        $gender = PopulationStatistic::with('details')
-            ->where('type', 'gender')
-            ->orderBy('year', 'desc')
-            ->orderBy('semester', 'desc')
-            ->first();
+        // Fetch all active statistic types sorted by display_order
+        $statisticTypes = PopulationStatisticType::where('is_active', true)
+            ->orderBy('display_order')
+            ->get();
 
-        $age = PopulationStatistic::with('details')
-            ->where('type', 'age')
-            ->orderBy('year', 'desc')
-            ->orderBy('semester', 'desc')
-            ->first();
+        $statisticsData = [];
+        foreach ($statisticTypes as $type) {
+            $latestStat = PopulationStatistic::with('details')
+                ->where('statistic_type_id', $type->id)
+                ->where('is_published', true)
+                ->orderBy('year', 'desc')
+                ->orderBy('semester', 'desc')
+                ->first();
+                
+            if ($latestStat) {
+                // Calculate dynamic totals and percentages
+                $details = $latestStat->details;
+                $sumTotal = $details->sum(function($d) {
+                    return $d->male_total + $d->female_total;
+                });
+                
+                foreach ($details as $d) {
+                    $d->total = $d->male_total + $d->female_total;
+                    $d->percentage = $sumTotal > 0 ? round(($d->total / $sumTotal) * 100, 2) : 0;
+                }
+                
+                $statisticsData[] = [
+                    'type' => $type,
+                    'statistic' => $latestStat,
+                    'details' => $details,
+                    'total_male' => $details->sum('male_total'),
+                    'total_female' => $details->sum('female_total'),
+                    'grand_total' => $sumTotal
+                ];
+            }
+        }
 
-        $kk = PopulationStatistic::with('details')
-            ->where('type', 'family_card')
-            ->orderBy('year', 'desc')
-            ->orderBy('semester', 'desc')
-            ->first();
-
-        return view('statistics', compact('profile', 'villageDetail', 'gender', 'age', 'kk'));
+        return view('statistics', compact('profile', 'villageDetail', 'statisticsData'));
     }
 }
 

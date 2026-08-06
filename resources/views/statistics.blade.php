@@ -165,11 +165,13 @@
         font-weight: 800;
         color: var(--text-dark);
         margin-bottom: 6px;
+        margin-top: 0;
     }
 
     .chart-title p {
         font-size: 0.95rem;
         color: var(--text-muted);
+        margin: 0;
     }
 
     .chart-source {
@@ -182,8 +184,21 @@
         color: var(--text-muted);
     }
 
+    .chart-content-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 40px;
+        align-items: center;
+    }
+
+    @media (max-width: 991px) {
+        .chart-content-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
     .chart-wrapper {
-        min-height: 380px;
+        position: relative;
     }
 
     .empty-state {
@@ -217,6 +232,16 @@
 @endsection
 
 @section('content')
+    @php
+        // Try to identify standard categories for summary cards
+        $genderStat = collect($statisticsData)->first(fn($item) => $item['type']->slug === 'gender');
+        $kkStat = collect($statisticsData)->first(fn($item) => $item['type']->slug === 'family_card');
+        
+        // Find if there is any PDF available to download
+        $anyPdf = collect($statisticsData)->first(fn($item) => !empty($item['statistic']->pdf_file));
+        $pdfPath = $anyPdf ? $anyPdf['statistic']->pdf_file : null;
+    @endphp
+
     <!-- HERO HEADER -->
     <section class="stats-hero">
         <nav class="breadcrumb">
@@ -227,10 +252,7 @@
         <h1>Statistik Penduduk</h1>
         <p>Visualisasi data demografi penduduk Desa Duren secara transparan berdasarkan data kependudukan resmi semester dan tahun terbaru.</p>
         
-        @if(($gender && $gender->pdf_file) || ($age && $age->pdf_file) || ($kk && $kk->pdf_file))
-            @php
-                $pdfPath = ($gender && $gender->pdf_file) ? $gender->pdf_file : (($age && $age->pdf_file) ? $age->pdf_file : $kk->pdf_file);
-            @endphp
+        @if($pdfPath)
             <div style="margin-top: 25px;">
                 <a href="{{ asset($pdfPath) }}" target="_blank" class="btn-pdf-download" style="display: inline-flex; align-items: center; gap: 10px; background-color: #ef4444; color: #fff; padding: 12px 24px; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); transition: all 0.3s ease;">
                     <i class="fa-solid fa-file-pdf" style="font-size: 1.2rem;"></i> Unduh Dokumen PDF Asli
@@ -242,44 +264,46 @@
     <!-- STATS CONTAINER -->
     <div class="stats-container">
 
-        @if($gender && $gender->details->count() > 0)
+        @if(count($statisticsData) > 0)
             <!-- SUMMARY SECTION -->
             <div class="summary-section">
-                <!-- Total Penduduk -->
-                <div class="summary-card">
-                    <div class="summary-icon">
-                        <i class="fa-solid fa-users"></i>
+                @if($genderStat)
+                    <!-- Total Penduduk -->
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>Total Penduduk</h3>
+                            <div class="val">{{ number_format($genderStat['grand_total'], 0, ',', '.') }}</div>
+                        </div>
                     </div>
-                    <div class="summary-info">
-                        <h3>Total Penduduk</h3>
-                        <div class="val">{{ number_format($gender->details->first()->total, 0, ',', '.') }}</div>
-                    </div>
-                </div>
 
-                <!-- Laki-laki -->
-                <div class="summary-card">
-                    <div class="summary-icon">
-                        <i class="fa-solid fa-user-tie"></i>
+                    <!-- Laki-laki -->
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>Laki-Laki</h3>
+                            <div class="val">{{ number_format($genderStat['total_male'], 0, ',', '.') }}</div>
+                        </div>
                     </div>
-                    <div class="summary-info">
-                        <h3>Laki-Laki</h3>
-                        <div class="val">{{ number_format($gender->details->first()->male_total, 0, ',', '.') }}</div>
-                    </div>
-                </div>
 
-                <!-- Perempuan -->
-                <div class="summary-card">
-                    <div class="summary-icon rose">
-                        <i class="fa-solid fa-user-dress"></i>
+                    <!-- Perempuan -->
+                    <div class="summary-card">
+                        <div class="summary-icon rose">
+                            <i class="fa-solid fa-user-dress"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>Perempuan</h3>
+                            <div class="val">{{ number_format($genderStat['total_female'], 0, ',', '.') }}</div>
+                        </div>
                     </div>
-                    <div class="summary-info">
-                        <h3>Perempuan</h3>
-                        <div class="val">{{ number_format($gender->details->first()->female_total, 0, ',', '.') }}</div>
-                    </div>
-                </div>
+                @endif
 
                 <!-- Kepala Keluarga -->
-                @if($kk && $kk->details->count() > 0)
+                @if($kkStat)
                     <div class="summary-card">
                         <div class="summary-icon amber">
                             <i class="fa-solid fa-address-card"></i>
@@ -287,7 +311,7 @@
                         <div class="summary-info">
                             <h3>Total Kepala Keluarga</h3>
                             <div class="val">
-                                {{ number_format($kk->details->where('label', 'Sudah Memiliki KK')->first()->total ?? 0, 0, ',', '.') }}
+                                {{ number_format($kkStat['details']->where('label', 'Sudah Memiliki KK')->first()->total ?? ($kkStat['grand_total']), 0, ',', '.') }}
                             </div>
                         </div>
                     </div>
@@ -296,66 +320,75 @@
 
             <!-- CHART GRID -->
             <div class="chart-grid">
-                
-                <!-- 1. CHART JENIS KELAMIN -->
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <div class="chart-title">
-                            <h2>Statistik Jenis Kelamin</h2>
-                            <p>Perbandingan jumlah penduduk Laki-laki dan Perempuan.</p>
-                        </div>
-                        <div class="chart-source">
-                            <i class="fa-solid fa-database"></i> Sumber: {{ $gender->source ?? 'Data Desa' }}
-                        </div>
-                    </div>
-                    <div class="chart-wrapper">
-                        <div id="chart-gender"></div>
-                    </div>
-                </div>
-
-                <!-- 2. CHART KELOMPOK UMUR -->
-                @if($age && $age->details->count() > 0)
+                @foreach($statisticsData as $item)
                     <div class="chart-card">
                         <div class="chart-header">
                             <div class="chart-title">
-                                <h2>Statistik Kelompok Umur</h2>
-                                <p>Rincian populasi berdasarkan rentang kelompok umur dan jenis kelamin.</p>
+                                <h2>Statistik {{ $item['type']->name }}</h2>
+                                <p>{{ $item['type']->description ?? 'Visualisasi data ' . strtolower($item['type']->name) . ' Desa Duren.' }}</p>
                             </div>
                             <div class="chart-source">
-                                <i class="fa-solid fa-database"></i> Sumber: {{ $age->source ?? 'Data Desa' }}
+                                <i class="fa-solid fa-database"></i> Sumber: {{ $item['statistic']->source ?? 'Data Desa' }}
                             </div>
                         </div>
-                        <div class="chart-wrapper">
-                            <div id="chart-age"></div>
-                        </div>
-                    </div>
-                @endif
 
-                <!-- 3. CHART KEPEMILIKAN KK -->
-                @if($kk && $kk->details->count() > 0)
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">
-                                <h2>Statistik Kepemilikan KK</h2>
-                                <p>Status kepemilikan Kartu Keluarga (KK) penduduk berdasarkan gender kepala keluarga.</p>
+                        <div class="chart-content-grid">
+                            <!-- Left: Chart -->
+                            <div class="chart-wrapper">
+                                <div id="chart-{{ $item['type']->slug }}"></div>
                             </div>
-                            <div class="chart-source">
-                                <i class="fa-solid fa-database"></i> Sumber: {{ $kk->source ?? 'Data Desa' }}
+                            
+                            <!-- Right: Table Data -->
+                            <div style="overflow-x: auto; background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
+                                <h4 style="margin-top: 0; margin-bottom: 15px; font-size: 0.95rem; font-weight: 800; color: var(--text-dark); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                                    Tabel Rincian Data
+                                </h4>
+                                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+                                    <thead>
+                                        <tr style="border-bottom: 2px solid var(--border-color); font-weight: 800; color: var(--text-dark);">
+                                            <th style="padding: 8px 4px;">Kategori</th>
+                                            <th style="padding: 8px 4px; text-align: right;">L-L</th>
+                                            <th style="padding: 8px 4px; text-align: right;">P-R</th>
+                                            <th style="padding: 8px 4px; text-align: right;">Total</th>
+                                            <th style="padding: 8px 4px; text-align: right;">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($item['details'] as $detail)
+                                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                                <td style="padding: 8px 4px; font-weight: 700; color: var(--text-dark);">{{ $detail->label }}</td>
+                                                <td style="padding: 8px 4px; text-align: right;">{{ number_format($detail->male_total, 0, ',', '.') }}</td>
+                                                <td style="padding: 8px 4px; text-align: right;">{{ number_format($detail->female_total, 0, ',', '.') }}</td>
+                                                <td style="padding: 8px 4px; text-align: right; font-weight: 700; color: var(--primary);">{{ number_format($detail->total, 0, ',', '.') }}</td>
+                                                <td style="padding: 8px 4px; text-align: right; font-weight: 600; color: var(--text-muted);">{{ $detail->percentage }}%</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr style="border-top: 2px solid var(--border-color); font-weight: 800; background-color: #f1f5f9; color: var(--text-dark);">
+                                            <td style="padding: 8px 4px;">TOTAL</td>
+                                            <td style="padding: 8px 4px; text-align: right;">{{ number_format($item['total_male'], 0, ',', '.') }}</td>
+                                            <td style="padding: 8px 4px; text-align: right;">{{ number_format($item['total_female'], 0, ',', '.') }}</td>
+                                            <td style="padding: 8px 4px; text-align: right; color: var(--primary);">{{ number_format($item['grand_total'], 0, ',', '.') }}</td>
+                                            <td style="padding: 8px 4px; text-align: right;">100%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="chart-wrapper">
-                            <div id="chart-kk"></div>
-                        </div>
+                        
+                        @if($item['statistic']->notes)
+                            <div style="margin-top: 25px; padding: 12px 18px; background-color: #f8fafc; border-left: 4px solid var(--primary-light); border-radius: 4px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">
+                                <strong>Catatan Keterangan:</strong> {{ $item['statistic']->notes }}
+                            </div>
+                        @endif
                     </div>
-                @endif
-
+                @endforeach
             </div>
         @else
             <!-- EMPTY STATE -->
             <div class="empty-state">
                 <i class="fa-solid fa-chart-pie"></i>
                 <h3>Data Statistik Belum Tersedia</h3>
-                <p>Silakan hubungi administrator desa atau jalankan database seeder untuk mengisi data statistik kependudukan.</p>
+                <p>Silakan hubungi administrator desa atau aktifkan modul jenis statistik kependudukan di dashboard admin.</p>
             </div>
         @endif
 
@@ -363,304 +396,108 @@
 @endsection
 
 @section('scripts')
-@if($gender && $gender->details->count() > 0)
+@if(count($statisticsData) > 0)
     <!-- Load ApexCharts CDN -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             
-            // Konfigurasi Font & Warna Global
             const fontName = 'Plus Jakarta Sans, sans-serif';
             const colors = {
                 male: '#2563eb', // Royal Blue
                 female: '#f43f5e', // Rose Pink
-                total: '#1e293b' // Dark Charcoal
             };
 
-            // ==========================================
-            // 1. CHART JENIS KELAMIN (Horizontal Bar)
-            // ==========================================
-            const genderOptions = {
-                series: [{
-                    name: 'Jumlah Penduduk',
-                    data: [
-                        {{ $gender->details->first()->male_total ?? 0 }},
-                        {{ $gender->details->first()->female_total ?? 0 }}
-                    ]
-                }],
-                chart: {
-                    type: 'bar',
-                    height: 250,
-                    toolbar: { show: false },
-                    fontFamily: fontName
-                },
-                plotOptions: {
-                    bar: {
-                        barHeight: '60%',
-                        distributed: true,
-                        horizontal: true,
-                        borderRadius: 8,
+            @foreach($statisticsData as $item)
+                (function() {
+                    const categories = @json($item['details']->pluck('label'));
+                    const maleData = @json($item['details']->pluck('male_total'));
+                    const femaleData = @json($item['details']->pluck('female_total'));
+                    
+                    const options = {
+                        series: [
+                            {
+                                name: 'Laki-laki',
+                                data: maleData
+                            },
+                            {
+                                name: 'Perempuan',
+                                data: femaleData
+                            }
+                        ],
+                        chart: {
+                            type: 'bar',
+                            height: {{ count($item['details']) > 6 ? 450 : 300 }},
+                            toolbar: { show: false },
+                            fontFamily: fontName
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                                barHeight: '70%',
+                                borderRadius: 4,
+                                dataLabels: {
+                                    position: 'top'
+                                }
+                            }
+                        },
+                        colors: [colors.male, colors.female],
                         dataLabels: {
-                            position: 'right'
-                        }
-                    }
-                },
-                colors: [colors.male, colors.female],
-                dataLabels: {
-                    enabled: true,
-                    textAnchor: 'start',
-                    style: {
-                        colors: ['#fff'],
-                        fontWeight: '700',
-                        fontSize: '13px'
-                    },
-                    formatter: function (val) {
-                        return val.toLocaleString('id-ID') + ' Jiwa';
-                    },
-                    offsetX: 0
-                },
-                stroke: {
-                    width: 0
-                },
-                grid: {
-                    borderColor: '#f1f5f9',
-                    xaxis: { lines: { show: true } },
-                    yaxis: { lines: { show: false } }
-                },
-                xaxis: {
-                    categories: ['Laki-laki', 'Perempuan'],
-                    labels: {
-                        style: {
-                            colors: '#64748b',
-                            fontSize: '12px',
-                            fontWeight: '600'
+                            enabled: false
                         },
-                        formatter: function (val) {
-                            return val.toLocaleString('id-ID');
-                        }
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: '#1e293b',
-                            fontSize: '14px',
-                            fontWeight: '700'
-                        }
-                    }
-                },
-                tooltip: {
-                    theme: 'light',
-                    y: {
-                        formatter: function (val) {
-                            return val.toLocaleString('id-ID') + ' Jiwa';
-                        }
-                    }
-                },
-                legend: {
-                    show: false
-                }
-            };
-
-            const genderChart = new ApexCharts(document.querySelector("#chart-gender"), genderOptions);
-            genderChart.render();
-
-
-            // ==========================================
-            // 2. CHART KELOMPOK UMUR (Grouped Horizontal Bar)
-            // ==========================================
-            @if($age && $age->details->count() > 0)
-                const ageCategories = @json($age->details->pluck('label'));
-                const ageMaleData = @json($age->details->pluck('male_total'));
-                const ageFemaleData = @json($age->details->pluck('female_total'));
-
-                const ageOptions = {
-                    series: [
-                        {
-                            name: 'Laki-laki',
-                            data: ageMaleData
+                        stroke: {
+                            show: true,
+                            width: 2,
+                            colors: ['transparent']
                         },
-                        {
-                            name: 'Perempuan',
-                            data: ageFemaleData
-                        }
-                    ],
-                    chart: {
-                        type: 'bar',
-                        height: 550,
-                        stacked: false,
-                        toolbar: { show: false },
-                        fontFamily: fontName
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: true,
-                            barHeight: '75%',
-                            borderRadius: 4,
-                            dataLabels: {
-                                position: 'top'
+                        grid: {
+                            borderColor: '#f1f5f9',
+                            xaxis: { lines: { show: true } },
+                            yaxis: { lines: { show: false } }
+                        },
+                        xaxis: {
+                            categories: categories,
+                            labels: {
+                                style: {
+                                    colors: '#64748b',
+                                    fontSize: '11px',
+                                    fontWeight: '600'
+                                },
+                                formatter: function (val) {
+                                    return val.toLocaleString('id-ID');
+                                }
                             }
-                        }
-                    },
-                    colors: [colors.male, colors.female],
-                    dataLabels: {
-                        enabled: false // Matikan data label agar chart tidak bertumpuk padat di mobile
-                    },
-                    stroke: {
-                        show: true,
-                        width: 2,
-                        colors: ['transparent']
-                    },
-                    grid: {
-                        borderColor: '#f1f5f9',
-                        xaxis: { lines: { show: true } },
-                        yaxis: { lines: { show: false } }
-                    },
-                    xaxis: {
-                        categories: ageCategories,
-                        labels: {
+                        },
+                        yaxis: {
+                            labels: {
+                                style: {
+                                    colors: '#1e293b',
+                                    fontSize: '12px',
+                                    fontWeight: '700'
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top',
+                            horizontalAlign: 'center',
                             style: {
-                                colors: '#64748b',
-                                fontSize: '11px',
                                 fontWeight: '600'
-                            },
-                            formatter: function (val) {
-                                return val.toLocaleString('id-ID');
                             }
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            style: {
-                                colors: '#1e293b',
-                                fontSize: '12px',
-                                fontWeight: '700'
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'top',
-                        horizontalAlign: 'center',
-                        style: {
-                            fontWeight: '600'
-                        }
-                    },
-                    tooltip: {
-                        theme: 'light',
-                        y: {
-                            formatter: function (val) {
-                                return val.toLocaleString('id-ID') + ' Jiwa';
-                            }
-                        }
-                    }
-                };
-
-                const ageChart = new ApexCharts(document.querySelector("#chart-age"), ageOptions);
-                ageChart.render();
-            @endif
-
-
-            // ==========================================
-            // 3. CHART KEPEMILIKAN KK (Grouped Horizontal Bar)
-            // ==========================================
-            @if($kk && $kk->details->count() > 0)
-                const kkCategories = @json($kk->details->pluck('label'));
-                const kkMaleData = @json($kk->details->pluck('male_total'));
-                const kkFemaleData = @json($kk->details->pluck('female_total'));
-
-                const kkOptions = {
-                    series: [
-                        {
-                            name: 'Kepala Keluarga Laki-laki',
-                            data: kkMaleData
                         },
-                        {
-                            name: 'Kepala Keluarga Perempuan',
-                            data: kkFemaleData
-                        }
-                    ],
-                    chart: {
-                        type: 'bar',
-                        height: 280,
-                        stacked: false,
-                        toolbar: { show: false },
-                        fontFamily: fontName
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: true,
-                            barHeight: '60%',
-                            borderRadius: 6,
-                            dataLabels: {
-                                position: 'top'
+                        tooltip: {
+                            theme: 'light',
+                            y: {
+                                formatter: function (val) {
+                                    return val.toLocaleString('id-ID') + ' Jiwa';
+                                }
                             }
                         }
-                    },
-                    colors: [colors.male, colors.female],
-                    dataLabels: {
-                        enabled: true,
-                        style: {
-                            fontSize: '11px',
-                            fontWeight: '700',
-                            colors: ['#334155']
-                        },
-                        formatter: function (val) {
-                            return val.toLocaleString('id-ID') + ' KK';
-                        },
-                        offsetX: 35
-                    },
-                    stroke: {
-                        show: true,
-                        width: 2,
-                        colors: ['transparent']
-                    },
-                    grid: {
-                        borderColor: '#f1f5f9',
-                        xaxis: { lines: { show: true } },
-                        yaxis: { lines: { show: false } }
-                    },
-                    xaxis: {
-                        categories: kkCategories,
-                        labels: {
-                            style: {
-                                colors: '#64748b',
-                                fontSize: '11px',
-                                fontWeight: '600'
-                            },
-                            formatter: function (val) {
-                                return val.toLocaleString('id-ID');
-                            }
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            style: {
-                                colors: '#1e293b',
-                                fontSize: '13px',
-                                fontWeight: '700'
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'top',
-                        horizontalAlign: 'center',
-                        style: {
-                            fontWeight: '600'
-                        }
-                    },
-                    tooltip: {
-                        theme: 'light',
-                        y: {
-                            formatter: function (val) {
-                                return val.toLocaleString('id-ID') + ' Kepala Keluarga';
-                            }
-                        }
-                    }
-                };
+                    };
 
-                const kkChart = new ApexCharts(document.querySelector("#chart-kk"), kkOptions);
-                kkChart.render();
-            @endif
+                    const chart = new ApexCharts(document.querySelector("#chart-{{ $item['type']->slug }}"), options);
+                    chart.render();
+                })();
+            @endforeach
 
         });
     </script>

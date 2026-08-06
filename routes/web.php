@@ -61,8 +61,10 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     
     // Statistics Management
     Route::get('/statistics', [App\Http\Controllers\Admin\StatisticController::class, 'index'])->name('statistics.index');
-    Route::get('/statistics/{type}/edit', [App\Http\Controllers\Admin\StatisticController::class, 'edit'])->name('statistics.edit');
-    Route::put('/statistics/{type}', [App\Http\Controllers\Admin\StatisticController::class, 'update'])->name('statistics.update');
+    Route::post('/statistics/types/reorder', [App\Http\Controllers\Admin\StatisticController::class, 'reorderTypes'])->name('statistics.types.reorder');
+    Route::resource('statistics/types', App\Http\Controllers\Admin\StatisticTypeController::class)->names('statistics.types')->except(['show']);
+    Route::get('/statistics/{type_id}/manage', [App\Http\Controllers\Admin\StatisticController::class, 'manage'])->name('statistics.manage');
+    Route::post('/statistics/{type_id}/manage', [App\Http\Controllers\Admin\StatisticController::class, 'saveManage'])->name('statistics.save-manage');
 
     // Agriculture & Livestock Management
     Route::get('/agriculture', [App\Http\Controllers\Admin\AgricultureController::class, 'index'])->name('agriculture.index');
