@@ -536,6 +536,16 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.institutions.index') }}" class="{{ request()->routeIs('admin.institutions.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-landmark"></i> Lembaga Masyarakat
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.organizations.index') }}" class="{{ request()->routeIs('admin.organizations.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-people-group"></i> Organisasi Masyarakat
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.news.index') }}" class="{{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-newspaper"></i> Berita Desa
                 </a>
@@ -553,6 +563,11 @@
             <li>
                 <a href="{{ route('admin.umkm.index') }}" class="{{ request()->routeIs('admin.umkm.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-store"></i> UMKM Desa
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.agriculture.index') }}" class="{{ request()->routeIs('admin.agriculture.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-wheat-awn"></i> Pertanian & Peternakan
                 </a>
             </li>
             <li style="margin-top: 20px;">

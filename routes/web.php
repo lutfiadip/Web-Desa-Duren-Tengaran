@@ -62,6 +62,48 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     Route::get('/statistics', [App\Http\Controllers\Admin\StatisticController::class, 'index'])->name('statistics.index');
     Route::get('/statistics/{type}/edit', [App\Http\Controllers\Admin\StatisticController::class, 'edit'])->name('statistics.edit');
     Route::put('/statistics/{type}', [App\Http\Controllers\Admin\StatisticController::class, 'update'])->name('statistics.update');
+
+    // Agriculture & Livestock Management
+    Route::get('/agriculture', [App\Http\Controllers\Admin\AgricultureController::class, 'index'])->name('agriculture.index');
+    Route::put('/agriculture/profile', [App\Http\Controllers\Admin\AgricultureController::class, 'updateProfile'])->name('agriculture.update-profile');
+    
+    Route::get('/agriculture/land-statistic/create', [App\Http\Controllers\Admin\AgricultureController::class, 'createLand'])->name('agriculture.land.create');
+    Route::post('/agriculture/land-statistic', [App\Http\Controllers\Admin\AgricultureController::class, 'storeLand'])->name('agriculture.land.store');
+    Route::get('/agriculture/land-statistic/{land}/edit', [App\Http\Controllers\Admin\AgricultureController::class, 'editLand'])->name('agriculture.land.edit');
+    Route::put('/agriculture/land-statistic/{land}', [App\Http\Controllers\Admin\AgricultureController::class, 'updateLand'])->name('agriculture.land.update');
+    Route::delete('/agriculture/land-statistic/{land}', [App\Http\Controllers\Admin\AgricultureController::class, 'destroyLand'])->name('agriculture.land.destroy');
+    
+    Route::get('/agriculture/farmer-group/create', [App\Http\Controllers\Admin\AgricultureController::class, 'createFarmerGroup'])->name('agriculture.farmer-group.create');
+    Route::post('/agriculture/farmer-group', [App\Http\Controllers\Admin\AgricultureController::class, 'storeFarmerGroup'])->name('agriculture.farmer-group.store');
+    Route::get('/agriculture/farmer-group/{group}/edit', [App\Http\Controllers\Admin\AgricultureController::class, 'editFarmerGroup'])->name('agriculture.farmer-group.edit');
+    Route::put('/agriculture/farmer-group/{group}', [App\Http\Controllers\Admin\AgricultureController::class, 'updateFarmerGroup'])->name('agriculture.farmer-group.update');
+    Route::delete('/agriculture/farmer-group/{group}', [App\Http\Controllers\Admin\AgricultureController::class, 'destroyFarmerGroup'])->name('agriculture.farmer-group.destroy');
+    
+    Route::get('/agriculture/commodity/create', [App\Http\Controllers\Admin\AgricultureController::class, 'createCommodity'])->name('agriculture.commodity.create');
+    Route::post('/agriculture/commodity', [App\Http\Controllers\Admin\AgricultureController::class, 'storeCommodity'])->name('agriculture.commodity.store');
+    Route::get('/agriculture/commodity/{commodity}/edit', [App\Http\Controllers\Admin\AgricultureController::class, 'editCommodity'])->name('agriculture.commodity.edit');
+    Route::put('/agriculture/commodity/{commodity}', [App\Http\Controllers\Admin\AgricultureController::class, 'updateCommodity'])->name('agriculture.commodity.update');
+    Route::delete('/agriculture/commodity/{commodity}', [App\Http\Controllers\Admin\AgricultureController::class, 'destroyCommodity'])->name('agriculture.commodity.destroy');
+
+    // Community Institutions (Lembaga & Organisasi) Management
+    Route::get('/institutions', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'index'])->name('institutions.index');
+    Route::get('/institutions/create', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'create'])->name('institutions.create');
+    Route::post('/institutions', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'store'])->name('institutions.store');
+    Route::get('/institutions/{institution}/edit', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'edit'])->name('institutions.edit');
+    Route::put('/institutions/{institution}', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'update'])->name('institutions.update');
+    Route::delete('/institutions/{institution}', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'destroy'])->name('institutions.destroy');
+
+    Route::get('/organizations', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'indexOrg'])->name('organizations.index');
+    Route::get('/organizations/create', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'createOrg'])->name('organizations.create');
+    Route::post('/organizations', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'storeOrg'])->name('organizations.store');
+    Route::get('/organizations/{institution}/edit', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'editOrg'])->name('organizations.edit');
+    Route::put('/organizations/{institution}', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'updateOrg'])->name('organizations.update');
+    Route::delete('/organizations/{institution}', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'destroyOrg'])->name('organizations.destroy');
+
+    // Members Sub-resource
+    Route::get('/institutions/{institution}/members', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'membersIndex'])->name('institutions.members.index');
+    Route::post('/institutions/{institution}/members', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'storeMember'])->name('institutions.members.store');
+    Route::delete('/institutions/members/{member}', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'destroyMember'])->name('institutions.members.destroy');
 });
 
 

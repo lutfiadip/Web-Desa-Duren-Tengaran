@@ -157,36 +157,5 @@
                 </div>
             </a>
         </div>
-
-        <!-- PUBLIKASI HALAMAN TAMBAHAN (Menu Utama) -->
-        <div style="background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 20px; margin-top: 30px;">
-            <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--primary-light); margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-top: 0;">
-                <i class="fa-solid fa-cubes"></i> Publikasi Halaman Tambahan (Menu Utama)
-            </h3>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background-color: #fff; padding: 15px; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin: 0;">
-                    <div>
-                        <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 2px; display: block;">Halaman Pertanian & Peternakan</label>
-                        <span style="font-size: 0.75rem; color: var(--text-muted); display: block; line-height: 1.3;">Tampilkan potensi komoditas pertanian dan peternakan di website.</span>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" class="global-publish-toggle" data-key="publish_agriculture" {{ ($profile->publish_agriculture ?? true) ? 'checked' : '' }}>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background-color: #fff; padding: 15px; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin: 0;">
-                    <div>
-                        <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 2px; display: block;">Halaman Lembaga & Organisasi</label>
-                        <span style="font-size: 0.75rem; color: var(--text-muted); display: block; line-height: 1.3;">Tampilkan informasi lembaga kemasyarakatan di website.</span>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" class="global-publish-toggle" data-key="publish_institutions" {{ ($profile->publish_institutions ?? true) ? 'checked' : '' }}>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
