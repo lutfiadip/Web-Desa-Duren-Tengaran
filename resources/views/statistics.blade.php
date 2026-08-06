@@ -207,6 +207,12 @@
         color: var(--text-dark);
         margin-bottom: 8px;
     }
+
+    .btn-pdf-download:hover {
+        background-color: #dc2626 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5) !important;
+    }
 </style>
 @endsection
 
@@ -220,6 +226,17 @@
         </nav>
         <h1>Statistik Penduduk</h1>
         <p>Visualisasi data demografi penduduk Desa Duren secara transparan berdasarkan data kependudukan resmi semester dan tahun terbaru.</p>
+        
+        @if(($gender && $gender->pdf_file) || ($age && $age->pdf_file) || ($kk && $kk->pdf_file))
+            @php
+                $pdfPath = ($gender && $gender->pdf_file) ? $gender->pdf_file : (($age && $age->pdf_file) ? $age->pdf_file : $kk->pdf_file);
+            @endphp
+            <div style="margin-top: 25px;">
+                <a href="{{ asset($pdfPath) }}" target="_blank" class="btn-pdf-download" style="display: inline-flex; align-items: center; gap: 10px; background-color: #ef4444; color: #fff; padding: 12px 24px; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); transition: all 0.3s ease;">
+                    <i class="fa-solid fa-file-pdf" style="font-size: 1.2rem;"></i> Unduh Dokumen PDF Asli
+                </a>
+            </div>
+        @endif
     </section>
 
     <!-- STATS CONTAINER -->
