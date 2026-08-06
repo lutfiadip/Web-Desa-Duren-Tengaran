@@ -71,6 +71,9 @@ class HomeController extends Controller
     public function profile()
     {
         $profile = VillageProfile::first();
+        if ($profile && !$profile->publish_profile) {
+            return redirect()->route('home')->with('error', 'Halaman Profil Desa saat ini sedang dinonaktifkan.');
+        }
         $villageDetail = VillageDetail::first();
         
         // Mengambil statistik demografi

@@ -332,7 +332,9 @@
 
         <ul class="nav-links">
             <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a></li>
+            @if($profile->publish_profile ?? true)
             <li><a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') ? 'active' : '' }}">Profil Desa</a></li>
+            @endif
 
             @if(($profile->publish_officials ?? true) || ($profile->publish_regulations ?? true))
             <li class="dropdown">
@@ -429,7 +431,9 @@
             <div class="footer-col">
                 <h4>Profil & Pemerintahan</h4>
                 <ul>
+                    @if($profile->publish_profile ?? true)
                     <li><a href="{{ route('profile') }}">Profil Desa</a></li>
+                    @endif
                     @if($profile->publish_officials ?? true)
                         <li><a href="{{ route('officials') }}">Perangkat Desa</a></li>
                     @endif

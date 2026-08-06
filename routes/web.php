@@ -41,6 +41,16 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     Route::put('/profile/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/update-setting', [App\Http\Controllers\Admin\ProfileController::class, 'updateSetting'])->name('profile.update-setting');
     
+    // Profile Sub-pages Settings
+    Route::get('/profile/identity', [App\Http\Controllers\Admin\ProfileController::class, 'editIdentity'])->name('profile.edit-identity');
+    Route::put('/profile/identity', [App\Http\Controllers\Admin\ProfileController::class, 'updateIdentity'])->name('profile.update-identity');
+    
+    Route::get('/profile/layout', [App\Http\Controllers\Admin\ProfileController::class, 'editLayout'])->name('profile.edit-layout');
+    Route::put('/profile/layout', [App\Http\Controllers\Admin\ProfileController::class, 'updateLayout'])->name('profile.update-layout');
+    
+    Route::get('/profile/contact', [App\Http\Controllers\Admin\ProfileController::class, 'editContact'])->name('profile.edit-contact');
+    Route::put('/profile/contact', [App\Http\Controllers\Admin\ProfileController::class, 'updateContact'])->name('profile.update-contact');
+    
     Route::resource('news', App\Http\Controllers\Admin\NewsController::class)->except(['show']);
     Route::resource('regulations', App\Http\Controllers\Admin\RegulationController::class)->except(['show']);
     Route::resource('officials', App\Http\Controllers\Admin\OfficialController::class)->except(['show']);
