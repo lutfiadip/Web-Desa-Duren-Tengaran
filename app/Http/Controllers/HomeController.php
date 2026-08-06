@@ -65,7 +65,25 @@ class HomeController extends Controller
         // Mengambil 4 galeri terbaru
         $galleries = Gallery::latest()->take(4)->get();
 
-        return view('welcome', compact('profile', 'demografi', 'umkms', 'news', 'galleries', 'villageDetail', 'populationGender'));
+        $defaultOrder = [
+            'about',
+            'potency',
+            'umkm',
+            'news',
+            'gallery'
+        ];
+        
+        $sectionsOrder = ($profile && $profile->homepage_sections_order)
+            ? explode(',', $profile->homepage_sections_order)
+            : $defaultOrder;
+            
+        foreach ($defaultOrder as $sec) {
+            if (!in_array($sec, $sectionsOrder)) {
+                $sectionsOrder[] = $sec;
+            }
+        }
+
+        return view('welcome', compact('profile', 'demografi', 'umkms', 'news', 'galleries', 'villageDetail', 'populationGender', 'sectionsOrder'));
     }
 
     public function profile()

@@ -715,194 +715,200 @@
         @endif
     </section>
 
-    <!-- SAMBUTAN KEPALA DESA SECTION -->
-    @if($profile->publish_about ?? true)
-    <section class="welcome-section" style="padding: 20px 5%;">
-        <div class="section-card" style="width: 100%; max-width: 1400px; margin: 0 auto;">
-            <div class="welcome-grid">
-                <!-- Col 1: Balai Desa Image -->
-                <div class="welcome-col-image">
-                    @if($profile && $profile->about_image)
-                        <img src="{{ asset($profile->about_image) }}" alt="Balai Desa {{ $profile->village_name ?? '' }}" class="balai-desa-img">
-                    @else
-                        <div class="balai-desa-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 20px;">
-                            [ Tempat Foto Balai Desa ]
+    @foreach($sectionsOrder as $section)
+        @if($section === 'about')
+            <!-- SAMBUTAN KEPALA DESA SECTION -->
+            @if($profile->publish_about ?? true)
+            <section class="welcome-section" style="padding: 20px 5%;">
+                <div class="section-card" style="width: 100%; max-width: 1400px; margin: 0 auto;">
+                    <div class="welcome-grid">
+                        <!-- Col 1: Balai Desa Image -->
+                        <div class="welcome-col-image">
+                            @if($profile && $profile->about_image)
+                                <img src="{{ asset($profile->about_image) }}" alt="Balai Desa {{ $profile->village_name ?? '' }}" class="balai-desa-img">
+                            @else
+                                <div class="balai-desa-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 20px;">
+                                    [ Tempat Foto Balai Desa ]
+                                </div>
+                            @endif
                         </div>
-                    @endif
-                </div>
-                
-                <!-- Col 2: Tentang Desa Text -->
-                <div class="welcome-col-text">
-                    <div class="section-badge">TENTANG DESA</div>
-                    <h2 class="welcome-title">Desa {{ $profile->village_name ?? '' }}</h2>
-                    <p>{{ $profile->about_text ?? '' }}</p>
-                    <a href="{{ route('profile') }}" class="welcome-btn">Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-    @endif
-
-    <!-- POTENSI DESA -->
-    @if(($profile->publish_agriculture ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_tourism ?? true))
-    <section id="potensi" class="section">
-        <div class="section-card">
-            <div class="section-header" style="margin-bottom: 30px;">
-                <span class="section-subtitle">Potensi Desa</span>
-                <h2 class="section-title">Kekayaan & Komoditas Unggulan</h2>
-            </div>
-    
-            <div class="quick-grid" style="margin-top: 0;">
-                @if($profile->publish_agriculture ?? true)
-                <a href="{{ route('potensi.agriculture') }}" style="text-decoration: none;">
-                    <div class="quick-box">
-                        <i class="fa-solid fa-wheat-awn quick-icon"></i>
-                        <h3>Pertanian</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Lahan subur dengan komoditas unggulan padi dan palawija.</p>
-                    </div>
-                </a>
-                <a href="{{ route('potensi.agriculture') }}" style="text-decoration: none;">
-                    <div class="quick-box">
-                        <i class="fa-solid fa-cow quick-icon"></i>
-                        <h3>Peternakan</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Pusat pengembangan hewan ternak seperti sapi dan kambing.</p>
-                    </div>
-                </a>
-                @endif
-
-                @if($profile->publish_umkm ?? true)
-                <a href="{{ route('umkm') }}" style="text-decoration: none;">
-                    <div class="quick-box">
-                        <i class="fa-solid fa-shop quick-icon"></i>
-                        <h3>UMKM</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Produk kerajinan dan makanan khas hasil karya warga desa.</p>
-                    </div>
-                </a>
-                @endif
-
-                @if($profile->publish_tourism ?? true)
-                <a href="{{ route('tourism') }}" style="text-decoration: none;">
-                    <div class="quick-box">
-                        <i class="fa-solid fa-mountain-sun quick-icon"></i>
-                        <h3>Pariwisata</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Pesona alam asri yang menarik bagi wisatawan lokal.</p>
-                    </div>
-                </a>
-                @endif
-            </div>
-        </div>
-    </section>
-    @endif
-
-    <!-- UMKM UNGGULAN -->
-    @if($profile->publish_umkm ?? true)
-    <section id="umkm" class="section">
-        <div class="section-card">
-            <div class="section-header" style="margin-bottom: 30px;">
-                <span class="section-subtitle">Produk Lokal</span>
-                <h2 class="section-title">UMKM Unggulan Desa</h2>
-            </div>
-    
-            <div class="umkm-scroll" style="padding-bottom: 0;">
-                @foreach($umkms as $umkm)
-                <div class="info-card">
-                    <a href="{{ route('umkm.detail', $umkm->slug) }}" style="display: block;">
-                        <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
-                            alt="{{ $umkm->title }}" class="card-img">
-                    </a>
-                    <div class="card-content">
-                        <div class="card-meta">
-                            <span class="tag" style="background-color: #fef3c7; color: #d97706;">{{ $umkm->category->name ?? 'UMKM' }}</span>
-                        </div>
-                        <a href="{{ route('umkm.detail', $umkm->slug) }}" style="text-decoration: none; color: inherit;">
-                            <h3 class="card-title">{{ $umkm->title }}</h3>
-                        </a>
-                        <p class="card-desc">{{ $umkm->description }}</p>
-                        <div class="umkm-actions">
-                            @if($umkm->whatsapp)
-                                <a href="https://wa.me/{{ $umkm->whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." 
-                                   target="_blank" class="action-btn btn-wa">
-                                    <i class="fa-brands fa-whatsapp"></i> WA
-                                </a>
-                            @endif
-                            
-                            @if($umkm->instagram)
-                                <a href="https://instagram.com/{{ $umkm->instagram }}" target="_blank" class="action-btn btn-ig">
-                                    <i class="fa-brands fa-instagram"></i> IG
-                                </a>
-                            @endif
-
-                            @if($umkm->facebook)
-                                <a href="https://facebook.com/{{ $umkm->facebook }}" target="_blank" class="action-btn btn-fb">
-                                    <i class="fa-brands fa-facebook-f"></i> FB
-                                </a>
-                            @endif
-
-                            @if($umkm->google_maps_url)
-                                <a href="{{ $umkm->google_maps_url }}" target="_blank" class="action-btn btn-maps">
-                                    <i class="fa-solid fa-location-dot"></i> Maps
-                                </a>
-                            @endif
+                        
+                        <!-- Col 2: Tentang Desa Text -->
+                        <div class="welcome-col-text">
+                            <div class="section-badge">{{ $profile->about_subtitle ?? 'TENTANG DESA' }}</div>
+                            <h2 class="welcome-title">Desa {{ $profile->village_name ?? '' }}</h2>
+                            <p>{{ $profile->about_text ?? '' }}</p>
+                            <a href="{{ route('profile') }}" class="welcome-btn">Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
+            </section>
+            @endif
+        @elseif($section === 'potency')
+            <!-- POTENSI DESA -->
+            @if(($profile->show_potency_on_home ?? true) && (($profile->publish_agriculture ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_tourism ?? true)))
+            <section id="potensi" class="section">
+                <div class="section-card">
+                    <div class="section-header" style="margin-bottom: 30px;">
+                        <span class="section-subtitle">{{ $profile->potency_subtitle ?? 'Potensi Desa' }}</span>
+                        <h2 class="section-title">{{ $profile->potency_title ?? 'Kekayaan & Komoditas Unggulan' }}</h2>
+                    </div>
             
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="{{ route('umkm') }}" class="btn-solid">
-                    Lihat Semua UMKM <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-    @endif
+                    <div class="quick-grid" style="margin-top: 0;">
+                        @if($profile->publish_agriculture ?? true)
+                        <a href="{{ route('potensi.agriculture') }}" style="text-decoration: none;">
+                            <div class="quick-box">
+                                <i class="fa-solid fa-wheat-awn quick-icon"></i>
+                                <h3>Pertanian</h3>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">{{ $profile->potency_agriculture_desc ?? 'Lahan subur dengan komoditas unggulan padi dan palawija.' }}</p>
+                            </div>
+                        </a>
+                        <a href="{{ route('potensi.agriculture') }}" style="text-decoration: none;">
+                            <div class="quick-box">
+                                <i class="fa-solid fa-cow quick-icon"></i>
+                                <h3>Peternakan</h3>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">{{ $profile->potency_animal_husbandry_desc ?? 'Pusat pengembangan hewan ternak seperti sapi dan kambing.' }}</p>
+                            </div>
+                        </a>
+                        @endif
 
-    <!-- BERITA & PENGUMUMAN -->
-    @if($profile->publish_news ?? true)
-    <section id="berita" class="section">
-        <div class="section-card">
-            <div class="section-header" style="margin-bottom: 30px;">
-                <span class="section-subtitle">Kabar Terkini</span>
-                <h2 class="section-title">Berita & Pengumuman</h2>
-            </div>
-    
-            <div class="grid-3">
-                @foreach($news as $item)
-                <div class="info-card">
-                    <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset('storage/' . $item->featured_image) }}"
-                        alt="{{ $item->title }}" class="card-img">
-                    <div class="card-content">
-                        <div class="card-meta">
-                            <span class="tag">{{ $item->category->name ?? 'Berita' }}</span>
-                            <span><i class="fa-regular fa-clock"></i> {{ \Carbon\Carbon::parse($item->published_at)->format('d M Y') }}</span>
-                        </div>
-                        <h3 class="card-title">{{ $item->title }}</h3>
-                        <p class="card-desc">{{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}</p>
-                        <a href="{{ route('news.detail', $item->slug) }}" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
+                        @if($profile->publish_umkm ?? true)
+                        <a href="{{ route('umkm') }}" style="text-decoration: none;">
+                            <div class="quick-box">
+                                <i class="fa-solid fa-shop quick-icon"></i>
+                                <h3>UMKM</h3>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">{{ $profile->potency_umkm_desc ?? 'Produk kerajinan dan makanan khas hasil karya warga desa.' }}</p>
+                            </div>
+                        </a>
+                        @endif
+
+                        @if($profile->publish_tourism ?? true)
+                        <a href="{{ route('tourism') }}" style="text-decoration: none;">
+                            <div class="quick-box">
+                                <i class="fa-solid fa-mountain-sun quick-icon"></i>
+                                <h3>Pariwisata</h3>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">{{ $profile->potency_tourism_desc ?? 'Pesona alam asri yang menarik bagi wisatawan lokal.' }}</p>
+                            </div>
+                        </a>
+                        @endif
                     </div>
                 </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    @endif
+            </section>
+            @endif
+        @elseif($section === 'umkm')
+            <!-- UMKM UNGGULAN -->
+            @if(($profile->show_umkm_on_home ?? true) && ($profile->publish_umkm ?? true))
+            <section id="umkm" class="section">
+                <div class="section-card">
+                    <div class="section-header" style="margin-bottom: 30px;">
+                        <span class="section-subtitle">{{ $profile->umkm_subtitle ?? 'Produk Lokal' }}</span>
+                        <h2 class="section-title">{{ $profile->umkm_title ?? 'UMKM Unggulan Desa' }}</h2>
+                    </div>
+            
+                    <div class="umkm-scroll" style="padding-bottom: 0;">
+                        @foreach($umkms as $umkm)
+                        <div class="info-card">
+                            <a href="{{ route('umkm.detail', $umkm->slug) }}" style="display: block;">
+                                <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
+                                    alt="{{ $umkm->title }}" class="card-img">
+                            </a>
+                            <div class="card-content">
+                                <div class="card-meta">
+                                    <span class="tag" style="background-color: #fef3c7; color: #d97706;">{{ $umkm->category->name ?? 'UMKM' }}</span>
+                                </div>
+                                <a href="{{ route('umkm.detail', $umkm->slug) }}" style="text-decoration: none; color: inherit;">
+                                    <h3 class="card-title">{{ $umkm->title }}</h3>
+                                </a>
+                                <p class="card-desc">{{ $umkm->description }}</p>
+                                <div class="umkm-actions">
+                                    @if($umkm->whatsapp)
+                                        <a href="https://wa.me/{{ $umkm->whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." 
+                                           target="_blank" class="action-btn btn-wa">
+                                            <i class="fa-brands fa-whatsapp"></i> WA
+                                        </a>
+                                    @endif
+                                    
+                                    @if($umkm->instagram)
+                                        <a href="https://instagram.com/{{ $umkm->instagram }}" target="_blank" class="action-btn btn-ig">
+                                            <i class="fa-brands fa-instagram"></i> IG
+                                        </a>
+                                    @endif
 
-    <!-- GALERI DESA -->
-    <section id="galeri" class="section">
-        <div class="section-card">
-            <div class="section-header" style="margin-bottom: 30px;">
-                <span class="section-subtitle">Pesona Desa</span>
-                <h2 class="section-title">Galeri Desa</h2>
-            </div>
-            <div class="gallery-grid">
-                @foreach($galleries as $gallery)
-                <div class="gallery-item">
-                    <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset('storage/' . $gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
+                                    @if($umkm->facebook)
+                                        <a href="https://facebook.com/{{ $umkm->facebook }}" target="_blank" class="action-btn btn-fb">
+                                            <i class="fa-brands fa-facebook-f"></i> FB
+                                        </a>
+                                    @endif
+
+                                    @if($umkm->google_maps_url)
+                                        <a href="{{ $umkm->google_maps_url }}" target="_blank" class="action-btn btn-maps">
+                                            <i class="fa-solid fa-location-dot"></i> Maps
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="{{ route('umkm') }}" class="btn-solid">
+                            Lihat Semua UMKM <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
+            </section>
+            @endif
+        @elseif($section === 'news')
+            <!-- BERITA & PENGUMUMAN -->
+            @if(($profile->show_news_on_home ?? true) && ($profile->publish_news ?? true))
+            <section id="berita" class="section">
+                <div class="section-card">
+                    <div class="section-header" style="margin-bottom: 30px;">
+                        <span class="section-subtitle">{{ $profile->news_subtitle ?? 'Kabar Terkini' }}</span>
+                        <h2 class="section-title">{{ $profile->news_title ?? 'Berita & Pengumuman' }}</h2>
+                    </div>
+            
+                    <div class="grid-3">
+                        @foreach($news as $item)
+                        <div class="info-card">
+                            <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset('storage/' . $item->featured_image) }}"
+                                alt="{{ $item->title }}" class="card-img">
+                            <div class="card-content">
+                                <div class="card-meta">
+                                    <span class="tag">{{ $item->category->name ?? 'Berita' }}</span>
+                                    <span><i class="fa-regular fa-clock"></i> {{ \Carbon\Carbon::parse($item->published_at)->format('d M Y') }}</span>
+                                </div>
+                                <h3 class="card-title">{{ $item->title }}</h3>
+                                <p class="card-desc">{{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}</p>
+                                <a href="{{ route('news.detail', $item->slug) }}" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+            @endif
+        @elseif($section === 'gallery')
+            <!-- GALERI DESA -->
+            @if($profile->show_gallery_on_home ?? true)
+            <section id="galeri" class="section">
+                <div class="section-card">
+                    <div class="section-header" style="margin-bottom: 30px;">
+                        <span class="section-subtitle">{{ $profile->gallery_subtitle ?? 'Pesona Desa' }}</span>
+                        <h2 class="section-title">{{ $profile->gallery_title ?? 'Galeri Desa' }}</h2>
+                    </div>
+                    <div class="gallery-grid">
+                        @foreach($galleries as $gallery)
+                        <div class="gallery-item">
+                            <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset('storage/' . $gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+            @endif
+        @endif
+    @endforeach
 
 @endsection

@@ -174,12 +174,31 @@ class ProfileController extends Controller
             'hero_bg_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'about_text' => 'nullable|string',
             'about_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'publish_about' => 'nullable|boolean',
+            'homepage_sections_order' => 'nullable|string',
+            'about_subtitle' => 'nullable|string|max:255',
+            'potency_title' => 'nullable|string|max:255',
+            'potency_subtitle' => 'nullable|string|max:255',
+            'potency_agriculture_desc' => 'nullable|string|max:255',
+            'potency_animal_husbandry_desc' => 'nullable|string|max:255',
+            'potency_umkm_desc' => 'nullable|string|max:255',
+            'potency_tourism_desc' => 'nullable|string|max:255',
+            'umkm_title' => 'nullable|string|max:255',
+            'umkm_subtitle' => 'nullable|string|max:255',
+            'news_title' => 'nullable|string|max:255',
+            'news_subtitle' => 'nullable|string|max:255',
+            'gallery_title' => 'nullable|string|max:255',
+            'gallery_subtitle' => 'nullable|string|max:255',
         ]);
 
-        $data = $request->except(['hero_bg_image', 'about_image']);
-
-        $data['publish_about'] = $request->has('publish_about') ? true : false;
+        $data = $request->only([
+            'about_text', 'homepage_sections_order', 'about_subtitle',
+            'potency_title', 'potency_subtitle',
+            'potency_agriculture_desc', 'potency_animal_husbandry_desc',
+            'potency_umkm_desc', 'potency_tourism_desc',
+            'umkm_title', 'umkm_subtitle',
+            'news_title', 'news_subtitle',
+            'gallery_title', 'gallery_subtitle'
+        ]);
 
         // Upload images
         $imageFields = ['hero_bg_image', 'about_image'];
@@ -233,6 +252,10 @@ class ProfileController extends Controller
             'publish_institutions',
             'publish_village_detail',
             'publish_profile',
+            'show_potency_on_home',
+            'show_umkm_on_home',
+            'show_news_on_home',
+            'show_gallery_on_home',
         ];
 
         if (in_array($key, $allowedKeys)) {

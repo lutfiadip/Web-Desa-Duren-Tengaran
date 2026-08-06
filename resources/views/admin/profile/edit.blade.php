@@ -94,18 +94,27 @@
         </ol>
     </nav>
 
+    <!-- Toggle Publikasi Halaman -->
+    <div class="card" style="max-width: 800px; margin: 0 auto 20px auto;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+            <div>
+                <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <i class="fa-solid fa-globe" style="color: var(--primary-light);"></i> Status Publikasi Halaman Profil Desa
+                </h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; margin-bottom: 0;">Tentukan apakah Halaman Profil Desa dipublikasikan secara umum di website.</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" class="global-publish-toggle" data-key="publish_profile" {{ ($profile->publish_profile ?? true) ? 'checked' : '' }}>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
     <div class="card" style="max-width: 800px; margin: 0 auto;">
-        <div class="card-header" style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div class="card-header" style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color);">
             <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 10px; margin: 0;">
                 <i class="fa-solid fa-gears" style="color: var(--primary-light);"></i> Pengaturan Profil Desa
             </h2>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Halaman:</span>
-                <label class="switch">
-                    <input type="checkbox" class="global-publish-toggle" data-key="publish_profile" {{ ($profile->publish_profile ?? true) ? 'checked' : '' }}>
-                    <span class="slider"></span>
-                </label>
-            </div>
         </div>
 
         @if(session('success'))

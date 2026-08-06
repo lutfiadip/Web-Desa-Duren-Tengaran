@@ -26,7 +26,7 @@
                 <p style="font-size: 0.8rem; color: var(--text-muted); margin: 4px 0 0 0;">Kelola profil, visi misi, dan kepengurusan organisasi masyarakat desa.</p>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Status Publikasi Halaman:</span>
+                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish Halaman:</span>
                 <label class="switch">
                     <input type="checkbox" class="global-publish-toggle" data-key="publish_institutions" {{ ($profile->publish_institutions ?? true) ? 'checked' : '' }}>
                     <span class="slider"></span>
