@@ -183,8 +183,8 @@
                                             <i class="fa-solid fa-house-chimney" style="color: var(--primary-light);"></i>
                                             Bagian Selamat Datang / Tentang Desa
                                         </h4>
-                                        <div class="section-actions" onclick="event.stopPropagation();">
-                                            <label class="switch" style="margin: 0;">
+                                        <div class="section-actions">
+                                            <label class="switch" style="margin: 0;" onclick="event.stopPropagation();">
                                                 <input type="checkbox" class="global-publish-toggle" data-key="publish_about" {{ ($profile->publish_about ?? true) ? 'checked' : '' }}>
                                                 <span class="slider"></span>
                                             </label>
@@ -226,8 +226,8 @@
                                             <i class="fa-solid fa-wheat-awn" style="color: var(--primary-light);"></i>
                                             Bagian Potensi Desa
                                         </h4>
-                                        <div class="section-actions" onclick="event.stopPropagation();">
-                                            <label class="switch" style="margin: 0;">
+                                        <div class="section-actions">
+                                            <label class="switch" style="margin: 0;" onclick="event.stopPropagation();">
                                                 <input type="checkbox" class="global-publish-toggle" data-key="show_potency_on_home" {{ ($profile->show_potency_on_home ?? true) ? 'checked' : '' }}>
                                                 <span class="slider"></span>
                                             </label>
@@ -278,8 +278,8 @@
                                             <i class="fa-solid fa-shop" style="color: var(--primary-light);"></i>
                                             Bagian Produk Lokal (UMKM)
                                         </h4>
-                                        <div class="section-actions" onclick="event.stopPropagation();">
-                                            <label class="switch" style="margin: 0;">
+                                        <div class="section-actions">
+                                            <label class="switch" style="margin: 0;" onclick="event.stopPropagation();">
                                                 <input type="checkbox" class="global-publish-toggle" data-key="show_umkm_on_home" {{ ($profile->show_umkm_on_home ?? true) ? 'checked' : '' }}>
                                                 <span class="slider"></span>
                                             </label>
@@ -308,8 +308,8 @@
                                             <i class="fa-solid fa-newspaper" style="color: var(--primary-light);"></i>
                                             Bagian Kabar Terkini (Berita)
                                         </h4>
-                                        <div class="section-actions" onclick="event.stopPropagation();">
-                                            <label class="switch" style="margin: 0;">
+                                        <div class="section-actions">
+                                            <label class="switch" style="margin: 0;" onclick="event.stopPropagation();">
                                                 <input type="checkbox" class="global-publish-toggle" data-key="show_news_on_home" {{ ($profile->show_news_on_home ?? true) ? 'checked' : '' }}>
                                                 <span class="slider"></span>
                                             </label>
@@ -338,8 +338,8 @@
                                             <i class="fa-solid fa-images" style="color: var(--primary-light);"></i>
                                             Bagian Pesona Desa (Galeri)
                                         </h4>
-                                        <div class="section-actions" onclick="event.stopPropagation();">
-                                            <label class="switch" style="margin: 0;">
+                                        <div class="section-actions">
+                                            <label class="switch" style="margin: 0;" onclick="event.stopPropagation();">
                                                 <input type="checkbox" class="global-publish-toggle" data-key="show_gallery_on_home" {{ ($profile->show_gallery_on_home ?? true) ? 'checked' : '' }}>
                                                 <span class="slider"></span>
                                             </label>

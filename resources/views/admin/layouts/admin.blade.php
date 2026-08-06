@@ -570,6 +570,11 @@
                     <i class="fa-solid fa-wheat-awn"></i> Pertanian & Peternakan
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.gallery.index') }}" class="{{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-images"></i> Galeri Desa
+                </a>
+            </li>
             <li style="margin-top: 20px;">
                 <a href="{{ route('home') }}" target="_blank">
                     <i class="fa-solid fa-globe"></i> Lihat Website
