@@ -7,7 +7,7 @@
     /* --- HERO HEADER --- */
     .news-hero {
         background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%),
-                    url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+                    url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
         padding: 160px 5% 140px;
         text-align: center;
         color: var(--white);
@@ -421,7 +421,7 @@
             @forelse($news as $item)
                 <div class="news-card">
                     <div class="card-img-wrapper">
-                        <img src="{{ $item->featured_image ?? 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" 
+                        <img src="{{ $item->featured_image ? (Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image)) : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" 
                              alt="{{ $item->title }}" class="card-img">
                         <span class="card-badge">{{ $item->category->name ?? 'Berita' }}</span>
                     </div>

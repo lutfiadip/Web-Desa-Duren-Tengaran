@@ -333,12 +333,12 @@
         <ul class="nav-links">
             <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a></li>
             @if($profile->publish_profile ?? true)
-            <li><a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') ? 'active' : '' }}">Profil Desa</a></li>
+            <li><a href="{{ route('profile') }}" class="{{ request()->routeIs('profile*') ? 'active' : '' }}">Profil Desa</a></li>
             @endif
 
             @if(($profile->publish_officials ?? true) || ($profile->publish_regulations ?? true))
             <li class="dropdown">
-                <a href="#" class="{{ request()->routeIs('officials') || request()->routeIs('regulations') ? 'active' : '' }}">Pemerintahan <i class="fa-solid fa-chevron-down"
+                <a href="#" class="{{ request()->routeIs('officials*') || request()->routeIs('regulations*') ? 'active' : '' }}">Pemerintahan <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
                     @if($profile->publish_officials ?? true)
@@ -353,7 +353,7 @@
 
             @if(($profile->publish_tourism ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_agriculture ?? true))
             <li class="dropdown">
-                <a href="#" class="{{ request()->routeIs('tourism') || request()->routeIs('umkm') || request()->routeIs('potensi.agriculture') ? 'active' : '' }}">Potensi <i class="fa-solid fa-chevron-down"
+                <a href="#" class="{{ request()->routeIs('tourism*') || request()->routeIs('umkm*') || request()->routeIs('potensi.agriculture*') || request()->routeIs('culture*') ? 'active' : '' }}">Potensi <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
                     @if($profile->publish_tourism ?? true)
@@ -371,7 +371,7 @@
 
             @if($profile->publish_institutions ?? true)
             <li class="dropdown">
-                <a href="#" class="{{ request()->routeIs('institutions') || request()->routeIs('institution.detail') || request()->routeIs('organizations') || request()->routeIs('organization.detail') ? 'active' : '' }}">Kelembagaan <i class="fa-solid fa-chevron-down"
+                <a href="#" class="{{ request()->routeIs('institutions*') || request()->routeIs('institution*') || request()->routeIs('organizations*') || request()->routeIs('organization*') ? 'active' : '' }}">Kelembagaan <i class="fa-solid fa-chevron-down"
                         style="font-size: 0.75rem; margin-left: 3px;"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('institutions') }}">Lembaga Masyarakat</a></li>
@@ -381,12 +381,12 @@
             @endif
 
             @if($profile->publish_news ?? true)
-                <li><a href="{{ route('news') }}" class="{{ request()->routeIs('news') || request()->routeIs('news.detail') ? 'active' : '' }}">Berita</a></li>
+                <li><a href="{{ route('news') }}" class="{{ request()->routeIs('news*') ? 'active' : '' }}">Berita</a></li>
             @endif
             @if($profile->publish_statistics ?? true)
-                <li><a href="{{ route('statistics') }}" class="{{ request()->routeIs('statistics') ? 'active' : '' }}">Statistik</a></li>
+                <li><a href="{{ route('statistics') }}" class="{{ request()->routeIs('statistics*') ? 'active' : '' }}">Statistik</a></li>
             @endif
-            <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Kontak</a></li>
+            <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact*') ? 'active' : '' }}">Kontak</a></li>
         </ul>
     </header>
 

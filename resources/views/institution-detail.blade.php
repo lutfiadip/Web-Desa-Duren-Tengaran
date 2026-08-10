@@ -46,7 +46,7 @@
     /* --- PROFILE HERO HEADER --- */
     .profile-hero {
         background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%),
-                    url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+                    url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
         padding: 100px 5% 60px;
         color: var(--white);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -518,7 +518,7 @@
                         </div>
                         <div class="info-text-wrapper">
                             <div class="info-label">Alamat Sekretariat</div>
-                            <div class="info-val">Kantor Desa Duren, Kec. Tengaran, Kab. Semarang, 50775</div>
+                            <div class="info-val">{{ $institution->address ?? 'Kantor Desa Duren, Kec. Tengaran, Kab. Semarang, 50775' }}</div>
                         </div>
                     </div>
 

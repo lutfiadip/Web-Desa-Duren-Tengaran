@@ -872,7 +872,7 @@
                     <div class="grid-3">
                         @foreach($news as $item)
                         <div class="info-card">
-                            <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset('storage/' . $item->featured_image) }}"
+                            <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image) }}"
                                 alt="{{ $item->title }}" class="card-img">
                             <div class="card-content">
                                 <div class="card-meta">

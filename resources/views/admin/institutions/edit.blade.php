@@ -27,9 +27,14 @@
             <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 10px; margin: 0;">
                 <i class="fa-solid fa-edit" style="color: var(--primary-light);"></i> Sunting Lembaga: {{ $institution->name }}
             </h2>
-            <a href="{{ route('admin.institutions.index') }}" class="btn btn-secondary btn-sm" style="display: flex; align-items: center; gap: 5px;">
-                <i class="fa-solid fa-arrow-left"></i> Kembali
-            </a>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <a href="{{ route('admin.institutions.members.index', $institution->id) }}" class="btn btn-info btn-sm" style="display: flex; align-items: center; gap: 5px; background-color: var(--accent); border-color: var(--accent); color: #713f12; font-weight: 600;">
+                    <i class="fa-solid fa-users"></i> Kelola Struktur Pengurus
+                </a>
+                <a href="{{ route('admin.institutions.index') }}" class="btn btn-secondary btn-sm" style="display: flex; align-items: center; gap: 5px;">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </a>
+            </div>
         </div>
 
         <form action="{{ route('admin.institutions.update', $institution->id) }}" method="POST" enctype="multipart/form-data">
@@ -78,6 +83,14 @@
                 <label for="mission">Misi Lembaga</label>
                 <textarea name="mission" id="mission" rows="4" class="form-control @error('mission') is-invalid @enderror" placeholder="Tulis poin-poin misi lembaga jika ada...">{{ old('mission', $institution->mission) }}</textarea>
                 @error('mission')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="address">Alamat Sekretariat</label>
+                <textarea name="address" id="address" rows="2" class="form-control @error('address') is-invalid @enderror" placeholder="Tulis alamat sekretariat lembaga jika ada...">{{ old('address', $institution->address) }}</textarea>
+                @error('address')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

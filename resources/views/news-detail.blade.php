@@ -7,7 +7,7 @@
     /* --- HERO HEADER --- */
     .detail-hero {
         background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%),
-                    url('{{ $article->featured_image ?? "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" }}') center/cover no-repeat;
+                    url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
         padding: 180px 5% 140px;
         text-align: center;
         color: var(--white);
@@ -331,6 +331,13 @@
                     <span><i class="fa-solid fa-user"></i> Admin Desa</span>
                 </div>
                 
+                @if($article->featured_image)
+                    <div class="article-featured-image-wrapper" style="margin-bottom: 30px; border-radius: var(--radius-md); overflow: hidden; width: 100%; max-height: 480px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <img src="{{ Str::startsWith($article->featured_image, 'http') ? $article->featured_image : asset($article->featured_image) }}" 
+                             alt="{{ $article->title }}" style="width: 100%; height: auto; max-height: 480px; object-fit: cover; display: block;">
+                    </div>
+                @endif
+                
                 <div class="article-body">
                     {!! nl2br(e($article->content)) !!}
                 </div>
@@ -374,7 +381,7 @@
                         @foreach($recentNews as $recent)
                             <div class="recent-news-item">
                                 <a href="{{ route('news.detail', $recent->slug) }}" class="recent-img-wrapper">
-                                    <img src="{{ $recent->featured_image ?? 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' }}" 
+                                    <img src="{{ $recent->featured_image ? (Str::startsWith($recent->featured_image, 'http') ? $recent->featured_image : asset($recent->featured_image)) : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' }}" 
                                          alt="{{ $recent->title }}" class="recent-img">
                                 </a>
                                 <div class="recent-info">

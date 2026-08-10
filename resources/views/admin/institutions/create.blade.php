@@ -74,6 +74,12 @@
                 @error('mission')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+            <div class="form-group">
+                <label for="address">Alamat Sekretariat</label>
+                <textarea name="address" id="address" rows="2" class="form-control @error('address') is-invalid @enderror" placeholder="Tulis alamat sekretariat lembaga jika ada...">{{ old('address') }}</textarea>
+                @error('address')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
