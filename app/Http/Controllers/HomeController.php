@@ -143,17 +143,14 @@ class HomeController extends Controller
         }
         $villageDetail = VillageDetail::first();
 
-        // Get officials grouped by hierarchy
-        $kades = Official::where('position', 'Kepala Desa')->first();
-        $sekdes = Official::where('position', 'Sekretaris Desa')->first();
-        
-        // Staff/Kaur/Kasi (sort_order between 3 and 8)
-        $staff = Official::whereIn('sort_order', [3, 4, 5, 6, 7, 8])->orderBy('sort_order')->get();
-        
-        // Kewilayahan/Kadus (sort_order >= 9)
-        $kadus = Official::where('sort_order', '>=', 9)->orderBy('sort_order')->get();
+        // Get categories ordered by sort_order with active officials
+        $categories = \App\Models\OfficialCategory::with(['officials' => function($query) {
+            $query->where('status', true)->orderBy('sort_order');
+        }])->orderBy('sort_order')->get()->filter(function($category) {
+            return $category->officials->isNotEmpty();
+        });
 
-        return view('officials', compact('profile', 'villageDetail', 'kades', 'sekdes', 'staff', 'kadus'));
+        return view('officials', compact('profile', 'villageDetail', 'categories'));
     }
 
     public function regulations()

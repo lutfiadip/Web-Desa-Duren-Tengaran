@@ -211,7 +211,7 @@
 
     <!-- CONTENT SECTION -->
     <div class="officials-container">
-        @if(!$kades && !$sekdes && $staff->isEmpty() && $kadus->isEmpty())
+        @if($categories->isEmpty())
             <div class="profile-section-card" style="text-align: center; padding: 60px 20px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.015);">
                 <div style="font-size: 3.5rem; color: var(--primary); margin-bottom: 25px; opacity: 0.8;">
                     <i class="fa-solid fa-users-slash"></i>
@@ -222,64 +222,37 @@
                 </p>
             </div>
         @else
-            <!-- SECTION 1: PIMPINAN -->
-            <section class="officials-section">
-                <div class="pimpinan-grid">
-                    <!-- Kepala Desa -->
-                    @if($kades)
-                    <div class="apparatus-card">
-                        <div class="apparatus-img-wrapper">
-                            <img src="{{ $kades->photo }}" alt="{{ $kades->name }}" class="apparatus-img">
+            @foreach($categories as $category)
+            <section class="officials-section" style="margin-bottom: 50px;">
+                <h2 class="section-title">{{ $category->name }}</h2>
+                
+                @if($category->officials->count() <= 2)
+                    <div class="pimpinan-grid">
+                        @foreach($category->officials as $member)
+                        <div class="apparatus-card">
+                            <div class="apparatus-img-wrapper">
+                                <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
+                            </div>
+                            <h3 class="apparatus-name">{{ $member->name }}</h3>
+                            <span class="apparatus-position">{{ $member->position }}</span>
                         </div>
-                        <h3 class="apparatus-name">{{ $kades->name }}</h3>
-                        <span class="apparatus-position">{{ $kades->position }}</span>
+                        @endforeach
                     </div>
-                    @endif
-
-                    <!-- Sekretaris Desa -->
-                    @if($sekdes)
-                    <div class="apparatus-card">
-                        <div class="apparatus-img-wrapper">
-                            <img src="{{ $sekdes->photo }}" alt="{{ $sekdes->name }}" class="apparatus-img">
+                @else
+                    <div class="staff-grid">
+                        @foreach($category->officials as $member)
+                        <div class="apparatus-card">
+                            <div class="apparatus-img-wrapper">
+                                <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
+                            </div>
+                            <h3 class="apparatus-name">{{ $member->name }}</h3>
+                            <span class="apparatus-position">{{ $member->position }}</span>
                         </div>
-                        <h3 class="apparatus-name">{{ $sekdes->name }}</h3>
-                        <span class="apparatus-position">{{ $sekdes->position }}</span>
+                        @endforeach
                     </div>
-                    @endif
-                </div>
+                @endif
             </section>
-
-            <!-- SECTION 2: KAUR & KASI (STAFF) -->
-            <section class="officials-section">
-                <h2 class="section-title">Kaur & Kasi</h2>
-                <div class="staff-grid">
-                    @foreach($staff as $member)
-                    <div class="apparatus-card">
-                        <div class="apparatus-img-wrapper">
-                            <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="apparatus-img">
-                        </div>
-                        <h3 class="apparatus-name">{{ $member->name }}</h3>
-                        <span class="apparatus-position">{{ $member->position }}</span>
-                    </div>
-                    @endforeach
-                </div>
-            </section>
-
-            <!-- SECTION 3: KEPALA DUSUN -->
-            <section class="officials-section" style="margin-bottom: 0;">
-                <h2 class="section-title">Kepala Dusun</h2>
-                <div class="kadus-grid">
-                    @foreach($kadus as $member)
-                    <div class="apparatus-card">
-                        <div class="apparatus-img-wrapper">
-                            <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="apparatus-img">
-                        </div>
-                        <h3 class="apparatus-name">{{ $member->name }}</h3>
-                        <span class="apparatus-position">{{ $member->position }}</span>
-                    </div>
-                    @endforeach
-                </div>
-            </section>
+            @endforeach
         @endif
     </div>
 

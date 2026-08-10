@@ -53,6 +53,9 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     
     Route::resource('news', App\Http\Controllers\Admin\NewsController::class)->except(['show']);
     Route::resource('regulations', App\Http\Controllers\Admin\RegulationController::class)->except(['show']);
+    
+    Route::post('officials/categories/reorder', [App\Http\Controllers\Admin\OfficialCategoryController::class, 'reorder'])->name('officials.categories.reorder');
+    Route::resource('officials/categories', App\Http\Controllers\Admin\OfficialCategoryController::class)->names('officials.categories')->except(['show']);
     Route::resource('officials', App\Http\Controllers\Admin\OfficialController::class)->except(['show']);
     Route::resource('umkm', App\Http\Controllers\Admin\UmkmController::class)->except(['show']);
     Route::resource('tourism', App\Http\Controllers\Admin\TourismController::class)->except(['show']);
