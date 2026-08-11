@@ -32,7 +32,7 @@
             </a>
         </div>
 
-        <form action="{{ route('agriculture.land.update', $land->id) }}" method="POST">
+        <form action="{{ route('admin.agriculture.land.update', $land->id) }}" method="POST">
             @csrf
             @method('PUT')
 

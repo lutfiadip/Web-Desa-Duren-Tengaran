@@ -32,7 +32,7 @@
             </a>
         </div>
 
-        <form action="{{ route('agriculture.commodity.update', $commodity->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.agriculture.commodity.update', $commodity->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 

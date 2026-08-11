@@ -32,7 +32,7 @@
             </a>
         </div>
 
-        <form action="{{ route('agriculture.farmer-group.store') }}" method="POST">
+        <form action="{{ route('admin.agriculture.farmer-group.store') }}" method="POST">
             @csrf
 
             <div class="form-group">

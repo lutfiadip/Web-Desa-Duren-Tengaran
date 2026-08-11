@@ -170,7 +170,7 @@
         <div class="card">
             <div class="card-header" style="margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                 <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin: 0;">Daftar Statistik Lahan</h3>
-                <a href="{{ route('agriculture.land.create') }}" class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 5px;">
+                <a href="{{ route('admin.agriculture.land.create') }}" class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 5px;">
                     <i class="fa-solid fa-plus"></i> Tambah Data Lahan
                 </a>
             </div>
@@ -201,10 +201,10 @@
                                 </td>
                                 <td>
                                     <div style="display: flex; gap: 8px; justify-content: center;">
-                                        <a href="{{ route('agriculture.land.edit', $land->id) }}" class="btn btn-secondary btn-sm" title="Edit">
+                                        <a href="{{ route('admin.agriculture.land.edit', $land->id) }}" class="btn btn-secondary btn-sm" title="Edit">
                                             <i class="fa-solid fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('agriculture.land.destroy', $land->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.agriculture.land.destroy', $land->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
@@ -232,7 +232,7 @@
         <div class="card">
             <div class="card-header" style="margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                 <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin: 0;">Daftar Kelompok Tani</h3>
-                <a href="{{ route('agriculture.farmer-group.create') }}" class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 5px;">
+                <a href="{{ route('admin.agriculture.farmer-group.create') }}" class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 5px;">
                     <i class="fa-solid fa-plus"></i> Tambah Kelompok Tani
                 </a>
             </div>
@@ -263,10 +263,10 @@
                                 </td>
                                 <td>
                                     <div style="display: flex; gap: 8px; justify-content: center;">
-                                        <a href="{{ route('agriculture.farmer-group.edit', $group->id) }}" class="btn btn-secondary btn-sm" title="Edit">
+                                        <a href="{{ route('admin.agriculture.farmer-group.edit', $group->id) }}" class="btn btn-secondary btn-sm" title="Edit">
                                             <i class="fa-solid fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('agriculture.farmer-group.destroy', $group->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.agriculture.farmer-group.destroy', $group->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
@@ -294,7 +294,7 @@
         <div class="card">
             <div class="card-header" style="margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                 <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin: 0;">Daftar Komoditas Pertanian & Peternakan</h3>
-                <a href="{{ route('agriculture.commodity.create') }}" class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 5px;">
+                <a href="{{ route('admin.agriculture.commodity.create') }}" class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 5px;">
                     <i class="fa-solid fa-plus"></i> Tambah Komoditas
                 </a>
             </div>
@@ -341,10 +341,10 @@
                                 </td>
                                 <td>
                                     <div style="display: flex; gap: 8px; justify-content: center;">
-                                        <a href="{{ route('agriculture.commodity.edit', $commodity->id) }}" class="btn btn-secondary btn-sm" title="Edit">
+                                        <a href="{{ route('admin.agriculture.commodity.edit', $commodity->id) }}" class="btn btn-secondary btn-sm" title="Edit">
                                             <i class="fa-solid fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('agriculture.commodity.destroy', $commodity->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus komoditas ini?')">
+                                        <form action="{{ route('admin.agriculture.commodity.destroy', $commodity->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus komoditas ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" title="Hapus">

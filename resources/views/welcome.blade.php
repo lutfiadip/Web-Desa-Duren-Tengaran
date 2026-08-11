@@ -666,7 +666,7 @@
                 <a href="#berita" class="btn-solid">
                     Kabar Terbaru <i class="fa-solid fa-arrow-right"></i>
                 </a>
-                <a href="#informasi" class="btn-outline">
+                <a href="{{ route('statistics') }}" class="btn-outline">
                     Akses Data <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
