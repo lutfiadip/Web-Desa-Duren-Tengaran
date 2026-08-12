@@ -51,6 +51,7 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     Route::get('/profile/contact', [App\Http\Controllers\Admin\ProfileController::class, 'editContact'])->name('profile.edit-contact');
     Route::put('/profile/contact', [App\Http\Controllers\Admin\ProfileController::class, 'updateContact'])->name('profile.update-contact');
     
+    Route::resource('news/categories', App\Http\Controllers\Admin\NewsCategoryController::class)->names('news.categories')->except(['show']);
     Route::resource('news', App\Http\Controllers\Admin\NewsController::class)->except(['show']);
     Route::resource('regulations/categories', App\Http\Controllers\Admin\RegulationCategoryController::class)->names('regulations.categories')->except(['show']);
     Route::resource('regulations', App\Http\Controllers\Admin\RegulationController::class)->except(['show']);

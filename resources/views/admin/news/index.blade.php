@@ -22,9 +22,14 @@
 <div class="card">
     <div class="card-header">
         <h2>Daftar Berita Desa</h2>
-        <a href="{{ route('admin.news.create') }}" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Tambah Berita Baru
-        </a>
+        <div style="display: flex; gap: 10px;">
+            <a href="{{ route('admin.news.categories.index') }}" class="btn btn-secondary" style="display: flex; align-items: center; gap: 5px;">
+                <i class="fa-solid fa-tags"></i> Kelola Kategori
+            </a>
+            <a href="{{ route('admin.news.create') }}" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Tambah Berita Baru
+            </a>
+        </div>
     </div>
 
     <!-- Search Form -->
