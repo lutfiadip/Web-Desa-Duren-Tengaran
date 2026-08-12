@@ -133,9 +133,12 @@
                     $gallery = is_string($commodity->gallery) ? json_decode($commodity->gallery, true) : ($commodity->gallery ?? []);
                 @endphp
                 @if(is_array($gallery) && count($gallery) > 0)
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px;">
                         @foreach($gallery as $gPath)
-                            <img src="{{ asset($gPath) }}" alt="Gallery Image" style="width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                            <div class="gallery-photo-wrapper" style="width: 80px; height: 80px;">
+                                <img src="{{ asset($gPath) }}" alt="Gallery Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                                <button type="button" class="btn-delete-photo" data-model="commodity" data-id="{{ $commodity->id }}" data-photo="{{ $gPath }}" title="Hapus Foto"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
                         @endforeach
                     </div>
                     <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">

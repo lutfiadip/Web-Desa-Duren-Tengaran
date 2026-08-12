@@ -94,4 +94,69 @@ class GalleryController extends Controller
 
         return redirect()->route('admin.gallery.index')->with('success', 'Foto galeri berhasil dihapus.');
     }
+
+    public function deletePhoto(Request $request)
+    {
+        $request->validate([
+            'model' => 'required|string',
+            'id' => 'required|integer',
+            'photo' => 'required|string',
+        ]);
+
+        $modelName = $request->input('model');
+        $id = $request->input('id');
+        $photo = $request->input('photo');
+
+        // Resolve model class
+        $modelClass = match($modelName) {
+            'tourism' => \App\Models\TouristAttraction::class,
+            'umkm' => \App\Models\Umkm::class,
+            'culture' => \App\Models\Culture::class,
+            'commodity' => \App\Models\AgricultureCommodity::class,
+            default => null
+        };
+
+        if (!$modelClass) {
+            return response()->json(['success' => false, 'message' => 'Tipe modul tidak valid.'], 400);
+        }
+
+        $model = $modelClass::find($id);
+        if (!$model) {
+            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.'], 404);
+        }
+
+        // Handle gallery structure
+        $gallery = $model->gallery;
+        if (is_string($gallery)) {
+            $gallery = json_decode($gallery, true) ?? [];
+        }
+
+        if (!is_array($gallery)) {
+            $gallery = [];
+        }
+
+        // Search and remove the photo
+        $index = array_search($photo, $gallery);
+        if ($index !== false) {
+            unset($gallery[$index]);
+            $gallery = array_values($gallery); // re-index
+
+            // Delete physical file
+            if (!str_starts_with($photo, 'http') && file_exists(public_path($photo))) {
+                @unlink(public_path($photo));
+            }
+
+            // Save back
+            if ($modelName === 'commodity') {
+                $model->gallery = json_encode($gallery);
+            } else {
+                $model->gallery = $gallery;
+            }
+            $model->save();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Foto tidak ditemukan dalam galeri.'], 404);
+    }
 }

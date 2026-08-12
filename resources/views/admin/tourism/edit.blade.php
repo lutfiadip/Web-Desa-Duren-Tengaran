@@ -86,9 +86,12 @@
             @if(is_array($tourism->gallery) && count($tourism->gallery) > 0)
                 <div style="margin-bottom: 15px;">
                     <span style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 5px;">Galeri saat ini:</span>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
                         @foreach($tourism->gallery as $imgUrl)
-                            <img src="{{ asset($imgUrl) }}" alt="Galeri" style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-color);">
+                            <div class="gallery-photo-wrapper">
+                                <img src="{{ asset($imgUrl) }}" alt="Galeri" style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-color);">
+                                <button type="button" class="btn-delete-photo" data-model="tourism" data-id="{{ $tourism->id }}" data-photo="{{ $imgUrl }}" title="Hapus Foto"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
                         @endforeach
                     </div>
                     <label style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: #b91c1c; cursor: pointer;">

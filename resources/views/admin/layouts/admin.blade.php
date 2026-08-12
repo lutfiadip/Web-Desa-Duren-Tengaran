@@ -508,6 +508,55 @@
         input:checked + .slider:before {
             transform: translateX(24px);
         }
+
+        /* Dynamic gallery photo deletion styles */
+        .gallery-photo-wrapper {
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+        .gallery-photo-wrapper:hover {
+            transform: scale(1.02);
+        }
+        .gallery-photo-wrapper .btn-delete-photo {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+            transition: all 0.2s;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            padding: 0;
+            line-height: 1;
+        }
+        .gallery-photo-wrapper .btn-delete-photo i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .gallery-photo-wrapper:hover .btn-delete-photo {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .gallery-photo-wrapper .btn-delete-photo:hover {
+            background-color: #dc2626;
+            transform: scale(1.15);
+        }
     </style>
     @yield('styles')
 </head>
@@ -795,6 +844,55 @@
                     showToast('Mohon lengkapi semua kolom yang wajib diisi!', 'error');
                 }
             }, true);
+
+            // Delegate photo deletion click handlers
+            document.addEventListener('click', function(e) {
+                const btn = e.target.closest('.btn-delete-photo');
+                if (btn) {
+                    e.preventDefault();
+                    const modelName = btn.getAttribute('data-model');
+                    const modelId = btn.getAttribute('data-id');
+                    const photoPath = btn.getAttribute('data-photo');
+                    const wrapper = btn.closest('.gallery-photo-wrapper');
+                    
+                    if (confirm('Apakah Anda yakin ingin menghapus foto ini dari galeri?')) {
+                        fetch('{{ route("admin.gallery.delete-photo") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                model: modelName,
+                                id: modelId,
+                                photo: photoPath
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                wrapper.style.transition = 'all 0.3s ease';
+                                wrapper.style.opacity = '0';
+                                wrapper.style.transform = 'scale(0.8)';
+                                setTimeout(() => {
+                                    wrapper.remove();
+                                    const container = wrapper.parentElement;
+                                    if (container && container.querySelectorAll('.gallery-photo-wrapper').length === 0) {
+                                        location.reload();
+                                    }
+                                }, 300);
+                                showToast('Foto berhasil dihapus dari galeri.', 'success');
+                            } else {
+                                showToast(data.message || 'Gagal menghapus foto.', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error deleting photo:', error);
+                            showToast('Terjadi kesalahan koneksi.', 'error');
+                        });
+                    }
+                }
+            });
         });
     </script>
 </body>
