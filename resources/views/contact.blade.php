@@ -213,21 +213,56 @@
                 </ul>
             </div>
 
-            @if($profile && $profile->phone)
-                <div style="margin-top: 10px;">
-                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile->phone) }}?text=Halo%20Admin%20Desa%20Duren,%20saya%20ingin%20bertanya%20mengenai%20pelayanan%20desa." 
-                       target="_blank" class="btn-solid" style="width: 100%; justify-content: center; background-color: #25d366; color: white;">
-                        <i class="fa-brands fa-whatsapp" style="color: white; font-size: 1.25rem;"></i> Hubungi lewat WhatsApp
+            <!-- MEDIA SOSIAL & WHATSAPP -->
+            <div style="margin-top: 0; padding-top: 10px;">
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--text-dark); margin-bottom: 15px; text-align: center;">Media Sosial & Chat</h4>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    @if($profile && $profile->phone)
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile->phone) }}?text=Halo%20Admin%20Desa%20Duren,%20saya%20ingin%20bertanya%20mengenai%20pelayanan%20desa." target="_blank"
+                        style="background: #dcf8c6; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #25D366; text-decoration: none; transition: var(--transition); border: 1px solid rgba(37, 211, 102, 0.2);"
+                        onmouseover="this.style.background='#25D366'; this.style.color='white';" onmouseout="this.style.background='#dcf8c6'; this.style.color='#25D366';" title="Hubungi lewat WhatsApp">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
                     </a>
+                    @endif
+
+                    @if($profile && $profile->facebook && $profile->facebook !== '#')
+                    <a href="{{ $profile->getFacebookLink() }}" target="_blank"
+                        style="background: #eff6ff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1877F2; text-decoration: none; transition: var(--transition); border: 1px solid rgba(24, 119, 242, 0.2);"
+                        onmouseover="this.style.background='#1877F2'; this.style.color='white';" onmouseout="this.style.background='#eff6ff'; this.style.color='#1877F2';" title="Facebook">
+                        <i class="fa-brands fa-facebook-f" style="font-size: 1.2rem;"></i>
+                    </a>
+                    @endif
+                    
+                    @if($profile && $profile->instagram && $profile->instagram !== '#')
+                    <a href="{{ $profile->getInstagramLink() }}" target="_blank"
+                        style="background: #fce7f3; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #E1306C; text-decoration: none; transition: var(--transition); border: 1px solid rgba(225, 48, 108, 0.2);"
+                        onmouseover="this.style.background='#E1306C'; this.style.color='white';" onmouseout="this.style.background='#fce7f3'; this.style.color='#E1306C';" title="Instagram">
+                        <i class="fa-brands fa-instagram" style="font-size: 1.3rem;"></i>
+                    </a>
+                    @endif
+                    
+                    @if($profile && $profile->youtube && $profile->youtube !== '#')
+                    <a href="{{ $profile->getYoutubeLink() }}" target="_blank"
+                        style="background: #fee2e2; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #FF0000; text-decoration: none; transition: var(--transition); border: 1px solid rgba(255, 0, 0, 0.2);"
+                        onmouseover="this.style.background='#FF0000'; this.style.color='white';" onmouseout="this.style.background='#fee2e2'; this.style.color='#FF0000';" title="YouTube">
+                        <i class="fa-brands fa-youtube" style="font-size: 1.2rem;"></i>
+                    </a>
+                    @endif
                 </div>
-            @endif
+            </div>
         </div>
 
         <!-- GOOGLE MAP BOX -->
         @php
             $mapUrl = ($profile && $profile->office_maps_url) ? $profile->office_maps_url : 'https://maps.google.com/maps?q=Kantor%20Kepala%20Desa%20Duren%20Tengaran&t=&z=15&ie=UTF8&iwloc=&output=embed';
-            if (str_contains($mapUrl, '/maps/d/')) {
+            
+            // If user pastes an entire iframe code, extract the src
+            if (preg_match('/src="([^"]+)"/', $mapUrl, $matches)) {
+                $mapUrl = $matches[1];
+            } else if (str_contains($mapUrl, '/maps/d/')) {
                 $mapUrl = str_replace(['/maps/d/edit', '/maps/d/viewer'], '/maps/d/embed', $mapUrl);
+            } else if (str_contains($mapUrl, 'maps.google.com/maps') && !str_contains($mapUrl, 'output=embed') && !str_contains($mapUrl, 'maps/embed')) {
+                $mapUrl .= (str_contains($mapUrl, '?') ? '&' : '?') . 'output=embed';
             }
         @endphp
         <div class="map-box" style="background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 25px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02); display: flex; flex-direction: column; min-height: 450px;">

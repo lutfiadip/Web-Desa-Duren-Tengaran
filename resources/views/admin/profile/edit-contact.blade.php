@@ -57,33 +57,33 @@
                     <label for="office_maps_url">Link Google Maps Balai Desa / Kantor Desa</label>
                     <input type="text" id="office_maps_url" name="office_maps_url" class="form-control"
                         value="{{ old('office_maps_url', $profile->office_maps_url) }}"
-                        placeholder="Masukkan link Google Maps Balai Desa (https://www.google.com/maps/embed?...)">
-                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">
-                        Peta ini akan digunakan sebagai peta lokasi Balai Desa di Halaman Kontak publik dan sebagai penunjuk arah di footer.
+                        placeholder="Masukkan link atau kode <iframe> dari Google Maps">
+                    <span style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 8px; line-height: 1.5;">
+                        <i class="fa-solid fa-circle-info" style="color: var(--primary-light);"></i> <strong>Tips:</strong> Agar titik peta akurat, buka Google Maps > Cari Lokasi > Klik "Bagikan" > Pilih tab <strong>"Sematkan peta"</strong> (Embed a map) > Salin kode HTML <code>&lt;iframe...&gt;</code> dan tempel di sini.
                     </span>
                 </div>
 
                 <h3 style="font-size: 1rem; font-weight: 800; color: var(--primary-light); margin: 25px 0 15px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                    <i class="fa-solid fa-hashtag"></i> Tautan Media Sosial Resmi
+                    <i class="fa-solid fa-at"></i> Username / Tautan Media Sosial Resmi
                 </h3>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="facebook">Facebook</label>
                         <input type="text" id="facebook" name="facebook" class="form-control"
-                            value="{{ old('facebook', $profile->facebook) }}" placeholder="Contoh: desa.duren atau URL">
+                            value="{{ old('facebook', $profile->facebook ?: '@') }}" placeholder="Contoh: @desa.duren atau URL">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="instagram">Instagram</label>
                         <input type="text" id="instagram" name="instagram" class="form-control"
-                            value="{{ old('instagram', $profile->instagram) }}" placeholder="Contoh: @desa.duren atau URL">
+                            value="{{ old('instagram', $profile->instagram ?: '@') }}" placeholder="Contoh: @desa.duren atau URL">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="youtube">YouTube</label>
                         <input type="text" id="youtube" name="youtube" class="form-control"
-                            value="{{ old('youtube', $profile->youtube) }}" placeholder="Contoh: @durentengaran atau URL">
+                            value="{{ old('youtube', $profile->youtube ?: '@') }}" placeholder="Contoh: @durentengaran atau URL">
                     </div>
                 </div>
             </div>
