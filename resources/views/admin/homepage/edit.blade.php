@@ -110,11 +110,7 @@
     </nav>
 
     <div style="max-width: 800px; margin: 0 auto;">
-        @if(session('success'))
-            <div class="alert alert-success" style="margin-bottom: 20px;">
-                <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
-            </div>
-        @endif
+
 
         <form action="{{ route('admin.homepage.update') }}" method="POST" enctype="multipart/form-data">
             @csrf

@@ -152,11 +152,7 @@
         </a>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success" style="margin-bottom: 25px; padding: 15px 20px; border-radius: var(--radius-md); background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; font-weight: 600;">
-            <i class="fa-solid fa-circle-check" style="margin-right: 8px;"></i> {{ session('success') }}
-        </div>
-    @endif
+
 
     <div class="card" style="padding: 30px; background-color: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
         <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">

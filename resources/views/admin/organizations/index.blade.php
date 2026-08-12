@@ -35,11 +35,7 @@
         </div>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success" style="margin-bottom: 20px;">
-            <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
-        </div>
-    @endif
+
 
     <div class="card">
         <div class="card-header" style="margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">

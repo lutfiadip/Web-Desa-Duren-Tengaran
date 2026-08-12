@@ -73,17 +73,7 @@
         </ol>
     </nav>
 
-    @if(session('success'))
-        <div class="alert alert-success" style="margin-bottom: 20px; padding: 15px; background-color: #d1e7dd; border: 1px solid #badbcc; color: #0f5132; border-radius: var(--radius-md);">
-            {{ session('success') }}
-        </div>
-    @endif
 
-    @if(session('error'))
-        <div class="alert alert-danger" style="margin-bottom: 20px; padding: 15px; background-color: #f8d7da; border: 1px solid #f5c2c7; color: #842029; border-radius: var(--radius-md);">
-            {{ session('error') }}
-        </div>
-    @endif
 
     <div style="display: grid; grid-template-columns: 7fr 5fr; gap: 30px; align-items: start;">
         

@@ -53,11 +53,7 @@
         </div>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success" style="margin-bottom: 20px;">
-            <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
-        </div>
-    @endif
+
 
     <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 25px; align-items: start;">
         <!-- Left: List of Members -->

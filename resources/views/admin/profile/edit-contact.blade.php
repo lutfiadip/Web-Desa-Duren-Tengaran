@@ -32,11 +32,7 @@
             </a>
         </div>
 
-        @if(session('success'))
-            <div class="alert alert-success" style="margin: 0 0 20px 0; position: static; min-width: auto; max-width: none; box-shadow: none;">
-                <i class="fa-solid fa-circle-check"></i> {{ session('success') }}
-            </div>
-        @endif
+
 
         <form action="{{ route('admin.profile.update-contact') }}" method="POST">
             @csrf
