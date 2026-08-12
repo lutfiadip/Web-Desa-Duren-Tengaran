@@ -468,10 +468,10 @@ class ProfileController extends Controller
             'facebook' => 'nullable|string|max:255',
             'instagram' => 'nullable|string|max:255',
             'youtube' => 'nullable|string|max:255',
-            'google_maps_url' => 'nullable|string',
+            'office_maps_url' => 'nullable|string',
         ]);
 
-        $data = $request->only(['phone', 'email', 'address', 'facebook', 'instagram', 'youtube', 'google_maps_url']);
+        $data = $request->only(['phone', 'email', 'address', 'facebook', 'instagram', 'youtube', 'office_maps_url']);
 
         if ($profile->exists) {
             $profile->update($data);

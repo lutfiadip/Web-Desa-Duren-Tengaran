@@ -492,13 +492,12 @@
                     @if($profile && $profile->address)
                     <li style="display: flex; gap: 10px;">
                         <i class="fa-solid fa-map-location-dot" style="margin-top: 5px; color: var(--accent);"></i>
-                        @if($profile->google_maps_url)
-                            <a href="{{ $profile->google_maps_url }}" target="_blank" style="color: inherit; text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">
-                                {{ $profile->address }}
-                            </a>
-                        @else
+                        @php
+                            $targetMapUrl = $profile->office_maps_url ?: 'https://www.google.com/maps/search/?api=1&query=Kantor+Kepala+Desa+Duren+Tengaran';
+                        @endphp
+                        <a href="{{ $targetMapUrl }}" target="_blank" style="color: inherit; text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">
                             {{ $profile->address }}
-                        @endif
+                        </a>
                     </li>
                     @endif
                     @if($profile && $profile->phone)

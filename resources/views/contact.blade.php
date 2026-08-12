@@ -65,9 +65,19 @@
 
     /* --- CONTACT LAYOUT --- */
     .contact-container {
-        max-width: 800px;
+        max-width: 1200px;
         margin: 0 auto;
         padding: 60px 5% 80px;
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 40px;
+    }
+
+    @media (max-width: 992px) {
+        .contact-container {
+            grid-template-columns: 1fr;
+            max-width: 800px;
+        }
     }
 
     /* --- INFO CARD --- */
@@ -213,7 +223,20 @@
             @endif
         </div>
 
-
-
+        <!-- GOOGLE MAP BOX -->
+        @php
+            $mapUrl = ($profile && $profile->office_maps_url) ? $profile->office_maps_url : 'https://maps.google.com/maps?q=Kantor%20Kepala%20Desa%20Duren%20Tengaran&t=&z=15&ie=UTF8&iwloc=&output=embed';
+            if (str_contains($mapUrl, '/maps/d/')) {
+                $mapUrl = str_replace(['/maps/d/edit', '/maps/d/viewer'], '/maps/d/embed', $mapUrl);
+            }
+        @endphp
+        <div class="map-box" style="background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 25px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02); display: flex; flex-direction: column; min-height: 450px;">
+            <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-map-location-dot" style="color: var(--primary);"></i> Peta Lokasi Kantor Desa
+            </h3>
+            <div style="flex-grow: 1; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-color); position: relative; min-height: 350px; background: #e2e8f0;">
+                <iframe src="{{ $mapUrl }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
     </div>
 @endsection

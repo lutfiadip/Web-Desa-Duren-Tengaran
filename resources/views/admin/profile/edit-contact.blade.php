@@ -54,12 +54,12 @@
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="google_maps_url">Link Google Maps (Peta Utama / Kantor Desa)</label>
-                    <input type="text" id="google_maps_url" name="google_maps_url" class="form-control"
-                        value="{{ old('google_maps_url', $profile->google_maps_url) }}"
-                        placeholder="Masukkan link Google Maps (https://www.google.com/maps/embed?...)">
+                    <label for="office_maps_url">Link Google Maps Balai Desa / Kantor Desa</label>
+                    <input type="text" id="office_maps_url" name="office_maps_url" class="form-control"
+                        value="{{ old('office_maps_url', $profile->office_maps_url) }}"
+                        placeholder="Masukkan link Google Maps Balai Desa (https://www.google.com/maps/embed?...)">
                     <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">
-                        Peta ini akan digunakan sebagai Google Maps interaktif utama di halaman profil desa dan link penunjuk arah di footer.
+                        Peta ini akan digunakan sebagai peta lokasi Balai Desa di Halaman Kontak publik dan sebagai penunjuk arah di footer.
                     </span>
                 </div>
 
