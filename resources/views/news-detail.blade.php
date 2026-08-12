@@ -344,6 +344,7 @@
                     <span class="article-badge">{{ $article->category->name ?? 'Berita' }}</span>
                     <span><i class="fa-solid fa-calendar-days"></i> {{ \Carbon\Carbon::parse($article->published_at)->translatedFormat('d F Y') }}</span>
                     <span><i class="fa-solid fa-user"></i> Admin Desa</span>
+                    <span><i class="fa-solid fa-eye"></i> {{ number_format($article->views, 0, ',', '.') }} Dilihat</span>
                 </div>
                 
                 @if($article->featured_image)

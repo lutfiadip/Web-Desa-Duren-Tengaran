@@ -581,8 +581,13 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.profile.edit') }}" class="{{ request()->routeIs('admin.profile.edit') ? 'active' : '' }}">
+                <a href="{{ route('admin.profile.edit') }}" class="{{ request()->routeIs('admin.profile.edit') || request()->routeIs('admin.profile.edit-identity') || request()->routeIs('admin.profile.edit-layout') ? 'active' : '' }}">
                     <i class="fa-solid fa-house-chimney"></i> Profil Desa
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.profile.edit-contact') }}" class="{{ request()->routeIs('admin.profile.edit-contact') ? 'active' : '' }}">
+                    <i class="fa-solid fa-address-book"></i> Info Kontak
                 </a>
             </li>
             <li>

@@ -871,9 +871,14 @@
             
                     <div class="grid-3">
                         @foreach($news as $item)
-                        <div class="info-card">
-                            <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image) }}"
-                                alt="{{ $item->title }}" class="card-img">
+                        <div class="info-card" style="position: relative;">
+                            <div style="position: relative; overflow: hidden; height: 220px; width: 100%; border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+                                <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image) }}"
+                                    alt="{{ $item->title }}" class="card-img" style="height: 100%; width: 100%; object-fit: cover;">
+                                <span style="position: absolute; top: 15px; right: 15px; background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); color: var(--white); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); z-index: 2;">
+                                    <i class="fa-solid fa-eye" style="font-size: 0.75rem;"></i> {{ number_format($item->views, 0, ',', '.') }}
+                                </span>
+                            </div>
                             <div class="card-content">
                                 <div class="card-meta">
                                     <span class="tag">{{ $item->category->name ?? 'Berita' }}</span>

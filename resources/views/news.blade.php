@@ -454,12 +454,16 @@
                         <img src="{{ $item->featured_image ? (Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image)) : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" 
                              alt="{{ $item->title }}" class="card-img">
                         <span class="card-badge">{{ $item->category->name ?? 'Berita' }}</span>
+                        <span style="position: absolute; top: 15px; right: 15px; background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); color: var(--white); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); z-index: 2;">
+                            <i class="fa-solid fa-eye" style="font-size: 0.75rem;"></i> {{ number_format($item->views, 0, ',', '.') }}
+                        </span>
                     </div>
 
                     <div class="card-body">
                         <div class="card-meta">
                             <span><i class="fa-solid fa-calendar-days"></i> {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('d M Y') }}</span>
                             <span><i class="fa-solid fa-user"></i> Admin</span>
+                            <span><i class="fa-solid fa-eye"></i> {{ number_format($item->views, 0, ',', '.') }}</span>
                         </div>
                         
                         <a href="{{ route('news.detail', $item->slug) }}" class="card-title" title="{{ $item->title }}">

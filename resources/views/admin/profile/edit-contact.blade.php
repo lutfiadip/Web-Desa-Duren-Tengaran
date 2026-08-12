@@ -12,13 +12,7 @@
                 </a>
             </li>
             <li><i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: #94a3b8;"></i></li>
-            <li>
-                <a href="{{ route('admin.profile.edit') }}" style="color: var(--primary-light); text-decoration: none; font-weight: 500; transition: var(--transition);">
-                    Profil Desa
-                </a>
-            </li>
-            <li><i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: #94a3b8;"></i></li>
-            <li style="color: var(--text-dark); font-weight: 600;">Kontak & Media Sosial</li>
+            <li style="color: var(--text-dark); font-weight: 600;">Info Kontak</li>
         </ol>
     </nav>
 
@@ -27,7 +21,7 @@
             <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 10px; margin: 0;">
                 <i class="fa-solid fa-share-nodes" style="color: var(--primary-light);"></i> Kontak & Media Sosial Resmi (Footer)
             </h2>
-            <a href="{{ route('admin.profile.edit') }}" class="btn btn-secondary">
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
                 <i class="fa-solid fa-arrow-left"></i> Kembali
             </a>
         </div>
@@ -57,6 +51,16 @@
                     <label for="address">Alamat Kantor Kepala Desa</label>
                     <textarea id="address" name="address" class="form-control"
                         style="min-height: 80px;" placeholder="Tuliskan alamat lengkap kantor kepala desa...">{{ old('address', $profile->address) }}</textarea>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="google_maps_url">Link Google Maps (Peta Utama / Kantor Desa)</label>
+                    <input type="text" id="google_maps_url" name="google_maps_url" class="form-control"
+                        value="{{ old('google_maps_url', $profile->google_maps_url) }}"
+                        placeholder="Masukkan link Google Maps (https://www.google.com/maps/embed?...)">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">
+                        Peta ini akan digunakan sebagai Google Maps interaktif utama di halaman profil desa dan link penunjuk arah di footer.
+                    </span>
                 </div>
 
                 <h3 style="font-size: 1rem; font-weight: 800; color: var(--primary-light); margin: 25px 0 15px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
