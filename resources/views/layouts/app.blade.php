@@ -386,6 +386,7 @@
             @if($profile->publish_statistics ?? true)
                 <li><a href="{{ route('statistics') }}" class="{{ request()->routeIs('statistics*') ? 'active' : '' }}">Statistik</a></li>
             @endif
+            <li><a href="{{ route('public_services') }}" class="{{ request()->routeIs('public_services*') ? 'active' : '' }}">Layanan Publik</a></li>
             <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact*') ? 'active' : '' }}">Kontak</a></li>
         </ul>
     </header>

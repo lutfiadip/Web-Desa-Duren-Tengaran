@@ -636,6 +636,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.public-services.index') }}" class="{{ request()->routeIs('admin.public-services.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-folder-open"></i> Layanan Publik
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.agriculture.index') }}" class="{{ request()->routeIs('admin.agriculture.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-wheat-awn"></i> Pertanian & Peternakan
                 </a>

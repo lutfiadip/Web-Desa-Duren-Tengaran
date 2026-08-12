@@ -26,6 +26,7 @@ use App\Models\CommunityInstitutionMember;
 use App\Models\NewsCategory;
 use App\Models\PopulationStatistic;
 use App\Models\PopulationStatisticType;
+use App\Models\PublicService;
 
 
 class HomeController extends Controller
@@ -496,5 +497,24 @@ class HomeController extends Controller
 
         return view('statistics', compact('profile', 'villageDetail', 'statisticsData'));
     }
-}
 
+    public function publicServices()
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+        
+        $services = PublicService::where('is_active', true)->orderBy('created_at', 'desc')->paginate(12);
+        
+        return view('public_services', compact('profile', 'villageDetail', 'services'));
+    }
+
+    public function publicServiceDetail($slug)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+        
+        $service = PublicService::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        
+        return view('public_service_detail', compact('profile', 'villageDetail', 'service'));
+    }
+}

@@ -22,6 +22,8 @@ Route::get('/berita', [HomeController::class, 'news'])->name('news');
 Route::get('/berita/{slug}', [HomeController::class, 'newsDetail'])->name('news.detail');
 Route::get('/kontak', [HomeController::class, 'contact'])->name('contact');
 Route::get('/statistik', [HomeController::class, 'statistics'])->name('statistics');
+Route::get('/layanan-publik', [HomeController::class, 'publicServices'])->name('public_services');
+Route::get('/layanan-publik/{slug}', [HomeController::class, 'publicServiceDetail'])->name('public_services.detail');
 
 // Admin Authentication Routes
 Route::get('/admin/login', [App\Http\Controllers\Admin\AdminAuthController::class, 'showLogin'])->name('admin.login');
@@ -65,6 +67,9 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     Route::resource('culture', App\Http\Controllers\Admin\CultureController::class)->except(['show']);
     Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class)->except(['show']);
     Route::post('gallery/delete-photo', [App\Http\Controllers\Admin\GalleryController::class, 'deletePhoto'])->name('gallery.delete-photo');
+    
+    // Public Services
+    Route::resource('public-services', App\Http\Controllers\Admin\PublicServiceController::class)->except(['show']);
     
     // Statistics Management
     Route::get('/statistics', [App\Http\Controllers\Admin\StatisticController::class, 'index'])->name('statistics.index');
