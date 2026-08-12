@@ -64,11 +64,16 @@
         </div>
 
         <div class="form-group">
-            <label for="status">Status</label>
-            <select id="status" name="status" class="form-control" required>
-                <option value="draft" {{ old('status', $regulation->status) == 'draft' ? 'selected' : '' }}>Simpan sebagai Draft</option>
-                <option value="published" {{ old('status', $regulation->status) == 'published' ? 'selected' : '' }}>Terbitkan (Published)</option>
-            </select>
+            <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 8px; display: block;">Status Publikasi</label>
+            <div style="display: flex; align-items: center; gap: 10px; padding: 5px 0;">
+                <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Draft</span>
+                <label class="switch">
+                    <input type="hidden" name="status" id="status-input" value="{{ old('status', $regulation->status) }}">
+                    <input type="checkbox" id="status-toggle" {{ old('status', $regulation->status) === 'published' ? 'checked' : '' }} onchange="document.getElementById('status-input').value = this.checked ? 'published' : 'draft'">
+                    <span class="slider"></span>
+                </label>
+                <span style="font-size: 0.9rem; color: var(--primary-light); font-weight: 700;">Dipublikasikan</span>
+            </div>
         </div>
 
         <div style="margin-top: 30px; display: flex; gap: 10px;">

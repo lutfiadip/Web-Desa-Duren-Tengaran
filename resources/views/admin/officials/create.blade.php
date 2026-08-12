@@ -48,11 +48,16 @@
         </div>
 
         <div class="form-group">
-            <label for="status">Status Keaktifan</label>
-            <select id="status" name="status" class="form-control" required>
-                <option value="1" {{ old('status', '1') == '1' ? 'selected' : '' }}>Aktif menjabat</option>
-                <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Non-Aktif/Pensiun</option>
-            </select>
+            <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 8px; display: block;">Status Keaktifan</label>
+            <div style="display: flex; align-items: center; gap: 10px; padding: 5px 0;">
+                <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Non-Aktif</span>
+                <label class="switch">
+                    <input type="hidden" name="status" id="status-input" value="{{ old('status', '1') }}">
+                    <input type="checkbox" id="status-toggle" {{ old('status', '1') == '1' ? 'checked' : '' }} onchange="document.getElementById('status-input').value = this.checked ? '1' : '0'">
+                    <span class="slider"></span>
+                </label>
+                <span style="font-size: 0.9rem; color: var(--primary-light); font-weight: 700;">Aktif</span>
+            </div>
         </div>
 
         <div style="margin-top: 30px; display: flex; gap: 10px;">
