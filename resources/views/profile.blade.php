@@ -651,7 +651,7 @@
                             <div class="kades-greeting-layout">
                                 <div class="kades-profile-img-wrapper">
                                     @if($profile && $profile->headman_photo)
-                                        <img src="{{ Str::startsWith($profile->headman_photo, 'http') ? $profile->headman_photo : asset('storage/' . $profile->headman_photo) }}"
+                                        <img src="{{ Str::startsWith($profile->headman_photo, 'http') ? $profile->headman_photo : asset($profile->headman_photo) }}"
                                             alt="{{ $profile->headman_name }}" class="kades-profile-img">
                                     @else
                                         <div

@@ -339,7 +339,7 @@
                     <div class="card-item">
                         <a href="{{ route('tourism.detail', $attraction->slug) }}" class="card-image-wrapper">
                             @if($attraction->thumbnail)
-                                <img src="{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset('storage/' . $attraction->thumbnail) }}" alt="{{ $attraction->title }}" class="card-image">
+                                <img src="{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset($attraction->thumbnail) }}" alt="{{ $attraction->title }}" class="card-image">
                             @else
                                 <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $attraction->title }}" class="card-image">
                             @endif
@@ -372,8 +372,17 @@
                                 </li>
                                 <li class="card-meta-item">
                                     <i class="fa-solid fa-ticket"></i>
-                                    <span><strong>Tiket Masuk:</strong> 
-                                        @if($attraction->ticket_price > 0)
+                                    <span><strong>Harga Tiket:</strong> 
+                                        @if(!empty($attraction->ticket_packages) && count($attraction->ticket_packages) > 0)
+                                            @php
+                                                $minPrice = min(array_column($attraction->ticket_packages, 'price'));
+                                            @endphp
+                                            @if($minPrice == 0)
+                                                Gratis / Sukarela
+                                            @else
+                                                Mulai Rp {{ number_format($minPrice, 0, ',', '.') }}
+                                            @endif
+                                        @elseif($attraction->ticket_price > 0)
                                             Rp {{ number_format($attraction->ticket_price, 0, ',', '.') }}
                                         @else
                                             Gratis / Sukarela
@@ -417,7 +426,7 @@
                     <div class="card-item">
                         <a href="{{ route('culture.detail', $culture->slug) }}" class="card-image-wrapper">
                             @if($culture->thumbnail)
-                                <img src="{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset('storage/' . $culture->thumbnail) }}" alt="{{ $culture->title }}" class="card-image">
+                                <img src="{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset($culture->thumbnail) }}" alt="{{ $culture->title }}" class="card-image">
                             @else
                                 <img src="https://images.unsplash.com/photo-1590075865003-e48277faa558?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $culture->title }}" class="card-image">
                             @endif

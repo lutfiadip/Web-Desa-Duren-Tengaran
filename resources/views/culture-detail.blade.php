@@ -7,7 +7,7 @@
     /* --- HERO --- */
     .detail-hero {
         background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%),
-                    url('{{ $culture->thumbnail ? (Str::startsWith($culture->thumbnail, "http") ? $culture->thumbnail : asset("storage/" . $culture->thumbnail)) : ($profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "") }}') center/cover no-repeat;
+                    url('{{ $culture->thumbnail ? (Str::startsWith($culture->thumbnail, "http") ? $culture->thumbnail : asset($culture->thumbnail)) : ($profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "") }}') center/cover no-repeat;
         padding: 180px 5% 140px;
         text-align: center;
         color: var(--white);
@@ -307,7 +307,7 @@
             <div class="detail-card">
                 <div class="detail-image-main-wrapper" style="margin-bottom: 15px; border-radius: var(--radius-lg); overflow: hidden; height: 450px; border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
                     @if($culture->thumbnail)
-                        <img id="main-image" src="{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset('storage/' . $culture->thumbnail) }}" alt="{{ $culture->title }}" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease;">
+                        <img id="main-image" src="{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset($culture->thumbnail) }}" alt="{{ $culture->title }}" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease;">
                     @else
                         <img id="main-image" src="https://images.unsplash.com/photo-1590075865003-e48277faa558?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $culture->title }}" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease;">
                     @endif
@@ -315,13 +315,13 @@
 
                 @if(!empty($culture->gallery) && count($culture->gallery) > 0)
                     <div class="gallery-thumbnails" style="display: flex; gap: 10px; margin-bottom: 35px; overflow-x: auto; padding-bottom: 10px;">
-                        <div class="thumb-item active" onclick="changeMainImage(this, '{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset('storage/' . $culture->thumbnail) }}')" style="width: 100px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid var(--primary); cursor: pointer; flex-shrink: 0; transition: var(--transition);">
-                            <img src="{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset('storage/' . $culture->thumbnail) }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="thumb-item active" onclick="changeMainImage(this, '{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset($culture->thumbnail) }}')" style="width: 100px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid var(--primary); cursor: pointer; flex-shrink: 0; transition: var(--transition);">
+                            <img src="{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset($culture->thumbnail) }}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         @foreach($culture->gallery as $galImg)
                             @if($galImg != $culture->thumbnail)
-                                <div class="thumb-item" onclick="changeMainImage(this, '{{ Str::startsWith($galImg, 'http') ? $galImg : asset('storage/' . $galImg) }}')" style="width: 100px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid transparent; cursor: pointer; flex-shrink: 0; transition: var(--transition);">
-                                    <img src="{{ Str::startsWith($galImg, 'http') ? $galImg : asset('storage/' . $galImg) }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="thumb-item" onclick="changeMainImage(this, '{{ Str::startsWith($galImg, 'http') ? $galImg : asset($galImg) }}')" style="width: 100px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid transparent; cursor: pointer; flex-shrink: 0; transition: var(--transition);">
+                                    <img src="{{ Str::startsWith($galImg, 'http') ? $galImg : asset($galImg) }}" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
                             @endif
                         @endforeach
@@ -387,7 +387,7 @@
                     <a href="{{ route('culture.detail', $other->slug) }}" class="card-item">
                         <div class="card-image-wrapper">
                             @if($other->thumbnail)
-                                <img src="{{ Str::startsWith($other->thumbnail, 'http') ? $other->thumbnail : asset('storage/' . $other->thumbnail) }}" alt="{{ $other->title }}" class="card-image">
+                                <img src="{{ Str::startsWith($other->thumbnail, 'http') ? $other->thumbnail : asset($other->thumbnail) }}" alt="{{ $other->title }}" class="card-image">
                             @else
                                 <img src="https://images.unsplash.com/photo-1590075865003-e48277faa558?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $other->title }}" class="card-image">
                             @endif

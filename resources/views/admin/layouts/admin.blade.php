@@ -654,6 +654,29 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Auto add red asterisk to labels of required inputs globally
+            document.querySelectorAll('input[required], select[required], textarea[required]').forEach(input => {
+                let id = input.getAttribute('id');
+                let label = null;
+                if (id) {
+                    label = document.querySelector(`label[for="${id}"]`);
+                }
+                if (!label) {
+                    let formGroup = input.closest('.form-group') || input.closest('.form-row') || input.parentElement;
+                    if (formGroup) {
+                        label = formGroup.querySelector('label');
+                    }
+                }
+                if (label && !label.innerHTML.includes('*') && !label.textContent.includes('*')) {
+                    const star = document.createElement('span');
+                    star.style.color = '#ef4444';
+                    star.style.marginLeft = '4px';
+                    star.style.fontWeight = 'bold';
+                    star.innerHTML = '*';
+                    label.appendChild(star);
+                }
+            });
+
             const alerts = document.querySelectorAll('.alert');
             alerts.forEach(function(alert) {
                 // Create close button
@@ -762,6 +785,16 @@
                     setTimeout(() => toast.remove(), 400);
                 }, 3000);
             }
+
+            // Listen to invalid input events to show a floating notification
+            let lastInvalidNoticeTime = 0;
+            document.addEventListener('invalid', function(e) {
+                const now = Date.now();
+                if (now - lastInvalidNoticeTime > 1000) {
+                    lastInvalidNoticeTime = now;
+                    showToast('Mohon lengkapi semua kolom yang wajib diisi!', 'error');
+                }
+            }, true);
         });
     </script>
 </body>

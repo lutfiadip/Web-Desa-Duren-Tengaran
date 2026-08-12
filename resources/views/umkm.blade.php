@@ -478,7 +478,7 @@
             @foreach($umkms as $umkm)
                 <div class="umkm-card" data-category-id="{{ $umkm->category_id }}" data-title="{{ strtolower($umkm->title) }}" data-desc="{{ strtolower($umkm->description) }}">
                     <a href="{{ route('umkm.detail', $umkm->slug) }}" class="umkm-image-wrapper">
-                        <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
+                        <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset($umkm->thumbnail) }}"
                              alt="{{ $umkm->title }}" class="umkm-image" loading="lazy">
                         <span class="category-badge">{{ $umkm->category->name ?? 'Lokal' }}</span>
                         @if($umkm->is_featured)

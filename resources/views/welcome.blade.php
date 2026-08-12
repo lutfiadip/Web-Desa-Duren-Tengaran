@@ -809,7 +809,7 @@
                         @foreach($umkms as $umkm)
                         <div class="info-card">
                             <a href="{{ route('umkm.detail', $umkm->slug) }}" style="display: block;">
-                                <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset('storage/' . $umkm->thumbnail) }}"
+                                <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset($umkm->thumbnail) }}"
                                     alt="{{ $umkm->title }}" class="card-img">
                             </a>
                             <div class="card-content">
@@ -901,7 +901,7 @@
                     <div class="gallery-grid">
                         @foreach($galleries as $gallery)
                         <div class="gallery-item">
-                            <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset('storage/' . $gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
+                            <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
                         </div>
                         @endforeach
                     </div>

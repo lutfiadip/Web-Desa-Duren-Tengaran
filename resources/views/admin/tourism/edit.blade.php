@@ -22,31 +22,41 @@
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
-                <label for="ticket_price">Harga Tiket Masuk (IDR / Rupiah)</label>
-                <input type="number" id="ticket_price" name="ticket_price" class="form-control" placeholder="Contoh: 15000" value="{{ old('ticket_price', $tourism->ticket_price) }}" required>
+                <label for="contact">Narahubung / Kontak Pengelola</label>
+                <input type="text" id="contact" name="contact" class="form-control" placeholder="Contoh: 0857-1234-5678" value="{{ old('contact', $tourism->contact) }}">
             </div>
 
             <div class="form-group">
-                <label for="contact">Narahubung / Kontak Pengelola</label>
-                <input type="text" id="contact" name="contact" class="form-control" placeholder="Contoh: 0857-1234-5678" value="{{ old('contact', $tourism->contact) }}">
+                <label for="operating_hours">Jam Operasional Wisata</label>
+                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Contoh: Setiap Hari" value="{{ old('operating_hours', $tourism->operating_hours) }}">
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
-                <label for="operating_hours">Jam Operasional Wisata</label>
-                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Contoh: Setiap Hari" value="{{ old('operating_hours', $tourism->operating_hours) }}">
-            </div>
-
-            <div class="form-group">
                 <label for="google_maps_url">Link Google Maps Lokasi Wisata</label>
                 <input type="url" id="google_maps_url" name="google_maps_url" class="form-control" placeholder="Contoh: https://maps.google.com/..." value="{{ old('google_maps_url', $tourism->google_maps_url) }}">
             </div>
+
+            <div class="form-group">
+                <label for="facilities">Fasilitas Wisata (Pisahkan dengan koma)</label>
+                <input type="text" id="facilities" name="facilities" class="form-control" placeholder="Contoh: Gazebo, Kamar Mandi" value="{{ old('facilities', $tourism->facilities) }}">
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="facilities">Fasilitas Wisata (Pisahkan dengan koma)</label>
-            <input type="text" id="facilities" name="facilities" class="form-control" placeholder="Contoh: Gazebo, Kamar Mandi" value="{{ old('facilities', $tourism->facilities) }}">
+        <!-- Harga Tiket / Paket Wisata -->
+        <div class="form-group" style="margin-top: 10px; padding: 15px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+            <label style="font-weight: 700; color: var(--text-dark); display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>Harga Tiket / Paket Wisata <span style="color: red;">*</span></span>
+                <button type="button" id="btn-add-package" class="btn btn-secondary btn-sm" style="padding: 4px 10px; font-size: 0.8rem; display: flex; align-items: center; gap: 4px;">
+                    <i class="fa-solid fa-plus"></i> Tambah Tiket/Paket
+                </button>
+            </label>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px; margin-top: -5px;">Masukkan daftar harga tiket atau paket wisata (misal: "Tiket Dewasa" Rp 15.000, "Tiket Masuk" harga 0 jika gratis/sukarela). Harus ada minimal 1 baris.</p>
+            
+            <div id="packages-container" style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- Baris paket akan dimasukkan secara dinamis dengan JS -->
+            </div>
         </div>
 
         <div class="form-group">
@@ -115,4 +125,69 @@
         </div>
     </form>
 </div>
+@endsection
+
+@section('styles')
+<style>
+    .package-row {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        background: var(--white);
+        padding: 10px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+    }
+</style>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('packages-container');
+        const btnAdd = document.getElementById('btn-add-package');
+        let index = 0;
+
+        function addPackageRow(name = '', price = '') {
+            const row = document.createElement('div');
+            row.className = 'package-row';
+            row.innerHTML = `
+                <div style="flex: 2;">
+                    <input type="text" name="ticket_packages[${index}][name]" class="form-control" placeholder="Contoh: Tiket Dewasa / Paket Camping" value="${name}" required>
+                </div>
+                <div style="flex: 1; display: flex; align-items: center; gap: 8px;">
+                    <span style="font-weight: 600; color: var(--text-muted);">Rp</span>
+                    <input type="number" name="ticket_packages[${index}][price]" class="form-control" placeholder="0 (gratis/sukarela)" value="${price}" required min="0">
+                </div>
+                <button type="button" class="btn-icon delete btn-remove-package" style="background:none; border:none; cursor:pointer;" title="Hapus Paket">
+                    <i class="fa-solid fa-trash-can" style="color: #ef4444;"></i>
+                </button>
+            `;
+            container.appendChild(row);
+
+            row.querySelector('.btn-remove-package').addEventListener('click', function() {
+                row.remove();
+            });
+
+            index++;
+        }
+
+        btnAdd.addEventListener('click', function() {
+            addPackageRow();
+        });
+
+        // Add initial rows from old input or database
+        @if(old('ticket_packages'))
+            @foreach(old('ticket_packages') as $pkg)
+                addPackageRow('{{ e($pkg['name'] ?? '') }}', '{{ e($pkg['price'] ?? '') }}');
+            @endforeach
+        @elseif(!empty($tourism->ticket_packages))
+            @foreach($tourism->ticket_packages as $pkg)
+                addPackageRow('{{ e($pkg['name'] ?? '') }}', '{{ e($pkg['price'] ?? '') }}');
+            @endforeach
+        @else
+            addPackageRow('Tiket Masuk', '0');
+        @endif
+    });
+</script>
 @endsection

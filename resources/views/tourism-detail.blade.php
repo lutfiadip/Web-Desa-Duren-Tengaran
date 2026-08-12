@@ -7,7 +7,7 @@
     /* --- HERO --- */
     .detail-hero {
         background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%),
-                    url('{{ $attraction->thumbnail ? (Str::startsWith($attraction->thumbnail, "http") ? $attraction->thumbnail : asset("storage/" . $attraction->thumbnail)) : ($profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "") }}') center/cover no-repeat;
+                    url('{{ $attraction->thumbnail ? (Str::startsWith($attraction->thumbnail, "http") ? $attraction->thumbnail : asset($attraction->thumbnail)) : ($profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "") }}') center/cover no-repeat;
         padding: 180px 5% 140px;
         text-align: center;
         color: var(--white);
@@ -336,7 +336,7 @@
             <div class="detail-card">
                 <div class="detail-image-main-wrapper" style="margin-bottom: 15px; border-radius: var(--radius-lg); overflow: hidden; height: 450px; border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
                     @if($attraction->thumbnail)
-                        <img id="main-image" src="{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset('storage/' . $attraction->thumbnail) }}" alt="{{ $attraction->title }}" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease;">
+                        <img id="main-image" src="{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset($attraction->thumbnail) }}" alt="{{ $attraction->title }}" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease;">
                     @else
                         <img id="main-image" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $attraction->title }}" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease;">
                     @endif
@@ -344,13 +344,13 @@
 
                 @if(!empty($attraction->gallery) && count($attraction->gallery) > 0)
                     <div class="gallery-thumbnails" style="display: flex; gap: 10px; margin-bottom: 35px; overflow-x: auto; padding-bottom: 10px;">
-                        <div class="thumb-item active" onclick="changeMainImage(this, '{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset('storage/' . $attraction->thumbnail) }}')" style="width: 100px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid var(--primary); cursor: pointer; flex-shrink: 0; transition: var(--transition);">
-                            <img src="{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset('storage/' . $attraction->thumbnail) }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="thumb-item active" onclick="changeMainImage(this, '{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset($attraction->thumbnail) }}')" style="width: 100px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid var(--primary); cursor: pointer; flex-shrink: 0; transition: var(--transition);">
+                            <img src="{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset($attraction->thumbnail) }}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         @foreach($attraction->gallery as $galImg)
                             @if($galImg != $attraction->thumbnail)
-                                <div class="thumb-item" onclick="changeMainImage(this, '{{ Str::startsWith($galImg, 'http') ? $galImg : asset('storage/' . $galImg) }}')" style="width: 100px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid transparent; cursor: pointer; flex-shrink: 0; transition: var(--transition);">
-                                    <img src="{{ Str::startsWith($galImg, 'http') ? $galImg : asset('storage/' . $galImg) }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="thumb-item" onclick="changeMainImage(this, '{{ Str::startsWith($galImg, 'http') ? $galImg : asset($galImg) }}')" style="width: 100px; height: 70px; border-radius: 6px; overflow: hidden; border: 2px solid transparent; cursor: pointer; flex-shrink: 0; transition: var(--transition);">
+                                    <img src="{{ Str::startsWith($galImg, 'http') ? $galImg : asset($galImg) }}" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
                             @endif
                         @endforeach
@@ -381,14 +381,29 @@
             <div class="info-box">
                 <h3 class="info-title">Informasi Operasional</h3>
                 <ul class="info-list">
-                    <li class="info-item">
-                        <i class="fa-solid fa-ticket"></i>
-                        <div>
-                            <strong>Harga Tiket Masuk</strong>
-                            @if($attraction->ticket_price > 0)
-                                Rp {{ number_format($attraction->ticket_price, 0, ',', '.') }} / orang
+                    <li class="info-item" style="align-items: flex-start;">
+                        <i class="fa-solid fa-ticket" style="margin-top: 3px;"></i>
+                        <div style="width: 100%;">
+                            <strong>Harga Tiket</strong>
+                            @if(!empty($attraction->ticket_packages) && count($attraction->ticket_packages) > 0)
+                                <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 6px; font-size: 0.85rem;">
+                                    @foreach($attraction->ticket_packages as $pkg)
+                                        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border-color); padding-bottom: 4px;">
+                                            <span style="color: var(--text-muted); padding-right: 10px;">{{ $pkg['name'] }}</span>
+                                            <span style="font-weight: 700; color: var(--primary); white-space: nowrap;">
+                                                @if($pkg['price'] == 0)
+                                                    Gratis
+                                                @else
+                                                    Rp {{ number_format($pkg['price'], 0, ',', '.') }}
+                                                @endif
+                                            </span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @elseif($attraction->ticket_price > 0)
+                                <div>Rp {{ number_format($attraction->ticket_price, 0, ',', '.') }} / orang</div>
                             @else
-                                Gratis / Sukarela
+                                <div>Gratis / Sukarela</div>
                             @endif
                         </div>
                     </li>
@@ -442,7 +457,7 @@
                     <a href="{{ route('tourism.detail', $other->slug) }}" class="card-item">
                         <div class="card-image-wrapper">
                             @if($other->thumbnail)
-                                <img src="{{ Str::startsWith($other->thumbnail, 'http') ? $other->thumbnail : asset('storage/' . $other->thumbnail) }}" alt="{{ $other->title }}" class="card-image">
+                                <img src="{{ Str::startsWith($other->thumbnail, 'http') ? $other->thumbnail : asset($other->thumbnail) }}" alt="{{ $other->title }}" class="card-image">
                             @else
                                 <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $other->title }}" class="card-image">
                             @endif

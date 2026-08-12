@@ -13,6 +13,7 @@ class TouristAttraction extends Model
 
     protected $casts = [
         'gallery' => 'array',
+        'ticket_packages' => 'array',
     ];
 
     public function user()

@@ -36,18 +36,35 @@ class TourismController extends Controller
             'address' => 'required|string',
             'google_maps_url' => 'nullable|url',
             'operating_hours' => 'nullable|string|max:255',
-            'ticket_price' => 'required|integer|min:0',
             'contact' => 'nullable|string|max:100',
             'facilities' => 'nullable|string',
             'status' => 'required|in:draft,published',
             'is_featured' => 'required|boolean',
             'gallery_files.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'ticket_packages' => 'required|array|min:1',
+            'ticket_packages.*.name' => 'required|string|max:255',
+            'ticket_packages.*.price' => 'required|integer|min:0',
         ]);
 
         $data = $request->only([
             'title', 'description', 'address', 'google_maps_url', 'operating_hours',
-            'ticket_price', 'contact', 'facilities', 'status', 'is_featured'
+            'contact', 'facilities', 'status', 'is_featured'
         ]);
+
+        // Filter out empty packages
+        $packages = [];
+        if ($request->has('ticket_packages')) {
+            foreach ($request->ticket_packages as $pkg) {
+                if (!empty($pkg['name']) && isset($pkg['price'])) {
+                    $packages[] = [
+                        'name' => $pkg['name'],
+                        'price' => (int)$pkg['price']
+                    ];
+                }
+            }
+        }
+        $data['ticket_packages'] = !empty($packages) ? $packages : null;
+        $data['ticket_price'] = (int)($packages[0]['price'] ?? 0);
 
         $data['user_id'] = Auth::id() ?? 1;
         $data['slug'] = Str::slug($request->title) . '-' . rand(1000, 9999);
@@ -91,18 +108,35 @@ class TourismController extends Controller
             'address' => 'required|string',
             'google_maps_url' => 'nullable|url',
             'operating_hours' => 'nullable|string|max:255',
-            'ticket_price' => 'required|integer|min:0',
             'contact' => 'nullable|string|max:100',
             'facilities' => 'nullable|string',
             'status' => 'required|in:draft,published',
             'is_featured' => 'required|boolean',
             'gallery_files.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'ticket_packages' => 'required|array|min:1',
+            'ticket_packages.*.name' => 'required|string|max:255',
+            'ticket_packages.*.price' => 'required|integer|min:0',
         ]);
 
         $data = $request->only([
             'title', 'description', 'address', 'google_maps_url', 'operating_hours',
-            'ticket_price', 'contact', 'facilities', 'status', 'is_featured'
+            'contact', 'facilities', 'status', 'is_featured'
         ]);
+
+        // Filter out empty packages
+        $packages = [];
+        if ($request->has('ticket_packages')) {
+            foreach ($request->ticket_packages as $pkg) {
+                if (!empty($pkg['name']) && isset($pkg['price'])) {
+                    $packages[] = [
+                        'name' => $pkg['name'],
+                        'price' => (int)$pkg['price']
+                    ];
+                }
+            }
+        }
+        $data['ticket_packages'] = !empty($packages) ? $packages : null;
+        $data['ticket_price'] = (int)($packages[0]['price'] ?? 0);
 
         if ($tourism->title !== $request->title) {
             $data['slug'] = Str::slug($request->title) . '-' . rand(1000, 9999);

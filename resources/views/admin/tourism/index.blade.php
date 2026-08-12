@@ -45,7 +45,7 @@
                 <tr>
                     <th style="width: 80px;">Thumbnail</th>
                     <th>Nama Tempat Wisata</th>
-                    <th>Harga Tiket Masuk</th>
+                    <th>Harga Tiket</th>
                     <th>Kontak / Narahubung</th>
                     <th>Unggulan</th>
                     <th>Status</th>
