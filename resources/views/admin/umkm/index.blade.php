@@ -22,9 +22,14 @@
 <div class="card">
     <div class="card-header">
         <h2>Daftar Usaha Mikro Kecil Menengah (UMKM)</h2>
-        <a href="{{ route('admin.umkm.create') }}" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Daftarkan UMKM Baru
-        </a>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <a href="{{ route('admin.umkm.categories.index') }}" class="btn btn-secondary" style="display: flex; align-items: center; gap: 5px;">
+                <i class="fa-solid fa-tags"></i> Kelola Kategori
+            </a>
+            <a href="{{ route('admin.umkm.create') }}" class="btn btn-primary" style="display: flex; align-items: center; gap: 5px;">
+                <i class="fa-solid fa-plus"></i> Daftarkan UMKM Baru
+            </a>
+        </div>
     </div>
 
     <!-- Search Form -->
