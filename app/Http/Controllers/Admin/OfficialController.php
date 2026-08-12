@@ -25,8 +25,7 @@ class OfficialController extends Controller
     public function create()
     {
         $categories = OfficialCategory::orderBy('sort_order')->get();
-        $parentOfficials = Official::orderBy('name')->get();
-        return view('admin.officials.create', compact('categories', 'parentOfficials'));
+        return view('admin.officials.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -35,14 +34,14 @@ class OfficialController extends Controller
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:255',
             'category_id' => 'required|exists:official_categories,id',
-            'parent_id' => 'nullable|exists:officials,id',
             'nip' => 'nullable|string|max:100',
-            'sort_order' => 'required|integer',
+            'sort_order' => 'nullable|integer',
             'status' => 'required|boolean',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
-        $data = $request->only(['name', 'position', 'category_id', 'parent_id', 'nip', 'sort_order', 'status']);
+        $data = $request->only(['name', 'position', 'category_id', 'nip', 'sort_order', 'status']);
+        $data['sort_order'] = $data['sort_order'] ?? 0;
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
@@ -59,8 +58,7 @@ class OfficialController extends Controller
     public function edit(Official $official)
     {
         $categories = OfficialCategory::orderBy('sort_order')->get();
-        $parentOfficials = Official::where('id', '!=', $official->id)->orderBy('name')->get();
-        return view('admin.officials.edit', compact('official', 'categories', 'parentOfficials'));
+        return view('admin.officials.edit', compact('official', 'categories'));
     }
 
     public function update(Request $request, Official $official)
@@ -69,14 +67,14 @@ class OfficialController extends Controller
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:255',
             'category_id' => 'required|exists:official_categories,id',
-            'parent_id' => 'nullable|exists:officials,id|different:id',
             'nip' => 'nullable|string|max:100',
-            'sort_order' => 'required|integer',
+            'sort_order' => 'nullable|integer',
             'status' => 'required|boolean',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
-        $data = $request->only(['name', 'position', 'category_id', 'parent_id', 'nip', 'sort_order', 'status']);
+        $data = $request->only(['name', 'position', 'category_id', 'nip', 'sort_order', 'status']);
+        $data['sort_order'] = $data['sort_order'] ?? 0;
 
         if ($request->hasFile('photo')) {
             if ($official->photo && file_exists(public_path($official->photo))) {

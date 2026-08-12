@@ -52,7 +52,6 @@
                     <th>Nama Lengkap</th>
                     <th>Jabatan</th>
                     <th>NIP</th>
-                    <th>Urutan</th>
                     <th>Status</th>
                     <th style="width: 120px; text-align: center;">Aksi</th>
                 </tr>
@@ -62,25 +61,19 @@
                     <tr>
                         <td>
                             @if($item->photo)
-                                <img src="{{ asset($item->photo) }}" alt="Foto" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border-color);">
+                                <img src="{{ asset($item->photo) }}" alt="Foto" style="width: 50px; height: 50px; object-fit: cover; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
                             @else
-                                <div style="width: 50px; height: 50px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #64748b;"><i class="fa-solid fa-user"></i></div>
+                                <div style="width: 50px; height: 50px; background: #e2e8f0; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #64748b;"><i class="fa-solid fa-user"></i></div>
                             @endif
                         </td>
                         <td>
                             <div style="font-weight: 700;">{{ $item->name }}</div>
-                            @if($item->parent)
-                                <div style="font-size: 0.8rem; color: var(--text-muted);">Bawahan dari: {{ $item->parent->name }}</div>
-                            @endif
                         </td>
                         <td style="font-weight: 600;">
                             {{ $item->position }}
                         </td>
                         <td>
                             {{ $item->nip ?? '-' }}
-                        </td>
-                        <td>
-                            {{ $item->sort_order }}
                         </td>
                         <td>
                             @if($item->status)

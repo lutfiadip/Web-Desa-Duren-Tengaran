@@ -140,6 +140,12 @@
         -webkit-appearance: none;
         -moz-appearance: none;
         cursor: pointer;
+        text-align: center;
+        text-align-last: center;
+    }
+
+    .category-select option {
+        text-align: left;
     }
 
     .category-select:focus {

@@ -139,9 +139,9 @@
     }
 
     .apparatus-img-wrapper {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
+        width: 220px;
+        height: 280px;
+        border-radius: var(--radius-lg);
         overflow: hidden;
         margin-bottom: 20px;
         border: 4px solid var(--border-color);
@@ -187,6 +187,44 @@
 
 
 
+    /* --- TABS --- */
+    .category-tabs-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+    }
+
+    .category-tab-btn {
+        background-color: var(--white);
+        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        padding: 12px 28px;
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: var(--radius-pill);
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .category-tab-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    .category-tab-btn.active {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: var(--white);
+        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
+    }
+
+    .category-section.hidden {
+        display: none !important;
+    }
+
     @media (max-width: 768px) {
         .pimpinan-grid {
             grid-template-columns: 1fr;
@@ -222,38 +260,83 @@
                 </p>
             </div>
         @else
+            <!-- CATEGORY TABS -->
+            <div class="category-tabs-container">
+                @php $activeSet = false; @endphp
+                @foreach($categories as $category)
+                    @if($category->officials->count() > 0)
+                        <button class="category-tab-btn {{ !$activeSet ? 'active' : '' }}" data-category-id="cat-{{ $category->id }}">
+                            {{ $category->name }}
+                        </button>
+                        @php $activeSet = true; @endphp
+                    @endif
+                @endforeach
+            </div>
+
+            @php $activeSectionSet = false; @endphp
             @foreach($categories as $category)
-            <section class="officials-section" style="margin-bottom: 50px;">
-                <h2 class="section-title">{{ $category->name }}</h2>
-                
-                @if($category->officials->count() <= 2)
-                    <div class="pimpinan-grid">
-                        @foreach($category->officials as $member)
-                        <div class="apparatus-card">
-                            <div class="apparatus-img-wrapper">
-                                <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
+                @if($category->officials->count() > 0)
+                <section id="cat-{{ $category->id }}" class="officials-section category-section {{ !$activeSectionSet ? '' : 'hidden' }}" style="margin-bottom: 50px;">
+                    <h2 class="section-title">{{ $category->name }}</h2>
+                    
+                    @if($category->officials->count() <= 2)
+                        <div class="pimpinan-grid">
+                            @foreach($category->officials as $member)
+                            <div class="apparatus-card">
+                                <div class="apparatus-img-wrapper">
+                                    <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
+                                </div>
+                                <h3 class="apparatus-name">{{ $member->name }}</h3>
+                                <span class="apparatus-position">{{ $member->position }}</span>
                             </div>
-                            <h3 class="apparatus-name">{{ $member->name }}</h3>
-                            <span class="apparatus-position">{{ $member->position }}</span>
+                            @endforeach
                         </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="staff-grid">
-                        @foreach($category->officials as $member)
-                        <div class="apparatus-card">
-                            <div class="apparatus-img-wrapper">
-                                <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
+                    @else
+                        <div class="staff-grid">
+                            @foreach($category->officials as $member)
+                            <div class="apparatus-card">
+                                <div class="apparatus-img-wrapper">
+                                    <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
+                                </div>
+                                <h3 class="apparatus-name">{{ $member->name }}</h3>
+                                <span class="apparatus-position">{{ $member->position }}</span>
                             </div>
-                            <h3 class="apparatus-name">{{ $member->name }}</h3>
-                            <span class="apparatus-position">{{ $member->position }}</span>
+                            @endforeach
                         </div>
-                        @endforeach
-                    </div>
+                    @endif
+                </section>
+                @php $activeSectionSet = true; @endphp
                 @endif
-            </section>
             @endforeach
         @endif
     </div>
 
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabBtns = document.querySelectorAll('.category-tab-btn');
+        const sections = document.querySelectorAll('.category-section');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                tabBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to current button
+                this.classList.add('active');
+
+                // Hide all sections
+                sections.forEach(sec => sec.classList.add('hidden'));
+
+                // Show selected section
+                const targetId = this.getAttribute('data-category-id');
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                }
+            });
+        });
+    });
+</script>
 @endsection

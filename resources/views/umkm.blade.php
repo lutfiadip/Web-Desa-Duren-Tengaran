@@ -124,46 +124,55 @@
     .select-box-wrapper {
         position: relative;
         width: 100%;
+        display: flex;
+        align-items: center;
+        background-color: var(--bg-main);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-pill);
+        padding-left: 20px;
+        padding-right: 20px;
+        transition: var(--transition);
+    }
+
+    .select-box-wrapper:focus-within {
+        border-color: var(--primary);
+        background-color: var(--white);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     }
 
     .select-box-wrapper i {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
         color: var(--text-muted);
         pointer-events: none;
+        flex-shrink: 0;
     }
 
     .select-box-wrapper i.fa-filter {
-        left: 20px;
         font-size: 1.1rem;
     }
 
     .select-box-wrapper i.fa-chevron-down {
-        right: 20px;
         font-size: 0.9rem;
     }
 
     .category-select {
+        flex-grow: 1;
         width: 100%;
-        padding: 16px 45px 16px 50px;
-        border-radius: var(--radius-pill);
-        border: 1px solid var(--border-color);
-        background-color: var(--bg-main);
+        padding: 16px 10px 16px 12px;
+        border: none;
+        background: transparent;
         font-size: 1rem;
         color: var(--text-dark);
         font-weight: 600;
-        transition: var(--transition);
         outline: none;
         cursor: pointer;
         appearance: none;
         -webkit-appearance: none;
+        text-align: center;
+        text-align-last: center;
     }
 
-    .category-select:focus {
-        border-color: var(--primary);
-        background-color: var(--white);
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    .category-select option {
+        text-align: left;
     }
 
     /* --- GRID --- */
