@@ -138,20 +138,6 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="hero_image">Gambar Banner (Hero Image)</label>
-                    @if($agriProfile->hero_image)
-                        <div style="margin-bottom: 10px;">
-                            <img src="{{ asset($agriProfile->hero_image) }}" alt="Banner Pertanian" style="max-width: 300px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-                        </div>
-                    @endif
-                    <input type="file" name="hero_image" id="hero_image" class="form-control @error('hero_image') is-invalid @enderror">
-                    <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;">Rekomendasi ukuran landscape. Format: JPG, JPEG, PNG, WEBP (Maks: 2MB).</span>
-                    @error('hero_image')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
                 <div style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 15px; display: flex; gap: 10px;">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa-solid fa-save"></i> Simpan Perubahan

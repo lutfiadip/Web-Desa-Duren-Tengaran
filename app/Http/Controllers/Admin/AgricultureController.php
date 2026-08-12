@@ -36,20 +36,9 @@ class AgricultureController extends Controller
             'subtitle' => 'nullable|string|max:255',
             'description_1' => 'nullable|string',
             'description_2' => 'nullable|string',
-            'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         $data = $request->only(['title', 'subtitle', 'description_1', 'description_2']);
-
-        if ($request->hasFile('hero_image')) {
-            if ($agriProfile->hero_image && file_exists(public_path($agriProfile->hero_image))) {
-                @unlink(public_path($agriProfile->hero_image));
-            }
-            $file = $request->file('hero_image');
-            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/agriculture'), $filename);
-            $data['hero_image'] = 'uploads/agriculture/' . $filename;
-        }
 
         $agriProfile->update($data);
 
