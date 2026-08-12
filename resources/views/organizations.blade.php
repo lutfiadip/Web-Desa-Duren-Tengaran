@@ -222,6 +222,63 @@
             grid-template-columns: 1fr;
         }
     }
+    /* --- SEARCH BAR --- */
+    .search-filter-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 30px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        margin-bottom: 40px;
+    }
+
+    .search-box-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .search-btn {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        transition: var(--transition);
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-btn:hover {
+        color: var(--primary);
+        transform: translateY(-50%) scale(1.15);
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 16px 55px 16px 20px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-main);
+        font-size: 1rem;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: var(--transition);
+        outline: none;
+    }
+
+    .search-input:focus {
+        border-color: var(--primary);
+        background-color: var(--white);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
 </style>
 @endsection
 
@@ -240,6 +297,16 @@
     <!-- CONTENT -->
     <div class="inst-container">
         
+        <!-- SEARCH BAR -->
+        <div class="search-filter-card">
+            <div class="search-box-wrapper">
+                <button type="button" id="search-btn" class="search-btn" title="Cari">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <input type="text" id="search-input" class="search-input" placeholder="Cari nama organisasi kemasyarakatan...">
+            </div>
+        </div>
+        
         @forelse($categories as $category)
             @if($category->institutions->count() > 0)
                 <div class="category-section">
@@ -249,7 +316,7 @@
                     
                     <div class="inst-grid">
                         @foreach($category->institutions as $inst)
-                            <div class="inst-card">
+                            <div class="inst-card" data-name="{{ strtolower($inst->name) }}" data-desc="{{ strtolower(strip_tags($inst->description)) }}">
                                 <div>
                                     <div class="card-top">
                                         <div class="inst-logo-wrapper">
@@ -288,4 +355,78 @@
         @endforelse
 
     </div>
+
+    <!-- FILTER SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            
+            const sections = document.querySelectorAll('.category-section');
+            
+            // Create empty state elements for each section
+            sections.forEach(sec => {
+                const cards = sec.querySelectorAll('.inst-card');
+                if (cards.length > 0) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'search-empty-state';
+                    emptyDiv.style.gridColumn = '1 / -1';
+                    emptyDiv.style.display = 'none';
+                    emptyDiv.style.textAlign = 'center';
+                    emptyDiv.style.padding = '40px';
+                    emptyDiv.style.background = 'var(--white)';
+                    emptyDiv.style.borderRadius = 'var(--radius-lg)';
+                    emptyDiv.style.border = '1px solid var(--border-color)';
+                    emptyDiv.style.color = 'var(--text-muted)';
+                    emptyDiv.innerHTML = `
+                        <i class="fa-solid fa-magnifying-glass-minus" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px; opacity: 0.6;"></i>
+                        <h3>Organisasi Tidak Ditemukan</h3>
+                        <p>Maaf, organisasi kemasyarakatan yang Anda cari tidak dapat ditemukan di kategori ini.</p>
+                    `;
+                    const grid = sec.querySelector('.inst-grid');
+                    if (grid) {
+                        grid.appendChild(emptyDiv);
+                    }
+                }
+            });
+
+            function filterItems() {
+                const query = searchInput.value.toLowerCase().trim();
+                
+                sections.forEach(sec => {
+                    const cards = sec.querySelectorAll('.inst-card:not(.search-empty-state)');
+                    const emptyState = sec.querySelector('.search-empty-state');
+                    let matchesCount = 0;
+
+                    cards.forEach(card => {
+                        const name = card.getAttribute('data-name') || '';
+                        const desc = card.getAttribute('data-desc') || '';
+                        if (name.includes(query) || desc.includes(query)) {
+                            card.style.display = 'flex';
+                            matchesCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    // Hide/show the section completely if it has matches
+                    if (matchesCount === 0 && cards.length > 0) {
+                        if (emptyState) emptyState.style.display = 'block';
+                    } else {
+                        if (emptyState) emptyState.style.display = 'none';
+                    }
+                });
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', filterItems);
+            }
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', function() {
+                    filterItems();
+                    searchInput.focus();
+                });
+            }
+        });
+    </script>
 @endsection

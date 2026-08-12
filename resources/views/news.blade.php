@@ -96,7 +96,7 @@
 
     .search-input {
         width: 100%;
-        padding: 12px 20px 12px 45px;
+        padding: 12px 45px 12px 20px;
         border-radius: var(--radius-pill);
         border: 1px solid var(--border-color);
         font-size: 0.95rem;
@@ -112,11 +112,28 @@
         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
-    .search-icon {
+    .search-btn {
         position: absolute;
-        left: 18px;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
         color: var(--text-muted);
         font-size: 0.95rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        transition: var(--transition);
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-btn:hover {
+        color: var(--primary);
+        transform: translateY(-50%) scale(1.15);
     }
 
     /* Category Filter Select Dropdown */
@@ -162,6 +179,11 @@
         color: var(--text-muted);
         pointer-events: none;
         font-size: 0.95rem;
+        transition: transform 0.2s ease;
+    }
+
+    .category-select-wrapper:focus-within .select-icon {
+        transform: translateY(-50%) rotate(180deg);
     }
 
     /* --- NEWS GRID --- */
@@ -403,7 +425,9 @@
                 @if(request('category'))
                     <input type="hidden" name="category" value="{{ request('category') }}">
                 @endif
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <button type="submit" class="search-btn" title="Cari">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
                 <input type="text" name="search" class="search-input" placeholder="Cari judul atau isi berita..." value="{{ request('search') }}">
             </form>
 

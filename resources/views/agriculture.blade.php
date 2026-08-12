@@ -332,6 +332,63 @@
             grid-template-columns: 1fr;
         }
     }
+    /* --- SEARCH BAR --- */
+    .search-filter-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 30px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        margin-bottom: 50px;
+    }
+
+    .search-box-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .search-btn {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        transition: var(--transition);
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-btn:hover {
+        color: var(--primary);
+        transform: translateY(-50%) scale(1.15);
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 16px 55px 16px 20px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-main);
+        font-size: 1rem;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: var(--transition);
+        outline: none;
+    }
+
+    .search-input:focus {
+        border-color: var(--primary);
+        background-color: var(--white);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
 </style>
 @endsection
 
@@ -349,6 +406,16 @@
 
     <!-- CONTENT -->
     <div class="agri-container">
+        
+        <!-- SEARCH BAR -->
+        <div class="search-filter-card">
+            <div class="search-box-wrapper">
+                <button type="button" id="search-btn" class="search-btn" title="Cari">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <input type="text" id="search-input" class="search-input" placeholder="Cari komoditas pertanian/peternakan atau kelompok tani...">
+            </div>
+        </div>
         
         @if($agriProfile && ($agriProfile->description_1 || $agriProfile->description_2))
         <!-- PROFIL UMUM -->
@@ -394,7 +461,7 @@
                 
                 <div class="com-grid">
                     @forelse($commodities as $com)
-                        <div class="com-card">
+                        <div class="com-card" data-title="{{ strtolower($com->title) }}" data-desc="{{ strtolower(strip_tags($com->description)) }}" data-category="{{ strtolower($com->category) }}">
                             <div class="com-img-wrapper">
                                 <span class="com-badge">{{ $com->category }}</span>
                                 <img src="{{ $com->thumbnail ?? 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" alt="{{ $com->title }}" class="com-img">
@@ -433,7 +500,7 @@
                         </thead>
                         <tbody>
                             @forelse($farmerGroups as $index => $group)
-                                <tr>
+                                <tr class="farmer-group-row" data-name="{{ strtolower($group->name) }}" data-sector="{{ strtolower($group->sector) }}" data-dusun="{{ strtolower($group->dusun) }}">
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $group->name }}</td>
                                     <td>{{ $group->sector }}</td>
@@ -458,4 +525,111 @@
         </div>
 
     </div>
+
+    <!-- FILTER SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            
+            const comGrid = document.querySelector('.com-grid');
+            const comCards = comGrid ? comGrid.querySelectorAll('.com-card') : [];
+            
+            const tableBody = document.querySelector('.gapoktan-table tbody');
+            const tableRows = tableBody ? tableBody.querySelectorAll('.farmer-group-row') : [];
+            
+            // Create empty state elements
+            const createEmptyState = (message) => {
+                const div = document.createElement('div');
+                div.className = 'search-empty-state';
+                div.style.gridColumn = '1 / -1';
+                div.style.display = 'none';
+                div.style.textAlign = 'center';
+                div.style.padding = '30px';
+                div.style.background = 'var(--white)';
+                div.style.borderRadius = 'var(--radius-lg)';
+                div.style.border = '1px solid var(--border-color)';
+                div.style.color = 'var(--text-muted)';
+                div.innerHTML = `
+                    <i class="fa-solid fa-magnifying-glass-minus" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px; opacity: 0.6;"></i>
+                    <h3>Komoditas Tidak Ditemukan</h3>
+                    <p>${message}</p>
+                `;
+                return div;
+            };
+
+            const createTableEmptyRow = () => {
+                const tr = document.createElement('tr');
+                tr.className = 'table-empty-row';
+                tr.style.display = 'none';
+                tr.innerHTML = `
+                    <td colspan="5" style="text-align: center; padding: 20px; color: var(--text-muted);">
+                        <i class="fa-solid fa-magnifying-glass-minus" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 10px; opacity: 0.6;"></i>
+                        <div>Tidak ada kelompok tani yang cocok dengan pencarian.</div>
+                    </td>
+                `;
+                return tr;
+            };
+
+            let comEmpty, tableEmpty;
+            if (comGrid && comCards.length > 0) {
+                comEmpty = createEmptyState('Maaf, komoditas yang Anda cari tidak dapat ditemukan.');
+                comGrid.appendChild(comEmpty);
+            }
+            if (tableBody && tableRows.length > 0) {
+                tableEmpty = createTableEmptyRow();
+                tableBody.appendChild(tableEmpty);
+            }
+
+            function filterItems() {
+                const query = searchInput.value.toLowerCase().trim();
+                
+                // Filter commodities
+                let comMatches = 0;
+                comCards.forEach(card => {
+                    const title = card.getAttribute('data-title') || '';
+                    const desc = card.getAttribute('data-desc') || '';
+                    const category = card.getAttribute('data-category') || '';
+                    if (title.includes(query) || desc.includes(query) || category.includes(query)) {
+                        card.style.display = 'flex';
+                        comMatches++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                if (comEmpty) {
+                    comEmpty.style.display = (comMatches === 0 && comCards.length > 0) ? 'block' : 'none';
+                }
+
+                // Filter farmer groups
+                let groupMatches = 0;
+                tableRows.forEach(row => {
+                    const name = row.getAttribute('data-name') || '';
+                    const sector = row.getAttribute('data-sector') || '';
+                    const dusun = row.getAttribute('data-dusun') || '';
+                    if (name.includes(query) || sector.includes(query) || dusun.includes(query)) {
+                        row.style.display = '';
+                        groupMatches++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+                
+                if (tableEmpty) {
+                    tableEmpty.style.display = (groupMatches === 0 && tableRows.length > 0) ? '' : 'none';
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', filterItems);
+            }
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', function() {
+                    filterItems();
+                    searchInput.focus();
+                });
+            }
+        });
+    </script>
 @endsection

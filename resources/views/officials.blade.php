@@ -231,6 +231,63 @@
             justify-items: center;
         }
     }
+    /* --- SEARCH BAR --- */
+    .search-filter-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 30px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        margin-bottom: 40px;
+    }
+
+    .search-box-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .search-btn {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        transition: var(--transition);
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-btn:hover {
+        color: var(--primary);
+        transform: translateY(-50%) scale(1.15);
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 16px 55px 16px 20px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-main);
+        font-size: 1rem;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: var(--transition);
+        outline: none;
+    }
+
+    .search-input:focus {
+        border-color: var(--primary);
+        background-color: var(--white);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
 </style>
 @endsection
 
@@ -260,6 +317,16 @@
                 </p>
             </div>
         @else
+            <!-- SEARCH BAR -->
+            <div class="search-filter-card">
+                <div class="search-box-wrapper">
+                    <button type="button" id="search-btn" class="search-btn" title="Cari">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input type="text" id="search-input" class="search-input" placeholder="Cari nama perangkat desa atau jabatan...">
+                </div>
+            </div>
+
             <!-- CATEGORY TABS -->
             <div class="category-tabs-container">
                 @php $activeSet = false; @endphp
@@ -282,7 +349,7 @@
                     @if($category->officials->count() <= 2)
                         <div class="pimpinan-grid">
                             @foreach($category->officials as $member)
-                            <div class="apparatus-card">
+                            <div class="apparatus-card" data-name="{{ strtolower($member->name) }}" data-position="{{ strtolower($member->position) }}">
                                 <div class="apparatus-img-wrapper">
                                     <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
                                 </div>
@@ -294,7 +361,7 @@
                     @else
                         <div class="staff-grid">
                             @foreach($category->officials as $member)
-                            <div class="apparatus-card">
+                            <div class="apparatus-card" data-name="{{ strtolower($member->name) }}" data-position="{{ strtolower($member->position) }}">
                                 <div class="apparatus-img-wrapper">
                                     <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
                                 </div>
@@ -318,6 +385,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         const tabBtns = document.querySelectorAll('.category-tab-btn');
         const sections = document.querySelectorAll('.category-section');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
 
         tabBtns.forEach(btn => {
             btn.addEventListener('click', function() {
@@ -335,8 +404,73 @@
                 if (targetSection) {
                     targetSection.classList.remove('hidden');
                 }
+                
+                // Trigger filter to update visibility in the newly shown section
+                filterItems();
             });
         });
+
+        // Add empty state placeholder element to each section if they have cards
+        sections.forEach(sec => {
+            const cards = sec.querySelectorAll('.apparatus-card');
+            if (cards.length > 0) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'no-data-alert search-empty-state';
+                emptyDiv.style.gridColumn = '1 / -1';
+                emptyDiv.style.display = 'none';
+                emptyDiv.style.textAlign = 'center';
+                emptyDiv.style.padding = '40px';
+                emptyDiv.style.background = 'var(--white)';
+                emptyDiv.style.borderRadius = 'var(--radius-lg)';
+                emptyDiv.style.border = '1px solid var(--border-color)';
+                emptyDiv.style.color = 'var(--text-muted)';
+                emptyDiv.innerHTML = `
+                    <i class="fa-solid fa-magnifying-glass-minus" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px; opacity: 0.6;"></i>
+                    <h3>Perangkat Desa Tidak Ditemukan</h3>
+                    <p>Maaf, nama perangkat desa atau jabatan yang Anda cari tidak dapat ditemukan di kategori ini.</p>
+                `;
+                // Append inside the section's grid (either pimpinan-grid or staff-grid)
+                const grid = sec.querySelector('.pimpinan-grid') || sec.querySelector('.staff-grid');
+                if (grid) {
+                    grid.appendChild(emptyDiv);
+                }
+            }
+        });
+
+        function filterItems() {
+            const query = searchInput.value.toLowerCase().trim();
+            
+            sections.forEach(sec => {
+                const cards = sec.querySelectorAll('.apparatus-card:not(.search-empty-state)');
+                const emptyState = sec.querySelector('.search-empty-state');
+                let matchesCount = 0;
+
+                cards.forEach(card => {
+                    const name = card.getAttribute('data-name') || '';
+                    const position = card.getAttribute('data-position') || '';
+                    if (name.includes(query) || position.includes(query)) {
+                        card.style.display = 'flex';
+                        matchesCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (emptyState) {
+                    emptyState.style.display = (matchesCount === 0 && cards.length > 0) ? 'block' : 'none';
+                }
+            });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', filterItems);
+        }
+        if (searchBtn && searchInput) {
+            searchBtn.addEventListener('click', function() {
+                filterItems();
+                searchInput.focus();
+            });
+        }
     });
 </script>
 @endsection

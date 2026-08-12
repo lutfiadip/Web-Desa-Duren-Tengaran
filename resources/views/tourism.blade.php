@@ -301,6 +301,64 @@
         color: var(--text-muted);
     }
 
+    /* --- SEARCH BAR --- */
+    .search-filter-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 30px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        margin-bottom: 50px;
+    }
+
+    .search-box-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .search-btn {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        transition: var(--transition);
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-btn:hover {
+        color: var(--primary);
+        transform: translateY(-50%) scale(1.15);
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 16px 55px 16px 20px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-main);
+        font-size: 1rem;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: var(--transition);
+        outline: none;
+    }
+
+    .search-input:focus {
+        border-color: var(--primary);
+        background-color: var(--white);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+
     @media (max-width: 992px) {
         .tourism-grid, .culture-grid {
             grid-template-columns: 1fr;
@@ -325,6 +383,16 @@
     <!-- CONTENT CONTAINER -->
     <div class="tourism-container">
 
+        <!-- SEARCH BAR -->
+        <div class="search-filter-card">
+            <div class="search-box-wrapper">
+                <button type="button" id="search-btn" class="search-btn" title="Cari">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <input type="text" id="search-input" class="search-input" placeholder="Cari objek wisata atau kesenian...">
+            </div>
+        </div>
+
         <!-- TOURISM SECTION -->
         @if($profile->publish_tourism ?? true)
         <section style="margin-bottom: 80px;">
@@ -336,7 +404,7 @@
 
             <div class="tourism-grid">
                 @forelse($attractions as $attraction)
-                    <div class="card-item">
+                    <div class="card-item" data-title="{{ strtolower($attraction->title) }}" data-desc="{{ strtolower($attraction->description) }}">
                         <a href="{{ route('tourism.detail', $attraction->slug) }}" class="card-image-wrapper">
                             @if($attraction->thumbnail)
                                 <img src="{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset($attraction->thumbnail) }}" alt="{{ $attraction->title }}" class="card-image">
@@ -423,7 +491,7 @@
 
             <div class="culture-grid">
                 @forelse($cultures as $culture)
-                    <div class="card-item">
+                    <div class="card-item" data-title="{{ strtolower($culture->title) }}" data-desc="{{ strtolower($culture->description) }}">
                         <a href="{{ route('culture.detail', $culture->slug) }}" class="card-image-wrapper">
                             @if($culture->thumbnail)
                                 <img src="{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset($culture->thumbnail) }}" alt="{{ $culture->title }}" class="card-image">
@@ -471,4 +539,87 @@
 
     </div>
 
+    <!-- FILTER SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            
+            const tourismGrid = document.querySelector('.tourism-grid');
+            const cultureGrid = document.querySelector('.culture-grid');
+            
+            const tourismCards = tourismGrid ? tourismGrid.querySelectorAll('.card-item:not(.empty-state)') : [];
+            const cultureCards = cultureGrid ? cultureGrid.querySelectorAll('.card-item:not(.empty-state)') : [];
+            
+            // Create empty state elements dynamically if they don't exist
+            const createEmptyState = (message) => {
+                const div = document.createElement('div');
+                div.className = 'no-data-alert search-empty-state';
+                div.style.gridColumn = '1 / -1';
+                div.style.display = 'none';
+                div.innerHTML = `
+                    <i class="fa-solid fa-magnifying-glass-minus" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px; opacity: 0.6;"></i>
+                    <h3>Konten Tidak Ditemukan</h3>
+                    <p>${message}</p>
+                `;
+                return div;
+            };
+
+            let tourismEmpty, cultureEmpty;
+            if (tourismGrid && tourismCards.length > 0) {
+                tourismEmpty = createEmptyState('Maaf, objek wisata yang Anda cari tidak dapat ditemukan.');
+                tourismGrid.appendChild(tourismEmpty);
+            }
+            if (cultureGrid && cultureCards.length > 0) {
+                cultureEmpty = createEmptyState('Maaf, kesenian atau kebudayaan yang Anda cari tidak dapat ditemukan.');
+                cultureGrid.appendChild(cultureEmpty);
+            }
+
+            function filterItems() {
+                const query = searchInput.value.toLowerCase().trim();
+                
+                let tourismMatches = 0;
+                tourismCards.forEach(card => {
+                    const title = card.getAttribute('data-title') || '';
+                    const desc = card.getAttribute('data-desc') || '';
+                    if (title.includes(query) || desc.includes(query)) {
+                        card.style.display = 'flex';
+                        tourismMatches++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                if (tourismEmpty) {
+                    tourismEmpty.style.display = (tourismMatches === 0 && tourismCards.length > 0) ? 'block' : 'none';
+                }
+
+                let cultureMatches = 0;
+                cultureCards.forEach(card => {
+                    const title = card.getAttribute('data-title') || '';
+                    const desc = card.getAttribute('data-desc') || '';
+                    if (title.includes(query) || desc.includes(query)) {
+                        card.style.display = 'flex';
+                        cultureMatches++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                if (cultureEmpty) {
+                    cultureEmpty.style.display = (cultureMatches === 0 && cultureCards.length > 0) ? 'block' : 'none';
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', filterItems);
+            }
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', function() {
+                    filterItems();
+                    searchInput.focus();
+                });
+            }
+        });
+    </script>
 @endsection

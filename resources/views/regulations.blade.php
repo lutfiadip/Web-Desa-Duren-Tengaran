@@ -143,30 +143,32 @@
     }
 
     .search-wrapper {
-        display: flex;
-        gap: 10px;
+        position: relative;
+        width: 100%;
     }
 
-    .btn-search {
-        display: inline-flex;
+    .search-btn {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        transition: var(--transition);
+        z-index: 2;
+        display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        padding: 12px 24px;
-        background-color: var(--primary);
-        color: var(--white);
-        border: none;
-        border-radius: var(--radius-md);
-        font-weight: 700;
-        font-size: 0.95rem;
-        cursor: pointer;
-        transition: var(--transition);
-        white-space: nowrap;
     }
 
-    .btn-search:hover {
-        background-color: var(--primary-hover);
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    .search-btn:hover {
+        color: var(--primary);
+        transform: translateY(-50%) scale(1.15);
     }
 
     /* --- REGULATIONS TABLE --- */
@@ -317,9 +319,9 @@
                 <div class="form-group">
                     <label for="search-input">Cari Regulasi</label>
                     <div class="search-wrapper">
-                        <input type="text" id="search-input" class="form-control" placeholder="Tulis judul atau nomor peraturan...">
-                        <button type="button" id="search-button" class="btn-search">
-                            <i class="fa-solid fa-magnifying-glass"></i> Cari
+                        <input type="text" id="search-input" class="form-control" placeholder="Tulis judul atau nomor peraturan..." style="padding-right: 45px;">
+                        <button type="button" id="search-button" class="search-btn" title="Cari">
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
                 </div>

@@ -163,7 +163,7 @@
 
     .sidebar-search-input {
         width: 100%;
-        padding: 12px 15px 12px 40px;
+        padding: 12px 40px 12px 15px;
         border-radius: var(--radius-md);
         border: 1px solid var(--border-color);
         font-size: 0.9rem;
@@ -177,13 +177,28 @@
         background-color: var(--white);
     }
 
-    .sidebar-search-icon {
+    .sidebar-search-btn {
         position: absolute;
-        left: 15px;
+        right: 15px;
         top: 50%;
         transform: translateY(-50%);
         color: var(--text-muted);
         font-size: 0.9rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        transition: var(--transition);
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar-search-btn:hover {
+        color: var(--primary);
+        transform: translateY(-50%) scale(1.15);
     }
 
     /* Sidebar Categories List */
@@ -350,8 +365,10 @@
             <!-- Search Widget -->
             <div class="sidebar-widget">
                 <h3 class="widget-title"><i class="fa-solid fa-magnifying-glass"></i> Cari Berita</h3>
-                <form action="{{ route('news') }}" method="GET" class="sidebar-search-form">
-                    <i class="fa-solid fa-magnifying-glass sidebar-search-icon"></i>
+                <form action="{{ route('news') }}" method="GET" class="sidebar-search-form" style="position: relative;">
+                    <button type="submit" class="sidebar-search-btn" title="Cari">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                     <input type="text" name="search" class="sidebar-search-input" placeholder="Ketik kata kunci...">
                 </form>
             </div>

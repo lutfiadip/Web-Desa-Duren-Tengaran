@@ -93,18 +93,33 @@
         width: 100%;
     }
 
-    .search-box-wrapper i {
+    .search-btn {
         position: absolute;
-        left: 20px;
+        right: 20px;
         top: 50%;
         transform: translateY(-50%);
         color: var(--text-muted);
         font-size: 1.2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        transition: var(--transition);
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-btn:hover {
+        color: var(--primary);
+        transform: translateY(-50%) scale(1.15);
     }
 
     .search-input {
         width: 100%;
-        padding: 16px 20px 16px 55px;
+        padding: 16px 55px 16px 20px;
         border-radius: var(--radius-pill);
         border: 1px solid var(--border-color);
         background-color: var(--bg-main);
@@ -124,14 +139,11 @@
     .select-box-wrapper {
         position: relative;
         width: 100%;
-        display: flex;
-        align-items: center;
         background-color: var(--bg-main);
         border: 1px solid var(--border-color);
         border-radius: var(--radius-pill);
-        padding-left: 20px;
-        padding-right: 20px;
         transition: var(--transition);
+        height: 54px;
     }
 
     .select-box-wrapper:focus-within {
@@ -141,23 +153,33 @@
     }
 
     .select-box-wrapper i {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         color: var(--text-muted);
         pointer-events: none;
-        flex-shrink: 0;
+        transition: transform 0.2s ease;
+        z-index: 2;
     }
 
     .select-box-wrapper i.fa-filter {
+        left: 20px;
         font-size: 1.1rem;
     }
 
     .select-box-wrapper i.fa-chevron-down {
+        right: 20px;
         font-size: 0.9rem;
     }
 
+    .select-box-wrapper:focus-within i.fa-chevron-down {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
     .category-select {
-        flex-grow: 1;
         width: 100%;
-        padding: 16px 10px 16px 12px;
+        height: 100%;
+        padding: 0 45px;
         border: none;
         background: transparent;
         font-size: 1rem;
@@ -167,8 +189,13 @@
         cursor: pointer;
         appearance: none;
         -webkit-appearance: none;
+        -moz-appearance: none;
         text-align: center;
         text-align-last: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
     }
 
     .category-select option {
@@ -456,7 +483,9 @@
         <div class="search-filter-card">
             <div class="filter-grid">
                 <div class="search-box-wrapper">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <button type="button" id="search-btn" class="search-btn" title="Cari">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                     <input type="text" id="search-input" class="search-input" placeholder="Cari nama UMKM atau produk...">
                 </div>
                 
@@ -563,6 +592,14 @@
             categorySelect.addEventListener('change', function() {
                 activeCategory = this.value;
                 filterUMKM();
+            });
+
+            // Handle Search button click
+            const searchBtn = document.getElementById('search-btn');
+            searchBtn.addEventListener('click', function() {
+                searchQuery = searchInput.value.toLowerCase().trim();
+                filterUMKM();
+                searchInput.focus();
             });
 
             // Handle Search typing
