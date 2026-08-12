@@ -426,6 +426,27 @@
                             class="fa-brands fa-youtube"></i></a>
                     @endif
                 </div>
+
+                <!-- Statistik Kunjungan -->
+                <div style="margin-top: 25px; background: rgba(255, 255, 255, 0.04); padding: 16px 20px; border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.08); max-width: 250px;">
+                    <h5 style="color: var(--white); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; margin-top: 0;">
+                        <i class="fa-solid fa-chart-line" style="color: var(--accent);"></i> Statistik Kunjungan
+                    </h5>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; color: #cbd5e1;">
+                        <div style="display: flex; justify-content: space-between; gap: 20px;">
+                            <span>Hari Ini:</span>
+                            <span style="font-weight: 700; color: var(--white);">{{ number_format($visitorStats['today'] ?? 0, 0, ',', '.') }}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; gap: 20px;">
+                            <span>Bulan Ini:</span>
+                            <span style="font-weight: 700; color: var(--white);">{{ number_format($visitorStats['month'] ?? 0, 0, ',', '.') }}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px; margin-top: 4px;">
+                            <span>Total Kunjungan:</span>
+                            <span style="font-weight: 700; color: var(--accent);">{{ number_format($visitorStats['total'] ?? 0, 0, ',', '.') }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="footer-col">
@@ -471,7 +492,13 @@
                     @if($profile && $profile->address)
                     <li style="display: flex; gap: 10px;">
                         <i class="fa-solid fa-map-location-dot" style="margin-top: 5px; color: var(--accent);"></i>
-                        {{ $profile->address }}
+                        @if($profile->google_maps_url)
+                            <a href="{{ $profile->google_maps_url }}" target="_blank" style="color: inherit; text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='inherit'">
+                                {{ $profile->address }}
+                            </a>
+                        @else
+                            {{ $profile->address }}
+                        @endif
                     </li>
                     @endif
                     @if($profile && $profile->phone)

@@ -148,19 +148,6 @@
                 </div>
             </a>
 
-            <!-- Pilihan 3: Kontak & Media Sosial Resmi -->
-            <a href="{{ route('admin.profile.edit-contact') }}" class="profile-menu-item">
-                <div class="profile-menu-icon">
-                    <i class="fa-solid fa-share-nodes"></i>
-                </div>
-                <div class="profile-menu-content">
-                    <div class="profile-menu-title">Kontak & Media Sosial Resmi (Footer)</div>
-                    <div class="profile-menu-desc">Perbarui nomor telepon, email, alamat kantor desa, serta media sosial resmi (Facebook, Instagram, YouTube).</div>
-                </div>
-                <div class="profile-menu-arrow">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-            </a>
         </div>
     </div>
 @endsection

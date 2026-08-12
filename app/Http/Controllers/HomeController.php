@@ -427,6 +427,9 @@ class HomeController extends Controller
             ->where('status', 'published')
             ->firstOrFail();
 
+        // Increment views count
+        $article->increment('views');
+
         // 3 newest other published news
         $recentNews = News::where('id', '!=', $article->id)
             ->where('status', 'published')
