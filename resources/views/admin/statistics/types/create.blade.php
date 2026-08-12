@@ -44,9 +44,9 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
-                <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px;">
-                    <input type="checkbox" name="is_active" value="1" checked style="opacity: 0; width: 0; height: 0;">
-                    <span class="slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px;"></span>
+                <label class="switch">
+                    <input type="checkbox" name="is_active" value="1" checked>
+                    <span class="slider"></span>
                 </label>
                 <span style="font-weight: 700; color: var(--text-dark); font-size: 0.9rem;">Aktifkan Modul Statistik ini</span>
             </div>
@@ -61,24 +61,4 @@
     </div>
 @endsection
 
-@section('styles')
-<style>
-    .switch input:checked + .slider {
-        background-color: var(--primary-light);
-    }
-    .switch input:checked + .slider:before {
-        transform: translateX(24px);
-    }
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 18px;
-        width: 18px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        transition: .4s;
-        border-radius: 50%;
-    }
-</style>
-@endsection
+

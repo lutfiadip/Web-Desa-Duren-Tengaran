@@ -155,18 +155,10 @@
 
 
     <div class="card" style="padding: 30px; background-color: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-circle-info" style="color: var(--primary-light);"></i> 
-            Gunakan grip icon <i class="fa-solid fa-grip-vertical"></i> di sebelah kiri untuk melakukan drag and drop guna menyusun urutan tampilan modul statistik di halaman publik.
-        </p>
-
         <div class="sortable-list" id="sortable-statistic-types">
             @forelse($types as $type)
-                <div class="sortable-row" data-type-id="{{ $type->id }}" draggable="true">
+                <div class="sortable-row" data-type-id="{{ $type->id }}" style="padding-left: 20px;">
                     <div class="row-drag-info">
-                        <div class="drag-handle">
-                            <i class="fa-solid fa-grip-vertical"></i>
-                        </div>
                         <div class="type-details">
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <h3>{{ $type->name }}</h3>
@@ -207,102 +199,4 @@
     </div>
 @endsection
 
-@section('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const list = document.getElementById('sortable-statistic-types');
-        if (!list) return;
 
-        const items = list.querySelectorAll('.sortable-row');
-        let dragSrcEl = null;
-
-        items.forEach(item => {
-            item.addEventListener('dragstart', handleDragStart);
-            item.addEventListener('dragover', handleDragOver);
-            item.addEventListener('dragenter', handleDragEnter);
-            item.addEventListener('dragleave', handleDragLeave);
-            item.addEventListener('drop', handleDrop);
-            item.addEventListener('dragend', handleDragEnd);
-        });
-
-        function handleDragStart(e) {
-            this.classList.add('dragging');
-            dragSrcEl = this;
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', this.innerHTML);
-        }
-
-        function handleDragOver(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            e.dataTransfer.dropEffect = 'move';
-            return false;
-        }
-
-        function handleDragEnter(e) {
-            this.classList.add('drag-over');
-        }
-
-        function handleDragLeave(e) {
-            this.classList.remove('drag-over');
-        }
-
-        function handleDrop(e) {
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-
-            if (dragSrcEl !== this) {
-                const itemsArr = Array.from(list.querySelectorAll('.sortable-row'));
-                const srcIndex = itemsArr.indexOf(dragSrcEl);
-                const targetIndex = itemsArr.indexOf(this);
-
-                if (srcIndex < targetIndex) {
-                    this.parentNode.insertBefore(dragSrcEl, this.nextSibling);
-                } else {
-                    this.parentNode.insertBefore(dragSrcEl, this);
-                }
-                
-                updateOrder();
-            }
-            return false;
-        }
-
-        function handleDragEnd(e) {
-            items.forEach(item => {
-                item.classList.remove('dragging');
-                item.classList.remove('drag-over');
-            });
-        }
-
-        function updateOrder() {
-            const updatedItems = list.querySelectorAll('.sortable-row');
-            const order = Array.from(updatedItems).map(item => item.getAttribute('data-type-id'));
-            
-            // Send AJAX request to save types order
-            fetch("{{ route('admin.statistics.types.reorder') }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ order: order })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Visual feedback
-                    console.log('Order updated successfully');
-                } else {
-                    alert('Gagal memperbarui urutan jenis statistik.');
-                }
-            })
-            .catch(error => {
-                console.error('Error updating order:', error);
-                alert('Terjadi kesalahan saat menyusun urutan.');
-            });
-        }
-    });
-</script>
-@endsection

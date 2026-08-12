@@ -185,16 +185,9 @@
     }
 
     .chart-content-grid {
-        display: grid;
-        grid-template-columns: 1.2fr 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 40px;
-        align-items: center;
-    }
-
-    @media (max-width: 991px) {
-        .chart-content-grid {
-            grid-template-columns: 1fr;
-        }
     }
 
     .chart-wrapper {
@@ -228,6 +221,44 @@
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5) !important;
     }
+
+    /* --- TABS --- */
+    .category-tabs-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+    }
+
+    .category-tab-btn {
+        background-color: var(--white);
+        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        padding: 12px 28px;
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: var(--radius-pill);
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .category-tab-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    .category-tab-btn.active {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: var(--white);
+        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
+    }
+
+    .chart-card.hidden {
+        display: none !important;
+    }
 </style>
 @endsection
 
@@ -236,10 +267,6 @@
         // Try to identify standard categories for summary cards
         $genderStat = collect($statisticsData)->first(fn($item) => $item['type']->slug === 'gender');
         $kkStat = collect($statisticsData)->first(fn($item) => $item['type']->slug === 'family_card');
-        
-        // Find if there is any PDF available to download
-        $anyPdf = collect($statisticsData)->first(fn($item) => !empty($item['statistic']->pdf_file));
-        $pdfPath = $anyPdf ? $anyPdf['statistic']->pdf_file : null;
     @endphp
 
     <!-- HERO HEADER -->
@@ -251,14 +278,6 @@
         </nav>
         <h1>Statistik Penduduk</h1>
         <p>Visualisasi data demografi penduduk Desa Duren secara transparan berdasarkan data kependudukan resmi semester dan tahun terbaru.</p>
-        
-        @if($pdfPath)
-            <div style="margin-top: 25px;">
-                <a href="{{ asset($pdfPath) }}" target="_blank" class="btn-pdf-download" style="display: inline-flex; align-items: center; gap: 10px; background-color: #ef4444; color: #fff; padding: 12px 24px; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); transition: all 0.3s ease;">
-                    <i class="fa-solid fa-file-pdf" style="font-size: 1.2rem;"></i> Unduh Dokumen PDF Asli
-                </a>
-            </div>
-        @endif
     </section>
 
     <!-- STATS CONTAINER -->
@@ -318,17 +337,37 @@
                 @endif
             </div>
 
+            <!-- CATEGORY TABS -->
+            <div class="category-tabs-container">
+                @php $activeTabSet = false; @endphp
+                @foreach($statisticsData as $item)
+                    <button class="category-tab-btn {{ !$activeTabSet ? 'active' : '' }}" data-category-slug="{{ $item['type']->slug }}">
+                        {{ $item['type']->name }}
+                    </button>
+                    @php $activeTabSet = true; @endphp
+                @endforeach
+            </div>
+
             <!-- CHART GRID -->
             <div class="chart-grid">
+                @php $activeSectionSet = false; @endphp
                 @foreach($statisticsData as $item)
-                    <div class="chart-card">
+                    <div id="stat-{{ $item['type']->slug }}" class="chart-card {{ !$activeSectionSet ? '' : 'hidden' }}">
+                        @php $activeSectionSet = true; @endphp
                         <div class="chart-header">
                             <div class="chart-title">
                                 <h2>Statistik {{ $item['type']->name }}</h2>
                                 <p>{{ $item['type']->description ?? 'Visualisasi data ' . strtolower($item['type']->name) . ' Desa Duren.' }}</p>
                             </div>
-                            <div class="chart-source">
-                                <i class="fa-solid fa-database"></i> Sumber: {{ $item['statistic']->source ?? 'Data Desa' }}
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                @if(!empty($item['statistic']->pdf_file))
+                                    <a href="{{ asset($item['statistic']->pdf_file) }}" target="_blank" class="btn-pdf-download" style="display: inline-flex; align-items: center; gap: 8px; background-color: #ef4444; color: #fff; padding: 8px 16px; border-radius: var(--radius-pill); font-weight: 700; text-decoration: none; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25); transition: var(--transition);">
+                                        <i class="fa-solid fa-file-pdf"></i> Unduh PDF Data
+                                    </a>
+                                @endif
+                                <div class="chart-source">
+                                    <i class="fa-solid fa-database"></i> Sumber: {{ $item['statistic']->source ?? 'Data Desa' }}
+                                </div>
                             </div>
                         </div>
 
@@ -338,8 +377,8 @@
                                 <div id="chart-{{ $item['type']->slug }}"></div>
                             </div>
                             
-                            <!-- Right: Table Data -->
-                            <div style="overflow-x: auto; background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
+                            <!-- Table Data -->
+                            <div style="width: 100%; max-width: 800px; margin: 0 auto; overflow-x: auto; background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
                                 <h4 style="margin-top: 0; margin-bottom: 15px; font-size: 0.95rem; font-weight: 800; color: var(--text-dark); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                                     Tabel Rincian Data
                                 </h4>
@@ -347,28 +386,28 @@
                                     <thead>
                                         <tr style="border-bottom: 2px solid var(--border-color); font-weight: 800; color: var(--text-dark);">
                                             <th style="padding: 8px 4px;">Kategori</th>
-                                            <th style="padding: 8px 4px; text-align: right;">L-L</th>
-                                            <th style="padding: 8px 4px; text-align: right;">P-R</th>
-                                            <th style="padding: 8px 4px; text-align: right;">Total</th>
-                                            <th style="padding: 8px 4px; text-align: right;">%</th>
+                                            <th style="padding: 8px 4px; text-align: center;">L</th>
+                                            <th style="padding: 8px 4px; text-align: center;">P</th>
+                                            <th style="padding: 8px 4px; text-align: center;">Total</th>
+                                            <th style="padding: 8px 4px; text-align: center;">%</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($item['details'] as $detail)
                                             <tr style="border-bottom: 1px solid var(--border-color);">
                                                 <td style="padding: 8px 4px; font-weight: 700; color: var(--text-dark);">{{ $detail->label }}</td>
-                                                <td style="padding: 8px 4px; text-align: right;">{{ number_format($detail->male_total, 0, ',', '.') }}</td>
-                                                <td style="padding: 8px 4px; text-align: right;">{{ number_format($detail->female_total, 0, ',', '.') }}</td>
-                                                <td style="padding: 8px 4px; text-align: right; font-weight: 700; color: var(--primary);">{{ number_format($detail->total, 0, ',', '.') }}</td>
-                                                <td style="padding: 8px 4px; text-align: right; font-weight: 600; color: var(--text-muted);">{{ $detail->percentage }}%</td>
+                                                <td style="padding: 8px 4px; text-align: center;">{{ number_format($detail->male_total, 0, ',', '.') }}</td>
+                                                <td style="padding: 8px 4px; text-align: center;">{{ number_format($detail->female_total, 0, ',', '.') }}</td>
+                                                <td style="padding: 8px 4px; text-align: center; font-weight: 700; color: var(--primary);">{{ number_format($detail->total, 0, ',', '.') }}</td>
+                                                <td style="padding: 8px 4px; text-align: center; font-weight: 600; color: var(--text-muted);">{{ $detail->percentage }}%</td>
                                             </tr>
                                         @endforeach
                                         <tr style="border-top: 2px solid var(--border-color); font-weight: 800; background-color: #f1f5f9; color: var(--text-dark);">
                                             <td style="padding: 8px 4px;">TOTAL</td>
-                                            <td style="padding: 8px 4px; text-align: right;">{{ number_format($item['total_male'], 0, ',', '.') }}</td>
-                                            <td style="padding: 8px 4px; text-align: right;">{{ number_format($item['total_female'], 0, ',', '.') }}</td>
-                                            <td style="padding: 8px 4px; text-align: right; color: var(--primary);">{{ number_format($item['grand_total'], 0, ',', '.') }}</td>
-                                            <td style="padding: 8px 4px; text-align: right;">100%</td>
+                                            <td style="padding: 8px 4px; text-align: center;">{{ number_format($item['total_male'], 0, ',', '.') }}</td>
+                                            <td style="padding: 8px 4px; text-align: center;">{{ number_format($item['total_female'], 0, ',', '.') }}</td>
+                                            <td style="padding: 8px 4px; text-align: center; color: var(--primary);">{{ number_format($item['grand_total'], 0, ',', '.') }}</td>
+                                            <td style="padding: 8px 4px; text-align: center;">100%</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -470,6 +509,8 @@
                         },
                         yaxis: {
                             labels: {
+                                minWidth: 100,
+                                maxWidth: 250,
                                 style: {
                                     colors: '#1e293b',
                                     fontSize: '12px',
@@ -498,6 +539,34 @@
                     chart.render();
                 })();
             @endforeach
+
+            // Category Tabs Interactivity
+            const tabBtns = document.querySelectorAll('.category-tab-btn');
+            const cards = document.querySelectorAll('.chart-card');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to current button
+                    this.classList.add('active');
+
+                    // Hide all cards
+                    cards.forEach(card => card.classList.add('hidden'));
+
+                    // Show selected card
+                    const slug = this.getAttribute('data-category-slug');
+                    const targetCard = document.getElementById('stat-' + slug);
+                    if (targetCard) {
+                        targetCard.classList.remove('hidden');
+                        
+                        // Force redraw ApexCharts inside visible tab container to compute size correctly
+                        setTimeout(() => {
+                            window.dispatchEvent(new Event('resize'));
+                        }, 50);
+                    }
+                });
+            });
 
         });
     </script>

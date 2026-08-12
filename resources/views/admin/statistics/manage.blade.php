@@ -260,9 +260,9 @@
                 </div>
 
                 <div class="form-group" style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
-                    <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px; margin: 0;">
-                        <input type="checkbox" name="is_published" id="is_published" value="1" {{ old('is_published', $statistic->is_published) ? 'checked' : '' }} style="opacity: 0; width: 0; height: 0;">
-                        <span class="slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px;"></span>
+                    <label class="switch">
+                        <input type="checkbox" name="is_published" id="is_published" value="1" {{ old('is_published', $statistic->is_published) ? 'checked' : '' }}>
+                        <span class="slider"></span>
                     </label>
                     <span style="font-weight: 700; color: var(--text-dark); font-size: 0.9rem;">Publikasikan data statistik ini secara langsung</span>
                 </div>
@@ -276,7 +276,6 @@
                     <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
                         <thead>
                             <tr style="border-bottom: 2px solid var(--border-color); font-weight: 800; background-color: #f8fafc;">
-                                <th style="padding: 12px; width: 50px; text-align: center;">Urutan</th>
                                 <th style="padding: 12px;">Kategori <span style="color: #ef4444;">*</span></th>
                                 <th style="padding: 12px; width: 130px;">Jumlah Laki-laki <span style="color: #ef4444;">*</span></th>
                                 <th style="padding: 12px; width: 130px;">Jumlah Perempuan <span style="color: #ef4444;">*</span></th>
@@ -289,7 +288,7 @@
                         </tbody>
                         <tfoot>
                             <tr style="border-top: 2px solid var(--border-color); font-weight: 800; background-color: #f8fafc;" id="tableFooter">
-                                <td colspan="2" style="padding: 12px; color: var(--text-dark); text-align: right;">TOTAL KESELURUHAN</td>
+                                <td style="padding: 12px; color: var(--text-dark); text-align: right;">TOTAL KESELURUHAN</td>
                                 <td style="padding: 12px; color: var(--text-dark);" id="footerMale">0</td>
                                 <td style="padding: 12px; color: var(--text-dark);" id="footerFemale">0</td>
                                 <td style="padding: 12px; color: var(--text-dark);" id="footerTotal">0</td>
@@ -471,9 +470,6 @@
             }
         });
 
-        // HTML5 drag and drop variables
-        let dragStartIndex = null;
-
         // Render table rows
         function renderTable() {
             tableBody.innerHTML = '';
@@ -481,15 +477,7 @@
             currentDetails.forEach((row, index) => {
                 const tr = document.createElement('tr');
                 tr.style.borderBottom = '1px solid var(--border-color)';
-                tr.setAttribute('draggable', 'true');
-                tr.setAttribute('data-index', index);
                 
-                // Drag Handle
-                const tdDrag = document.createElement('td');
-                tdDrag.className = 'drag-handle';
-                tdDrag.innerHTML = '<i class="fa-solid fa-grip-vertical"></i>';
-                tr.appendChild(tdDrag);
-
                 // Label Input
                 const tdLabel = document.createElement('td');
                 tdLabel.style.padding = '12px';
@@ -583,42 +571,6 @@
                     renderTable();
                     updateCalculations();
                     checkDirty();
-                });
-
-                // HTML5 Drag and Drop Handlers
-                tr.addEventListener('dragstart', function(e) {
-                    dragStartIndex = index;
-                    this.classList.add('dragging');
-                });
-
-                tr.addEventListener('dragover', function(e) {
-                    e.preventDefault();
-                    this.classList.add('drag-over');
-                });
-
-                tr.addEventListener('dragleave', function() {
-                    this.classList.remove('drag-over');
-                });
-
-                tr.addEventListener('drop', function(e) {
-                    this.classList.remove('drag-over');
-                    const dragEndIndex = index;
-                    
-                    if (dragStartIndex !== null && dragStartIndex !== dragEndIndex) {
-                        // Reorder details array
-                        const tempRow = currentDetails[dragStartIndex];
-                        currentDetails.splice(dragStartIndex, 1);
-                        currentDetails.splice(dragEndIndex, 0, tempRow);
-                        
-                        renderTable();
-                        updateCalculations();
-                        checkDirty();
-                    }
-                });
-
-                tr.addEventListener('dragend', function() {
-                    this.classList.remove('dragging');
-                    dragStartIndex = null;
                 });
 
                 tableBody.appendChild(tr);
