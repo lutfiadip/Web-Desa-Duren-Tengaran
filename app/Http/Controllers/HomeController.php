@@ -68,6 +68,13 @@ class HomeController extends Controller
                      ->take(3)
                      ->get();
 
+        // Mengambil 3 Wisata terbaru/unggulan
+        $tourisms = TouristAttraction::where('status', 'published')
+                     ->orderBy('is_featured', 'desc')
+                     ->latest()
+                     ->take(3)
+                     ->get();
+
         // Mengambil 3 berita terbaru
         $news = News::with('category')
                     ->where('status', 'published')
@@ -82,6 +89,7 @@ class HomeController extends Controller
             'about',
             'potency',
             'umkm',
+            'tourism',
             'news',
             'gallery'
         ];
@@ -96,7 +104,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('welcome', compact('profile', 'demografi', 'umkms', 'news', 'galleries', 'villageDetail', 'populationGender', 'sectionsOrder'));
+        return view('welcome', compact('profile', 'demografi', 'umkms', 'tourisms', 'news', 'galleries', 'villageDetail', 'populationGender', 'sectionsOrder'));
     }
 
     public function profile()

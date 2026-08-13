@@ -184,6 +184,8 @@ class ProfileController extends Controller
             'potency_tourism_desc' => 'nullable|string|max:255',
             'umkm_title' => 'nullable|string|max:255',
             'umkm_subtitle' => 'nullable|string|max:255',
+            'tourism_title' => 'nullable|string|max:255',
+            'tourism_subtitle' => 'nullable|string|max:255',
             'news_title' => 'nullable|string|max:255',
             'news_subtitle' => 'nullable|string|max:255',
             'gallery_title' => 'nullable|string|max:255',
@@ -196,6 +198,7 @@ class ProfileController extends Controller
             'potency_agriculture_desc', 'potency_animal_husbandry_desc',
             'potency_umkm_desc', 'potency_tourism_desc',
             'umkm_title', 'umkm_subtitle',
+            'tourism_title', 'tourism_subtitle',
             'news_title', 'news_subtitle',
             'gallery_title', 'gallery_subtitle'
         ]);
@@ -254,6 +257,7 @@ class ProfileController extends Controller
             'publish_profile',
             'show_potency_on_home',
             'show_umkm_on_home',
+            'show_tourism_on_home',
             'show_news_on_home',
             'show_gallery_on_home',
         ];

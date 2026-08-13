@@ -868,6 +868,48 @@
                 </div>
             </section>
             @endif
+        @elseif($section === 'tourism')
+            <!-- PARIWISATA & BUDAYA -->
+            @if(($profile->show_tourism_on_home ?? true) && ($profile->publish_tourism ?? true))
+            <section id="pariwisata" class="section">
+                <div class="section-card">
+                    <div class="section-header" style="margin-bottom: 30px;">
+                        <span class="section-subtitle">{{ $profile->tourism_subtitle ?? 'Destinasi Wisata' }}</span>
+                        <h2 class="section-title">{{ $profile->tourism_title ?? 'Pariwisata & Budaya Desa' }}</h2>
+                    </div>
+            
+                    <div class="grid-3">
+                        @foreach($tourisms as $wisata)
+                        <div class="info-card">
+                            <a href="{{ route('tourism.detail', $wisata->slug) }}" style="display: block;">
+                                @if($wisata->thumbnail)
+                                <img src="{{ Str::startsWith($wisata->thumbnail, 'http') ? $wisata->thumbnail : asset($wisata->thumbnail) }}" alt="{{ $wisata->title }}" class="card-img">
+                                @else
+                                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $wisata->title }}" class="card-img">
+                                @endif
+                            </a>
+                            <div class="card-content">
+                                <div class="card-meta">
+                                    <span class="tag" style="background-color: #dbeafe; color: #1d4ed8;">Destinasi Wisata</span>
+                                </div>
+                                <a href="{{ route('tourism.detail', $wisata->slug) }}" style="text-decoration: none; color: inherit;">
+                                    <h3 class="card-title">{{ $wisata->title }}</h3>
+                                </a>
+                                <p class="card-desc">{{ Str::limit(strip_tags($wisata->description), 100) }}</p>
+                                <a href="{{ route('tourism.detail', $wisata->slug) }}" class="card-action">Lihat Detail Wisata <i><i class="fa-solid fa-chevron-right"></i></i></a>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="{{ route('tourism') }}" class="btn-solid">
+                            Lihat Semua Destinasi <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            @endif
         @elseif($section === 'news')
             <!-- BERITA & PENGUMUMAN -->
             @if(($profile->show_news_on_home ?? true) && ($profile->publish_news ?? true))

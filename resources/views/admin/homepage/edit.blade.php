@@ -156,7 +156,7 @@
                     <input type="hidden" id="homepage_sections_order" name="homepage_sections_order" value="{{ $profile->homepage_sections_order }}">
 
                     @php
-                        $defaultOrder = ['about', 'potency', 'umkm', 'news', 'gallery'];
+                        $defaultOrder = ['about', 'potency', 'umkm', 'tourism', 'news', 'gallery'];
                         $sections = ($profile && $profile->homepage_sections_order) 
                             ? explode(',', $profile->homepage_sections_order) 
                             : $defaultOrder;
@@ -291,6 +291,36 @@
                                             <div class="form-group">
                                                 <label for="umkm_title">Judul Utama Bagian UMKM (Beranda)</label>
                                                 <input type="text" id="umkm_title" name="umkm_title" class="form-control" value="{{ old('umkm_title', $profile->umkm_title ?? 'UMKM Unggulan Desa') }}" placeholder="Contoh: UMKM Unggulan Desa">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @elseif($section === 'tourism')
+                                <!-- BAGIAN Pariwisata -->
+                                <div class="sortable-item" data-section-id="tourism" id="section-tourism">
+                                    <div class="sortable-header">
+                                        <h4>
+                                            <i class="fa-solid fa-grip-vertical drag-handle"></i>
+                                            <i class="fa-solid fa-map-location-dot" style="color: var(--primary-light);"></i>
+                                            Bagian Pariwisata & Budaya
+                                        </h4>
+                                        <div class="section-actions">
+                                            <label class="switch" style="margin: 0;" onclick="event.stopPropagation();">
+                                                <input type="checkbox" class="global-publish-toggle" data-key="show_tourism_on_home" {{ ($profile->show_tourism_on_home ?? true) ? 'checked' : '' }}>
+                                                <span class="slider"></span>
+                                            </label>
+                                            <button type="button" class="btn-toggle-expand" style="cursor: pointer;"><i class="fa-solid fa-chevron-down"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="sortable-content">
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                            <div class="form-group">
+                                                <label for="tourism_subtitle">Subjudul Bagian Pariwisata (Beranda)</label>
+                                                <input type="text" id="tourism_subtitle" name="tourism_subtitle" class="form-control" value="{{ old('tourism_subtitle', $profile->tourism_subtitle ?? 'Destinasi Wisata') }}" placeholder="Contoh: Destinasi Wisata">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tourism_title">Judul Utama Bagian Pariwisata (Beranda)</label>
+                                                <input type="text" id="tourism_title" name="tourism_title" class="form-control" value="{{ old('tourism_title', $profile->tourism_title ?? 'Pariwisata & Budaya Desa') }}" placeholder="Contoh: Pariwisata & Budaya Desa">
                                             </div>
                                         </div>
                                     </div>
