@@ -301,7 +301,7 @@
                     <!-- Laki-laki -->
                     <div class="summary-card">
                         <div class="summary-icon">
-                            <i class="fa-solid fa-user-tie"></i>
+                            <i class="fa-solid fa-person"></i>
                         </div>
                         <div class="summary-info">
                             <h3>Laki-Laki</h3>

@@ -600,6 +600,11 @@
             margin-top: 40px;
         }
 
+        .quick-grid > a {
+            text-decoration: none;
+            display: block;
+        }
+
         @media (max-width: 1024px) {
             .quick-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -619,6 +624,10 @@
             text-align: center;
             border: 1px solid var(--border-color);
             transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .quick-box:hover {
@@ -756,14 +765,14 @@
             
                     <div class="quick-grid" style="margin-top: 0;">
                         @if($profile->publish_agriculture ?? true)
-                        <a href="{{ route('potensi.agriculture') }}" style="text-decoration: none;">
+                        <a href="{{ route('potensi.agriculture') }}">
                             <div class="quick-box">
                                 <i class="fa-solid fa-wheat-awn quick-icon"></i>
                                 <h3>Pertanian</h3>
                                 <p style="color: var(--text-muted); font-size: 0.9rem;">{{ $profile->potency_agriculture_desc ?? 'Lahan subur dengan komoditas unggulan padi dan palawija.' }}</p>
                             </div>
                         </a>
-                        <a href="{{ route('potensi.agriculture') }}" style="text-decoration: none;">
+                        <a href="{{ route('potensi.agriculture') }}">
                             <div class="quick-box">
                                 <i class="fa-solid fa-cow quick-icon"></i>
                                 <h3>Peternakan</h3>
@@ -773,7 +782,7 @@
                         @endif
 
                         @if($profile->publish_umkm ?? true)
-                        <a href="{{ route('umkm') }}" style="text-decoration: none;">
+                        <a href="{{ route('umkm') }}">
                             <div class="quick-box">
                                 <i class="fa-solid fa-shop quick-icon"></i>
                                 <h3>UMKM</h3>
@@ -783,7 +792,7 @@
                         @endif
 
                         @if($profile->publish_tourism ?? true)
-                        <a href="{{ route('tourism') }}" style="text-decoration: none;">
+                        <a href="{{ route('tourism') }}">
                             <div class="quick-box">
                                 <i class="fa-solid fa-mountain-sun quick-icon"></i>
                                 <h3>Pariwisata</h3>
