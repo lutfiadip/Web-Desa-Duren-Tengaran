@@ -312,7 +312,7 @@
                     <!-- Perempuan -->
                     <div class="summary-card">
                         <div class="summary-icon rose">
-                            <i class="fa-solid fa-user-dress"></i>
+                            <i class="fa-solid fa-person-dress"></i>
                         </div>
                         <div class="summary-info">
                             <h3>Perempuan</h3>

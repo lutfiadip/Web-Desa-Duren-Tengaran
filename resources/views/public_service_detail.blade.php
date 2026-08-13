@@ -117,12 +117,229 @@
     }
     
     .content-body ul, .content-body ol {
-        padding-left: 20px;
-        margin-bottom: 20px;
+        list-style: none;
+        padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
     
-    .content-body li {
-        margin-bottom: 10px;
+    .content-body ul li {
+        position: relative;
+        padding: 15px 20px 15px 45px;
+        background: #dbeafe;
+        border: 1px solid #93c5fd;
+        border-radius: var(--radius-md);
+        margin-bottom: 0;
+        transition: var(--transition);
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.05);
+    }
+    
+    .content-body ul li:hover {
+        border-color: var(--primary-light);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+        transform: translateY(-2px);
+    }
+    
+    .content-body ul li::before {
+        content: '\f00c'; /* FontAwesome check */
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        left: 15px;
+        top: 17px;
+        color: var(--white);
+        background: var(--primary);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+    }
+    
+    .content-body ol {
+        counter-reset: item;
+    }
+    
+    .content-body ol li {
+        position: relative;
+        padding: 15px 20px 15px 55px;
+        background: #dbeafe;
+        border: 1px solid #93c5fd;
+        border-radius: var(--radius-md);
+        margin-bottom: 0;
+        counter-increment: item;
+        transition: var(--transition);
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.05);
+    }
+    
+    .content-body ol li:hover {
+        border-color: var(--primary-light);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+        transform: translateY(-2px);
+    }
+    
+    .content-body ol li::before {
+        content: counter(item);
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        width: 26px;
+        height: 26px;
+        background-color: var(--primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
+    }
+    
+    .content-body strong {
+        color: var(--primary-dark, #1e3a8a);
+    }
+    
+    /* INFO BOXES */
+    .info-boxes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .info-box {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--radius-md);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: var(--transition);
+    }
+    
+    .info-box:hover {
+        border-color: var(--primary-light);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+    
+    .info-box-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+    
+    .info-box-content h4 {
+        margin: 0 0 4px 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .info-box-content p {
+        margin: 0;
+        font-size: 1.15rem;
+        color: var(--text-dark);
+        font-weight: 700;
+    }
+    
+    /* --- DISCLAIMER BOX --- */
+    .disclaimer-box {
+        background-color: #fffbeb;
+        border-left: 4px solid #f59e0b;
+        padding: 20px 25px;
+        margin-top: 10px;
+        margin-bottom: 40px;
+        border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    
+    .disclaimer-box h4 {
+        margin: 0 0 10px 0;
+        color: #d97706;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.1rem;
+    }
+    
+    .disclaimer-box p {
+        margin: 0;
+        color: #78350f;
+        line-height: 1.6;
+        font-size: 1rem;
+    }
+    
+    /* --- TABS SECTION --- */
+    .service-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+        overflow-x: auto;
+        padding-bottom: 5px; /* for box-shadow */
+    }
+    
+    .tab-btn {
+        background: var(--white);
+        border: 2px solid #e2e8f0;
+        padding: 12px 25px;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #64748b;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+    }
+    
+    .tab-btn i {
+        font-size: 1.15rem;
+    }
+    
+    .tab-btn:hover {
+        border-color: #cbd5e1;
+        color: var(--text-dark);
+        background: #f8fafc;
+    }
+    
+    .tab-btn.active {
+        border-color: var(--primary);
+        color: var(--white);
+        background: var(--primary);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .tab-content {
+        display: none;
+        animation: fadeInTab 0.4s ease forwards;
+    }
+    
+    .tab-content.active {
+        display: block;
+    }
+    
+    @keyframes fadeInTab {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     .download-box {
@@ -187,6 +404,11 @@
         .detail-card {
             padding: 30px 20px;
         }
+        
+        .info-boxes {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
 
         .download-box {
             flex-direction: column;
@@ -223,12 +445,72 @@
             </div>
         @endif
 
-        @if($service->requirements)
-            <h3 class="section-title">
-                <i class="fa-solid fa-list-check"></i> Persyaratan & Alur Layanan
-            </h3>
-            <div class="content-body">
-                {!! nl2br(e($service->requirements)) !!}
+        @if($service->processing_time || $service->service_cost)
+            <div class="info-boxes">
+                @if($service->processing_time)
+                <div class="info-box">
+                    <div class="info-box-icon">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                    <div class="info-box-content">
+                        <h4>Waktu Penyelesaian</h4>
+                        <p>{{ $service->processing_time }}</p>
+                    </div>
+                </div>
+                @endif
+                
+                @if($service->service_cost)
+                <div class="info-box">
+                    <div class="info-box-icon">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <div class="info-box-content">
+                        <h4>Biaya Layanan</h4>
+                        <p>{{ $service->service_cost }}</p>
+                    </div>
+                </div>
+                @endif
+            </div>
+        @endif
+
+        @if($service->requirements || $service->service_flow)
+            <div class="service-tabs-container" style="margin-bottom: 40px;">
+                <div class="service-tabs">
+                    @if($service->requirements)
+                    <button class="tab-btn {{ $service->requirements ? 'active' : '' }}" onclick="switchTab('requirements')" id="btn-tab-requirements">
+                        <i class="fa-solid fa-file-signature"></i> Persyaratan
+                    </button>
+                    @endif
+                    
+                    @if($service->service_flow)
+                    <button class="tab-btn {{ !$service->requirements && $service->service_flow ? 'active' : '' }}" onclick="switchTab('flow')" id="btn-tab-flow">
+                        <i class="fa-solid fa-list-ol"></i> Alur Layanan
+                    </button>
+                    @endif
+                </div>
+
+                @if($service->requirements)
+                <div id="tab-requirements" class="tab-content {{ $service->requirements ? 'active' : '' }}">
+                    <div class="content-body">
+                        {!! Illuminate\Support\Str::markdown($service->requirements) !!}
+                    </div>
+                </div>
+                @endif
+                
+                @if($service->service_flow)
+                <div id="tab-flow" class="tab-content {{ !$service->requirements && $service->service_flow ? 'active' : '' }}">
+                    <div class="content-body">
+                        {!! Illuminate\Support\Str::markdown($service->service_flow) !!}
+                    </div>
+                </div>
+                @endif
+            </div>
+        @endif
+        
+        @if($service->disclaimer)
+            <div class="disclaimer-box">
+                <h4><i class="fa-solid fa-triangle-exclamation"></i> Catatan Penting</h4>
+                {!! Illuminate\Support\Str::markdown($service->disclaimer) !!}
             </div>
         @endif
 
@@ -251,5 +533,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    function switchTab(tabId) {
+        // Remove active class from all buttons and contents
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+        // Add active class to selected button and content
+        document.getElementById('btn-tab-' + tabId).classList.add('active');
+        document.getElementById('tab-' + tabId).classList.add('active');
+    }
+</script>
 
 @endsection
