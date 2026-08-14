@@ -61,7 +61,7 @@
 
         /* --- HEADER (Solid Navy) --- */
         header {
-            position: sticky;
+            position: fixed; /* Changed to fixed so hero goes underneath */
             top: 0;
             left: 0;
             width: 100%;
@@ -71,8 +71,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
+            z-index: 1000; /* Increased z-index */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
         }
 
         .logo-wrapper {
@@ -321,7 +322,7 @@
 <body>
 
     <!-- HEADER -->
-    <header>
+    <header class="{{ request()->routeIs('home') ? 'header-transparent' : '' }}" id="main-header">
         <a href="{{ route('home') }}" class="logo-wrapper">
             <img src="{{ asset('img/logo-semarang.png') }}" alt="Logo Kab Semarang" class="logo-img">
             <div class="logo-text">
@@ -392,7 +393,7 @@
     </header>
 
     <!-- CONTENT -->
-    <main>
+    <main style="padding-top: {{ request()->routeIs('home') ? '0' : '85px' }};">
         @yield('content')
     </main>
 
@@ -526,5 +527,43 @@
     </footer>
 
     @yield('scripts')
+    
+    @if(request()->routeIs('home'))
+    <style>
+        /* CSS Khusus untuk Header Transparan di Beranda */
+        header.header-transparent {
+            background-color: transparent !important;
+            box-shadow: none !important;
+            padding-top: 25px; /* Sedikit diturunkan agar lebih lega di hero */
+        }
+        
+        header.header-scrolled {
+            background-color: #1e3a8a !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+            padding-top: 15px; /* Kembali normal */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('main-header');
+            
+            function handleScroll() {
+                if (window.scrollY > 80) {
+                    header.classList.add('header-scrolled');
+                    header.classList.remove('header-transparent');
+                } else {
+                    header.classList.add('header-transparent');
+                    header.classList.remove('header-scrolled');
+                }
+            }
+            
+            // Run on load
+            handleScroll();
+            
+            // Run on scroll
+            window.addEventListener('scroll', handleScroll);
+        });
+    </script>
+    @endif
 </body>
 </html>

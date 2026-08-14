@@ -5,214 +5,202 @@
 @section('styles')
 <style>
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (MNTN STYLE) --- */
         .hero {
-            /* Dark gradient on the left, fading to right. Background image of agriculture/village */
-            background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.7) 45%, rgba(15, 23, 42, 0.2) 100%),
+            /* Dark gradient on the left, fading to transparent on the right */
+            background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 40%, rgba(15, 23, 42, 0) 100%),
                 url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
-            min-height: calc(100vh - 80px);
-            /* Adjusted for solid header */
+            min-height: 200vh; /* Made extremely long downwards */
             display: flex;
             align-items: center;
-            padding: 80px 5% 120px 5%;
-            /* Added top & bottom padding to expand height */
+            justify-content: center;
+            padding: 80px 5% 150px; /* added more padding at the bottom */
             position: relative;
         }
 
-        .hero-content {
-            max-width: 800px;
+        .hero-left-sidebar {
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            transform-origin: left center;
+            display: flex;
+            align-items: center;
+            gap: 25px;
             color: var(--white);
-            /* Removed margin-top since header is now solid */
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
         }
 
-        .badge-outline {
+        .hero-left-sidebar span {
+            margin-right: 10px;
+        }
+
+        .hero-left-sidebar a {
+            color: var(--white);
+            text-decoration: none;
+            transform: rotate(90deg);
             display: inline-flex;
             align-items: center;
-            padding: 8px 24px;
-            border-radius: var(--radius-pill);
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            margin-bottom: 25px;
+            justify-content: center;
+            transition: color 0.3s ease;
         }
 
-        .hero-title-wrapper {
-            margin-bottom: 25px;
+        .hero-left-sidebar a:hover {
+            color: var(--accent);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            color: var(--white);
+            margin: 0 auto;
             text-align: left;
-            /* Ensure it is left-aligned */
+            position: relative;
+            z-index: 10;
         }
 
         .hero-subtitle {
             font-size: 1rem;
-            /* Reduced size */
-            font-weight: 800;
-            color: var(--white);
-            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .hero-subtitle::before {
+            content: "";
+            display: inline-block;
+            width: 70px;
+            height: 2px;
+            background-color: var(--accent);
         }
 
         .hero-main-title {
-            font-size: 3.8rem;
-            /* Reduced size */
-            font-weight: 900;
+            font-size: 5.5rem;
+            font-weight: 700;
             line-height: 1.1;
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: -1px;
+            margin: 0 0 40px 0;
+            text-transform: capitalize;
             color: var(--white);
+            font-family: 'Plus Jakarta Sans', serif; /* Or actual serif if available */
         }
-
-        .hero-location {
-            font-size: 1rem;
-            /* Reduced size */
-            font-weight: 600;
-            color: var(--white);
-        }
-
+        
         .hero p {
-            font-size: 1.1rem;
-            color: #d1d5db;
-            /* Light gray */
-            margin-bottom: 40px;
-            max-width: 600px;
-            line-height: 1.7;
+            font-size: 1.15rem;
+            color: #e2e8f0;
+            margin-bottom: 45px;
+            max-width: 650px;
+            line-height: 1.8;
             text-align: left;
-            /* Left align text */
+            font-weight: 400;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: flex-start;
-            /* Align left */
-        }
-
-        .btn-solid {
-            background-color: var(--primary);
+        .hero-scroll-down {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
             color: var(--white);
-            padding: 12px 25px;
-            /* Reduced padding */
-            border-radius: var(--radius-pill);
+            font-weight: 700;
             text-decoration: none;
-            font-weight: 600;
             font-size: 1rem;
-            /* Reduced font size */
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: var(--transition);
-            border: none;
+            letter-spacing: 1px;
         }
 
-        .btn-solid i {
-            color: var(--accent);
+        .hero-scroll-down i {
             font-size: 1.2rem;
+            transition: transform 0.3s ease;
         }
 
-        .btn-solid:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-outline {
-            background-color: transparent;
+        .hero-scroll-down:hover {
             color: var(--accent);
-            padding: 12px 25px;
-            border-radius: var(--radius-pill);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: var(--transition);
-            border: 2px solid var(--accent);
         }
 
-        .btn-outline i {
-            color: var(--accent);
-            font-size: 1.2rem;
+        .hero-scroll-down:hover i {
+            transform: translateY(7px);
         }
 
-        .btn-outline:hover {
-            background-color: rgba(250, 204, 21, 0.1);
-            color: var(--primary);
-        }
-
-        /* --- DEMOGRAPHICS OVERLAY (Right Side Floating) --- */
-        .demographics-section {
+        .hero-right-sidebar {
             position: absolute;
             right: 5%;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 10;
-            width: 210px;
-            /* Reduced width */
-        }
-
-        .demographics-row {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            /* Reduced gap */
-        }
-
-        .demo-item {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            text-align: left;
-            background: var(--accent);
-            /* Bright yellow */
-            padding: 12px 15px;
-            /* Reduced padding */
-            border-radius: var(--radius-md);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            /* Slightly smaller shadow */
-            transition: var(--transition);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            gap: 12px;
-            /* Reduced gap */
-        }
-
-        .demo-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .demo-icon {
-            font-size: 1.4rem;
-            color: #713f12;
-            transition: var(--transition);
-            width: 35px;
-            text-align: center;
-        }
-
-        .demo-item:hover .demo-icon {
-            transform: scale(1.1);
-        }
-
-        .demo-content {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .demo-number {
-            font-size: 1.05rem;
-            /* Reduced number size */
-            font-weight: 800;
-            color: #713f12;
-            line-height: 1.2;
-            margin-top: 2px;
-        }
-
-        .demo-label {
+            align-items: flex-end;
+            gap: 20px;
+            color: var(--white);
             font-weight: 700;
-            font-size: 0.7rem;
-            /* Reduced label size */
-            text-transform: capitalize;
-            color: #854d0e;
+            font-size: 0.9rem;
+        }
+
+        .hero-slider-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 20px;
+            position: relative;
+            padding-right: 25px;
+        }
+
+        .hero-slider-indicator span {
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .hero-slider-indicator span.active {
+            opacity: 1;
+        }
+        
+        .hero-slider-indicator::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .hero-slider-indicator .active-line {
+            position: absolute;
+            right: 0;
+            top: 35px; /* Adjust based on active item */
+            width: 2px;
+            height: 30px;
+            background-color: var(--white);
+            z-index: 2;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-left-sidebar, .hero-right-sidebar {
+                display: none; /* Hide on smaller screens */
+            }
+            .hero-main-title {
+                font-size: 4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                background: linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.95) 60%),
+                    url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
+                align-items: center;
+            }
+            .hero-main-title {
+                font-size: 3rem;
+            }
+            .hero-subtitle {
+                font-size: 0.85rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
         }
 
         /* --- WELCOME SECTION (NEW LAYOUT) --- */
@@ -300,15 +288,13 @@
             text-decoration: none;
             font-weight: 600;
             display: flex;
-            align-items: center;
             gap: 10px;
+            align-items: center;
             transition: var(--transition);
-            font-size: 0.95rem;
-            border: none;
         }
+
         .welcome-btn:hover {
-            background-color: var(--primary);
-            color: white;
+            background-color: var(--primary-hover);
         }
 
         /* Col 3 */
@@ -655,74 +641,47 @@
 @section('content')
 
 
-    <!-- HERO SECTION (Ecoland Layout Match) -->
+    <!-- HERO SECTION (MNTN Layout) -->
     <section class="hero">
+        
+        <!-- Left Sidebar (Socials) -->
+        <div class="hero-left-sidebar">
+            <span>Follow us</span>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        </div>
+
+        <!-- Center Content -->
         <div class="hero-content">
-            <div class="hero-title-wrapper">
-                <div class="hero-subtitle">WEBSITE RESMI</div>
-                <h1 class="hero-main-title">
-                    DESA DUREN
-                </h1>
-                <div class="hero-location">Kecamatan Tengaran, Kabupaten Semarang</div>
-            </div>
-
+            <div class="hero-subtitle">Website Resmi Pemerintah Desa</div>
+            <h1 class="hero-main-title">
+                DESA DUREN
+            </h1>
             <p>
-                Selamat datang di situs resmi Pemerintah Desa Duren Tengaran. Temukan
-                informasi demografi, regulasi desa, serta berita terkini secara terbuka
-                dan mudah diakses oleh seluruh elemen masyarakat.
+                Mengenal desa, masyarakat, potensi, dan berbagai informasi Desa Duren dalam satu ruang digital. Kecamatan Tengaran &middot; Kabupaten Semarang.
             </p>
-            <div class="hero-buttons">
-                <a href="#berita" class="btn-solid">
-                    Kabar Terbaru <i class="fa-solid fa-arrow-right"></i>
-                </a>
-                <a href="{{ route('statistics') }}" class="btn-outline">
-                    Akses Data <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            </div>
+            
+            <a href="#explore" class="hero-scroll-down">
+                scroll down <i class="fa-solid fa-arrow-down"></i>
+            </a>
         </div>
 
-        <!-- DEMOGRAPHICS (Right Side Floating) -->
-        @if($profile->publish_statistics ?? true)
-        <div class="demographics-section">
-            <div class="demographics-row">
-                <div class="demo-item">
-                    <i class="fa-solid fa-users demo-icon"></i>
-                    <div class="demo-content">
-                        <div class="demo-label">Total Penduduk</div>
-                        <div class="demo-number">
-                            @if(isset($populationGender) && $populationGender->details->count() > 0)
-                                {{ number_format($populationGender->details->first()->male_total + $populationGender->details->first()->female_total, 0, ',', '.') }}
-                            @elseif($demografi->total_penduduk)
-                                {{ number_format($demografi->total_penduduk->male_count + $demografi->total_penduduk->female_count, 0, ',', '.') }}
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="demo-item">
-                    <i class="fa-solid fa-house-chimney demo-icon"></i>
-                    <div class="demo-content">
-                        <div class="demo-label">Rukun Tetangga</div>
-                        <div class="demo-number">{{ $villageDetail->rt_count ?? '' }}</div>
-                    </div>
-                </div>
-                <div class="demo-item">
-                    <i class="fa-solid fa-building demo-icon"></i>
-                    <div class="demo-content">
-                        <div class="demo-label">Rukun Warga</div>
-                        <div class="demo-number">{{ $villageDetail->rw_count ?? '' }}</div>
-                    </div>
-                </div>
-                <div class="demo-item">
-                    <i class="fa-solid fa-map-location-dot demo-icon"></i>
-                    <div class="demo-content">
-                        <div class="demo-label">Luas Wilayah</div>
-                        <div class="demo-number">{{ $demografi->luas_wilayah->male_count ?? '' }} Ha</div>
-                    </div>
-                </div>
+        <!-- Right Sidebar (Slider Indicator) -->
+        <div class="hero-right-sidebar">
+            <div class="hero-slider-indicator">
+                <span>Start</span>
+                <span class="active">01</span>
+                <span>02</span>
+                <span>03</span>
+                <div class="active-line"></div>
             </div>
         </div>
-        @endif
+        
     </section>
+
+    <!-- ANCHOR POINT FOR EXPLORE -->
+    <div id="explore"></div>
 
     @foreach($sectionsOrder as $section)
         @if($section === 'about')
