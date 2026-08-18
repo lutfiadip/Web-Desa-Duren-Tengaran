@@ -2,25 +2,211 @@
 
 @section('title', 'Pencarian Global | ' . ($profile->name ?? 'Desa'))
 
+@section('styles')
+<style>
+    /* Search Page Specific Styles */
+    .search-header {
+        padding: 180px 5% 80px;
+        background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+        color: var(--white);
+        text-align: center;
+        position: relative;
+    }
+
+    .search-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: var(--bg-main);
+        clip-path: polygon(0 100%, 100% 100%, 100% 0);
+    }
+
+    .search-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 15px;
+        letter-spacing: -1px;
+    }
+
+    .search-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        font-weight: 300;
+        margin-bottom: 25px;
+    }
+
+    .back-home-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 24px;
+        background: rgba(255, 255, 255, 0.15);
+        color: var(--white);
+        border-radius: var(--radius-pill);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: var(--transition);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(5px);
+    }
+
+    .back-home-btn:hover {
+        background: var(--white);
+        color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    .search-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 5%;
+        min-height: 50vh;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        background: #fff;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        border: 1px solid var(--border-color);
+    }
+
+    .empty-state i {
+        font-size: 5rem;
+        color: #cbd5e1;
+        margin-bottom: 25px;
+    }
+
+    .empty-state h3 {
+        font-size: 1.8rem;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+    }
+
+    .empty-state p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+    }
+
+    .results-summary {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 40px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .category-section {
+        margin-bottom: 60px;
+    }
+
+    .category-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .category-title i {
+        color: var(--accent);
+    }
+
+    .search-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 30px;
+    }
+
+    .search-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 25px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .search-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-color: var(--primary);
+    }
+
+    .search-card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+
+    .search-card-title a {
+        color: var(--text-dark);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .search-card:hover .search-card-title a {
+        color: var(--primary);
+    }
+
+    .search-card-desc {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+        flex-grow: 1;
+        line-height: 1.6;
+    }
+
+    .search-card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: var(--transition);
+        margin-top: auto;
+    }
+
+    .search-card-link:hover {
+        color: var(--accent-hover);
+        gap: 12px;
+    }
+</style>
+@endsection
+
 @section('content')
 <!-- Page Header -->
-<div class="page-header" style="padding: 150px 0 50px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center;">
-    <div class="container">
-        <h1 class="page-title" style="font-size: 3rem; margin-bottom: 20px;">Hasil Pencarian</h1>
-        @if(!empty($query))
-            <p class="page-subtitle" style="font-size: 1.2rem; opacity: 0.9;">Menampilkan hasil untuk: <strong>"{{ $query }}"</strong></p>
-        @else
-            <p class="page-subtitle" style="font-size: 1.2rem; opacity: 0.9;">Silakan masukkan kata kunci pencarian.</p>
-        @endif
-    </div>
+<div class="search-header">
+    <h1 class="search-title">Hasil Pencarian</h1>
+    @if(!empty($query))
+        <p class="search-subtitle">Menampilkan hasil untuk: <strong>"{{ $query }}"</strong></p>
+    @else
+        <p class="search-subtitle">Silakan masukkan kata kunci pencarian.</p>
+    @endif
+    <a href="{{ route('home') }}" class="back-home-btn">
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
+    </a>
 </div>
 
-<div class="container py-5">
+<div class="search-container">
     @if(empty($query))
-        <div class="text-center py-5">
-            <i class="fa-solid fa-magnifying-glass" style="font-size: 4rem; color: var(--border); margin-bottom: 20px;"></i>
+        <div class="empty-state">
+            <i class="fa-solid fa-magnifying-glass"></i>
             <h3>Mulai Pencarian</h3>
-            <p class="text-muted">Gunakan ikon pencarian di sudut kanan atas untuk mencari informasi.</p>
+            <p>Gunakan ikon pencarian di sudut kanan atas untuk mencari informasi.</p>
         </div>
     @else
         @php
@@ -28,32 +214,28 @@
         @endphp
 
         @if($totalResults == 0)
-            <div class="text-center py-5">
-                <i class="fa-solid fa-box-open" style="font-size: 4rem; color: var(--border); margin-bottom: 20px;"></i>
+            <div class="empty-state">
+                <i class="fa-solid fa-box-open"></i>
                 <h3>Tidak ada hasil ditemukan</h3>
-                <p class="text-muted">Maaf, kami tidak menemukan informasi yang sesuai dengan kata kunci "{{ $query }}".</p>
+                <p>Maaf, kami tidak menemukan informasi yang sesuai dengan kata kunci "{{ $query }}".</p>
             </div>
         @else
-            <p class="mb-5 text-muted">Ditemukan {{ $totalResults }} hasil pencarian di berbagai kategori.</p>
+            <div class="results-summary">
+                <strong>Ditemukan {{ $totalResults }} hasil pencarian</strong> di berbagai kategori.
+            </div>
 
             <!-- Berita -->
             @if($results['news']->count() > 0)
-                <div class="search-category mb-5">
-                    <h3 class="mb-4" style="border-bottom: 2px solid var(--border); padding-bottom: 10px;">
-                        <i class="fa-regular fa-newspaper me-2" style="color: var(--accent);"></i> Berita & Artikel
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-regular fa-newspaper"></i> Berita & Artikel
                     </h3>
-                    <div class="row g-4">
+                    <div class="search-grid">
                         @foreach($results['news'] as $item)
-                        <div class="col-md-6">
-                            <div class="card h-100" style="border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: var(--transition);">
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="{{ route('news.detail', $item->slug) }}" style="color: var(--primary); text-decoration: none;">{{ $item->title }}</a></h5>
-                                    <p class="card-text text-muted" style="font-size: 0.9rem;">{{ Str::limit(strip_tags($item->content), 100) }}</p>
-                                </div>
-                                <div class="card-footer bg-transparent border-0 pt-0">
-                                    <a href="{{ route('news.detail', $item->slug) }}" class="btn-read-more" style="color: var(--accent); font-weight: 600; text-decoration: none;">Baca Selengkapnya <i class="fa-solid fa-arrow-right ms-1"></i></a>
-                                </div>
-                            </div>
+                        <div class="search-card">
+                            <h5 class="search-card-title"><a href="{{ route('news.detail', $item->slug) }}">{{ $item->title }}</a></h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->content), 120) }}</p>
+                            <a href="{{ route('news.detail', $item->slug) }}" class="search-card-link">Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                         @endforeach
                     </div>
@@ -62,22 +244,16 @@
 
             <!-- UMKM -->
             @if($results['umkm']->count() > 0)
-                <div class="search-category mb-5">
-                    <h3 class="mb-4" style="border-bottom: 2px solid var(--border); padding-bottom: 10px;">
-                        <i class="fa-solid fa-store me-2" style="color: var(--accent);"></i> Produk UMKM
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-store"></i> Produk UMKM
                     </h3>
-                    <div class="row g-4">
+                    <div class="search-grid">
                         @foreach($results['umkm'] as $item)
-                        <div class="col-md-6">
-                            <div class="card h-100" style="border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: var(--transition);">
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="{{ route('umkm.detail', $item->slug) }}" style="color: var(--primary); text-decoration: none;">{{ $item->title }}</a></h5>
-                                    <p class="card-text text-muted" style="font-size: 0.9rem;">{{ Str::limit(strip_tags($item->description), 100) }}</p>
-                                </div>
-                                <div class="card-footer bg-transparent border-0 pt-0">
-                                    <a href="{{ route('umkm.detail', $item->slug) }}" class="btn-read-more" style="color: var(--accent); font-weight: 600; text-decoration: none;">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></a>
-                                </div>
-                            </div>
+                        <div class="search-card">
+                            <h5 class="search-card-title"><a href="{{ route('umkm.detail', $item->slug) }}">{{ $item->title }}</a></h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->description), 120) }}</p>
+                            <a href="{{ route('umkm.detail', $item->slug) }}" class="search-card-link">Lihat Detail <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                         @endforeach
                     </div>
@@ -86,22 +262,16 @@
 
             <!-- Tourism -->
             @if($results['tourism']->count() > 0)
-                <div class="search-category mb-5">
-                    <h3 class="mb-4" style="border-bottom: 2px solid var(--border); padding-bottom: 10px;">
-                        <i class="fa-solid fa-map-location-dot me-2" style="color: var(--accent);"></i> Potensi Wisata
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-map-location-dot"></i> Potensi Wisata
                     </h3>
-                    <div class="row g-4">
+                    <div class="search-grid">
                         @foreach($results['tourism'] as $item)
-                        <div class="col-md-6">
-                            <div class="card h-100" style="border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: var(--transition);">
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="{{ route('tourism.detail', $item->slug) }}" style="color: var(--primary); text-decoration: none;">{{ $item->name }}</a></h5>
-                                    <p class="card-text text-muted" style="font-size: 0.9rem;">{{ Str::limit(strip_tags($item->description), 100) }}</p>
-                                </div>
-                                <div class="card-footer bg-transparent border-0 pt-0">
-                                    <a href="{{ route('tourism.detail', $item->slug) }}" class="btn-read-more" style="color: var(--accent); font-weight: 600; text-decoration: none;">Jelajahi <i class="fa-solid fa-arrow-right ms-1"></i></a>
-                                </div>
-                            </div>
+                        <div class="search-card">
+                            <h5 class="search-card-title"><a href="{{ route('tourism.detail', $item->slug) }}">{{ $item->title }}</a></h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->description), 120) }}</p>
+                            <a href="{{ route('tourism.detail', $item->slug) }}" class="search-card-link">Lihat Destinasi <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                         @endforeach
                     </div>
@@ -110,22 +280,16 @@
 
             <!-- Cultures -->
             @if($results['cultures']->count() > 0)
-                <div class="search-category mb-5">
-                    <h3 class="mb-4" style="border-bottom: 2px solid var(--border); padding-bottom: 10px;">
-                        <i class="fa-solid fa-masks-theater me-2" style="color: var(--accent);"></i> Seni & Budaya
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-masks-theater"></i> Seni & Budaya
                     </h3>
-                    <div class="row g-4">
+                    <div class="search-grid">
                         @foreach($results['cultures'] as $item)
-                        <div class="col-md-6">
-                            <div class="card h-100" style="border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: var(--transition);">
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="{{ route('culture.detail', $item->slug) }}" style="color: var(--primary); text-decoration: none;">{{ $item->name }}</a></h5>
-                                    <p class="card-text text-muted" style="font-size: 0.9rem;">{{ Str::limit(strip_tags($item->description), 100) }}</p>
-                                </div>
-                                <div class="card-footer bg-transparent border-0 pt-0">
-                                    <a href="{{ route('culture.detail', $item->slug) }}" class="btn-read-more" style="color: var(--accent); font-weight: 600; text-decoration: none;">Baca Budaya <i class="fa-solid fa-arrow-right ms-1"></i></a>
-                                </div>
-                            </div>
+                        <div class="search-card">
+                            <h5 class="search-card-title"><a href="{{ route('culture.detail', $item->slug) }}">{{ $item->title }}</a></h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->description), 120) }}</p>
+                            <a href="{{ route('culture.detail', $item->slug) }}" class="search-card-link">Kenali Budaya <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                         @endforeach
                     </div>
@@ -134,22 +298,16 @@
 
             <!-- Public Services -->
             @if($results['public_services']->count() > 0)
-                <div class="search-category mb-5">
-                    <h3 class="mb-4" style="border-bottom: 2px solid var(--border); padding-bottom: 10px;">
-                        <i class="fa-solid fa-file-signature me-2" style="color: var(--accent);"></i> Layanan Publik
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-file-signature"></i> Layanan Publik
                     </h3>
-                    <div class="row g-4">
+                    <div class="search-grid">
                         @foreach($results['public_services'] as $item)
-                        <div class="col-md-6">
-                            <div class="card h-100" style="border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: var(--transition);">
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="{{ route('public_services.detail', $item->slug) }}" style="color: var(--primary); text-decoration: none;">{{ $item->title }}</a></h5>
-                                    <p class="card-text text-muted" style="font-size: 0.9rem;">{{ Str::limit(strip_tags($item->description), 100) }}</p>
-                                </div>
-                                <div class="card-footer bg-transparent border-0 pt-0">
-                                    <a href="{{ route('public_services.detail', $item->slug) }}" class="btn-read-more" style="color: var(--accent); font-weight: 600; text-decoration: none;">Lihat Persyaratan <i class="fa-solid fa-arrow-right ms-1"></i></a>
-                                </div>
-                            </div>
+                        <div class="search-card">
+                            <h5 class="search-card-title"><a href="{{ route('public_services.detail', $item->slug) }}">{{ $item->title }}</a></h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->description), 120) }}</p>
+                            <a href="{{ route('public_services.detail', $item->slug) }}" class="search-card-link">Lihat Layanan <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                         @endforeach
                     </div>
@@ -159,11 +317,4 @@
         @endif
     @endif
 </div>
-
-<style>
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    }
-</style>
 @endsection

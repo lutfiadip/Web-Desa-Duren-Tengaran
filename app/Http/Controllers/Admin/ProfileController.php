@@ -285,9 +285,10 @@ class ProfileController extends Controller
             'village_name' => 'required|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'office_hours' => 'nullable|string|max:255',
+            'video_url' => 'nullable|string',
         ]);
 
-        $data = $request->only(['village_name', 'office_hours']);
+        $data = $request->only(['village_name', 'office_hours', 'video_url']);
 
         if ($request->hasFile('logo')) {
             if ($profile->logo && file_exists(public_path($profile->logo))) {

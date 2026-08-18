@@ -54,6 +54,14 @@
                     </div>
                 </div>
 
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="video_url">URL / Link Video Profil Desa (YouTube)</label>
+                    <input type="text" id="video_url" name="video_url" class="form-control"
+                        value="{{ old('video_url', $profile->video_url) }}"
+                        placeholder="Contoh: https://www.youtube.com/watch?v=LXb3EKWsInQ">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Link ini akan digunakan untuk fitur "Tonton Profil Desa" di halaman utama.</span>
+                </div>
+
                 <div class="form-group" style="margin-bottom: 0;">
                     <label for="logo">Logo Desa</label>
                     @if($profile->logo)

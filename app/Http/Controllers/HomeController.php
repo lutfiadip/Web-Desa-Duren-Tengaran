@@ -142,7 +142,7 @@ class HomeController extends Controller
             if ($profile->publish_tourism ?? true) {
                 $results['tourism'] = TouristAttraction::where('status', 'published')
                     ->where(function($q) use ($query) {
-                        $q->where('name', 'LIKE', '%' . $query . '%')
+                        $q->where('title', 'LIKE', '%' . $query . '%')
                           ->orWhere('description', 'LIKE', '%' . $query . '%');
                     })->limit(10)->get();
             }
@@ -156,7 +156,7 @@ class HomeController extends Controller
             if ($profile->publish_culture ?? true) {
                 $results['cultures'] = Culture::where('status', 'published')
                     ->where(function($q) use ($query) {
-                        $q->where('name', 'LIKE', '%' . $query . '%')
+                        $q->where('title', 'LIKE', '%' . $query . '%')
                           ->orWhere('description', 'LIKE', '%' . $query . '%');
                     })->limit(10)->get();
             }
