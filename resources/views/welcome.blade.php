@@ -8,7 +8,9 @@
         /* --- HERO SECTION (MNTN STYLE) --- */
         .hero {
             /* Dark gradient on the left, fading to transparent on the right */
-            background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 40%, rgba(15, 23, 42, 0) 100%),
+            background: 
+                linear-gradient(to bottom, transparent 75%, var(--bg-main) 100%),
+                linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 40%, rgba(15, 23, 42, 0) 100%),
                 url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
             min-height: 200vh; /* Made extremely long downwards */
             display: flex;
@@ -188,7 +190,9 @@
         
         @media (max-width: 768px) {
             .hero {
-                background: linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.95) 60%),
+                background: 
+                    linear-gradient(to bottom, transparent 80%, var(--bg-main) 100%),
+                    linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.95) 60%),
                     url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
                 align-items: center;
             }
@@ -644,13 +648,7 @@
     <!-- HERO SECTION (MNTN Layout) -->
     <section class="hero">
         
-        <!-- Left Sidebar (Socials) -->
-        <div class="hero-left-sidebar">
-            <span>Follow us</span>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-        </div>
+
 
         <!-- Center Content -->
         <div class="hero-content">
@@ -667,16 +665,7 @@
             </a>
         </div>
 
-        <!-- Right Sidebar (Slider Indicator) -->
-        <div class="hero-right-sidebar">
-            <div class="hero-slider-indicator">
-                <span>Start</span>
-                <span class="active">01</span>
-                <span>02</span>
-                <span>03</span>
-                <div class="active-line"></div>
-            </div>
-        </div>
+
         
     </section>
 

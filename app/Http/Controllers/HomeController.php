@@ -107,6 +107,64 @@ class HomeController extends Controller
         return view('welcome', compact('profile', 'demografi', 'umkms', 'tourisms', 'news', 'galleries', 'villageDetail', 'populationGender', 'sectionsOrder'));
     }
 
+    public function globalSearch(Request $request)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $query = $request->input('search');
+        
+        $results = [
+            'news' => collect(),
+            'umkm' => collect(),
+            'tourism' => collect(),
+            'public_services' => collect(),
+            'cultures' => collect()
+        ];
+
+        if (!empty($query)) {
+            if ($profile->publish_news ?? true) {
+                $results['news'] = News::where('status', 'published')
+                    ->where(function($q) use ($query) {
+                        $q->where('title', 'LIKE', '%' . $query . '%')
+                          ->orWhere('content', 'LIKE', '%' . $query . '%');
+                    })->limit(10)->get();
+            }
+
+            if ($profile->publish_umkm ?? true) {
+                $results['umkm'] = Umkm::where('status', 'published')
+                    ->where(function($q) use ($query) {
+                        $q->where('title', 'LIKE', '%' . $query . '%')
+                          ->orWhere('description', 'LIKE', '%' . $query . '%');
+                    })->limit(10)->get();
+            }
+
+            if ($profile->publish_tourism ?? true) {
+                $results['tourism'] = TouristAttraction::where('status', 'published')
+                    ->where(function($q) use ($query) {
+                        $q->where('name', 'LIKE', '%' . $query . '%')
+                          ->orWhere('description', 'LIKE', '%' . $query . '%');
+                    })->limit(10)->get();
+            }
+
+            $results['public_services'] = PublicService::where('is_active', true)
+                ->where(function($q) use ($query) {
+                    $q->where('title', 'LIKE', '%' . $query . '%')
+                      ->orWhere('description', 'LIKE', '%' . $query . '%');
+                })->limit(10)->get();
+
+            if ($profile->publish_culture ?? true) {
+                $results['cultures'] = Culture::where('status', 'published')
+                    ->where(function($q) use ($query) {
+                        $q->where('name', 'LIKE', '%' . $query . '%')
+                          ->orWhere('description', 'LIKE', '%' . $query . '%');
+                    })->limit(10)->get();
+            }
+        }
+
+        return view('search', compact('profile', 'villageDetail', 'results', 'query'));
+    }
+
     public function profile()
     {
         $profile = VillageProfile::first();
