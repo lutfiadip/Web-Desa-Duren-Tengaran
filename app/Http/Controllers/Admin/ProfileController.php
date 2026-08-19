@@ -170,18 +170,21 @@ class ProfileController extends Controller
             $profile = new VillageProfile();
         }
 
+        $messages = [
+            'hero_bg_image.max' => 'Ukuran gambar background utama (hero) maksimal 2MB (2048 KB).',
+            'hero_bg_image.image' => 'File background utama harus berupa gambar.',
+            'hero_bg_image.mimes' => 'Format gambar background utama harus jpeg, png, jpg, gif, svg, atau webp.',
+            'about_image.max' => 'Ukuran gambar profil desa maksimal 2MB (2048 KB).',
+            'about_image.image' => 'File profil desa harus berupa gambar.',
+            'about_image.mimes' => 'Format gambar profil desa harus jpeg, png, jpg, atau webp.',
+        ];
+
         $request->validate([
             'hero_bg_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'about_text' => 'nullable|string',
             'about_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'homepage_sections_order' => 'nullable|string',
             'about_subtitle' => 'nullable|string|max:255',
-            'potency_title' => 'nullable|string|max:255',
-            'potency_subtitle' => 'nullable|string|max:255',
-            'potency_agriculture_desc' => 'nullable|string|max:255',
-            'potency_animal_husbandry_desc' => 'nullable|string|max:255',
-            'potency_umkm_desc' => 'nullable|string|max:255',
-            'potency_tourism_desc' => 'nullable|string|max:255',
             'umkm_title' => 'nullable|string|max:255',
             'umkm_subtitle' => 'nullable|string|max:255',
             'tourism_title' => 'nullable|string|max:255',
@@ -190,13 +193,14 @@ class ProfileController extends Controller
             'news_subtitle' => 'nullable|string|max:255',
             'gallery_title' => 'nullable|string|max:255',
             'gallery_subtitle' => 'nullable|string|max:255',
-        ]);
+            'show_potency_on_home' => 'boolean',
+            'show_umkm_on_home' => 'boolean',
+            'show_news_on_home' => 'boolean',
+            'show_gallery_on_home' => 'boolean',
+        ], $messages);
 
         $data = $request->only([
             'about_text', 'homepage_sections_order', 'about_subtitle',
-            'potency_title', 'potency_subtitle',
-            'potency_agriculture_desc', 'potency_animal_husbandry_desc',
-            'potency_umkm_desc', 'potency_tourism_desc',
             'umkm_title', 'umkm_subtitle',
             'tourism_title', 'tourism_subtitle',
             'news_title', 'news_subtitle',

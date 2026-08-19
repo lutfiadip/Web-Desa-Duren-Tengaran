@@ -3,7 +3,30 @@
 @section('title', 'Portal Informasi Desa Duren Tengaran')
 
 @section('styles')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <style>
+        /* Swiper Gallery Styles */
+        .gallerySwiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        .gallerySwiper .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 320px;
+            height: 420px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .gallerySwiper .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
 
         /* --- HERO SECTION (MNTN STYLE) --- */
         .hero {
@@ -15,8 +38,8 @@
             min-height: 200vh; /* Made extremely long downwards */
             display: flex;
             align-items: flex-start;
-            justify-content: center;
-            padding: 30vh 5% 150px; /* Push content to top viewport */
+            justify-content: flex-start;
+            padding: 30vh 5% 150px 12%; /* Added left padding to clear the sidebar */
             position: relative;
         }
 
@@ -56,10 +79,109 @@
         .hero-content {
             max-width: 900px;
             color: var(--white);
-            margin: 0 auto;
+            margin: 0;
             text-align: left;
             position: relative;
             z-index: 10;
+        }
+
+        .hero-floating-bar {
+            position: absolute;
+            bottom: 220px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 850px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-pill);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            z-index: 20;
+        }
+
+        .hero-floating-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            padding: 10px;
+            text-decoration: none;
+            color: var(--text-dark);
+            border-right: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-md);
+        }
+
+        .hero-floating-item:nth-last-child(2) {
+            border-right: none;
+        }
+
+        .hero-floating-item:hover {
+            background: rgba(37, 99, 235, 0.04);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
+        }
+
+        .hero-floating-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .hero-floating-item:hover .hero-floating-icon {
+            background: var(--primary);
+            color: var(--white);
+            transform: scale(1.15) rotate(-8deg);
+        }
+
+        .hero-floating-text h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        .hero-floating-text p {
+            font-size: 0.8rem;
+            color: #475569; /* Darker slate for better readability */
+            margin: 0;
+            line-height: 1.2;
+            text-transform: capitalize;
+        }
+
+        @media (max-width: 768px) {
+            .hero-floating-bar {
+                flex-direction: column;
+                bottom: 20px;
+                padding: 15px;
+                border-radius: var(--radius-lg);
+            }
+            .hero-floating-item {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+            .hero-floating-item:nth-last-child(2) {
+                border-bottom: none;
+            }
+            .hero-floating-btn {
+                width: 100%;
+                border-radius: var(--radius-md);
+                margin-left: 0;
+                margin-top: 15px;
+                height: 45px;
+            }
         }
 
         .hero-subtitle {
@@ -886,8 +1008,17 @@
                 Mengenal desa, masyarakat, potensi, dan berbagai informasi Desa Duren dalam satu ruang digital. Kecamatan Tengaran &middot; Kabupaten Semarang.
             </p>
 
+            <div class="hero-actions" style="display: flex; gap: 15px; margin-top: 40px; flex-wrap: wrap; justify-content: flex-start; align-items: center; margin-left: 0; padding-left: 0;">
+                <a href="{{ route('profile') }}" class="btn-solid" style="background-color: var(--primary); color: white; padding: 14px 35px; border-radius: var(--radius-pill); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; border: 2px solid var(--primary); display: inline-flex; align-items: center; gap: 10px; margin: 0;">
+                    Jelajahi Desa <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="#potensi" class="btn-outline" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); color: white; padding: 14px 35px; border-radius: var(--radius-pill); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.5); display: inline-flex; align-items: center; gap: 10px; margin: 0;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.2)'; this.style.borderColor='white'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.5)'">
+                    <i class="fa-regular fa-compass"></i> Potensi Desa
+                </a>
+            </div>
+
             <!-- Demographics Bar -->
-            <div class="hero-demographics">
+            <div class="hero-demographics" style="display: none;">
                 <div class="demo-item">
                     <i class="fa-solid fa-users demo-icon"></i>
                     <div>
@@ -918,39 +1049,53 @@
                 </div>
             </div>
             
-            <a href="#explore" class="hero-scroll-down">
-                scroll down <i class="fa-solid fa-arrow-down"></i>
-            </a>
+            
         </div>
         
-        <!-- Video Profile Floating Element -->
-        @php
-            $ytVideoId = 'LXb3EKWsInQ'; // Default fallback ID
-            if ($profile && !empty($profile->video_url)) {
-                preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $profile->video_url, $match);
-                if (isset($match[1])) {
-                    $ytVideoId = $match[1];
-                }
-            }
-            $ytThumbnail = "https://img.youtube.com/vi/{$ytVideoId}/maxresdefault.jpg";
-        @endphp
-        <div class="hero-video-wrapper">
-            <div class="hero-video-card" onclick="openVideoModal()">
-                <!-- We use the dynamically extracted YouTube thumbnail -->
-                <img src="{{ $ytThumbnail }}" alt="Video Profil Desa" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/{{ $ytVideoId }}/hqdefault.jpg';">
-                <div class="play-btn">
-                    <i class="fa-solid fa-play"></i>
+        <!-- POTENSI DESA FLOATING BAR -->
+        @if(($profile->show_potency_on_home ?? true) && (($profile->publish_agriculture ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_tourism ?? true)))
+        <div class="hero-floating-bar">
+            @if($profile->publish_agriculture ?? true)
+            <a href="{{ route('potensi.agriculture') }}" class="hero-floating-item">
+                <div class="hero-floating-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+                <div class="hero-floating-text">
+                    <h4>Pertanian</h4>
                 </div>
-                <div class="video-text">
-                    <h4>Tonton Profil Desa</h4>
-                    <p>Kenali Desa Duren lebih dekat</p>
+            </a>
+            <a href="{{ route('potensi.agriculture') }}" class="hero-floating-item">
+                <div class="hero-floating-icon"><i class="fa-solid fa-cow"></i></div>
+                <div class="hero-floating-text">
+                    <h4>Peternakan</h4>
                 </div>
-            </div>
+            </a>
+            @endif
+
+            @if($profile->publish_umkm ?? true)
+            <a href="{{ route('umkm') }}" class="hero-floating-item">
+                <div class="hero-floating-icon"><i class="fa-solid fa-shop"></i></div>
+                <div class="hero-floating-text">
+                    <h4>UMKM</h4>
+                </div>
+            </a>
+            @endif
+
+            @if($profile->publish_tourism ?? true)
+            <a href="{{ route('tourism') }}" class="hero-floating-item">
+                <div class="hero-floating-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+                <div class="hero-floating-text">
+                    <h4>Pariwisata</h4>
+                </div>
+            </a>
+            @endif
+            
+
         </div>
+        @endif
 
     </section>
 
     <!-- ANCHOR POINT FOR EXPLORE -->
+    <div id="potensi"></div>
     <div id="explore"></div>
 
     @foreach($sectionsOrder as $section)
@@ -960,15 +1105,24 @@
             <section class="welcome-section" style="padding: 20px 5%;">
                 <div class="section-card" style="width: 100%; max-width: 1400px; margin: 0 auto;">
                     <div class="welcome-grid">
-                        <!-- Col 1: Balai Desa Image -->
-                        <div class="welcome-col-image">
-                            @if($profile && $profile->about_image)
-                                <img src="{{ asset($profile->about_image) }}" alt="Balai Desa {{ $profile->village_name ?? '' }}" class="balai-desa-img">
-                            @else
-                                <div class="balai-desa-img" style="background-color: #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 600; text-align: center; padding: 20px;">
-                                    [ Tempat Foto Balai Desa ]
+                        <!-- Col 1: Video Profil Desa -->
+                        <div class="welcome-col-image" style="position: relative; width: 100%; aspect-ratio: 16/9;">
+                            @php
+                                $ytVideoId = 'LXb3EKWsInQ'; // Default fallback ID
+                                if ($profile && !empty($profile->video_url)) {
+                                    preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $profile->video_url, $match);
+                                    if (isset($match[1])) {
+                                        $ytVideoId = $match[1];
+                                    }
+                                }
+                                $ytThumbnail = "https://img.youtube.com/vi/{$ytVideoId}/maxresdefault.jpg";
+                            @endphp
+                            <div class="hero-video-card" onclick="openVideoModal()" style="width: 100%; height: 100%; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s ease;">
+                                <img src="{{ $ytThumbnail }}" alt="Video Profil Desa" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/{{ $ytVideoId }}/hqdefault.jpg';" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                <div class="play-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; z-index: 2; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(0,0,0,0.3);" onmouseover="this.parentElement.querySelector('img').style.transform='scale(1.05)'; this.style.transform='translate(-50%, -50%) scale(1.1)'; this.style.backgroundColor='var(--accent-hover)'" onmouseout="this.parentElement.querySelector('img').style.transform='scale(1)'; this.style.transform='translate(-50%, -50%) scale(1)'; this.style.backgroundColor='var(--accent)'">
+                                    <i class="fa-solid fa-play" style="margin: 0; transform: translateX(0px);"></i>
                                 </div>
-                            @endif
+                            </div>
                         </div>
                         
                         <!-- Col 2: Tentang Desa Text -->
@@ -983,56 +1137,7 @@
             </section>
             @endif
         @elseif($section === 'potency')
-            <!-- POTENSI DESA -->
-            @if(($profile->show_potency_on_home ?? true) && (($profile->publish_agriculture ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_tourism ?? true)))
-            <section id="potensi" class="section">
-                <div class="section-card">
-                    <div class="section-header" style="margin-bottom: 30px;">
-                        <span class="section-subtitle">{{ $profile->potency_subtitle ?? 'Potensi Desa' }}</span>
-                        <h2 class="section-title">{{ $profile->potency_title ?? 'Kekayaan & Komoditas Unggulan' }}</h2>
-                    </div>
-            
-                    <div class="quick-grid" style="margin-top: 0;">
-                        @if($profile->publish_agriculture ?? true)
-                        <a href="{{ route('potensi.agriculture') }}">
-                            <div class="quick-box">
-                                <i class="fa-solid fa-wheat-awn quick-icon"></i>
-                                <h3>Pertanian</h3>
-                                <p style="color: var(--text-muted); font-size: 0.9rem;">{{ $profile->potency_agriculture_desc ?? 'Lahan subur dengan komoditas unggulan padi dan palawija.' }}</p>
-                            </div>
-                        </a>
-                        <a href="{{ route('potensi.agriculture') }}">
-                            <div class="quick-box">
-                                <i class="fa-solid fa-cow quick-icon"></i>
-                                <h3>Peternakan</h3>
-                                <p style="color: var(--text-muted); font-size: 0.9rem;">{{ $profile->potency_animal_husbandry_desc ?? 'Pusat pengembangan hewan ternak seperti sapi dan kambing.' }}</p>
-                            </div>
-                        </a>
-                        @endif
-
-                        @if($profile->publish_umkm ?? true)
-                        <a href="{{ route('umkm') }}">
-                            <div class="quick-box">
-                                <i class="fa-solid fa-shop quick-icon"></i>
-                                <h3>UMKM</h3>
-                                <p style="color: var(--text-muted); font-size: 0.9rem;">{{ $profile->potency_umkm_desc ?? 'Produk kerajinan dan makanan khas hasil karya warga desa.' }}</p>
-                            </div>
-                        </a>
-                        @endif
-
-                        @if($profile->publish_tourism ?? true)
-                        <a href="{{ route('tourism') }}">
-                            <div class="quick-box">
-                                <i class="fa-solid fa-mountain-sun quick-icon"></i>
-                                <h3>Pariwisata</h3>
-                                <p style="color: var(--text-muted); font-size: 0.9rem;">{{ $profile->potency_tourism_desc ?? 'Pesona alam asri yang menarik bagi wisatawan lokal.' }}</p>
-                            </div>
-                        </a>
-                        @endif
-                    </div>
-                </div>
-            </section>
-            @endif
+            <!-- POTENSI DESA SECTION MOVED TO HERO FLOATING BAR -->
         @elseif($section === 'umkm')
             <!-- UMKM UNGGULAN -->
             @if(($profile->show_umkm_on_home ?? true) && ($profile->publish_umkm ?? true))
@@ -1183,12 +1288,15 @@
                         <span class="section-subtitle">{{ $profile->gallery_subtitle ?? 'Pesona Desa' }}</span>
                         <h2 class="section-title">{{ $profile->gallery_title ?? 'Galeri Desa' }}</h2>
                     </div>
-                    <div class="gallery-grid">
-                        @foreach($galleries as $gallery)
-                        <div class="gallery-item">
-                            <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
+                    <div class="swiper gallerySwiper">
+                        <div class="swiper-wrapper">
+                            @foreach($galleries as $gallery)
+                            <div class="swiper-slide">
+                                <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
+                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </section>
@@ -1240,5 +1348,31 @@
                 iframe.src = ""; // Stop video from playing in background
             }, 300);
         }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var swiper = new Swiper(".gallerySwiper", {
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                initialSlide: 1, // Start on the middle slide
+                loop: false, // Turn off loop so the images stack realistically on the edges
+                speed: 800, 
+                slideToClickedSlide: true, 
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: -40, 
+                    depth: 150, 
+                    modifier: 1.5,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                }
+            });
+        });
     </script>
 @endsection

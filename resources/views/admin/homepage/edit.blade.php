@@ -231,38 +231,13 @@
                                         </div>
                                     </div>
                                     <div class="sortable-content">
-                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                                            <div class="form-group">
-                                                <label for="potency_subtitle">Subjudul Potensi Desa (Beranda)</label>
-                                                <input type="text" id="potency_subtitle" name="potency_subtitle" class="form-control" value="{{ old('potency_subtitle', $profile->potency_subtitle ?? 'Potensi Desa') }}" placeholder="Contoh: Potensi Desa">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="potency_title">Judul Utama Potensi Desa (Beranda)</label>
-                                                <input type="text" id="potency_title" name="potency_title" class="form-control" value="{{ old('potency_title', $profile->potency_title ?? 'Kekayaan & Komoditas Unggulan') }}" placeholder="Contoh: Kekayaan & Komoditas Unggulan">
-                                            </div>
+                                        <div style="padding-bottom: 15px;">
+                                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0;">
+                                                <em>Catatan: Desain Potensi Desa kini menggunakan tampilan Floating Bar di banner utama. Tombol di atas berfungsi untuk menampilkan atau menyembunyikan Floating Bar tersebut.</em>
+                                            </p>
                                         </div>
 
-                                        <div style="border-top: 1px solid var(--border-color); padding-top: 15px;">
-                                            <h5 style="margin: 0 0 15px 0; font-size: 0.9rem; font-weight: 700; color: var(--text-dark);">Deskripsi Singkat Kotak Potensi</h5>
-                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                                                <div class="form-group">
-                                                    <label for="potency_agriculture_desc">Deskripsi Pertanian</label>
-                                                    <input type="text" id="potency_agriculture_desc" name="potency_agriculture_desc" class="form-control" value="{{ old('potency_agriculture_desc', $profile->potency_agriculture_desc ?? 'Lahan subur dengan komoditas unggulan padi dan palawija.') }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="potency_animal_husbandry_desc">Deskripsi Peternakan</label>
-                                                    <input type="text" id="potency_animal_husbandry_desc" name="potency_animal_husbandry_desc" class="form-control" value="{{ old('potency_animal_husbandry_desc', $profile->potency_animal_husbandry_desc ?? 'Pusat pengembangan hewan ternak seperti sapi dan kambing.') }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="potency_umkm_desc">Deskripsi UMKM</label>
-                                                    <input type="text" id="potency_umkm_desc" name="potency_umkm_desc" class="form-control" value="{{ old('potency_umkm_desc', $profile->potency_umkm_desc ?? 'Produk kerajinan dan makanan khas hasil karya warga desa.') }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="potency_tourism_desc">Deskripsi Pariwisata</label>
-                                                    <input type="text" id="potency_tourism_desc" name="potency_tourism_desc" class="form-control" value="{{ old('potency_tourism_desc', $profile->potency_tourism_desc ?? 'Pesona alam asri yang menarik bagi wisatawan lokal.') }}">
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             @elseif($section === 'umkm')
