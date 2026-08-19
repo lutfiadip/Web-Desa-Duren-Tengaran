@@ -34,7 +34,7 @@
             background: 
                 linear-gradient(to bottom, transparent 75%, var(--bg-main) 100%),
                 linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 40%, rgba(15, 23, 42, 0) 100%),
-                url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
+                url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : asset('assets/images/hero-bg.jpg') }}') center/cover no-repeat;
             min-height: 200vh; /* Made extremely long downwards */
             display: flex;
             align-items: flex-start;
@@ -87,7 +87,7 @@
 
         .hero-floating-bar {
             position: absolute;
-            bottom: 220px;
+            bottom: 285px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
@@ -302,50 +302,60 @@
         }
 
         .hero-demographics {
+            position: absolute;
+            bottom: 420px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
+            align-items: center;
             gap: 20px;
-            margin-top: 10px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
+            background: transparent;
+            border: none;
+            padding: 0;
+            box-shadow: none;
+            z-index: 20;
+            width: max-content;
         }
 
         .demo-item {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             color: var(--white);
-            background: rgba(15, 23, 42, 0.5);
-            padding: 10px 20px;
-            border-radius: var(--radius-md);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(10px);
-            transition: var(--transition);
+            padding: 15px 25px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .demo-item:hover {
-            transform: translateY(-5px);
             background: rgba(15, 23, 42, 0.8);
+            transform: translateY(-5px);
             border-color: var(--accent);
         }
 
         .demo-icon {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--accent);
         }
 
         .demo-number {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 800;
             line-height: 1;
+            letter-spacing: 0.5px;
         }
 
         .demo-label {
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             opacity: 0.8;
-            margin-top: 3px;
+            margin-top: 4px;
         }
 
         /* --- VIDEO PROFILE (FLOATING) --- */
@@ -544,11 +554,18 @@
                 font-size: 1rem;
             }
             .hero-demographics {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 40px;
                 gap: 15px;
             }
             .demo-item {
-                padding: 8px 15px;
-                flex: 1 1 calc(50% - 15px);
+                width: 100%;
+                justify-content: center;
             }
             .demo-number { font-size: 1.1rem; }
             .demo-icon { font-size: 1.3rem; }
@@ -1012,46 +1029,46 @@
                 <a href="{{ route('profile') }}" class="btn-solid" style="background-color: var(--primary); color: white; padding: 14px 35px; border-radius: var(--radius-pill); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; border: 2px solid var(--primary); display: inline-flex; align-items: center; gap: 10px; margin: 0;">
                     Jelajahi Desa <i class="fa-solid fa-arrow-right"></i>
                 </a>
-                <a href="#potensi" class="btn-outline" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); color: white; padding: 14px 35px; border-radius: var(--radius-pill); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.5); display: inline-flex; align-items: center; gap: 10px; margin: 0;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.2)'; this.style.borderColor='white'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.5)'">
-                    <i class="fa-regular fa-compass"></i> Potensi Desa
+                <a href="{{ route('news') }}" class="btn-outline" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); color: white; padding: 14px 35px; border-radius: var(--radius-pill); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.5); display: inline-flex; align-items: center; gap: 10px; margin: 0;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.2)'; this.style.borderColor='white'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.5)'">
+                    <i class="fa-regular fa-newspaper"></i> Berita Desa
                 </a>
             </div>
+        </div>
 
-            <!-- Demographics Bar -->
-            <div class="hero-demographics" style="display: none;">
+        <!-- Demographics Bar -->
+            <div class="hero-demographics">
                 <div class="demo-item">
                     <i class="fa-solid fa-users demo-icon"></i>
                     <div>
-                        <div class="demo-number">{{ ($demografi->total_penduduk->male_count ?? 0) + ($demografi->total_penduduk->female_count ?? 0) > 0 ? ($demografi->total_penduduk->male_count ?? 0) + ($demografi->total_penduduk->female_count ?? 0) : '2.450' }}</div>
+                        <div class="demo-number">{{ $demografi->total_penduduk ? ($demografi->total_penduduk->male_count + $demografi->total_penduduk->female_count) : 0 }}</div>
                         <div class="demo-label">Total Penduduk</div>
                     </div>
                 </div>
                 <div class="demo-item">
                     <i class="fa-solid fa-house-chimney demo-icon"></i>
                     <div>
-                        <div class="demo-number">{{ ($demografi->rt->male_count ?? 0) + ($demografi->rt->female_count ?? 0) > 0 ? ($demografi->rt->male_count ?? 0) + ($demografi->rt->female_count ?? 0) : '32' }}</div>
+                        <div class="demo-number">{{ $villageDetail->rt_count ?? 0 }}</div>
                         <div class="demo-label">Rukun Tetangga</div>
                     </div>
                 </div>
                 <div class="demo-item">
                     <i class="fa-solid fa-building demo-icon"></i>
                     <div>
-                        <div class="demo-number">{{ ($demografi->rw->male_count ?? 0) + ($demografi->rw->female_count ?? 0) > 0 ? ($demografi->rw->male_count ?? 0) + ($demografi->rw->female_count ?? 0) : '7' }}</div>
+                        <div class="demo-number">{{ $villageDetail->rw_count ?? 0 }}</div>
                         <div class="demo-label">Rukun Warga</div>
                     </div>
                 </div>
                 <div class="demo-item">
                     <i class="fa-solid fa-map-location-dot demo-icon"></i>
                     <div>
-                        <div class="demo-number">{{ ($demografi->luas_wilayah->male_count ?? 0) + ($demografi->luas_wilayah->female_count ?? 0) > 0 ? ($demografi->luas_wilayah->male_count ?? 0) + ($demografi->luas_wilayah->female_count ?? 0) : '350' }} <span style="font-size: 0.8em; opacity: 0.8;">Ha</span></div>
+                        <div class="demo-number">{{ $demografi->luas_wilayah->male_count ?? 0 }} <span style="font-size: 0.8em; opacity: 0.8;">Ha</span></div>
                         <div class="demo-label">Luas Wilayah</div>
                     </div>
                 </div>
             </div>
             
-            
-        </div>
         
+
         <!-- POTENSI DESA FLOATING BAR -->
         @if(($profile->show_potency_on_home ?? true) && (($profile->publish_agriculture ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_tourism ?? true)))
         <div class="hero-floating-bar">
