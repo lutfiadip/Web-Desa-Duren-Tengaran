@@ -75,6 +75,13 @@ class HomeController extends Controller
                      ->take(3)
                      ->get();
 
+        // Mengambil 3 Budaya terbaru/unggulan
+        $cultures = Culture::where('status', 'published')
+                     ->orderBy('is_featured', 'desc')
+                     ->latest()
+                     ->take(3)
+                     ->get();
+
         // Mengambil 3 berita terbaru
         $news = News::with('category')
                     ->where('status', 'published')
@@ -104,7 +111,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('welcome', compact('profile', 'demografi', 'umkms', 'tourisms', 'news', 'galleries', 'villageDetail', 'populationGender', 'sectionsOrder'));
+        return view('welcome', compact('profile', 'demografi', 'umkms', 'tourisms', 'cultures', 'news', 'galleries', 'villageDetail', 'populationGender', 'sectionsOrder'));
     }
 
     public function globalSearch(Request $request)
@@ -286,7 +293,7 @@ class HomeController extends Controller
     public function cultureDetail($slug)
     {
         $profile = VillageProfile::first();
-        if ($profile && !$profile->publish_culture) {
+        if ($profile && !($profile->publish_culture ?? $profile->publish_tourism ?? true)) {
             return redirect()->route('home')->with('error', 'Halaman Detail Budaya saat ini sedang dinonaktifkan.');
         }
         $villageDetail = VillageDetail::first();

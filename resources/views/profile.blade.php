@@ -970,7 +970,7 @@
                                             @php
                                                 $mapUrl = $profile->google_maps_url;
                                                 if (str_contains($mapUrl, '/maps/d/')) {
-                                                    $mapUrl = str_replace(['/maps/d/edit', '/maps/d/viewer'], '/maps/d/embed', $mapUrl);
+                                                    $mapUrl = preg_replace('/\/maps\/d\/(?:u\/\d+\/)?(?:edit|viewer)/', '/maps/d/embed', $mapUrl);
                                                 }
                                             @endphp
                                             <iframe src="{{ $mapUrl }}" class="map-frame" allowfullscreen="" loading="lazy"
@@ -1041,7 +1041,7 @@
                             if (mapUrl && mapUrl.trim() !== '') {
                                 // If My Maps URL, ensure embed format is used
                                 if (mapUrl.includes('/maps/d/')) {
-                                    mapUrl = mapUrl.replace('/maps/d/edit', '/maps/d/embed').replace('/maps/d/viewer', '/maps/d/embed');
+                                    mapUrl = mapUrl.replace(/\/maps\/d\/(u\/\d+\/)?(edit|viewer)/, '/maps/d/embed');
                                 }
                                 // Display iframe with map
                                 dusunIframe.src = mapUrl;

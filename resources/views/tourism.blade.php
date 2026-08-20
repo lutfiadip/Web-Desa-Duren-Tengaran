@@ -118,178 +118,146 @@
     }
 
     /* --- CARDS --- */
+    /* --- CARDS (Mobile Style) --- */
     .card-item {
-        background: var(--white);
-        border-radius: var(--radius-lg);
-        border: 1px solid var(--border-color);
+        position: relative;
+        border-radius: 30px;
         overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         transition: var(--transition);
         display: flex;
         flex-direction: column;
-        height: 100%;
+        height: 520px;
+        text-decoration: none;
+        background: #0f172a;
     }
 
     .card-item:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
     }
 
-    .card-image-wrapper {
-        position: relative;
-        height: 260px;
-        overflow: hidden;
-    }
-
-    .card-image {
+    .card-image-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: var(--transition);
+        z-index: 1;
+        transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .card-item:hover .card-image {
-        transform: scale(1.05);
+    .card-item:hover .card-image-bg {
+        transform: scale(1.08);
     }
 
-    .card-badge {
+    .card-overlay {
         position: absolute;
-        top: 20px;
-        right: 20px;
-        background-color: var(--primary);
-        color: var(--white);
-        padding: 6px 14px;
-        border-radius: var(--radius-pill);
-        font-weight: 700;
-        font-size: 0.8rem;
-        box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        inset: 0;
+        z-index: 2;
+        background: linear-gradient(to bottom, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.4) 45%, rgba(15, 23, 42, 0.95) 100%);
     }
 
-    .card-badge.featured {
-        background-color: var(--accent);
-        color: var(--white);
-        box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
-    }
-
-    .card-body {
-        padding: 30px;
+    .card-content {
+        position: relative;
+        z-index: 3;
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
-    }
-
-    .card-item-title {
-        font-size: 1.4rem;
-        font-weight: 800;
-        color: var(--text-dark);
-        margin-bottom: 12px;
-        line-height: 1.3;
-    }
-
-    .card-item-desc {
-        color: var(--text-muted);
-        font-size: 0.95rem;
-        line-height: 1.6;
-        margin-bottom: 20px;
-        flex-grow: 1;
-    }
-
-    /* --- DETAILS / METADATA --- */
-    .card-meta-list {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 20px 0;
-        border-top: 1px solid var(--border-color);
-        padding-top: 20px;
-    }
-
-    .card-meta-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        margin-bottom: 12px;
-        line-height: 1.5;
-    }
-
-    .card-meta-item:last-child {
-        margin-bottom: 0;
-    }
-
-    .card-meta-item i {
-        color: var(--primary);
-        font-size: 1.05rem;
-        width: 20px;
-        text-align: center;
-        margin-top: 2px;
-    }
-
-    .card-meta-item strong {
-        color: var(--text-dark);
-    }
-
-    /* Facility Tags */
-    .facility-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-bottom: 20px;
-    }
-
-    .facility-tag {
-        background-color: rgba(37, 99, 235, 0.05);
-        color: var(--primary);
-        font-size: 0.8rem;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: 4px;
-        border: 1px solid rgba(37, 99, 235, 0.1);
-    }
-
-    /* Card Actions */
-    .card-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        border-top: 1px solid var(--border-color);
-        padding-top: 20px;
-    }
-
-    .btn-action {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 10px 16px;
-        border-radius: var(--radius-md);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.85rem;
-        transition: var(--transition);
-        cursor: pointer;
-    }
-
-    .btn-action.primary {
-        background-color: var(--primary);
+        height: 100%;
+        padding: 30px 25px;
         color: var(--white);
+    }
+
+    .card-top-badge {
+        align-self: flex-start;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 8px 18px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 0.9rem;
+        color: var(--white);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .card-top-badge.featured {
+        background: rgba(245, 158, 11, 0.7);
+        border: 1px solid rgba(245, 158, 11, 0.9);
+    }
+
+    .card-bottom-info {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-title {
+        font-size: 2.2rem;
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 15px;
+        text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .card-divider {
         border: none;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.3);
+        margin: 0 0 15px 0;
+        width: 100%;
     }
 
-    .btn-action.primary:hover {
-        background-color: var(--primary-hover);
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    .card-subtitle {
+        font-size: 1rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .card-subtitle i {
+        color: var(--accent);
     }
 
-    .btn-action.outline {
-        background-color: transparent;
+    .card-desc {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.75);
+        line-height: 1.6;
+        margin-bottom: 25px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-action-btn {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: var(--white);
+        padding: 14px 0;
+        width: 100%;
+        text-align: center;
+        border-radius: var(--radius-pill);
+        font-weight: 800;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        margin-top: auto;
+        display: inline-block;
+    }
+
+    .card-item:hover .card-action-btn {
+        background: var(--white);
         color: var(--text-dark);
-        border: 1px solid var(--border-color);
-    }
-
-    .btn-action.outline:hover {
-        background-color: var(--bg-main);
-        border-color: #cbd5e1;
+        transform: scale(1.02);
     }
 
     .no-data-alert {
@@ -404,71 +372,37 @@
 
             <div class="tourism-grid">
                 @forelse($attractions as $attraction)
-                    <div class="card-item" data-title="{{ strtolower($attraction->title) }}" data-desc="{{ strtolower($attraction->description) }}">
-                        <a href="{{ route('tourism.detail', $attraction->slug) }}" class="card-image-wrapper">
-                            @if($attraction->thumbnail)
-                                <img src="{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset($attraction->thumbnail) }}" alt="{{ $attraction->title }}" class="card-image">
-                            @else
-                                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $attraction->title }}" class="card-image">
-                            @endif
+                    <a href="{{ route('tourism.detail', $attraction->slug) }}" class="card-item" data-title="{{ strtolower($attraction->title) }}" data-desc="{{ strtolower($attraction->description) }}">
+                        @if($attraction->thumbnail)
+                            <img src="{{ Str::startsWith($attraction->thumbnail, 'http') ? $attraction->thumbnail : asset($attraction->thumbnail) }}" alt="{{ $attraction->title }}" class="card-image-bg">
+                        @else
+                            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $attraction->title }}" class="card-image-bg">
+                        @endif
+                        
+                        <div class="card-overlay"></div>
 
+                        <div class="card-content">
                             @if($attraction->is_featured)
-                                <span class="card-badge featured"><i class="fa-solid fa-star" style="margin-right: 5px;"></i> Terfavorit</span>
+                                <div class="card-top-badge featured"><i class="fa-solid fa-star" style="margin-right: 5px;"></i> Terfavorit</div>
                             @else
-                                <span class="card-badge">Wisata Desa</span>
+                                <div class="card-top-badge">Wisata Desa</div>
                             @endif
-                        </a>
 
-                        <div class="card-body">
-                            <a href="{{ route('tourism.detail', $attraction->slug) }}" style="text-decoration: none; color: inherit;">
-                                <h3 class="card-item-title">{{ $attraction->title }}</h3>
-                            </a>
-                            <p class="card-item-desc">{{ Str::limit($attraction->description, 130) }}</p>
-                            
-                            @if($attraction->facilities)
-                                <div class="facility-container" style="margin-top: 15px;">
-                                    @foreach(explode(',', $attraction->facilities) as $facility)
-                                        <span class="facility-tag">{{ trim($facility) }}</span>
-                                    @endforeach
+                            <div class="card-bottom-info">
+                                <h3 class="card-title">{{ $attraction->title }}</h3>
+                                <hr class="card-divider">
+                                
+                                <div class="card-subtitle">
+                                    <i class="fa-solid fa-location-dot"></i> 
+                                    {{ Str::limit($attraction->address, 40) }}
                                 </div>
-                            @endif
-
-                            <ul class="card-meta-list" style="margin-top: 15px;">
-                                <li class="card-meta-item">
-                                    <i class="fa-solid fa-map-location-dot"></i>
-                                    <span><strong>Lokasi:</strong> {{ Str::limit($attraction->address, 60) }}</span>
-                                </li>
-                                <li class="card-meta-item">
-                                    <i class="fa-solid fa-ticket"></i>
-                                    <span><strong>Harga Tiket:</strong> 
-                                        @if(!empty($attraction->ticket_packages) && count($attraction->ticket_packages) > 0)
-                                            @php
-                                                $minPrice = min(array_column($attraction->ticket_packages, 'price'));
-                                            @endphp
-                                            @if($minPrice == 0)
-                                                Gratis / Sukarela
-                                            @else
-                                                Mulai Rp {{ number_format($minPrice, 0, ',', '.') }}
-                                            @endif
-                                        @elseif($attraction->ticket_price > 0)
-                                            Rp {{ number_format($attraction->ticket_price, 0, ',', '.') }}
-                                        @else
-                                            Gratis / Sukarela
-                                        @endif
-                                    </span>
-                                </li>
-                            </ul>
-
-                            <div class="card-actions" style="margin-top: auto;">
-                                <a href="{{ route('tourism.detail', $attraction->slug) }}" class="btn-action primary">
-                                    <i class="fa-solid fa-circle-info"></i> Lihat Detail
-                                </a>
-                                <a href="{{ $attraction->google_maps_url ?? 'https://maps.google.com' }}" target="_blank" class="btn-action outline">
-                                    <i class="fa-solid fa-route"></i> Petunjuk Rute
-                                </a>
+                                
+                                <p class="card-desc">{{ strip_tags($attraction->description) }}</p>
+                                
+                                <span class="card-action-btn">Lihat Detail</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 @empty
                     <div class="no-data-alert" style="grid-column: 1 / -1;">
                         <i class="fa-solid fa-map-pin" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px; opacity: 0.6;"></i>
@@ -491,41 +425,37 @@
 
             <div class="culture-grid">
                 @forelse($cultures as $culture)
-                    <div class="card-item" data-title="{{ strtolower($culture->title) }}" data-desc="{{ strtolower($culture->description) }}">
-                        <a href="{{ route('culture.detail', $culture->slug) }}" class="card-image-wrapper">
-                            @if($culture->thumbnail)
-                                <img src="{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset($culture->thumbnail) }}" alt="{{ $culture->title }}" class="card-image">
-                            @else
-                                <img src="https://images.unsplash.com/photo-1590075865003-e48277faa558?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $culture->title }}" class="card-image">
-                            @endif
+                    <a href="{{ route('culture.detail', $culture->slug) }}" class="card-item" data-title="{{ strtolower($culture->title) }}" data-desc="{{ strtolower($culture->description) }}">
+                        @if($culture->thumbnail)
+                            <img src="{{ Str::startsWith($culture->thumbnail, 'http') ? $culture->thumbnail : asset($culture->thumbnail) }}" alt="{{ $culture->title }}" class="card-image-bg">
+                        @else
+                            <img src="https://images.unsplash.com/photo-1590075865003-e48277faa558?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="{{ $culture->title }}" class="card-image-bg">
+                        @endif
+                        
+                        <div class="card-overlay"></div>
 
+                        <div class="card-content">
                             @if($culture->is_featured)
-                                <span class="card-badge featured"><i class="fa-solid fa-award" style="margin-right: 5px;"></i> Cagar Budaya</span>
+                                <div class="card-top-badge featured"><i class="fa-solid fa-award" style="margin-right: 5px;"></i> Cagar Budaya</div>
                             @else
-                                <span class="card-badge">Tradisi Seni</span>
+                                <div class="card-top-badge">Tradisi Seni</div>
                             @endif
-                        </a>
 
-                        <div class="card-body">
-                            <a href="{{ route('culture.detail', $culture->slug) }}" style="text-decoration: none; color: inherit;">
-                                <h3 class="card-item-title">{{ $culture->title }}</h3>
-                            </a>
-                            <p class="card-item-desc">{{ Str::limit($culture->description, 130) }}</p>
-
-                            <ul class="card-meta-list" style="margin-top: 15px;">
-                                <li class="card-meta-item">
-                                    <i class="fa-solid fa-location-arrow"></i>
-                                    <span><strong>Tempat Pelaksanaan:</strong> {{ $culture->location ?? 'Desa Duren' }}</span>
-                                </li>
-                            </ul>
-
-                            <div class="card-actions" style="margin-top: auto;">
-                                <a href="{{ route('culture.detail', $culture->slug) }}" class="btn-action primary" style="grid-column: 1 / -1;">
-                                    <i class="fa-solid fa-circle-info"></i> Lihat Detail Kesenian
-                                </a>
+                            <div class="card-bottom-info">
+                                <h3 class="card-title">{{ $culture->title }}</h3>
+                                <hr class="card-divider">
+                                
+                                <div class="card-subtitle">
+                                    <i class="fa-solid fa-location-arrow"></i> 
+                                    {{ Str::limit($culture->location ?? 'Desa Duren', 40) }}
+                                </div>
+                                
+                                <p class="card-desc">{{ strip_tags($culture->description) }}</p>
+                                
+                                <span class="card-action-btn">Lihat Detail</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 @empty
                     <div class="no-data-alert" style="grid-column: 1 / -1;">
                         <i class="fa-solid fa-masks-theater" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px; opacity: 0.6;"></i>

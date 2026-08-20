@@ -260,7 +260,7 @@
             if (preg_match('/src="([^"]+)"/', $mapUrl, $matches)) {
                 $mapUrl = $matches[1];
             } else if (str_contains($mapUrl, '/maps/d/')) {
-                $mapUrl = str_replace(['/maps/d/edit', '/maps/d/viewer'], '/maps/d/embed', $mapUrl);
+                $mapUrl = preg_replace('/\/maps\/d\/(?:u\/\d+\/)?(?:edit|viewer)/', '/maps/d/embed', $mapUrl);
             } else if (str_contains($mapUrl, 'maps.google.com/maps') && !str_contains($mapUrl, 'output=embed') && !str_contains($mapUrl, 'maps/embed')) {
                 $mapUrl .= (str_contains($mapUrl, '?') ? '&' : '?') . 'output=embed';
             }
