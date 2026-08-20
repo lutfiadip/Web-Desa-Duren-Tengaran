@@ -74,6 +74,11 @@
         background: rgba(245, 158, 11, 0.7);
         border: 1px solid rgba(245, 158, 11, 0.9);
     }
+    
+    .card-top-badge.featured.tourism-badge {
+        background: rgba(16, 185, 129, 0.7); /* Hijau Zamrud untuk Wisata */
+        border: 1px solid rgba(16, 185, 129, 0.9);
+    }
 
     .card-bottom-info {
         margin-top: auto;
@@ -1799,7 +1804,7 @@
                             <div class="card-overlay"></div>
 
                             <div class="card-content">
-                                <div class="card-top-badge featured">Destinasi Wisata</div>
+                                <div class="card-top-badge featured tourism-badge">Destinasi Wisata</div>
 
                                 <div class="card-bottom-info">
                                     <h3 class="card-title">{{ $wisata->title }}</h3>

@@ -116,11 +116,16 @@
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
-                <label for="is_featured">Apakah Produk Unggulan?</label>
-                <select id="is_featured" name="is_featured" class="form-control" required>
-                    <option value="0" {{ old('is_featured', $umkm->is_featured) == '0' ? 'selected' : '' }}>Bukan Unggulan (Tampil Biasa)</option>
-                    <option value="1" {{ old('is_featured', $umkm->is_featured) == '1' ? 'selected' : '' }}>Ya, Jadikan Unggulan (Tampil di Beranda/Sorotan)</option>
-                </select>
+                <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 8px; display: block;">Apakah Produk Unggulan?</label>
+                <div style="display: flex; align-items: center; gap: 10px; padding: 5px 0;">
+                    <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Bukan Unggulan</span>
+                    <label class="switch">
+                        <input type="hidden" name="is_featured" id="featured-input" value="{{ old('is_featured', $umkm->is_featured) }}">
+                        <input type="checkbox" id="featured-toggle" {{ old('is_featured', $umkm->is_featured) == '1' ? 'checked' : '' }} onchange="document.getElementById('featured-input').value = this.checked ? '1' : '0'">
+                        <span class="slider"></span>
+                    </label>
+                    <span style="font-size: 0.9rem; color: var(--primary-light); font-weight: 700;">Ya, Jadikan Unggulan</span>
+                </div>
             </div>
 
             <div class="form-group">

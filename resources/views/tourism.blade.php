@@ -187,6 +187,11 @@
         background: rgba(245, 158, 11, 0.7);
         border: 1px solid rgba(245, 158, 11, 0.9);
     }
+    
+    .card-top-badge.featured.tourism-badge {
+        background: rgba(16, 185, 129, 0.7);
+        border: 1px solid rgba(16, 185, 129, 0.9);
+    }
 
     .card-bottom-info {
         margin-top: auto;
@@ -383,7 +388,7 @@
 
                         <div class="card-content">
                             @if($attraction->is_featured)
-                                <div class="card-top-badge featured"><i class="fa-solid fa-star" style="margin-right: 5px;"></i> Terfavorit</div>
+                                <div class="card-top-badge featured tourism-badge"><i class="fa-solid fa-star" style="margin-right: 5px;"></i> Terfavorit</div>
                             @else
                                 <div class="card-top-badge">Wisata Desa</div>
                             @endif

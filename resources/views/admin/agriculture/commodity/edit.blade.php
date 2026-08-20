@@ -167,11 +167,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="is_featured">Tandai Sebagai Komoditas Unggulan <span style="color: red;">*</span></label>
-                    <select name="is_featured" id="is_featured" class="form-control @error('is_featured') is-invalid @enderror" required>
-                        <option value="0" {{ old('is_featured', $commodity->is_featured) == '0' ? 'selected' : '' }}>Tidak</option>
-                        <option value="1" {{ old('is_featured', $commodity->is_featured) == '1' ? 'selected' : '' }}>Ya, Tampilkan sebagai Unggulan</option>
-                    </select>
+                    <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 8px; display: block;">Tandai Sebagai Komoditas Unggulan <span style="color: red;">*</span></label>
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 5px 0;">
+                        <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Tidak</span>
+                        <label class="switch">
+                            <input type="hidden" name="is_featured" id="featured-input" value="{{ old('is_featured', $commodity->is_featured) }}">
+                            <input type="checkbox" id="featured-toggle" {{ old('is_featured', $commodity->is_featured) == '1' ? 'checked' : '' }} onchange="document.getElementById('featured-input').value = this.checked ? '1' : '0'">
+                            <span class="slider"></span>
+                        </label>
+                        <span style="font-size: 0.9rem; color: var(--primary-light); font-weight: 700;">Ya, Tampilkan sebagai Unggulan</span>
+                    </div>
                     @error('is_featured')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
