@@ -348,14 +348,21 @@
                 </div>
                 
                 @if($article->featured_image)
-                    <div class="article-featured-image-wrapper" style="margin-bottom: 30px; border-radius: var(--radius-md); overflow: hidden; width: 100%; max-height: 480px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                        <img src="{{ Str::startsWith($article->featured_image, 'http') ? $article->featured_image : asset($article->featured_image) }}" 
-                             alt="{{ $article->title }}" style="width: 100%; height: auto; max-height: 480px; object-fit: cover; display: block;">
-                    </div>
+                    <figure class="article-featured-image-wrapper" style="margin-bottom: 30px; width: 100%;">
+                        <div style="border-radius: var(--radius-md); overflow: hidden; max-height: 480px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                            <img src="{{ Str::startsWith($article->featured_image, 'http') ? $article->featured_image : asset($article->featured_image) }}" 
+                                 alt="{{ $article->title }}" style="width: 100%; height: auto; max-height: 480px; object-fit: cover; display: block;">
+                        </div>
+                        @if($article->image_caption)
+                            <figcaption style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; margin-top: 10px;">
+                                {{ $article->image_caption }}
+                            </figcaption>
+                        @endif
+                    </figure>
                 @endif
                 
                 <div class="article-body">
-                    {!! nl2br(e($article->content)) !!}
+                    {!! $article->content !!}
                 </div>
             </article>
         </div>

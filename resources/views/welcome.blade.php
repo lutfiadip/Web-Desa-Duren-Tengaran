@@ -1413,7 +1413,129 @@
             margin-bottom: 10px;
         }
 
-
+        /* News Reference Card Styles */
+        .news-ref-card {
+            display: flex; 
+            height: 280px; 
+            border-radius: var(--radius-lg); 
+            overflow: hidden; 
+            background: #f8fafc; 
+            border: 1px solid #cbd5e1; /* Added darker visible border */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            text-decoration: none; 
+            color: inherit; 
+            transition: all 0.3s ease;
+        }
+        .news-ref-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        .news-ref-card:hover .ref-card-img {
+            transform: scale(1.08);
+        }
+        .news-ref-label {
+            width: 45px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-right: 1px solid #e2e8f0;
+        }
+        .news-ref-label span {
+            writing-mode: vertical-rl; 
+            transform: rotate(180deg); 
+            color: #94a3b8; 
+            font-weight: 800; 
+            font-size: 0.9rem; 
+            letter-spacing: 3px; 
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .news-ref-content {
+            flex: 1; 
+            position: relative; 
+            overflow: hidden;
+        }
+        .ref-card-img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .news-ref-overlay {
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            padding: 80px 20px 20px; 
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 50%, transparent 100%); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end;
+        }
+        .news-ref-title {
+            color: var(--white); 
+            font-size: 1.15rem; 
+            font-weight: 700; 
+            margin: 0 0 8px 0; 
+            line-height: 1.4; 
+            display: -webkit-box; 
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical; 
+            overflow: hidden;
+        }
+        .news-ref-meta {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem; 
+            line-height: 1.4;
+            margin: 0;
+            display: -webkit-box; 
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical; 
+            overflow: hidden;
+        }
+        .news-ref-views {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 2;
+        }
+        .news-ref-date {
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            text-align: right; 
+            line-height: 1;
+            z-index: 2;
+        }
+        .news-ref-date .day {
+            color: var(--white); 
+            font-size: 1.5rem; 
+            font-weight: 900; 
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+        .news-ref-date .month {
+            color: var(--white); 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6); 
+            text-transform: uppercase;
+        }
+        .grid-news {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 335px), 1fr)); /* Use auto-fill to prevent stretching */
+            gap: 30px;
+        }
     </style>
 @endsection
 
@@ -1745,26 +1867,40 @@
                         <h2 class="section-title">{{ $profile->news_title ?? 'Berita & Pengumuman' }}</h2>
                     </div>
             
-                    <div class="grid-3">
+                    <div class="grid-news">
                         @foreach($news as $item)
-                        <div class="info-card" style="position: relative;">
-                            <div style="position: relative; overflow: hidden; height: 220px; width: 100%; border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+                        <a href="{{ route('news.detail', $item->slug) }}" class="news-ref-card">
+                            <!-- Left Vertical Label -->
+                            <div class="news-ref-label">
+                                <span>{{ $item->category->name ?? 'BERITA' }}</span>
+                            </div>
+                            
+                            <!-- Right Image & Content Area -->
+                            <div class="news-ref-content">
+                                <!-- Background Image -->
                                 <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image) }}"
-                                    alt="{{ $item->title }}" class="card-img" style="height: 100%; width: 100%; object-fit: cover;">
-                                <span style="position: absolute; top: 15px; right: 15px; background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); color: var(--white); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); z-index: 2;">
-                                    <i class="fa-solid fa-eye" style="font-size: 0.75rem;"></i> {{ number_format($item->views, 0, ',', '.') }}
-                                </span>
-                            </div>
-                            <div class="card-content">
-                                <div class="card-meta">
-                                    <span class="tag">{{ $item->category->name ?? 'Berita' }}</span>
-                                    <span><i class="fa-regular fa-clock"></i> {{ \Carbon\Carbon::parse($item->published_at)->format('d M Y') }}</span>
+                                     alt="{{ $item->title }}" class="ref-card-img">
+                                
+                                <!-- Top Left Views -->
+                                <div class="news-ref-views">
+                                    <i class="fa-solid fa-eye"></i> {{ number_format($item->views, 0, ',', '.') }}
                                 </div>
-                                <h3 class="card-title">{{ $item->title }}</h3>
-                                <p class="card-desc">{{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}</p>
-                                <a href="{{ route('news.detail', $item->slug) }}" class="card-action">Baca Berita <i><i class="fa-solid fa-chevron-right"></i></i></a>
+
+                                <!-- Top Right Date Block -->
+                                <div class="news-ref-date">
+                                    <div class="day">{{ \Carbon\Carbon::parse($item->published_at)->format('d') }}</div>
+                                    <div class="month">{{ \Carbon\Carbon::parse($item->published_at)->format('M') }}</div>
+                                </div>
+                                
+                                <!-- Bottom Gradient Overlay -->
+                                <div class="news-ref-overlay">
+                                    <h3 class="news-ref-title">{{ $item->title }}</h3>
+                                    <p class="news-ref-meta">
+                                        {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 80) }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                         @endforeach
                     </div>
                 </div>

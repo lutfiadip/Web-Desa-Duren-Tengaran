@@ -35,11 +35,13 @@ class NewsController extends Controller
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:news_categories,id',
             'content' => 'required',
+            'excerpt' => 'nullable|string|max:500',
             'status' => 'required|in:draft,published',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_caption' => 'nullable|string|max:255',
         ]);
 
-        $data = $request->only(['title', 'category_id', 'content', 'status']);
+        $data = $request->only(['title', 'category_id', 'content', 'excerpt', 'image_caption', 'status']);
         $data['user_id'] = Auth::id() ?? 1; // Default to 1 if not logged in
         $data['slug'] = Str::slug($request->title) . '-' . rand(1000, 9999);
         $data['published_at'] = $request->status === 'published' ? now() : null;
@@ -68,11 +70,13 @@ class NewsController extends Controller
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:news_categories,id',
             'content' => 'required',
+            'excerpt' => 'nullable|string|max:500',
             'status' => 'required|in:draft,published',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_caption' => 'nullable|string|max:255',
         ]);
 
-        $data = $request->only(['title', 'category_id', 'content', 'status']);
+        $data = $request->only(['title', 'category_id', 'content', 'excerpt', 'image_caption', 'status']);
         
         if ($news->title !== $request->title) {
             $data['slug'] = Str::slug($request->title) . '-' . rand(1000, 9999);
@@ -110,5 +114,22 @@ class NewsController extends Controller
         $news->delete();
 
         return redirect()->route('admin.news.index')->with('success', 'Berita berhasil dihapus.');
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            
+            // Buat direktori jika belum ada
+            if (!file_exists(public_path('uploads/news/content'))) {
+                mkdir(public_path('uploads/news/content'), 0777, true);
+            }
+
+            $file->move(public_path('uploads/news/content'), $filename);
+            return response()->json(['url' => asset('uploads/news/content/' . $filename)]);
+        }
+        return response()->json(['error' => 'No file uploaded.'], 400);
     }
 }
