@@ -205,202 +205,167 @@
     /* --- GRID --- */
     .umkm-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 30px;
     }
 
-    /* --- CARDS --- */
-    .umkm-card {
+    /* --- CARDS (Modern Product / UMKM) --- */
+    .card-item {
+        position: relative;
         background: var(--white);
-        border-radius: var(--radius-lg);
-        border: 1px solid var(--border-color);
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-        transition: var(--transition);
+        border-radius: 24px;
+        padding: 15px;
         display: flex;
         flex-direction: column;
-        height: 100%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(0,0,0,0.04);
+        text-decoration: none;
+    }
+    
+    .card-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(37, 99, 235, 0.08);
+        border-color: rgba(37, 99, 235, 0.2);
     }
 
-    .umkm-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-    }
-
-    .umkm-image-wrapper {
+    .card-image-wrapper {
         position: relative;
-        height: 240px;
+        width: 100%;
+        aspect-ratio: 4/3;
+        border-radius: 16px;
         overflow: hidden;
-        display: block;
+        margin-bottom: 20px;
     }
 
-    .umkm-image {
+    .card-image-bg {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: var(--transition);
+        transition: transform 0.7s ease;
     }
 
-    .umkm-card:hover .umkm-image {
-        transform: scale(1.05);
+    .card-item:hover .card-image-bg {
+        transform: scale(1.08);
     }
 
-    .category-badge {
+    .card-top-badge {
         position: absolute;
-        top: 20px;
-        left: 20px;
-        background-color: rgba(37, 99, 235, 0.9);
-        backdrop-filter: blur(4px);
-        color: var(--white);
-        padding: 6px 14px;
+        top: 12px;
+        left: 12px;
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(5px);
+        color: var(--primary-dark);
+        padding: 6px 12px;
         border-radius: var(--radius-pill);
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        z-index: 2;
     }
 
     .featured-badge {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background-color: var(--accent);
-        color: var(--white);
-        padding: 6px 14px;
-        border-radius: var(--radius-pill);
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+        left: auto;
+        right: 12px;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
     }
 
-    .umkm-details {
-        padding: 25px;
+    .card-content {
+        padding: 0 10px 10px;
         display: flex;
         flex-direction: column;
         flex-grow: 1;
     }
 
-    .umkm-title {
-        font-size: 1.35rem;
+    .card-title {
+        font-size: 1.25rem;
         font-weight: 800;
-        color: var(--text-dark);
         margin-bottom: 8px;
+        color: var(--text-dark);
         line-height: 1.3;
     }
 
-    .owner-info {
-        font-size: 0.9rem;
+    .card-owner {
+        font-size: 0.85rem;
+        color: var(--primary);
         font-weight: 600;
-        color: var(--text-muted);
+        margin-bottom: 15px;
         display: flex;
         align-items: center;
         gap: 6px;
-        margin-bottom: 15px;
     }
 
-    .owner-info i {
-        color: var(--primary);
-    }
-
-    .umkm-desc {
-        font-size: 0.95rem;
+    .card-desc {
+        font-size: 0.9rem;
         color: var(--text-muted);
         line-height: 1.6;
         margin-bottom: 20px;
-        flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-    .umkm-meta-info {
-        border-top: 1px solid var(--border-color);
-        padding-top: 18px;
-        margin-bottom: 20px;
+    .card-meta-list {
+        margin-top: auto;
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        min-height: 56px; /* Menjaga stabilitas tinggi ketika waktu operasional kosong */
+        gap: 8px;
+        margin-bottom: 20px;
+        padding-top: 15px;
+        border-top: 1px dashed var(--border-color);
     }
 
-    .meta-item {
-        display: flex;
-        gap: 10px;
-        font-size: 0.9rem;
+    .card-meta-item {
+        font-size: 0.8rem;
         color: var(--text-muted);
-        line-height: 1.4;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
     }
 
-    .meta-item i {
+    .card-meta-item i {
         color: var(--primary);
-        font-size: 1rem;
-        width: 18px;
+        width: 14px;
         text-align: center;
-        margin-top: 3px;
+        margin-top: 2px;
     }
 
-    /* --- ACTION BUTTONS --- */
     .umkm-actions {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        min-height: 90px; /* Menjaga stabilitas tinggi untuk 2 baris tombol kontak */
-        align-content: start; /* Merapatkan tombol ke atas agar sejajar dengan informasi di atasnya */
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
     }
 
     .action-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        padding: 10px 15px;
+        gap: 6px;
+        padding: 8px 12px;
         border-radius: var(--radius-md);
         text-decoration: none;
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         font-weight: 700;
         transition: var(--transition);
         border: none;
         cursor: pointer;
+        color: white;
     }
 
-    .btn-wa {
-        background-color: #25d366;
-        color: var(--white);
-    }
-
-    .btn-wa:hover {
-        background-color: #128c7e;
-        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
-    }
-
-    .btn-ig {
-        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        color: var(--white);
-    }
-
-    .btn-ig:hover {
-        opacity: 0.9;
-        box-shadow: 0 4px 12px rgba(220, 39, 67, 0.2);
-    }
-
-    .btn-fb {
-        background-color: #1877f2;
-        color: var(--white);
-    }
-
-    .btn-fb:hover {
-        background-color: #0d65d9;
-        box-shadow: 0 4px 12px rgba(24, 119, 242, 0.2);
-    }
-
-    .btn-maps {
-        background-color: #f1f5f9;
-        color: var(--text-dark);
-        border: 1px solid var(--border-color);
-    }
-
-    .btn-maps:hover {
-        background-color: #e2e8f0;
-    }
+    .btn-wa { background-color: #25d366; }
+    .btn-wa:hover { background-color: #128c7e; transform: translateY(-2px); }
+    .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .btn-ig:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-fb { background-color: #1877f2; }
+    .btn-fb:hover { background-color: #0d65d9; transform: translateY(-2px); }
+    .btn-maps { background-color: #f1f5f9; color: var(--text-dark); border: 1px solid var(--border-color); }
+    .btn-maps:hover { background-color: #e2e8f0; transform: translateY(-2px); }
 
     /* --- EMPTY STATE --- */
     .empty-state {
@@ -505,60 +470,69 @@
         <!-- GRID LIST -->
         <div class="umkm-grid" id="umkm-grid">
             @foreach($umkms as $umkm)
-                <div class="umkm-card" data-category-id="{{ $umkm->category_id }}" data-title="{{ strtolower($umkm->title) }}" data-desc="{{ strtolower($umkm->description) }}">
-                    <a href="{{ route('umkm.detail', $umkm->slug) }}" class="umkm-image-wrapper">
-                        <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset($umkm->thumbnail) }}"
-                             alt="{{ $umkm->title }}" class="umkm-image" loading="lazy">
-                        <span class="category-badge">{{ $umkm->category->name ?? 'Lokal' }}</span>
-                        @if($umkm->is_featured)
-                            <span class="featured-badge"><i class="fa-solid fa-star"></i> Unggulan</span>
-                        @endif
-                    </a>
-                    <div class="umkm-details">
-                        <a href="{{ route('umkm.detail', $umkm->slug) }}" style="text-decoration: none; color: inherit;">
-                            <h3 class="umkm-title">{{ $umkm->title }}</h3>
-                        </a>
-                        <div class="owner-info">
-                            <i class="fa-solid fa-circle-user"></i> Pemilik: {{ $umkm->owner_name }}
-                        </div>
-                        <p class="umkm-desc">{{ $umkm->description }}</p>
+                <div class="card-item umkm-card" data-category-id="{{ $umkm->category_id }}" data-title="{{ strtolower($umkm->title) }}" data-desc="{{ strtolower($umkm->description) }}">
+                    <!-- Link wrapper -->
+                    <a href="{{ route('umkm.detail', $umkm->slug) }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></a>
+                    
+                    <div class="card-image-wrapper">
+                        <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset($umkm->thumbnail) }}" alt="{{ $umkm->title }}" class="card-image-bg" loading="lazy">
                         
-                        <div class="umkm-meta-info">
-                            <div class="meta-item">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span>{{ $umkm->address }}</span>
+                        <div class="card-top-badge" style="color: var(--primary-dark);">
+                            {{ $umkm->category->name ?? 'Lokal' }}
+                        </div>
+                        
+                        @if($umkm->is_featured)
+                        <div class="card-top-badge featured">
+                            <i class="fa-solid fa-star"></i> Unggulan
+                        </div>
+                        @endif
+                    </div>
+
+                    <div class="card-content">
+                        <h3 class="card-title">{{ $umkm->title }}</h3>
+                        
+                        <div class="card-owner">
+                            <i class="fa-solid fa-circle-user"></i> {{ $umkm->owner_name }}
+                        </div>
+
+                        <p class="card-desc">
+                            {{ Str::limit(strip_tags($umkm->description), 80) }}
+                        </p>
+                        
+                        <div class="card-meta-list">
+                            <div class="card-meta-item">
+                                <i class="fa-solid fa-location-dot"></i> <span>{{ Str::limit($umkm->address, 45) }}</span>
                             </div>
                             @if($umkm->operating_hours)
-                                <div class="meta-item">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <span>{{ $umkm->operating_hours }}</span>
-                                </div>
+                            <div class="card-meta-item">
+                                <i class="fa-solid fa-clock"></i> <span>{{ $umkm->operating_hours }}</span>
+                            </div>
                             @endif
                         </div>
 
                         <div class="umkm-actions">
                             @if($umkm->whatsapp)
                                 <a href="https://wa.me/{{ $umkm->whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." 
-                                   target="_blank" class="action-btn btn-wa">
-                                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                                   target="_blank" class="action-btn btn-wa" title="WhatsApp">
+                                    <i class="fa-brands fa-whatsapp"></i> WA
                                 </a>
                             @endif
                             
                             @if($umkm->instagram)
-                                <a href="https://instagram.com/{{ $umkm->instagram }}" target="_blank" class="action-btn btn-ig">
-                                    <i class="fa-brands fa-instagram"></i> Instagram
+                                <a href="https://instagram.com/{{ $umkm->instagram }}" target="_blank" class="action-btn btn-ig" title="Instagram">
+                                    <i class="fa-brands fa-instagram"></i> IG
                                 </a>
                             @endif
 
                             @if($umkm->facebook)
-                                <a href="https://facebook.com/{{ $umkm->facebook }}" target="_blank" class="action-btn btn-fb">
-                                    <i class="fa-brands fa-facebook-f"></i> Facebook
+                                <a href="https://facebook.com/{{ $umkm->facebook }}" target="_blank" class="action-btn btn-fb" title="Facebook">
+                                    <i class="fa-brands fa-facebook-f"></i> FB
                                 </a>
                             @endif
 
                             @if($umkm->google_maps_url)
-                                <a href="{{ $umkm->google_maps_url }}" target="_blank" class="action-btn btn-maps">
-                                    <i class="fa-solid fa-location-dot"></i> Lokasi Maps
+                                <a href="{{ $umkm->google_maps_url }}" target="_blank" class="action-btn btn-maps" title="Lokasi Maps">
+                                    <i class="fa-solid fa-location-dot"></i> Maps
                                 </a>
                             @endif
                         </div>

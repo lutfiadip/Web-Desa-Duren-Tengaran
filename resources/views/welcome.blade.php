@@ -163,6 +163,18 @@
             border-radius: var(--radius-lg);
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            
+            /* CSS Illusion for 3D stacked effect */
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.85);
+            opacity: 0.6;
+            z-index: 1;
+        }
+        .gallerySwiper .swiper-slide-active {
+            transform: scale(1.05);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.2);
         }
         .gallerySwiper .swiper-slide img {
             display: block;
@@ -634,7 +646,7 @@
             transform: translateY(0) scale(1);
         }
 
-        .close-video-btn {
+        .close-video-btn, .close-image-btn {
             position: absolute;
             top: -50px;
             right: -20px;
@@ -646,8 +658,98 @@
             transition: color 0.3s;
         }
 
-        .close-video-btn:hover {
+        .close-video-btn:hover, .close-image-btn:hover {
             color: var(--accent);
+        }
+
+        /* Image Modal */
+        .image-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .image-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .image-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .image-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            z-index: 2;
+            transform: translateY(20px) scale(0.95);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-modal.active .image-modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .image-modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+
+        .image-modal-caption {
+            color: white;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .modal-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            z-index: 10;
+        }
+
+        .modal-nav-btn:hover {
+            background: var(--accent);
+        }
+
+        .modal-prev {
+            left: -60px;
+        }
+
+        .modal-next {
+            right: -60px;
+        }
+        
+        @media(max-width: 768px) {
+            .modal-prev { left: -10px; }
+            .modal-next { right: -10px; }
         }
 
         .iframe-container {
@@ -834,20 +936,184 @@
         /* --- HORIZONTAL SCROLL FOR UMKM --- */
         .umkm-scroll {
             display: flex;
-            gap: 30px;
             overflow-x: auto;
+            gap: 20px;
             padding-bottom: 20px;
-            scroll-snap-type: x mandatory;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            scrollbar-width: thin;
+        }
+        
+        .umkm-scroll .info-card,
+        .umkm-scroll .card-item,
+        .umkm-scroll .umkm-card {
+            min-width: 320px;
+            flex: 0 0 auto;
         }
         .umkm-scroll::-webkit-scrollbar {
             display: none;
         }
-        .umkm-scroll .info-card {
+        .umkm-scroll .info-card,
+        .umkm-scroll .umkm-card {
             flex: 0 0 350px;
             scroll-snap-align: start;
         }
+
+        /* --- MODERN PRODUCT CARD FOR UMKM --- */
+        .umkm-card {
+            position: relative;
+            background: var(--white);
+            border-radius: 24px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.04);
+            text-decoration: none;
+        }
+        
+        .umkm-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.08);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .umkm-card .card-image-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .umkm-card .card-image-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .umkm-card:hover .card-image-bg {
+            transform: scale(1.08);
+        }
+
+        .umkm-card .card-top-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(5px);
+            color: var(--primary-dark);
+            padding: 6px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            z-index: 2;
+        }
+
+        .umkm-card .featured-badge {
+            left: auto;
+            right: 12px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .umkm-card .card-content {
+            padding: 0 10px 10px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .umkm-card .card-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .umkm-card .card-owner {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .umkm-card .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .umkm-card .card-meta-list {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .umkm-card .card-meta-item {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .umkm-card .card-meta-item i {
+            color: var(--primary);
+            width: 14px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .umkm-card .umkm-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .umkm-card .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+
+        .umkm-card .btn-wa { background-color: #25d366; }
+        .umkm-card .btn-wa:hover { background-color: #128c7e; transform: translateY(-2px); }
+        .umkm-card .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .umkm-card .btn-ig:hover { opacity: 0.9; transform: translateY(-2px); }
+        .umkm-card .btn-fb { background-color: #1877f2; }
+        .umkm-card .btn-fb:hover { background-color: #0d65d9; transform: translateY(-2px); }
+        .umkm-card .btn-maps { background-color: #f1f5f9; color: var(--text-dark); border: 1px solid var(--border-color); }
+        .umkm-card .btn-maps:hover { background-color: #e2e8f0; transform: translateY(-2px); }
         @media (max-width: 768px) {
             .section-card {
                 padding: 30px 20px;
@@ -1311,41 +1577,67 @@
             
                     <div class="umkm-scroll" style="padding-bottom: 0;">
                         @foreach($umkms as $umkm)
-                        <div class="info-card">
-                            <a href="{{ route('umkm.detail', $umkm->slug) }}" style="display: block;">
-                                <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset($umkm->thumbnail) }}"
-                                    alt="{{ $umkm->title }}" class="card-img">
-                            </a>
-                            <div class="card-content">
-                                <div class="card-meta">
-                                    <span class="tag" style="background-color: #fef3c7; color: #d97706;">{{ $umkm->category->name ?? 'UMKM' }}</span>
+                        <div class="umkm-card">
+                            <a href="{{ route('umkm.detail', $umkm->slug) }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></a>
+                            
+                            <div class="card-image-wrapper">
+                                <img src="{{ Str::startsWith($umkm->thumbnail, 'http') ? $umkm->thumbnail : asset($umkm->thumbnail) }}" alt="{{ $umkm->title }}" class="card-image-bg" loading="lazy">
+                                
+                                <div class="card-top-badge" style="color: var(--primary-dark);">
+                                    {{ $umkm->category->name ?? 'Lokal' }}
                                 </div>
-                                <a href="{{ route('umkm.detail', $umkm->slug) }}" style="text-decoration: none; color: inherit;">
-                                    <h3 class="card-title">{{ $umkm->title }}</h3>
-                                </a>
-                                <p class="card-desc">{{ $umkm->description }}</p>
+                                
+                                @if($umkm->is_featured)
+                                <div class="card-top-badge featured-badge">
+                                    <i class="fa-solid fa-star"></i> Unggulan
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="card-content">
+                                <h3 class="card-title">{{ $umkm->title }}</h3>
+                                
+                                <div class="card-owner">
+                                    <i class="fa-solid fa-circle-user"></i> {{ $umkm->owner_name }}
+                                </div>
+
+                                <p class="card-desc">
+                                    {{ Str::limit(strip_tags($umkm->description), 80) }}
+                                </p>
+                                
+                                <div class="card-meta-list">
+                                    <div class="card-meta-item">
+                                        <i class="fa-solid fa-location-dot"></i> <span>{{ Str::limit($umkm->address, 45) }}</span>
+                                    </div>
+                                    @if($umkm->operating_hours)
+                                    <div class="card-meta-item">
+                                        <i class="fa-solid fa-clock"></i> <span>{{ $umkm->operating_hours }}</span>
+                                    </div>
+                                    @endif
+                                </div>
+
                                 <div class="umkm-actions">
                                     @if($umkm->whatsapp)
                                         <a href="https://wa.me/{{ $umkm->whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." 
-                                           target="_blank" class="action-btn btn-wa">
+                                           target="_blank" class="action-btn btn-wa" title="WhatsApp">
                                             <i class="fa-brands fa-whatsapp"></i> WA
                                         </a>
                                     @endif
                                     
                                     @if($umkm->instagram)
-                                        <a href="https://instagram.com/{{ $umkm->instagram }}" target="_blank" class="action-btn btn-ig">
+                                        <a href="https://instagram.com/{{ $umkm->instagram }}" target="_blank" class="action-btn btn-ig" title="Instagram">
                                             <i class="fa-brands fa-instagram"></i> IG
                                         </a>
                                     @endif
 
                                     @if($umkm->facebook)
-                                        <a href="https://facebook.com/{{ $umkm->facebook }}" target="_blank" class="action-btn btn-fb">
+                                        <a href="https://facebook.com/{{ $umkm->facebook }}" target="_blank" class="action-btn btn-fb" title="Facebook">
                                             <i class="fa-brands fa-facebook-f"></i> FB
                                         </a>
                                     @endif
 
                                     @if($umkm->google_maps_url)
-                                        <a href="{{ $umkm->google_maps_url }}" target="_blank" class="action-btn btn-maps">
+                                        <a href="{{ $umkm->google_maps_url }}" target="_blank" class="action-btn btn-maps" title="Lokasi Maps">
                                             <i class="fa-solid fa-location-dot"></i> Maps
                                         </a>
                                     @endif
@@ -1481,6 +1773,17 @@
         @elseif($section === 'gallery')
             <!-- GALERI DESA -->
             @if($profile->show_gallery_on_home ?? true)
+            <style>
+                .gallerySwiper .swiper-slide {
+                    cursor: pointer;
+                }
+                .gallerySwiper .swiper-slide-active:hover {
+                    transform: scale(1.08);
+                }
+                .gallerySwiper .swiper-slide img {
+                    transition: transform 0.3s ease;
+                }
+            </style>
             <section id="galeri" class="section">
                 <div class="section-card">
                     <div class="section-header" style="margin-bottom: 30px;">
@@ -1490,8 +1793,10 @@
                     <div class="swiper gallerySwiper">
                         <div class="swiper-wrapper">
                             @foreach($galleries as $gallery)
-                            <div class="swiper-slide">
-                                <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}">
+                            <div class="swiper-slide" onclick="openImageModal({{ $loop->index }})" style="cursor: pointer;">
+                                <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}" 
+                                     alt="{{ $gallery->caption ?? 'Galeri Desa' }}" 
+                                     draggable="false">
                             </div>
                             @endforeach
                         </div>
@@ -1512,6 +1817,18 @@
                 <!-- Placeholder YouTube nature video to simulate a drone shot / village profile -->
                 <iframe id="youtube-video" src="" title="Video Profil Desa" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
+        </div>
+    </div>
+
+    <!-- Image Modal Structure -->
+    <div id="image-modal" class="image-modal">
+        <div class="image-modal-overlay" onclick="closeImageModal()"></div>
+        <div class="image-modal-content">
+            <button class="close-image-btn" onclick="closeImageModal()"><i class="fa-solid fa-xmark"></i></button>
+            <button class="modal-nav-btn modal-prev" onclick="navigateModal(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <img id="modal-image" class="image-modal-img" src="" alt="Galeri" style="cursor: pointer;" onclick="navigateModal(1)" title="Klik untuk gambar selanjutnya">
+            <button class="modal-nav-btn modal-next" onclick="navigateModal(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            <div id="modal-caption" class="image-modal-caption"></div>
         </div>
     </div>
 
@@ -1547,26 +1864,65 @@
                 iframe.src = ""; // Stop video from playing in background
             }, 300);
         }
+
+        // Image Modal Functions
+        const galleryData = [
+            @foreach($galleries as $gallery)
+                {
+                    src: "{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}",
+                    caption: "{{ $gallery->caption ?? 'Galeri Desa' }}"
+                },
+            @endforeach
+        ];
+        
+        let currentModalIndex = 0;
+
+        function openImageModal(index) {
+            if (galleryData.length === 0) return;
+            currentModalIndex = index;
+            updateModalContent();
+            
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function navigateModal(direction) {
+            currentModalIndex += direction;
+            if (currentModalIndex < 0) {
+                currentModalIndex = galleryData.length - 1; // loop to end
+            } else if (currentModalIndex >= galleryData.length) {
+                currentModalIndex = 0; // loop to start
+            }
+            updateModalContent();
+        }
+
+        function updateModalContent() {
+            const img = document.getElementById('modal-image');
+            const cap = document.getElementById('modal-caption');
+            const data = galleryData[currentModalIndex];
+            
+            img.src = data.src;
+            cap.innerText = data.caption;
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var swiper = new Swiper(".gallerySwiper", {
-                effect: "coverflow",
-                grabCursor: true,
-                centeredSlides: true,
                 slidesPerView: "auto",
-                initialSlide: 1, // Start on the middle slide
-                loop: false, // Turn off loop so the images stack realistically on the edges
-                speed: 800, 
-                slideToClickedSlide: true, 
-                coverflowEffect: {
-                    rotate: 0,
-                    stretch: -40, 
-                    depth: 150, 
-                    modifier: 1.5,
-                    slideShadows: true,
-                },
+                spaceBetween: -30, // Negative space pulls side images behind the center image
+                centeredSlides: true,
+                grabCursor: true,
+                loop: false,
+                initialSlide: 1,
+                speed: 600,
                 pagination: {
                     el: ".swiper-pagination",
                     clickable: true,
