@@ -235,15 +235,15 @@
                                     </div>
 
                                     <div class="form-group" style="margin-bottom: 0; margin-top: 20px;">
-                                        <label for="village_detail_image">Foto Profil / Detail Desa (Sebelah Kanan Tabel)</label>
+                                        <label for="village_detail_image">Foto Profil / Detail Desa</label>
                                         @if($profile->village_detail_image)
-                                            <div style="margin-bottom: 10px;">
-                                                <img src="{{ asset($profile->village_detail_image) }}" alt="Foto Profil Desa"
-                                                    style="height: 100px; max-width: 100%; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-color);">
+                                            <div style="margin-bottom: 12px;">
+                                                <span style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 5px;">Gambar saat ini:</span>
+                                                <img src="{{ asset($profile->village_detail_image) }}" alt="Gambar Profil Desa" style="height: 100px; object-fit: cover; border: 1px solid var(--border-color); padding: 2px; border-radius: var(--radius-md);">
                                             </div>
                                         @endif
                                         <input type="file" id="village_detail_image" name="village_detail_image" class="form-control" accept="image/*">
-                                        <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal file: 2 MB. Gambar ini akan tampil di sebelah kanan tabel profil desa.</span>
+                                        <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal file: 2 MB. Gambar ini akan tampil di atas tabel profil desa.</span>
                                     </div>
                                 </div>
                             </div>

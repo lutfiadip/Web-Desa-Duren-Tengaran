@@ -410,19 +410,11 @@
 
         /* --- DETAIL PROFILE CARD --- */
         .detail-profile-card {
-            display: grid;
-            grid-template-columns: 1.1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .detail-profile-card.no-image {
-            grid-template-columns: 1fr;
+            display: block;
         }
 
         .detail-profile-left {
-            display: flex;
-            flex-direction: column;
+            display: block;
         }
 
         .detail-title {
@@ -520,17 +512,20 @@
         }
 
         .detail-profile-right {
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            height: 100%;
-            min-height: 450px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
         }
 
         .detail-profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         /* --- RESPONSIVE --- */
@@ -768,6 +763,12 @@
                             <div class="detail-profile-left">
                                 <h2 class="detail-title">Detail Wilayah & Geografis</h2>
                                 <div class="title-underline"></div>
+                                @if($profile && $profile->village_detail_image)
+                                <div class="detail-profile-right">
+                                    <img src="{{ asset($profile->village_detail_image) }}"
+                                        alt="Profil Desa {{ $profile->village_name ?? '' }}" class="detail-profile-img">
+                                </div>
+                                @endif
                                 @if($villageDetail && ($villageDetail->kecamatan || $villageDetail->kabupaten || $villageDetail->provinsi))
                                     <p class="detail-description">
                                         Desa {{ $profile->village_name ?? '' }} terletak di Kecamatan {{ $villageDetail->kecamatan ?? '' }},
@@ -894,13 +895,6 @@
                                         <span class="info-value">{{ $villageDetail->west_boundary ?? '-' }}</span>
                                     </div>
                                 </div>
-                            </div>
-                            @if($profile && $profile->village_detail_image)
-                            <div class="detail-profile-right">
-                                <img src="{{ asset($profile->village_detail_image) }}"
-                                    alt="Profil Desa {{ $profile->village_name ?? '' }}" class="detail-profile-img">
-                            </div>
-                            @endif
                         </div>
                     </section>
                 @endif
