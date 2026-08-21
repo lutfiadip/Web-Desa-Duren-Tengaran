@@ -15,6 +15,16 @@ class Culture extends Model
         'gallery' => 'array',
     ];
 
+    public function getCleanContactAttribute()
+    {
+        if (empty($this->contact)) return '';
+        $wa = preg_replace('/[^0-9]/', '', $this->contact);
+        if (str_starts_with($wa, '0')) {
+            $wa = '62' . substr($wa, 1);
+        }
+        return $wa;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

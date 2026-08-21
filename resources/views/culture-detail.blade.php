@@ -367,7 +367,7 @@
 
                 @if($culture->contact)
                     <div class="action-buttons" style="margin-top: 25px;">
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $culture->contact) }}" target="_blank" class="btn-side wa">
+                        <a href="https://wa.me/{{ $culture->clean_contact }}" target="_blank" class="btn-side wa">
                             <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Hubungi Paguyuban
                         </a>
                     </div>

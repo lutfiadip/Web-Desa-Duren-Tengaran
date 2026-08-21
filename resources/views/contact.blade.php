@@ -218,7 +218,7 @@
                 <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--text-dark); margin-bottom: 15px; text-align: center;">Media Sosial & Chat</h4>
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                     @if($profile && $profile->phone)
-                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $profile->phone) }}?text=Halo%20Admin%20Desa%20Duren,%20saya%20ingin%20bertanya%20mengenai%20pelayanan%20desa." target="_blank"
+                    <a href="https://wa.me/{{ $profile->clean_phone }}?text=Halo%20Admin%20Desa%20Duren,%20saya%20ingin%20bertanya%20mengenai%20pelayanan%20desa." target="_blank"
                         style="background: #dcf8c6; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #25D366; text-decoration: none; transition: var(--transition); border: 1px solid rgba(37, 211, 102, 0.2);"
                         onmouseover="this.style.background='#25D366'; this.style.color='white';" onmouseout="this.style.background='#dcf8c6'; this.style.color='#25D366';" title="Hubungi lewat WhatsApp">
                         <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>

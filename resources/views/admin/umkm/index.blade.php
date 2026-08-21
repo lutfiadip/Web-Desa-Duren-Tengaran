@@ -53,7 +53,6 @@
                     <th>Nama Pemilik</th>
                     <th>Kategori</th>
                     <th>WhatsApp</th>
-                    <th>Unggulan</th>
                     <th>Status</th>
                     <th style="width: 120px; text-align: center;">Aksi</th>
                 </tr>
@@ -69,7 +68,12 @@
                             @endif
                         </td>
                         <td>
-                            <div style="font-weight: 700; color: var(--text-dark);">{{ $item->title }}</div>
+                            <div style="font-weight: 700; color: var(--text-dark);">
+                                {{ $item->title }}
+                                @if($item->is_featured)
+                                    <i class="fa-solid fa-star" style="color: #f59e0b; margin-left: 4px;" title="Produk Unggulan"></i>
+                                @endif
+                            </div>
                             <span style="font-size: 0.8rem; color: var(--text-muted);">{{ Str::limit($item->address, 50) }}</span>
                         </td>
                         <td>
@@ -80,18 +84,11 @@
                         </td>
                         <td>
                             @if($item->whatsapp)
-                                <a href="https://wa.me/{{ $item->whatsapp }}" target="_blank" style="color: #25d366; font-weight: 700; text-decoration: none;">
+                                <a href="https://wa.me/{{ $item->clean_whatsapp }}" target="_blank" style="color: #25d366; font-weight: 700; text-decoration: none;">
                                     <i class="fa-brands fa-whatsapp"></i> {{ $item->whatsapp }}
                                 </a>
                             @else
                                 -
-                            @endif
-                        </td>
-                        <td>
-                            @if($item->is_featured)
-                                <span class="badge badge-success" style="background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a;"><i class="fa-solid fa-star"></i> Unggulan</span>
-                            @else
-                                <span style="font-size: 0.85rem; color: var(--text-muted);">Biasa</span>
                             @endif
                         </td>
                         <td>

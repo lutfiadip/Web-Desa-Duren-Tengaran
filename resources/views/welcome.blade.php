@@ -1753,20 +1753,20 @@
 
                                 <div class="umkm-actions">
                                     @if($umkm->whatsapp)
-                                        <a href="https://wa.me/{{ $umkm->whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." 
+                                        <a href="https://wa.me/{{ $umkm->clean_whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." 
                                            target="_blank" class="action-btn btn-wa" title="WhatsApp">
                                             <i class="fa-brands fa-whatsapp"></i> WA
                                         </a>
                                     @endif
                                     
                                     @if($umkm->instagram)
-                                        <a href="https://instagram.com/{{ $umkm->instagram }}" target="_blank" class="action-btn btn-ig" title="Instagram">
+                                        <a href="{{ $umkm->instagram_link }}" target="_blank" class="action-btn btn-ig" title="Instagram">
                                             <i class="fa-brands fa-instagram"></i> IG
                                         </a>
                                     @endif
 
                                     @if($umkm->facebook)
-                                        <a href="https://facebook.com/{{ $umkm->facebook }}" target="_blank" class="action-btn btn-fb" title="Facebook">
+                                        <a href="{{ $umkm->facebook_link }}" target="_blank" class="action-btn btn-fb" title="Facebook">
                                             <i class="fa-brands fa-facebook-f"></i> FB
                                         </a>
                                     @endif

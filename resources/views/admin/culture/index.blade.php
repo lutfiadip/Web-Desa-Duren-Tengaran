@@ -47,7 +47,6 @@
                     <th>Nama Seni / Budaya</th>
                     <th>Lokasi/Tempat Pentas</th>
                     <th>Waktu Pelaksanaan</th>
-                    <th>Unggulan</th>
                     <th>Status</th>
                     <th style="width: 120px; text-align: center;">Aksi</th>
                 </tr>
@@ -63,7 +62,12 @@
                             @endif
                         </td>
                         <td>
-                            <div style="font-weight: 700; color: var(--text-dark);">{{ $item->title }}</div>
+                            <div style="font-weight: 700; color: var(--text-dark);">
+                                {{ $item->title }}
+                                @if($item->is_featured)
+                                    <i class="fa-solid fa-star" style="color: #f59e0b; margin-left: 4px;" title="Seni Budaya Unggulan"></i>
+                                @endif
+                            </div>
                             <span style="font-size: 0.8rem; color: var(--text-muted);">Kontak: {{ $item->contact ?? '-' }}</span>
                         </td>
                         <td>
@@ -71,13 +75,6 @@
                         </td>
                         <td>
                             {{ Str::limit($item->implementation_time, 50) }}
-                        </td>
-                        <td>
-                            @if($item->is_featured)
-                                <span class="badge badge-success" style="background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a;"><i class="fa-solid fa-star"></i> Unggulan</span>
-                            @else
-                                <span style="font-size: 0.85rem; color: var(--text-muted);">Biasa</span>
-                            @endif
                         </td>
                         <td>
                             @if($item->status === 'published')

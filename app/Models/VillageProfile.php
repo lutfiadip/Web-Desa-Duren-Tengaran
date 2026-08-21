@@ -47,4 +47,14 @@ class VillageProfile extends Model
         }
         return 'https://youtube.com/@' . ltrim($val, '/');
     }
+
+    public function getCleanPhoneAttribute()
+    {
+        if (empty($this->phone)) return '';
+        $wa = preg_replace('/[^0-9]/', '', $this->phone);
+        if (str_starts_with($wa, '0')) {
+            $wa = '62' . substr($wa, 1);
+        }
+        return $wa;
+    }
 }

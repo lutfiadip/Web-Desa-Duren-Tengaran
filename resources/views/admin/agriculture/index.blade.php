@@ -290,7 +290,6 @@
                             <th>Kategori</th>
                             <th>Skala Produksi</th>
                             <th>Status</th>
-                            <th>Unggulan</th>
                             <th width="150" style="text-align: center;">Aksi</th>
                         </tr>
                     </thead>
@@ -304,7 +303,12 @@
                                         <div style="width: 50px; height: 50px; background: #e2e8f0; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem;">No Pic</div>
                                     @endif
                                 </td>
-                                <td style="font-weight: bold; color: var(--text-dark);">{{ $commodity->title }}</td>
+                                <td style="font-weight: bold; color: var(--text-dark);">
+                                    {{ $commodity->title }}
+                                    @if($commodity->is_featured)
+                                        <i class="fa-solid fa-star" style="color: #f59e0b; margin-left: 4px;" title="Komoditas Unggulan"></i>
+                                    @endif
+                                </td>
                                 <td><span class="badge" style="background-color: #eff6ff; color: var(--primary-light);">{{ $commodity->category }}</span></td>
                                 <td>{{ $commodity->production_scale ?? '-' }}</td>
                                 <td>
@@ -312,13 +316,6 @@
                                         <span class="badge" style="background-color: #dcfce7; color: #15803d;">Dipublikasi</span>
                                     @else
                                         <span class="badge" style="background-color: #f1f5f9; color: var(--text-muted);">Draft</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($commodity->is_featured)
-                                        <span class="badge" style="background-color: #fef9c3; color: #a16207;"><i class="fa-solid fa-star"></i> Unggulan</span>
-                                    @else
-                                        -
                                     @endif
                                 </td>
                                 <td>

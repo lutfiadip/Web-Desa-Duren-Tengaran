@@ -405,20 +405,21 @@
 
                 <div class="action-buttons">
                     @if($umkm->whatsapp)
-                        <a href="https://wa.me/{{ $umkm->whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." target="_blank" class="btn-side wa">
-                            <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Hubungi via WhatsApp
+                        <a href="https://wa.me/{{ $umkm->clean_whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." 
+                           target="_blank" class="btn-side wa">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> WhatsApp
                         </a>
                     @endif
 
                     @if($umkm->instagram)
-                        <a href="https://instagram.com/{{ $umkm->instagram }}" target="_blank" class="btn-side ig">
+                        <a href="{{ $umkm->instagram_link }}" target="_blank" class="btn-side ig">
                             <i class="fa-brands fa-instagram" style="font-size: 1.3rem;"></i> Instagram Toko
                         </a>
                     @endif
 
                     @if($umkm->facebook)
-                        <a href="https://facebook.com/{{ $umkm->facebook }}" target="_blank" class="btn-side fb">
-                            <i class="fa-brands fa-facebook-f" style="font-size: 1.2rem;"></i> Facebook Fanspage
+                        <a href="{{ $umkm->facebook_link }}" target="_blank" class="btn-side fb">
+                            <i class="fa-brands fa-facebook-f" style="font-size: 1.3rem;"></i> Facebook Profil
                         </a>
                     @endif
 

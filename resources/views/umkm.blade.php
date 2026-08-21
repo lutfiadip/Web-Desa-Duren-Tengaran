@@ -536,7 +536,7 @@
                     <!-- Hover Actions Overlay (Hubungi / Contact) -->
                     <div class="card-hover-actions">
                         @if($umkm->whatsapp)
-                            <a href="https://wa.me/{{ $umkm->whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." target="_blank" style="color:white; text-decoration:none; position:relative; z-index:11;">
+                            <a href="https://wa.me/{{ $umkm->clean_whatsapp }}?text=Halo%20{{ rawurlencode($umkm->owner_name) }},%20saya%20tertarik%20dengan%20produk%20{{ rawurlencode($umkm->title) }}%20yang%20saya%20lihat%20di%20Website%20Resmi%20Desa%20Duren." target="_blank" style="color:white; text-decoration:none; position:relative; z-index:11;">
                                 <i class="fa-brands fa-whatsapp"></i> Hubungi
                             </a>
                         @else

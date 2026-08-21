@@ -47,7 +47,6 @@
                     <th>Nama Tempat Wisata</th>
                     <th>Harga Tiket</th>
                     <th>Kontak / Narahubung</th>
-                    <th>Unggulan</th>
                     <th>Status</th>
                     <th style="width: 120px; text-align: center;">Aksi</th>
                 </tr>
@@ -63,7 +62,12 @@
                             @endif
                         </td>
                         <td>
-                            <div style="font-weight: 700; color: var(--text-dark);">{{ $item->title }}</div>
+                            <div style="font-weight: 700; color: var(--text-dark);">
+                                {{ $item->title }}
+                                @if($item->is_featured)
+                                    <i class="fa-solid fa-star" style="color: #f59e0b; margin-left: 4px;" title="Wisata Unggulan"></i>
+                                @endif
+                            </div>
                             <span style="font-size: 0.8rem; color: var(--text-muted);">{{ Str::limit($item->address, 50) }}</span>
                         </td>
                         <td style="font-weight: 700;">
@@ -71,13 +75,6 @@
                         </td>
                         <td>
                             {{ $item->contact ?? '-' }}
-                        </td>
-                        <td>
-                            @if($item->is_featured)
-                                <span class="badge badge-success" style="background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a;"><i class="fa-solid fa-star"></i> Unggulan</span>
-                            @else
-                                <span style="font-size: 0.85rem; color: var(--text-muted);">Biasa</span>
-                            @endif
                         </td>
                         <td>
                             @if($item->status === 'published')

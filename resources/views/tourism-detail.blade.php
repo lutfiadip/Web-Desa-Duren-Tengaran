@@ -434,7 +434,7 @@
 
                 <div class="action-buttons">
                     @if($attraction->contact)
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $attraction->contact) }}" target="_blank" class="btn-side wa">
+                        <a href="https://wa.me/{{ $attraction->clean_contact }}" target="_blank" class="btn-side wa">
                             <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Reservasi WhatsApp
                         </a>
                     @endif
