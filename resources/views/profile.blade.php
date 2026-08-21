@@ -448,10 +448,17 @@
         }
 
         .detail-info-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 30px;
+            row-gap: 15px;
             margin-bottom: 35px;
+        }
+
+        @media (max-width: 768px) {
+            .detail-info-list {
+                grid-template-columns: 1fr;
+            }
         }
 
         .info-item {
@@ -853,6 +860,38 @@
                                         </span>
                                         <span class="info-colon">:</span>
                                         <span class="info-value">{{ $villageDetail->rt_count ?? '' }} RT</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label-wrapper">
+                                            <i class="fa-solid fa-arrow-up"></i>
+                                            <span class="info-label-text">Batas Utara</span>
+                                        </span>
+                                        <span class="info-colon">:</span>
+                                        <span class="info-value">{{ $villageDetail->north_boundary ?? '-' }}</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label-wrapper">
+                                            <i class="fa-solid fa-arrow-down"></i>
+                                            <span class="info-label-text">Batas Selatan</span>
+                                        </span>
+                                        <span class="info-colon">:</span>
+                                        <span class="info-value">{{ $villageDetail->south_boundary ?? '-' }}</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label-wrapper">
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                            <span class="info-label-text">Batas Timur</span>
+                                        </span>
+                                        <span class="info-colon">:</span>
+                                        <span class="info-value">{{ $villageDetail->east_boundary ?? '-' }}</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label-wrapper">
+                                            <i class="fa-solid fa-arrow-left"></i>
+                                            <span class="info-label-text">Batas Barat</span>
+                                        </span>
+                                        <span class="info-colon">:</span>
+                                        <span class="info-value">{{ $villageDetail->west_boundary ?? '-' }}</span>
                                     </div>
                                 </div>
                             </div>

@@ -1921,6 +1921,12 @@
                         </a>
                         @endforeach
                     </div>
+                    
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="{{ route('news') }}" class="btn-solid">
+                            Lihat Semua Berita <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </section>
             @endif

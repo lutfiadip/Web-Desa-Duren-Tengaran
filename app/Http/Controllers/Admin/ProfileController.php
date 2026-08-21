@@ -373,6 +373,10 @@ class ProfileController extends Controller
             'dusun_count' => 'nullable|integer|min:0',
             'rw_count' => 'nullable|integer|min:0',
             'rt_count' => 'nullable|integer|min:0',
+            'north_boundary' => 'nullable|string|max:255',
+            'south_boundary' => 'nullable|string|max:255',
+            'east_boundary' => 'nullable|string|max:255',
+            'west_boundary' => 'nullable|string|max:255',
             'publish_village_detail' => 'nullable|boolean',
             'village_detail_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'profile_sections_order' => 'nullable|string',
@@ -388,7 +392,8 @@ class ProfileController extends Controller
 
         $data = $request->except([
             'headman_photo', 'organization_structure_image', 'history_image', 'village_detail_image',
-            'kecamatan', 'kabupaten', 'provinsi', 'zip_code', 'area_size', 'population_count', 'dusun_count', 'rw_count', 'rt_count'
+            'kecamatan', 'kabupaten', 'provinsi', 'zip_code', 'area_size', 'population_count', 'dusun_count', 'rw_count', 'rt_count',
+            'north_boundary', 'south_boundary', 'east_boundary', 'west_boundary'
         ]);
 
         $profileToggleFields = [
@@ -435,6 +440,10 @@ class ProfileController extends Controller
             'dusun_count' => intval($request->dusun_count),
             'rt_count' => intval($request->rt_count),
             'rw_count' => intval($request->rw_count),
+            'north_boundary' => $request->north_boundary,
+            'south_boundary' => $request->south_boundary,
+            'east_boundary' => $request->east_boundary,
+            'west_boundary' => $request->west_boundary,
         ])->save();
 
         // Update DemographicStatistic: Total Penduduk

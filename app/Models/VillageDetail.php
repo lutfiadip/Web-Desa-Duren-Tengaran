@@ -17,5 +17,9 @@ class VillageDetail extends Model
         'dusun_count',
         'rt_count',
         'rw_count',
+        'north_boundary',
+        'south_boundary',
+        'east_boundary',
+        'west_boundary',
     ];
 }

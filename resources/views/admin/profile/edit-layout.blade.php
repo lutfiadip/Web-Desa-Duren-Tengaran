@@ -183,6 +183,29 @@
                                         </div>
                                     </div>
 
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; margin-top: 20px;">
+                                        <div class="form-group" style="margin-bottom: 0;">
+                                            <label for="north_boundary">Batas Utara</label>
+                                            <input type="text" id="north_boundary" name="north_boundary" class="form-control"
+                                                value="{{ old('north_boundary', $villageDetail->north_boundary ?? '') }}" placeholder="Contoh: Desa Buntu">
+                                        </div>
+                                        <div class="form-group" style="margin-bottom: 0;">
+                                            <label for="south_boundary">Batas Selatan</label>
+                                            <input type="text" id="south_boundary" name="south_boundary" class="form-control"
+                                                value="{{ old('south_boundary', $villageDetail->south_boundary ?? '') }}" placeholder="Contoh: Desa Cukil">
+                                        </div>
+                                        <div class="form-group" style="margin-bottom: 0;">
+                                            <label for="east_boundary">Batas Timur</label>
+                                            <input type="text" id="east_boundary" name="east_boundary" class="form-control"
+                                                value="{{ old('east_boundary', $villageDetail->east_boundary ?? '') }}" placeholder="Contoh: Desa Tawang">
+                                        </div>
+                                        <div class="form-group" style="margin-bottom: 0;">
+                                            <label for="west_boundary">Batas Barat</label>
+                                            <input type="text" id="west_boundary" name="west_boundary" class="form-control"
+                                                value="{{ old('west_boundary', $villageDetail->west_boundary ?? '') }}" placeholder="Contoh: Desa Sugihan">
+                                        </div>
+                                    </div>
+
                                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; margin-top: 20px;">
                                         <div class="form-group" style="margin-bottom: 0;">
                                             <label for="area_size">Luas Wilayah (Ha)</label>
