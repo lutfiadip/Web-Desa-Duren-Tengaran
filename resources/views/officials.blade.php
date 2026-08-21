@@ -306,6 +306,31 @@
 
     <!-- CONTENT SECTION -->
     <div class="officials-container">
+        @if(!$categories->isEmpty())
+            <!-- SEARCH BAR -->
+            <div class="search-filter-card">
+                <div class="search-box-wrapper">
+                    <button type="button" id="search-btn" class="search-btn" title="Cari">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input type="text" id="search-input" class="search-input" placeholder="Cari nama perangkat desa atau jabatan...">
+                </div>
+            </div>
+        @endif
+
+        <!-- STRUKTUR ORGANISASI SECTION -->
+        @if(($profile->publish_organization_structure ?? true) && ($profile->organization_structure_image ?? false))
+            <section class="profile-section" style="margin-bottom: 40px;">
+                <div class="profile-section-card" style="text-align: center; padding: 30px; background: #fff; border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
+                    <h2 class="profile-section-title" style="margin-bottom: 20px; font-size: 1.8rem; font-weight: 800; color: var(--text-dark);">Struktur Organisasi</h2>
+                    <div>
+                        <img src="{{ asset($profile->organization_structure_image) }}"
+                            alt="Struktur Organisasi Desa {{ $profile->village_name ?? '' }}"
+                            style="max-width: 100%; height: auto; border-radius: var(--radius-md);">
+                    </div>
+                </div>
+            </section>
+        @endif
         @if($categories->isEmpty())
             <div class="profile-section-card" style="text-align: center; padding: 60px 20px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.015);">
                 <div style="font-size: 3.5rem; color: var(--primary); margin-bottom: 25px; opacity: 0.8;">
@@ -317,15 +342,6 @@
                 </p>
             </div>
         @else
-            <!-- SEARCH BAR -->
-            <div class="search-filter-card">
-                <div class="search-box-wrapper">
-                    <button type="button" id="search-btn" class="search-btn" title="Cari">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <input type="text" id="search-input" class="search-input" placeholder="Cari nama perangkat desa atau jabatan...">
-                </div>
-            </div>
 
             <!-- CATEGORY TABS -->
             <div class="category-tabs-container">

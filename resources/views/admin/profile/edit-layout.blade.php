@@ -358,38 +358,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @elseif($section === 'struktur_organisasi')
-                            <!-- BAGIAN: Struktur Organisasi -->
-                            <div class="sortable-item" data-section-id="struktur_organisasi" draggable="true">
-                                <div class="sortable-header">
-                                    <h4>
-                                        <span class="drag-handle"><i class="fa-solid fa-grip-vertical"></i></span>
-                                        <i class="fa-solid fa-sitemap"></i> Struktur Organisasi
-                                    </h4>
-                                    <div class="section-actions">
-                                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish:</span>
-                                        <label class="switch">
-                                            <input type="checkbox" name="publish_organization_structure" value="1" {{ old('publish_organization_structure', $profile->publish_organization_structure) ? 'checked' : '' }}>
-                                            <span class="slider"></span>
-                                        </label>
-                                        <button type="button" class="btn-toggle-expand"><i class="fa-solid fa-chevron-down"></i></button>
-                                    </div>
-                                </div>
-                                <div class="sortable-content">
-                                    <div class="form-group" style="margin-bottom: 0;">
-                                        <label for="organization_structure_image">Bagan Struktur Organisasi Pemerintah Desa (Gambar)</label>
-                                        @if($profile->organization_structure_image)
-                                            <div style="margin-bottom: 15px;">
-                                                <img src="{{ asset($profile->organization_structure_image) }}" alt="Struktur Organisasi"
-                                                    style="max-height: 250px; max-width: 100%; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
-                                            </div>
-                                        @endif
-                                        <input type="file" id="organization_structure_image" name="organization_structure_image"
-                                            class="form-control" accept="image/*">
-                                        <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal file: 2 MB.</span>
-                                    </div>
-                                </div>
-                            </div>
+
                         @elseif($section === 'geografis_dusun')
                             <!-- BAGIAN: Geografis & Wilayah Dusun -->
                             <div class="sortable-item" data-section-id="geografis_dusun" draggable="true">

@@ -19,6 +19,41 @@
     </div>
 </div>
 
+<!-- Pengaturan Struktur Organisasi -->
+<div class="card" style="margin-bottom: 20px;">
+    <div class="card-header" style="display: flex; align-items: center; justify-content: space-between;">
+        <h2 style="display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-sitemap" style="color: var(--primary);"></i> Struktur Organisasi
+        </h2>
+    </div>
+    
+    <form action="{{ route('admin.officials.structure.update') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group" style="margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <span style="font-weight: 600;">Tampilkan di Halaman:</span>
+                <label class="switch">
+                    <input type="checkbox" name="publish_organization_structure" value="1" {{ old('publish_organization_structure', $profile->publish_organization_structure ?? true) ? 'checked' : '' }}>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <label for="organization_structure_image">Bagan Struktur Organisasi Pemerintah Desa (Gambar)</label>
+            @if(isset($profile) && $profile->organization_structure_image)
+                <div style="margin-bottom: 15px;">
+                    <img src="{{ asset($profile->organization_structure_image) }}" alt="Struktur Organisasi"
+                        style="max-height: 250px; max-width: 100%; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                </div>
+            @endif
+            <input type="file" id="organization_structure_image" name="organization_structure_image"
+                class="form-control" accept="image/*">
+            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal file: 2 MB. Akan ditampilkan di bagian paling atas Halaman Perangkat Desa.</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Simpan Struktur Organisasi</button>
+    </form>
+</div>
+
 <div class="card">
     <div class="card-header">
         <h2>Daftar Perangkat Desa & Staf</h2>

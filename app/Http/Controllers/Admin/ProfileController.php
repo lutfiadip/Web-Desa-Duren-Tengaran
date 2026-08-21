@@ -328,7 +328,6 @@ class ProfileController extends Controller
             'sambutan_kades',
             'visi_misi',
             'sejarah',
-            'struktur_organisasi',
             'geografis_dusun'
         ];
         
@@ -357,12 +356,10 @@ class ProfileController extends Controller
             'vision' => 'nullable|string',
             'mission' => 'nullable|string',
             'google_maps_url' => 'nullable|string',
-            'organization_structure_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'history_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'publish_headman_greeting' => 'nullable|boolean',
             'publish_vision_mission' => 'nullable|boolean',
             'publish_history' => 'nullable|boolean',
-            'publish_organization_structure' => 'nullable|boolean',
             'publish_geographics' => 'nullable|boolean',
             'kecamatan' => 'nullable|string|max:255',
             'kabupaten' => 'nullable|string|max:255',

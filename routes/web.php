@@ -66,6 +66,7 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     
     Route::post('officials/categories/reorder', [App\Http\Controllers\Admin\OfficialCategoryController::class, 'reorder'])->name('officials.categories.reorder');
     Route::resource('officials/categories', App\Http\Controllers\Admin\OfficialCategoryController::class)->names('officials.categories')->except(['show']);
+    Route::post('officials/structure', [App\Http\Controllers\Admin\OfficialController::class, 'updateStructure'])->name('officials.structure.update');
     Route::resource('officials', App\Http\Controllers\Admin\OfficialController::class)->except(['show']);
     Route::resource('umkm/categories', App\Http\Controllers\Admin\UmkmCategoryController::class)->names('umkm.categories')->except(['show']);
     Route::resource('umkm', App\Http\Controllers\Admin\UmkmController::class)->except(['show']);
