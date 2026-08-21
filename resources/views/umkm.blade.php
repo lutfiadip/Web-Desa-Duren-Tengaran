@@ -217,9 +217,9 @@
         padding: 12px;
         display: flex;
         flex-direction: column;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         transition: all 0.3s ease;
-        border: 1px solid rgba(0,0,0,0.03);
+        border: 1px solid rgba(0,0,0,0.08);
         text-decoration: none;
         margin-bottom: 25px; /* Space for the floating button */
     }
@@ -318,6 +318,11 @@
         margin-bottom: 6px;
         color: var(--text-dark);
         line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 2.99rem;
     }
 
     .card-desc {
@@ -329,6 +334,7 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        min-height: 2.55rem;
     }
 
     .card-meta-list {
