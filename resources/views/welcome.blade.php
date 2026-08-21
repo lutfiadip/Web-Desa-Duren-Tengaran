@@ -187,6 +187,14 @@
             height: 100%;
             object-fit: cover;
         }
+        .gallerySwiper .swiper-pagination {
+            bottom: 10px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: max-content !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
 
 
         /* --- HERO SECTION (MNTN STYLE) --- */
