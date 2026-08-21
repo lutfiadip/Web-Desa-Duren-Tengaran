@@ -291,7 +291,7 @@
             <span class="current">Lembaga Masyarakat</span>
         </nav>
         <h1>Lembaga Kemasyarakatan Desa</h1>
-        <p>Mengenal lembaga-lembaga kemasyarakatan yang berperan penting dalam pembangunan dan kesejahteraan sosial warga Desa Duren</p>
+        <p>{{ $profile->institutions_page_description ?? 'Mengenal lembaga-lembaga kemasyarakatan yang berperan penting dalam pembangunan dan kesejahteraan sosial warga Desa Duren.' }}</p>
     </section>
 
     <!-- CONTENT -->

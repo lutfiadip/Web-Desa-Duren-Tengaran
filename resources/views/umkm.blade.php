@@ -466,7 +466,7 @@
             <span class="current">UMKM Desa</span>
         </div>
         <h1>UMKM & Produk Desa</h1>
-        <p>Jelajahi berbagai produk lokal unggulan hasil karya warga Desa Duren. Dukung perekonomian desa dengan membeli produk lokal.</p>
+        <p>{{ $profile->umkm_page_description ?? 'Jelajahi berbagai produk lokal unggulan hasil karya warga Desa Duren. Dukung perekonomian desa dengan membeli produk lokal.' }}</p>
     </section>
 
     <!-- MAIN CONTAINER -->

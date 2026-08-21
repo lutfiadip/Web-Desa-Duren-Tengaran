@@ -643,8 +643,8 @@
             <span class="separator">/</span>
             <span class="current">Profil Desa</span>
         </nav>
-        <h1>Profil Desa {{ $profile->village_name ?? '' }}</h1>
-        <p>Mengenal lebih dekat mengenai Desa Duren Tengaran.</p>
+        <h1>Profil Desa {{ $profile->village_name ?? 'Duren' }}</h1>
+        <p>{{ $profile->profile_page_description ?? 'Mengenal lebih dekat mengenai Desa ' . ($profile->village_name ?? 'Duren Tengaran') . '.' }}</p>
     </section>
 
     <div class="profile-container">

@@ -499,4 +499,45 @@ class ProfileController extends Controller
 
         return redirect()->route('admin.profile.edit-contact')->with('success', 'Kontak & Media Sosial Resmi berhasil diperbarui.');
     }
+
+    public function editDescriptions()
+    {
+        $profile = VillageProfile::first() ?? new VillageProfile();
+        return view('admin.profile.edit-descriptions', compact('profile'));
+    }
+
+    public function updateDescriptions(Request $request)
+    {
+        $profile = VillageProfile::first() ?? new VillageProfile();
+
+        $request->validate([
+            'profile_page_description' => 'nullable|string|max:1000',
+            'umkm_page_description' => 'nullable|string|max:1000',
+            'tourism_page_description' => 'nullable|string|max:1000',
+            'news_page_description' => 'nullable|string|max:1000',
+            'officials_page_description' => 'nullable|string|max:1000',
+            'regulations_page_description' => 'nullable|string|max:1000',
+            'institutions_page_description' => 'nullable|string|max:1000',
+            'agriculture_page_description' => 'nullable|string|max:1000',
+        ]);
+
+        $data = $request->only([
+            'profile_page_description',
+            'umkm_page_description',
+            'tourism_page_description',
+            'news_page_description',
+            'officials_page_description',
+            'regulations_page_description',
+            'institutions_page_description',
+            'agriculture_page_description',
+        ]);
+
+        if ($profile->exists) {
+            $profile->update($data);
+        } else {
+            $profile->fill($data)->save();
+        }
+
+        return redirect()->route('admin.profile.edit-descriptions')->with('success', 'Teks & Deskripsi Halaman berhasil diperbarui.');
+    }
 }

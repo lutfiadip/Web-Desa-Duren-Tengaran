@@ -306,7 +306,7 @@
             <span class="current">Peraturan Desa</span>
         </nav>
         <h1>Peraturan Desa</h1>
-        <p>Portal resmi dokumen hukum dan produk regulasi yang diterbitkan oleh Pemerintah Desa Duren.</p>
+        <p>{{ $profile->regulations_page_description ?? 'Portal resmi dokumen hukum dan produk regulasi yang diterbitkan oleh Pemerintah Desa Duren.' }}</p>
     </section>
 
     <!-- CONTENT SECTION -->

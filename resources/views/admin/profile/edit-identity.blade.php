@@ -62,6 +62,8 @@
                     <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Link ini akan digunakan untuk fitur "Tonton Profil Desa" di halaman utama.</span>
                 </div>
 
+
+
                 <div class="form-group" style="margin-bottom: 0;">
                     <label for="logo">Logo Desa</label>
                     @if($profile->logo)

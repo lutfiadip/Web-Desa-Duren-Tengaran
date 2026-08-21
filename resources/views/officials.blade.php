@@ -301,7 +301,7 @@
             <span class="current">Perangkat Desa</span>
         </nav>
         <h1>Perangkat Desa Duren</h1>
-        <p>Struktur Organisasi dan Tata Kerja Pemerintah Desa Duren, Kecamatan Tengaran, Kabupaten Semarang.</p>
+        <p>{{ $profile->officials_page_description ?? 'Struktur Organisasi dan Tata Kerja Pemerintah Desa Duren, Kecamatan Tengaran, Kabupaten Semarang.' }}</p>
     </section>
 
     <!-- CONTENT SECTION -->

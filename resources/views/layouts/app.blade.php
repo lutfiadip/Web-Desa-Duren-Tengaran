@@ -745,80 +745,83 @@
                 /* Kembali normal */
             }
         </style>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const header = document.getElementById('main-header');
-                const menuToggle = document.getElementById('menu-toggle');
-                const menuClose = document.getElementById('menu-close');
-                const overlayMenu = document.getElementById('overlay-menu');
-                const searchToggle = document.getElementById('search-toggle');
-                const searchClose = document.getElementById('search-close');
-                const searchModal = document.getElementById('search-modal');
-                const searchInput = document.querySelector('.search-input');
-                const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-
-                // Menu Open/Close
-                if (menuToggle && overlayMenu) {
-                    menuToggle.addEventListener('click', () => {
-                        overlayMenu.classList.add('active');
-                    });
-                }
-                if (menuClose && overlayMenu) {
-                    menuClose.addEventListener('click', () => {
-                        overlayMenu.classList.remove('active');
-                    });
-                }
-
-                // Search Open/Close
-                if (searchToggle && searchModal) {
-                    searchToggle.addEventListener('click', () => {
-                        searchModal.classList.add('active');
-                        setTimeout(() => searchInput.focus(), 100);
-                    });
-                }
-                if (searchClose && searchModal) {
-                    searchClose.addEventListener('click', () => {
-                        searchModal.classList.remove('active');
-                    });
-                }
-
-                // Dropdown Toggle
-                dropdownToggles.forEach(toggle => {
-                    toggle.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        this.parentElement.classList.toggle('active');
-                        // Optional: change chevron icon direction
-                        const icon = this.querySelector('i');
-                        if (icon) {
-                            if (this.parentElement.classList.contains('active')) {
-                                icon.classList.remove('fa-chevron-down');
-                                icon.classList.add('fa-chevron-up');
-                            } else {
-                                icon.classList.remove('fa-chevron-up');
-                                icon.classList.add('fa-chevron-down');
-                            }
-                        }
-                    });
-                });
-
-                function handleScroll() {
-                    if (window.scrollY > 80) {
-                        header.classList.add('header-scrolled');
-                        header.classList.remove('header-transparent');
-                    } else {
-                        header.classList.add('header-transparent');
-                        header.classList.remove('header-scrolled');
-                    }
-                }
-
-                // Run on load
-                handleScroll();
-
-                // Run on scroll
-                window.addEventListener('scroll', handleScroll);
-            });
-        </script>
     @endif
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.getElementById('main-header');
+            const menuToggle = document.getElementById('menu-toggle');
+            const menuClose = document.getElementById('menu-close');
+            const overlayMenu = document.getElementById('overlay-menu');
+            const searchToggle = document.getElementById('search-toggle');
+            const searchClose = document.getElementById('search-close');
+            const searchModal = document.getElementById('search-modal');
+            const searchInput = document.querySelector('.search-input');
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+            // Menu Open/Close
+            if (menuToggle && overlayMenu) {
+                menuToggle.addEventListener('click', () => {
+                    overlayMenu.classList.add('active');
+                });
+            }
+            if (menuClose && overlayMenu) {
+                menuClose.addEventListener('click', () => {
+                    overlayMenu.classList.remove('active');
+                });
+            }
+
+            // Search Open/Close
+            if (searchToggle && searchModal) {
+                searchToggle.addEventListener('click', () => {
+                    searchModal.classList.add('active');
+                    setTimeout(() => searchInput.focus(), 100);
+                });
+            }
+            if (searchClose && searchModal) {
+                searchClose.addEventListener('click', () => {
+                    searchModal.classList.remove('active');
+                });
+            }
+
+            // Dropdown Toggle
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('active');
+                    // Optional: change chevron icon direction
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        if (this.parentElement.classList.contains('active')) {
+                            icon.classList.remove('fa-chevron-down');
+                            icon.classList.add('fa-chevron-up');
+                        } else {
+                            icon.classList.remove('fa-chevron-up');
+                            icon.classList.add('fa-chevron-down');
+                        }
+                    }
+                });
+            });
+
+            @if(request()->routeIs('home'))
+            function handleScroll() {
+                if (window.scrollY > 80) {
+                    header.classList.add('header-scrolled');
+                    header.classList.remove('header-transparent');
+                } else {
+                    header.classList.add('header-transparent');
+                    header.classList.remove('header-scrolled');
+                }
+            }
+
+            // Run on load
+            handleScroll();
+
+            // Run on scroll
+            window.addEventListener('scroll', handleScroll);
+            @endif
+        });
+    </script>
 </body>
 
 </html>

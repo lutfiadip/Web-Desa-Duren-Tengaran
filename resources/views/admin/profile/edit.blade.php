@@ -148,6 +148,20 @@
                 </div>
             </a>
 
+            <!-- Pilihan 3: Teks & Deskripsi Halaman -->
+            <a href="{{ route('admin.profile.edit-descriptions') }}" class="profile-menu-item">
+                <div class="profile-menu-icon">
+                    <i class="fa-solid fa-align-left"></i>
+                </div>
+                <div class="profile-menu-content">
+                    <div class="profile-menu-title">Teks & Deskripsi Halaman</div>
+                    <div class="profile-menu-desc">Atur teks deskripsi (subjudul) yang muncul pada banner halaman UMKM, Pariwisata, Berita, Aparatur, Peraturan, Lembaga, dan Pertanian.</div>
+                </div>
+                <div class="profile-menu-arrow">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </a>
+
         </div>
     </div>
 @endsection

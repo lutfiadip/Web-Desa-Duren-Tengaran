@@ -412,7 +412,7 @@
             <span class="current">Berita</span>
         </nav>
         <h1>Kabar & Berita Desa Duren</h1>
-        <p>Menyajikan informasi terbaru mengenai kegiatan kemasyarakatan, pengumuman resmi, dan perkembangan pembangunan di Desa Duren</p>
+        <p>{{ $profile->news_page_description ?? 'Menyajikan informasi terbaru mengenai kegiatan kemasyarakatan, pengumuman resmi, dan perkembangan pembangunan di Desa Duren.' }}</p>
     </section>
 
     <!-- CONTAINER -->

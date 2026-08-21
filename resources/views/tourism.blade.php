@@ -350,7 +350,7 @@
             <span class="current">Wisata & Budaya</span>
         </nav>
         <h1>Wisata & Budaya</h1>
-        <p>Jelajahi pesona keindahan alam tersembunyi dan kekayaan warisan seni budaya leluhur di Desa Duren.</p>
+        <p>{{ $profile->tourism_page_description ?? 'Jelajahi pesona keindahan alam tersembunyi dan kekayaan warisan seni budaya leluhur di Desa Duren.' }}</p>
     </section>
 
     <!-- CONTENT CONTAINER -->
