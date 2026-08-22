@@ -193,7 +193,8 @@ class HomeController extends Controller
             'visi_misi',
             'sejarah',
             'struktur_organisasi',
-            'geografis_dusun'
+            'geografis_dusun',
+            'sarana_prasarana'
         ];
         
         $sectionsOrder = ($profile && $profile->profile_sections_order)
@@ -206,7 +207,10 @@ class HomeController extends Controller
             }
         }
 
-        return view('profile', compact('profile', 'demografi', 'villageDetail', 'sectionsOrder'));
+        // Fetch facilities for the new section
+        $facilityCategories = \App\Models\FacilityCategory::with('facilities')->orderBy('order')->get();
+
+        return view('profile', compact('profile', 'demografi', 'villageDetail', 'sectionsOrder', 'facilityCategories'));
     }
 
     public function officials()

@@ -259,6 +259,7 @@ class ProfileController extends Controller
             'publish_institutions',
             'publish_village_detail',
             'publish_profile',
+            'publish_facilities',
             'show_potency_on_home',
             'show_umkm_on_home',
             'show_tourism_on_home',
@@ -328,7 +329,8 @@ class ProfileController extends Controller
             'sambutan_kades',
             'visi_misi',
             'sejarah',
-            'geografis_dusun'
+            'geografis_dusun',
+            'sarana_prasarana'
         ];
         
         $sectionsOrder = $profile->profile_sections_order 
@@ -341,7 +343,9 @@ class ProfileController extends Controller
             }
         }
 
-        return view('admin.profile.edit-layout', compact('profile', 'villageDetail', 'demografi', 'sectionsOrder'));
+        $facilityCategories = \App\Models\FacilityCategory::with('facilities')->orderBy('order')->get();
+
+        return view('admin.profile.edit-layout', compact('profile', 'villageDetail', 'demografi', 'sectionsOrder', 'facilityCategories'));
     }
 
     public function updateLayout(Request $request)
@@ -361,6 +365,7 @@ class ProfileController extends Controller
             'publish_vision_mission' => 'nullable|boolean',
             'publish_history' => 'nullable|boolean',
             'publish_geographics' => 'nullable|boolean',
+            'publish_facilities' => 'nullable|boolean',
             'kecamatan' => 'nullable|string|max:255',
             'kabupaten' => 'nullable|string|max:255',
             'provinsi' => 'nullable|string|max:255',
@@ -400,6 +405,7 @@ class ProfileController extends Controller
             'publish_organization_structure',
             'publish_geographics',
             'publish_village_detail',
+            'publish_facilities',
         ];
 
         foreach ($profileToggleFields as $toggleField) {

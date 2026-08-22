@@ -92,6 +92,102 @@
         max-height: 2000px;
         padding: 20px;
     }
+
+    /* Modal Styling */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10000; /* Sit on top of everything, including sidebar */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(15, 23, 42, 0.4); /* Dark blue overlay */
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal.active {
+        display: flex; /* Show when active */
+    }
+
+    .modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid var(--border-color);
+        width: 90%;
+        max-width: 500px;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--text-dark);
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: var(--transition);
+        line-height: 1;
+    }
+
+    .close-btn:hover {
+        color: var(--text-dark);
+    }
+
+    .modal-body {
+        margin-bottom: 24px;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        border-top: 1px solid var(--border-color);
+        padding-top: 15px;
+    }
+
+    .btn-outline {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-dark);
+    }
+
+    .btn-outline:hover {
+        background: #f1f5f9;
+    }
 </style>
 @endsection
 
@@ -442,6 +538,130 @@
                                     </div>
                                 </div>
                             </div>
+                        @elseif($section === 'sarana_prasarana')
+                            <!-- BAGIAN: Sarana dan Prasarana -->
+                            <div class="sortable-item" data-section-id="sarana_prasarana" draggable="true">
+                                <div class="sortable-header">
+                                    <h4>
+                                        <span class="drag-handle"><i class="fa-solid fa-grip-vertical"></i></span>
+                                        <i class="fa-solid fa-building"></i> Sarana dan Prasarana
+                                    </h4>
+                                    <div class="section-actions">
+                                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Publish:</span>
+                                        <label class="switch">
+                                            <input type="checkbox" name="publish_facilities" value="1" {{ old('publish_facilities', $profile->publish_facilities ?? true) ? 'checked' : '' }}>
+                                            <span class="slider"></span>
+                                        </label>
+                                        <button type="button" class="btn-toggle-expand"><i class="fa-solid fa-chevron-down"></i></button>
+                                    </div>
+                                </div>
+                                <div class="sortable-content">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                                        <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
+                                            Kelola kategori dan rincian sarana prasarana yang ada di Desa Duren.
+                                        </p>
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="openCategoryModal()">
+                                            <i class="fa-solid fa-plus"></i> Tambah Kategori
+                                        </button>
+                                    </div>
+
+                                    @if(isset($facilityCategories) && $facilityCategories->isEmpty())
+                                        <div class="text-center" style="padding: 30px; background: #f8fafc; border: 1px dashed var(--border-color); border-radius: var(--radius-md);">
+                                            <i class="fa-solid fa-building fa-2x" style="color: #cbd5e1; margin-bottom: 10px;"></i>
+                                            <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Belum ada Kategori Sarana & Prasarana</p>
+                                        </div>
+                                    @elseif(isset($facilityCategories))
+                                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                                            @foreach($facilityCategories as $category)
+                                                <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); background: #f8fafc; overflow: hidden;">
+                                                    <div style="padding: 12px 16px; background: #f1f5f9; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
+                                                        <h5 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: var(--text-dark);">
+                                                            @if($category->icon)
+                                                                <i class="{{ $category->icon }}" style="margin-right: 6px; color: var(--primary-light);"></i>
+                                                            @endif
+                                                            {{ $category->name }}
+                                                        </h5>
+                                                        <div style="display: flex; gap: 8px;">
+                                                            <button type="button" class="btn btn-sm btn-outline-primary" style="padding: 2px 8px; font-size: 0.8rem;" onclick="openCategoryModal({{ $category->id }}, '{{ $category->name }}', '{{ $category->icon }}')">
+                                                                <i class="fa-solid fa-edit"></i> Edit
+                                                            </button>
+                                                            <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 2px 8px; font-size: 0.8rem;" onclick="submitDeleteCategory({{ $category->id }})">
+                                                                <i class="fa-solid fa-trash"></i> Hapus
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div style="padding: 15px; background: #ffffff;">
+                                                        <div style="margin-bottom: 12px;">
+                                                            <button type="button" class="btn btn-sm btn-primary" style="padding: 4px 10px; font-size: 0.8rem;" onclick="openFacilityModal({{ $category->id }})">
+                                                                <i class="fa-solid fa-plus"></i> Tambah Sarana
+                                                            </button>
+                                                        </div>
+
+                                                        @if($category->facilities->isEmpty())
+                                                            <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); font-style: italic;">Belum ada sarana di kategori ini.</p>
+                                                        @else
+                                                            <div class="table-responsive">
+                                                                <table class="table" style="width: 100%; font-size: 0.85rem; margin: 0;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="width: 50px;">No</th>
+                                                                            <th>Nama Sarana/Infrastruktur</th>
+                                                                            <th style="width: 120px; text-align: center;">Jumlah</th>
+                                                                            <th>Rincian / Detail Nama</th>
+                                                                            <th style="width: 120px; text-align: center;">Aksi</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach($category->facilities as $index => $facility)
+                                                                            <tr>
+                                                                                <td>{{ $index + 1 }}</td>
+                                                                                <td><strong>{{ $facility->name }}</strong></td>
+                                                                                <td style="text-align: center;">
+                                                                                    @if($facility->quantity)
+                                                                                        <span class="badge badge-primary">{{ $facility->quantity }}</span>
+                                                                                    @else
+                                                                                        <span class="text-muted" style="font-size: 0.85rem;">-</span>
+                                                                                    @endif
+                                                                                </td>
+                                                                                <td>
+                                                                                    @php
+                                                                                        $details = null;
+                                                                                        if (!empty($facility->description)) {
+                                                                                            $details = json_decode($facility->description, true);
+                                                                                        }
+                                                                                    @endphp
+                                                                                    @if(is_array($details))
+                                                                                        <ul style="margin: 0; padding-left: 15px; list-style-type: decimal;">
+                                                                                            @foreach($details as $detail)
+                                                                                                <li>{{ $detail }}</li>
+                                                                                            @endforeach
+                                                                                        </ul>
+                                                                                    @else
+                                                                                        {{ $facility->description ?? '-' }}
+                                                                                    @endif
+                                                                                </td>
+                                                                                <td style="text-align: center;">
+                                                                                    <button type="button" class="btn btn-sm btn-outline-primary" style="padding: 2px 6px; font-size: 0.75rem;" title="Edit" onclick="openFacilityEditModal({{ $facility->id }}, '{{ addslashes($facility->name) }}', {{ $facility->quantity ?? 'null' }}, '{{ addslashes($facility->description ?? '') }}')">
+                                                                                        <i class="fa-solid fa-edit"></i>
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 2px 6px; font-size: 0.75rem;" title="Hapus" onclick="submitDeleteFacility({{ $facility->id }})">
+                                                                                        <i class="fa-solid fa-trash"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
                         @endif
                     @endforeach
                 </div>
@@ -455,6 +675,71 @@
                 <a href="{{ route('admin.profile.edit') }}" class="btn btn-secondary" style="padding: 12px 20px;">Batal</a>
             </div>
         </form>
+    </div>
+
+    <!-- Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="categoryModalTitle">Tambah Kategori</h2>
+                <button type="button" class="close-btn" onclick="closeCategoryModal()">&times;</button>
+            </div>
+            <form id="categoryForm" action="{{ route('admin.facilities.category.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="_method" id="categoryMethod" value="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="category_name">Nama Kategori <span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="category_name" class="form-control" required placeholder="Contoh: Pendidikan">
+                    </div>
+                    <div class="form-group">
+                        <label for="category_icon">Ikon (FontAwesome Class)</label>
+                        <input type="text" name="icon" id="category_icon" class="form-control" placeholder="Contoh: fa-solid fa-school">
+                        <small class="form-text text-muted">Bisa cari referensi ikon di <a href="https://fontawesome.com/icons" target="_blank">fontawesome.com</a></small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeCategoryModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Kategori</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Facility Modal -->
+    <div id="facilityModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="facilityModalTitle">Tambah Sarana</h2>
+                <button type="button" class="close-btn" onclick="closeFacilityModal()">&times;</button>
+            </div>
+            <form id="facilityForm" action="{{ route('admin.facilities.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="_method" id="facilityMethod" value="POST">
+                <input type="hidden" name="category_id" id="facility_category_id" value="">
+                
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="facility_name">Nama Sarana / Prasarana <span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="facility_name" class="form-control" required placeholder="Contoh: TK Pertiwi / SD Negeri">
+                    </div>
+                    <div class="form-group">
+                        <label for="facility_quantity">Jumlah (Kosongkan/Isi 0 jika hanya ada 1 & tidak ingin menampilkan jumlah)</label>
+                        <input type="number" name="quantity" id="facility_quantity" class="form-control" min="0" placeholder="Contoh: 2">
+                    </div>
+                    <div class="form-group">
+                        <label>Rincian / Detail Nama (Opsional)</label>
+                        <div id="facility-details-container" style="display: flex; flex-direction: column; gap: 10px;">
+                            <!-- Dynamic inputs generated by JS -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeFacilityModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Sarana</button>
+                </div>
+            </form>
+        </div>
     </div>
 @endsection
 
@@ -470,8 +755,8 @@
             const header = item.querySelector('.sortable-header');
             
             header.addEventListener('click', function(e) {
-                // Prevent accordion toggle when clicking on drag handle, switches or inputs
-                if (e.target.closest('.drag-handle') || e.target.closest('.switch') || e.target.closest('input') || e.target.closest('.slider')) {
+                // Prevent accordion toggle when clicking on drag handle, switches, inputs or buttons/forms inside header
+                if (e.target.closest('.drag-handle') || e.target.closest('.switch') || e.target.closest('input') || e.target.closest('.slider') || e.target.closest('button')) {
                     return;
                 }
                 
@@ -558,5 +843,154 @@
         // Initialize order
         updateOrder();
     });
+
+    // Facility/Category Modals Management
+    const categoryModal = document.getElementById('categoryModal');
+    const categoryForm = document.getElementById('categoryForm');
+    const categoryModalTitle = document.getElementById('categoryModalTitle');
+    const categoryMethod = document.getElementById('categoryMethod');
+    const categoryName = document.getElementById('category_name');
+    const categoryIcon = document.getElementById('category_icon');
+
+    function openCategoryModal(id = null, name = '', icon = '') {
+        if (id) {
+            categoryModalTitle.innerText = 'Edit Kategori';
+            categoryForm.action = `/admin/facilities/category/${id}`;
+            categoryMethod.value = 'PUT';
+            categoryName.value = name;
+            categoryIcon.value = icon || '';
+        } else {
+            categoryModalTitle.innerText = 'Tambah Kategori';
+            categoryForm.action = '{{ route('admin.facilities.category.store') }}';
+            categoryMethod.value = 'POST';
+            categoryName.value = '';
+            categoryIcon.value = '';
+        }
+        categoryModal.classList.add('active');
+    }
+
+    function closeCategoryModal() {
+        categoryModal.classList.remove('active');
+    }
+
+    const facilityModal = document.getElementById('facilityModal');
+    const facilityForm = document.getElementById('facilityForm');
+    const facilityModalTitle = document.getElementById('facilityModalTitle');
+    const facilityMethod = document.getElementById('facilityMethod');
+    const facilityCategoryId = document.getElementById('facility_category_id');
+    const facilityName = document.getElementById('facility_name');
+    const facilityQuantity = document.getElementById('facility_quantity');
+    const facilityDetailsContainer = document.getElementById('facility-details-container');
+
+    function renderDetailInputs(count, values = []) {
+        facilityDetailsContainer.innerHTML = '';
+        const finalCount = Math.max(1, parseInt(count) || 1);
+        for (let i = 0; i < finalCount; i++) {
+            const val = values[i] || '';
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            div.style.gap = '10px';
+            
+            const label = document.createElement('span');
+            label.innerText = finalCount > 1 ? `#${i+1}:` : 'Nama Detail:';
+            label.style.fontWeight = 'bold';
+            label.style.fontSize = '0.85rem';
+            label.style.minWidth = '80px';
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'details[]';
+            input.className = 'form-control';
+            input.value = val;
+            input.placeholder = finalCount > 1 ? `Nama rincian ke-${i+1}` : 'Contoh: PAUD KB Harapan Bangsa';
+            
+            div.appendChild(label);
+            div.appendChild(input);
+            facilityDetailsContainer.appendChild(div);
+        }
+    }
+
+    facilityQuantity.addEventListener('input', function() {
+        const count = Math.max(1, parseInt(this.value) || 1);
+        const currentInputs = facilityDetailsContainer.querySelectorAll('input[name="details[]"]');
+        const currentValues = Array.from(currentInputs).map(inp => inp.value);
+        renderDetailInputs(count, currentValues);
+    });
+
+    function openFacilityModal(categoryId) {
+        facilityModalTitle.innerText = 'Tambah Sarana';
+        facilityForm.action = '{{ route('admin.facilities.store') }}';
+        facilityMethod.value = 'POST';
+        facilityCategoryId.value = categoryId;
+        facilityName.value = '';
+        facilityQuantity.value = '';
+        renderDetailInputs(1);
+        
+        facilityModal.classList.add('active');
+    }
+
+    function openFacilityEditModal(id, name, quantity, description = '') {
+        facilityModalTitle.innerText = 'Edit Sarana';
+        facilityForm.action = `/admin/facilities/${id}`;
+        facilityMethod.value = 'PUT';
+        facilityCategoryId.value = ''; // Not needed for update
+        facilityName.value = name;
+        facilityQuantity.value = (quantity === null || quantity === undefined) ? '' : quantity;
+        
+        let details = [];
+        try {
+            if (description && description.startsWith('[') && description.endsWith(']')) {
+                details = JSON.parse(description);
+            } else if (description) {
+                details = [description];
+            }
+        } catch(e) {
+            if (description) {
+                details = [description];
+            }
+        }
+        
+        const count = Math.max(1, parseInt(quantity) || 1);
+        renderDetailInputs(count, details);
+        
+        facilityModal.classList.add('active');
+    }
+
+    function closeFacilityModal() {
+        facilityModal.classList.remove('active');
+    }
+
+    window.onclick = function(event) {
+        if (event.target == categoryModal) closeCategoryModal();
+        if (event.target == facilityModal) closeFacilityModal();
+    }
+
+    function submitDeleteCategory(id) {
+        if (confirm('Apakah Anda yakin ingin menghapus kategori ini beserta seluruh sarananya?')) {
+            const form = document.getElementById('global-delete-category-form');
+            form.action = `/admin/facilities/category/${id}`;
+            form.submit();
+        }
+    }
+
+    function submitDeleteFacility(id) {
+        if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+            const form = document.getElementById('global-delete-facility-form');
+            form.action = `/admin/facilities/${id}`;
+            form.submit();
+        }
+    }
 </script>
+
+<!-- Global hidden delete forms to avoid nested form tags in HTML -->
+<form id="global-delete-category-form" action="" method="POST" style="display: none;">
+    @csrf
+    @method('DELETE')
+</form>
+
+<form id="global-delete-facility-form" action="" method="POST" style="display: none;">
+    @csrf
+    @method('DELETE')
+</form>
 @endsection

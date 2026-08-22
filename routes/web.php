@@ -126,6 +126,15 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     Route::get('/institutions/{institution}/members', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'membersIndex'])->name('institutions.members.index');
     Route::post('/institutions/{institution}/members', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'storeMember'])->name('institutions.members.store');
     Route::delete('/institutions/members/{member}', [App\Http\Controllers\Admin\CommunityInstitutionController::class, 'destroyMember'])->name('institutions.members.destroy');
+
+    // Facilities (Sarana & Prasarana)
+    Route::get('/facilities', [App\Http\Controllers\Admin\FacilityController::class, 'index'])->name('facilities.index');
+    Route::post('/facilities/category', [App\Http\Controllers\Admin\FacilityController::class, 'storeCategory'])->name('facilities.category.store');
+    Route::put('/facilities/category/{category}', [App\Http\Controllers\Admin\FacilityController::class, 'updateCategory'])->name('facilities.category.update');
+    Route::delete('/facilities/category/{category}', [App\Http\Controllers\Admin\FacilityController::class, 'destroyCategory'])->name('facilities.category.destroy');
+    Route::post('/facilities', [App\Http\Controllers\Admin\FacilityController::class, 'store'])->name('facilities.store');
+    Route::put('/facilities/{facility}', [App\Http\Controllers\Admin\FacilityController::class, 'update'])->name('facilities.update');
+    Route::delete('/facilities/{facility}', [App\Http\Controllers\Admin\FacilityController::class, 'destroy'])->name('facilities.destroy');
 });
 
 

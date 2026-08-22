@@ -592,6 +592,89 @@
             }
         }
 
+        /* --- SARANA PRASARANA --- */
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .facility-category-card {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .facility-category-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+
+        .facility-category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .facility-category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .facility-category-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .facility-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .facility-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .facility-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .facility-name {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .facility-quantity {
+            background-color: #f1f5f9;
+            color: var(--primary);
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
         /* --- KADES GREETING --- */
         .kades-greeting-layout {
             display: grid;
@@ -1027,6 +1110,70 @@
                             </div>
                         </div>
                     </section>
+                @endif
+            @elseif($section === 'sarana_prasarana')
+                <!-- SARANA DAN PRASARANA SECTION -->
+                @if($profile->publish_facilities ?? true)
+                <section id="sarana-prasarana" class="profile-section" style="margin-bottom: 0;">
+                    <div class="profile-section-card">
+                        <h2 class="profile-section-title">Sarana dan Prasarana</h2>
+                        <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 30px;">
+                            Daftar infrastruktur dan fasilitas umum yang terdapat di Desa Duren untuk menunjang kehidupan dan kegiatan masyarakat.
+                        </p>
+
+                        @if(isset($facilityCategories) && $facilityCategories->isNotEmpty())
+                            <div class="facilities-grid">
+                                @foreach($facilityCategories as $category)
+                                    <div class="facility-category-card">
+                                        <div class="facility-category-header">
+                                            <div class="facility-category-icon">
+                                                <i class="{{ $category->icon ?? 'fa-solid fa-building' }}"></i>
+                                            </div>
+                                            <h3 class="facility-category-title">{{ $category->name }}</h3>
+                                        </div>
+                                        
+                                        @if($category->facilities->isNotEmpty())
+                                            <ul class="facility-list">
+                                                 @foreach($category->facilities as $facility)
+                                                     <li class="facility-list-item" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
+                                                         <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                                             <span class="facility-name" style="font-weight: 600; color: var(--text-dark);">{{ $facility->name }}</span>
+                                                             @if($facility->quantity)
+                                                                 <span class="facility-quantity">{{ $facility->quantity }}</span>
+                                                             @endif
+                                                         </div>
+                                                         @php
+                                                             $details = null;
+                                                             if (!empty($facility->description)) {
+                                                                 $details = json_decode($facility->description, true);
+                                                             }
+                                                         @endphp
+                                                         @if(is_array($details) && !empty($details))
+                                                             <span style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: -2px;">
+                                                                 ({{ implode(', ', $details) }})
+                                                             </span>
+                                                         @elseif(!empty($facility->description))
+                                                             <span style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: -2px;">
+                                                                 ({{ $facility->description }})
+                                                             </span>
+                                                         @endif
+                                                     </li>
+                                                 @endforeach
+                                            </ul>
+                                        @else
+                                            <p class="text-muted" style="font-size: 0.9rem; font-style: italic;">Belum ada data sarana.</p>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="text-center" style="padding: 40px; background: #f8fafc; border-radius: var(--radius-md);">
+                                <i class="fa-solid fa-building fa-3x" style="color: #cbd5e1; margin-bottom: 15px;"></i>
+                                <p style="color: var(--text-muted); margin: 0;">Data sarana dan prasarana belum tersedia.</p>
+                            </div>
+                        @endif
+                    </div>
+                </section>
                 @endif
             @endif
         @endforeach
