@@ -476,54 +476,7 @@ class ProfileController extends Controller
             'west_boundary' => $request->west_boundary,
         ])->save();
 
-        // Update DemographicStatistic: Total Penduduk
-        $total = intval($request->population_count);
-        $male = intval($total / 2);
-        $female = $total - $male;
 
-        $totalPenduduk = DemographicStatistic::where('label', 'Total Penduduk')->first();
-        if ($totalPenduduk) {
-            $totalPenduduk->update([
-                'male_count' => $male,
-                'female_count' => $female
-            ]);
-        }
-
-        // Sync with the modern PopulationStatistic table (under the 'gender' slug type)
-        $genderType = \App\Models\PopulationStatisticType::where('slug', 'gender')->first();
-        if ($genderType) {
-            $currentYear = date('Y');
-            $currentSemester = date('n') <= 6 ? 1 : 2;
-            
-            // Find the latest statistic or create one for current period
-            $statistic = \App\Models\PopulationStatistic::where('statistic_type_id', $genderType->id)
-                ->orderBy('year', 'desc')
-                ->orderBy('semester', 'desc')
-                ->first();
-                
-            if (!$statistic) {
-                $statistic = \App\Models\PopulationStatistic::create([
-                    'statistic_type_id' => $genderType->id,
-                    'year' => $currentYear,
-                    'semester' => $currentSemester,
-                    'source' => 'Update Profil Desa',
-                    'is_published' => true,
-                    'published_at' => now(),
-                ]);
-            } else {
-                $statistic->touch();
-            }
-            
-            // Update/Recreate the detail row with label 'Total Penduduk'
-            \App\Models\PopulationStatisticDetail::updateOrCreate(
-                ['statistic_id' => $statistic->id, 'label' => 'Total Penduduk'],
-                [
-                    'male_total' => $male,
-                    'female_total' => $female,
-                    'display_order' => 1
-                ]
-            );
-        }
 
         // Update DemographicStatistic: Luas Wilayah
         $luasWilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();

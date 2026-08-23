@@ -309,9 +309,13 @@
                                                 value="{{ old('area_size', $demografi->luas_wilayah->male_count ?? 0) }}" min="0" placeholder="Luas Wilayah (Ha)">
                                         </div>
                                         <div class="form-group" style="margin-bottom: 0;">
-                                            <label for="population_count">Jumlah Penduduk (Jiwa)</label>
-                                            <input type="number" id="population_count" name="population_count" class="form-control"
-                                                value="{{ old('population_count', ($demografi->total_penduduk->male_count ?? 0) + ($demografi->total_penduduk->female_count ?? 0)) }}" min="0" placeholder="Jumlah Penduduk (Jiwa)">
+                                            <label>Jumlah Penduduk (Jiwa)</label>
+                                            <input type="text" class="form-control"
+                                                value="{{ number_format(($demografi->total_penduduk->male_count ?? 0) + ($demografi->total_penduduk->female_count ?? 0), 0, ',', '.') }}" 
+                                                readonly style="background-color: #f1f5f9; cursor: not-allowed;" title="Diambil otomatis dari data statistik Jenis Kelamin">
+                                            <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 5px;">
+                                                <i class="fa-solid fa-circle-info"></i> Otomatis dari statistik jenis kelamin
+                                            </span>
                                         </div>
                                         <div class="form-group" style="margin-bottom: 0;">
                                             <label for="dusun_count">Jumlah Dusun</label>
