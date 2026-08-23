@@ -6,9 +6,9 @@
 <style>
     /* --- HERO SECTION --- */
     .hero-section {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.8) 100%),
-                    url('{{ asset('img/desa-hero.jpg') }}') center/cover no-repeat;
-        padding: 120px 5% 80px;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%),
+                    url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : asset('img/desa-hero.jpg') }}') center/cover no-repeat;
+        padding: 160px 5% 140px;
         text-align: center;
         color: var(--white);
         position: relative;

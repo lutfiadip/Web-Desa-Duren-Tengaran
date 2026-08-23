@@ -69,11 +69,26 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="document_file">Dokumen Pendukung <small
-                        style="color: var(--text-muted); font-weight: normal;">(Format: PDF/DOC/DOCX, Maks:
-                        10MB)</small></label>
-                <input type="file" name="document_file" id="document_file" class="form-control" accept=".pdf,.doc,.docx">
+            <div class="form-group" style="margin-top: 25px;">
+                <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 8px; display: block;">Dokumen / Formulir Layanan <small style="color: var(--text-muted); font-weight: normal;">(Format: PDF/DOC/DOCX, Maks: 10MB)</small></label>
+                <div id="documents-container" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px;">
+                    <div class="document-row" style="display: flex; gap: 15px; align-items: flex-start; background: #f8fafc; padding: 15px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                        <div style="flex: 2;">
+                            <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Nama Dokumen</label>
+                            <input type="text" name="document_titles[]" class="form-control" placeholder="Contoh: Formulir Permohonan KK (F-1.01)">
+                        </div>
+                        <div style="flex: 3;">
+                            <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Pilih File Dokumen</label>
+                            <input type="file" name="document_files[]" class="form-control" accept=".pdf,.doc,.docx">
+                        </div>
+                        <button type="button" class="btn btn-danger btn-remove-doc" style="margin-top: 24px; padding: 10px; border-radius: var(--radius-md); height: 42px; display: flex; align-items: center; justify-content: center; background-color: #ef4444; border-color: #ef4444; color: #fff; cursor: pointer; display: none;">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="button" id="btn-add-doc" class="btn btn-secondary" style="font-size: 0.9rem; font-weight: 700; padding: 8px 16px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; background-color: #f1f5f9; border-color: #cbd5e1; color: var(--text-dark);">
+                    <i class="fa-solid fa-plus"></i> Tambah Dokumen Lain
+                </button>
             </div>
 
             <div class="form-group" style="display: flex; align-items: center; gap: 15px; margin-top: 30px;">
@@ -91,4 +106,51 @@
             </div>
         </form>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('documents-container');
+        const btnAdd = document.getElementById('btn-add-doc');
+
+        function updateRemoveButtons() {
+            const rows = container.querySelectorAll('.document-row');
+            rows.forEach((row, index) => {
+                const btnRemove = row.querySelector('.btn-remove-doc');
+                if (rows.length === 1) {
+                    btnRemove.style.display = 'none';
+                    row.querySelectorAll('input').forEach(input => {
+                        input.removeAttribute('required');
+                    });
+                } else {
+                    btnRemove.style.display = 'flex';
+                    row.querySelectorAll('input').forEach(input => {
+                        input.setAttribute('required', 'required');
+                    });
+                }
+            });
+        }
+
+        updateRemoveButtons();
+
+        btnAdd.addEventListener('click', function () {
+            const newRow = container.querySelector('.document-row').cloneNode(true);
+            newRow.querySelectorAll('input').forEach(input => {
+                input.value = '';
+                input.setAttribute('required', 'required');
+            });
+            container.appendChild(newRow);
+            updateRemoveButtons();
+        });
+
+        container.addEventListener('click', function (e) {
+            if (e.target.closest('.btn-remove-doc')) {
+                const row = e.target.closest('.document-row');
+                row.remove();
+                updateRemoveButtons();
+            }
+        });
+    });
+</script>
 @endsection

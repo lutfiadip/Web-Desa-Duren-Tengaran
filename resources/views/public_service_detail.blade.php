@@ -6,9 +6,9 @@
 <style>
     /* --- HERO SECTION --- */
     .hero-section {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 58, 138, 0.85) 100%),
-                    url('{{ asset('img/desa-hero.jpg') }}') center/cover no-repeat;
-        padding: 120px 5% 80px;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%),
+                    url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : asset('img/desa-hero.jpg') }}') center/cover no-repeat;
+        padding: 160px 5% 140px;
         text-align: center;
         color: var(--white);
         position: relative;
@@ -376,7 +376,7 @@
         align-items: center;
         gap: 10px;
         padding: 12px 25px;
-        background-color: var(--primary-light);
+        background-color: var(--primary);
         color: var(--white);
         border-radius: var(--radius-md);
         font-weight: 700;
@@ -386,7 +386,7 @@
     }
 
     .btn-download:hover {
-        background-color: var(--primary);
+        background-color: var(--primary-hover);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
     }
@@ -514,15 +514,27 @@
             </div>
         @endif
 
-        @if($service->document_file)
-            <div class="download-box">
-                <div class="download-info">
-                    <h4><i class="fa-solid fa-file-pdf" style="color: #ef4444; margin-right: 8px;"></i> Dokumen / Formulir Layanan</h4>
-                    <p>Unduh formulir yang diperlukan untuk melengkapi persyaratan layanan ini.</p>
+        @if($service->documents->isNotEmpty())
+            <div class="download-section" style="margin-top: 50px; background: linear-gradient(to right, #eff6ff, #f8fafc); border-radius: var(--radius-md); padding: 30px; border: 1px dashed var(--primary);">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-folder-open" style="color: var(--primary);"></i> Dokumen / Formulir Layanan Pendukung
+                    </h4>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Unduh file atau formulir berikut untuk melengkapi persyaratan layanan ini.</p>
                 </div>
-                <a href="{{ asset($service->document_file) }}" target="_blank" class="btn-download">
-                    <i class="fa-solid fa-download"></i> Unduh File
-                </a>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    @foreach($service->documents as $doc)
+                        <div style="display: flex; align-items: center; justify-content: space-between; background: var(--white); padding: 15px 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); gap: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 12px; min-width: 250px;">
+                                <i class="fa-solid fa-file-lines" style="color: var(--primary); font-size: 1.4rem;"></i>
+                                <span style="font-weight: 700; color: var(--text-dark); font-size: 0.95rem;">{{ $doc->title }}</span>
+                            </div>
+                            <a href="{{ asset($doc->file_path) }}" download class="btn-download" style="background-color: var(--primary); text-decoration: none;">
+                                <i class="fa-solid fa-download"></i> Unduh Dokumen
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         @endif
 

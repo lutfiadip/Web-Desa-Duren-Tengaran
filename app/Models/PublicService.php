@@ -24,4 +24,9 @@ class PublicService extends Model
     {
         return 'slug';
     }
+
+    public function documents()
+    {
+        return $this->hasMany(PublicServiceDocument::class);
+    }
 }

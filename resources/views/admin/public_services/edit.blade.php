@@ -70,17 +70,47 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="document_file">File Formulir/Dokumen Pendukung Baru <small
-                        style="color: var(--text-muted); font-weight: normal;">(Format: PDF/DOC/DOCX. Biarkan kosong jika
-                        tidak ingin mengubah file saat ini)</small></label>
-                @if($public_service->document_file)
-                    <div style="margin-bottom: 10px; font-size: 0.9rem;">
-                        File saat ini: <a href="{{ asset($public_service->document_file) }}" target="_blank"
-                            style="color: var(--primary-light); font-weight: 600;">Lihat File</a>
+            <!-- Kelola Dokumen Pendukung -->
+            <div class="form-group" style="margin-top: 25px;">
+                <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 12px; display: block;">Dokumen / Formulir Layanan <small style="color: var(--text-muted); font-weight: normal;">(Format: PDF/DOC/DOCX, Maks: 10MB)</small></label>
+
+                <!-- Daftar Dokumen Saat Ini -->
+                @if($public_service->documents->isNotEmpty())
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; display: block;">Daftar Dokumen Saat Ini</label>
+                        <div id="delete-documents-container"></div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            @foreach($public_service->documents as $doc)
+                                <div class="existing-document-row" style="display: flex; align-items: center; justify-content: space-between; background: #f8fafc; padding: 12px 15px; border-radius: var(--radius-md); border: 1px solid var(--border-color); gap: 15px;">
+                                    <div style="flex: 1; display: flex; align-items: center; gap: 10px;">
+                                        <i class="fa-solid fa-file-lines" style="color: var(--primary-light); font-size: 1.2rem;"></i>
+                                        <input type="text" name="existing_document_titles[{{ $doc->id }}]" class="form-control" value="{{ $doc->title }}" placeholder="Nama Dokumen" style="flex: 1;" required>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 15px;">
+                                        <a href="{{ asset($doc->file_path) }}" target="_blank" class="btn btn-secondary" style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background-color: #f1f5f9; border-color: #cbd5e1; color: var(--text-dark);">
+                                            <i class="fa-solid fa-eye"></i> Lihat File
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-delete-existing-doc" data-doc-id="{{ $doc->id }}" style="padding: 10px; border-radius: var(--radius-md); height: 38px; display: flex; align-items: center; justify-content: center; background-color: #ef4444; border-color: #ef4444; color: #fff; cursor: pointer;" title="Hapus Dokumen">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 @endif
-                <input type="file" name="document_file" id="document_file" class="form-control" accept=".pdf,.doc,.docx">
+
+                <!-- Tambah Dokumen Baru -->
+                <div style="margin-bottom: 15px;">
+                    <label style="font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; display: block;">Tambah Dokumen Baru</label>
+                    <div id="new-documents-container" style="display: flex; flex-direction: column; gap: 12px;">
+                        <!-- Will be populated dynamically via JavaScript -->
+                    </div>
+                </div>
+
+                <button type="button" id="btn-add-doc" class="btn btn-secondary" style="font-size: 0.9rem; font-weight: 700; padding: 8px 16px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; background-color: #f1f5f9; border-color: #cbd5e1; color: var(--text-dark);">
+                    <i class="fa-solid fa-plus"></i> Tambah Baris Dokumen
+                </button>
             </div>
 
             <div class="form-group" style="display: flex; align-items: center; gap: 15px; margin-top: 30px;">
@@ -98,4 +128,60 @@
             </div>
         </form>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('new-documents-container');
+        const btnAdd = document.getElementById('btn-add-doc');
+
+        btnAdd.addEventListener('click', function () {
+            const newRow = document.createElement('div');
+            newRow.className = 'document-row';
+            newRow.style.cssText = 'display: flex; gap: 15px; align-items: flex-start; background: #fffbeb; padding: 15px; border-radius: var(--radius-md); border: 1px solid #fef3c7;';
+            newRow.innerHTML = `
+                <div style="flex: 2;">
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Nama Dokumen</label>
+                    <input type="text" name="document_titles[]" class="form-control" placeholder="Contoh: Formulir Permohonan KK (F-1.01)" required>
+                </div>
+                <div style="flex: 3;">
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Pilih File Dokumen</label>
+                    <input type="file" name="document_files[]" class="form-control" accept=".pdf,.doc,.docx" required>
+                </div>
+                <button type="button" class="btn btn-danger btn-remove-doc" style="margin-top: 24px; padding: 10px; border-radius: var(--radius-md); height: 42px; display: flex; align-items: center; justify-content: center; background-color: #ef4444; border-color: #ef4444; color: #fff; cursor: pointer;">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            `;
+            container.appendChild(newRow);
+        });
+
+        container.addEventListener('click', function (e) {
+            if (e.target.closest('.btn-remove-doc')) {
+                const row = e.target.closest('.document-row');
+                row.remove();
+            }
+        });
+
+        // Handle deletion of existing documents
+        document.querySelectorAll('.btn-delete-existing-doc').forEach(button => {
+            button.addEventListener('click', function () {
+                if (confirm('Apakah Anda yakin ingin menghapus dokumen ini secara permanen setelah perubahan disimpan?')) {
+                    const docId = this.getAttribute('data-doc-id');
+                    const row = this.closest('.existing-document-row');
+                    
+                    // Add hidden input to form
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'delete_documents[]';
+                    input.value = docId;
+                    document.getElementById('delete-documents-container').appendChild(input);
+                    
+                    // Remove row from DOM
+                    row.remove();
+                }
+            });
+        });
+    });
+</script>
 @endsection
