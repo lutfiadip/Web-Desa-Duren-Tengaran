@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $service->title . ' - Layanan Publik')
+@section('title', $service->title . ' - Panduan Layanan Publik')
 
 @section('styles')
 <style>
@@ -425,7 +425,7 @@
     <nav class="breadcrumb">
         <a href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Beranda</a>
         <span class="separator">/</span>
-        <a href="{{ route('public_services') }}">Layanan Publik</a>
+        <a href="{{ route('public_services') }}">Panduan Layanan Publik</a>
         <span class="separator">/</span>
         <span class="current">Detail</span>
     </nav>

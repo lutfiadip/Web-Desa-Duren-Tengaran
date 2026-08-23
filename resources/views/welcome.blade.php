@@ -2039,6 +2039,12 @@
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
+
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="{{ route('gallery') }}" class="btn-solid">
+                            Lihat Semua Galeri <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </section>
             @endif

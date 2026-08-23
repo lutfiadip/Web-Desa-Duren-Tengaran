@@ -102,8 +102,8 @@ class HomeController extends Controller
                     ->take(3)
                     ->get();
 
-        // Mengambil 4 galeri terbaru
-        $galleries = Gallery::latest()->take(4)->get();
+        // Mengambil 9 galeri terbaru
+        $galleries = Gallery::latest()->take(9)->get();
 
         $defaultOrder = [
             'about',
@@ -628,5 +628,17 @@ class HomeController extends Controller
         $service = PublicService::where('slug', $slug)->where('is_active', true)->firstOrFail();
         
         return view('public_service_detail', compact('profile', 'villageDetail', 'service'));
+    }
+
+    public function gallery()
+    {
+        $profile = VillageProfile::first();
+
+        $villageDetail = VillageDetail::first();
+        
+        // Fetch all galleries paginated (12 items per page)
+        $galleries = \App\Models\Gallery::latest()->paginate(12);
+        
+        return view('gallery', compact('profile', 'villageDetail', 'galleries'));
     }
 }

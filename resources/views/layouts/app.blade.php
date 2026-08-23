@@ -570,7 +570,9 @@
                             class="{{ request()->routeIs('statistics*') ? 'active' : '' }}">Statistik</a></li>
                 @endif
                 <li><a href="{{ route('public_services') }}"
-                        class="{{ request()->routeIs('public_services*') ? 'active' : '' }}">Layanan Publik</a></li>
+                        class="{{ request()->routeIs('public_services*') ? 'active' : '' }}">Panduan Layanan Publik</a></li>
+                <li><a href="{{ route('gallery') }}"
+                        class="{{ request()->routeIs('gallery*') ? 'active' : '' }}">Galeri</a></li>
                 <li><a href="{{ route('contact') }}"
                         class="{{ request()->routeIs('contact*') ? 'active' : '' }}">Kontak</a></li>
             </ul>
@@ -674,6 +676,7 @@
                     @if($profile->publish_statistics ?? true)
                         <li><a href="{{ route('statistics') }}">Statistik Penduduk</a></li>
                     @endif
+                    <li><a href="{{ route('gallery') }}">Galeri Desa</a></li>
                 </ul>
             </div>
 

@@ -23,6 +23,7 @@ Route::get('/berita', [HomeController::class, 'news'])->name('news');
 Route::get('/berita/{slug}', [HomeController::class, 'newsDetail'])->name('news.detail');
 Route::get('/kontak', [HomeController::class, 'contact'])->name('contact');
 Route::get('/statistik', [HomeController::class, 'statistics'])->name('statistics');
+Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/layanan-publik', [HomeController::class, 'publicServices'])->name('public_services');
 Route::get('/layanan-publik/{slug}', [HomeController::class, 'publicServiceDetail'])->name('public_services.detail');
 

@@ -193,7 +193,7 @@
     <nav class="breadcrumb">
         <a href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Beranda</a>
         <span class="separator">/</span>
-        <span class="current">Layanan Publik</span>
+        <span class="current">Panduan Layanan Publik</span>
     </nav>
     <h1>Panduan Layanan Publik</h1>
     <p>Informasi dan persyaratan untuk berbagai layanan administrasi kependudukan dan kemasyarakatan di Desa Duren.</p>

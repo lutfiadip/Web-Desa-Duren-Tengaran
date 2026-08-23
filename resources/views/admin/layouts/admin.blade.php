@@ -637,7 +637,7 @@
             </li>
             <li>
                 <a href="{{ route('admin.public-services.index') }}" class="{{ request()->routeIs('admin.public-services.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-folder-open"></i> Layanan Publik
+                    <i class="fa-solid fa-folder-open"></i> Panduan Layanan Publik
                 </a>
             </li>
             <li>
