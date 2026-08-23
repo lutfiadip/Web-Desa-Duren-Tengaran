@@ -271,7 +271,7 @@
         <span class="current">Galeri Desa</span>
     </div>
     <h1>Galeri Kegiatan Desa</h1>
-    <p>Dokumentasi foto berbagai kegiatan sosial, pembangunan sarana prasarana, keagamaan, kebudayaan, serta potensi pariwisata di Desa Duren.</p>
+    <p>{{ $profile->gallery_page_description ?? 'Dokumentasi foto berbagai kegiatan sosial, pembangunan sarana prasarana, keagamaan, kebudayaan, serta potensi pariwisata di Desa Duren.' }}</p>
 </section>
 
 <!-- Gallery Grid Section -->

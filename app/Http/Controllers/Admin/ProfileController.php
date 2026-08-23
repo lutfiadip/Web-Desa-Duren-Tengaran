@@ -543,6 +543,12 @@ class ProfileController extends Controller
             'regulations_page_description' => 'nullable|string|max:1000',
             'institutions_page_description' => 'nullable|string|max:1000',
             'agriculture_page_description' => 'nullable|string|max:1000',
+            'organizations_page_description' => 'nullable|string|max:1000',
+            'announcements_page_description' => 'nullable|string|max:1000',
+            'public_services_page_description' => 'nullable|string|max:1000',
+            'gallery_page_description' => 'nullable|string|max:1000',
+            'statistics_page_description' => 'nullable|string|max:1000',
+            'contact_page_description' => 'nullable|string|max:1000',
         ]);
 
         $data = $request->only([
@@ -554,6 +560,12 @@ class ProfileController extends Controller
             'regulations_page_description',
             'institutions_page_description',
             'agriculture_page_description',
+            'organizations_page_description',
+            'announcements_page_description',
+            'public_services_page_description',
+            'gallery_page_description',
+            'statistics_page_description',
+            'contact_page_description',
         ]);
 
         if ($profile->exists) {

@@ -277,7 +277,7 @@
             <span class="current">Statistik Penduduk</span>
         </nav>
         <h1>Statistik Penduduk</h1>
-        <p>Visualisasi data demografi penduduk Desa Duren secara transparan berdasarkan data kependudukan resmi semester dan tahun terbaru.</p>
+        <p>{{ $profile->statistics_page_description ?? 'Visualisasi data demografi penduduk Desa Duren secara transparan berdasarkan data kependudukan resmi semester dan tahun terbaru.' }}</p>
     </section>
 
     <!-- STATS CONTAINER -->

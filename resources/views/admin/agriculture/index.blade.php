@@ -114,13 +114,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="subtitle">Sub-Judul Banner</label>
-                    <input type="text" name="subtitle" id="subtitle" class="form-control @error('subtitle') is-invalid @enderror" value="{{ old('subtitle', $agriProfile->subtitle) }}">
-                    @error('subtitle')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+
 
                 <div class="form-group">
                     <label for="description_1">Deskripsi Utama <span style="color: red;">*</span></label>

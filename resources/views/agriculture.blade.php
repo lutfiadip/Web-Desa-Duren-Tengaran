@@ -418,7 +418,7 @@
             <span class="current">Pertanian & Peternakan</span>
         </nav>
         <h1>{{ $agriProfile->title ?? 'Pertanian & Perkebunan' }}</h1>
-        <p>{{ $profile->agriculture_page_description ?? $agriProfile->subtitle ?? 'Potensi dan komoditas unggulan sektor pertanian dan perkebunan Desa Duren.' }}</p>
+        <p>{{ $profile->agriculture_page_description ?? 'Potensi dan komoditas unggulan sektor pertanian dan perkebunan Desa Duren.' }}</p>
     </section>
 
     <!-- CONTENT -->

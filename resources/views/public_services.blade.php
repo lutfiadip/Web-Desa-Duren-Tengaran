@@ -196,7 +196,7 @@
         <span class="current">Panduan Layanan Publik</span>
     </nav>
     <h1>Panduan Layanan Publik</h1>
-    <p>Informasi dan persyaratan untuk berbagai layanan administrasi kependudukan dan kemasyarakatan di Desa Duren.</p>
+    <p>{{ $profile->public_services_page_description ?? 'Informasi dan persyaratan untuk berbagai layanan administrasi kependudukan dan kemasyarakatan di Desa Duren.' }}</p>
 </section>
 
 <!-- MAIN CONTENT -->

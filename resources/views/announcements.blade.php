@@ -292,7 +292,7 @@
         <span class="current">Pengumuman</span>
     </div>
     <h1>Pengumuman Desa</h1>
-    <p>Informasi penting, edaran resmi, dan agenda terbaru mengenai pelayanan publik serta kemasyarakatan Desa Duren.</p>
+    <p>{{ $profile->announcements_page_description ?? 'Informasi penting, edaran resmi, dan agenda terbaru mengenai pelayanan publik serta kemasyarakatan.' }}</p>
 </section>
 
 <!-- MAIN CONTENT -->

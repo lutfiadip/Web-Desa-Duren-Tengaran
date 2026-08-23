@@ -147,7 +147,7 @@
             <span class="current">Kontak</span>
         </nav>
         <h1>Hubungi Kami</h1>
-        <p>Pemerintah Desa Duren berkomitmen melayani kebutuhan informasi dan administrasi masyarakat. Silakan hubungi kami melalui saluran informasi resmi di bawah ini.</p>
+        <p>{{ $profile->contact_page_description ?? 'Pemerintah Desa Duren berkomitmen melayani kebutuhan informasi dan administrasi masyarakat. Silakan hubungi kami melalui saluran informasi resmi di bawah ini.' }}</p>
     </section>
 
     <!-- CONTACT CONTAINER -->

@@ -291,7 +291,7 @@
             <span class="current">Organisasi Masyarakat</span>
         </nav>
         <h1>Organisasi Kemasyarakatan</h1>
-        <p>Mengenal berbagai organisasi sosial, keagamaan, olahraga, dan kepemudaan yang aktif bergerak di tengah masyarakat Desa Duren secara swadaya</p>
+        <p>{{ $profile->organizations_page_description ?? 'Mengenal berbagai organisasi sosial, keagamaan, olahraga, dan kepemudaan yang aktif bergerak di tengah masyarakat Desa Duren secara swadaya.' }}</p>
     </section>
 
     <!-- CONTENT -->
