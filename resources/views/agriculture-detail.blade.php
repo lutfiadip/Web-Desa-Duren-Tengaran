@@ -440,7 +440,12 @@
             <!-- DETAILED PROFILE & TEXT -->
             <div class="com-content-card">
                 <div class="com-header">
-                    <span class="com-badge">{{ $commodity->category }}</span>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                        <span class="com-badge" style="margin-bottom: 0;">{{ $commodity->category }}</span>
+                        @if($commodity->is_featured)
+                            <span class="com-badge" style="background-color: rgba(245, 158, 11, 0.15); color: #d97706; margin-bottom: 0;"><i class="fa-solid fa-star"></i> Unggulan</span>
+                        @endif
+                    </div>
                     <h1>{{ $commodity->title }}</h1>
                 </div>
                 

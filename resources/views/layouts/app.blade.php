@@ -1,3 +1,7 @@
+@php
+    $activeAlerts = \App\Models\Announcement::active()->where('is_alert', true)->latest()->get();
+    $hasAlert = $activeAlerts->isNotEmpty();
+@endphp
 <!DOCTYPE html>
 <html lang="id">
 
@@ -36,6 +40,7 @@
             --radius-pill: 9999px;
 
             --transition: all 0.3s ease;
+            --alert-height: {{ $hasAlert ? '44px' : '0px' }};
         }
 
         * {
@@ -63,7 +68,7 @@
         header {
             position: fixed;
             /* Changed to fixed so hero goes underneath */
-            top: 0;
+            top: var(--alert-height, 0px);
             left: 0;
             width: 100%;
             background-color: #1e3a8a;
@@ -473,11 +478,100 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* --- ANNOUNCEMENT ALERT MARQUEE --- */
+        .announcement-alert-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--alert-height);
+            background-color: var(--accent);
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .alert-marquee-container {
+            flex-grow: 1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            margin: 0 15px;
+        }
+
+        .alert-marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: alertMarquee 25s linear infinite;
+        }
+
+        .alert-marquee-text a {
+            color: #0f172a;
+            text-decoration: none;
+            margin-right: 50px;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .alert-marquee-text a:hover {
+            color: var(--primary);
+        }
+
+        .alert-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            font-weight: 800;
+            cursor: pointer;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px;
+            line-height: 1;
+            transition: var(--transition);
+        }
+
+        .alert-close-btn:hover {
+            transform: scale(1.15);
+            color: #ef4444;
+        }
+
+        @keyframes alertMarquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
     </style>
     @yield('styles')
 </head>
 
 <body>
+
+    @if($hasAlert)
+        <div id="announcement-alert-banner" class="announcement-alert-bar">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-bullhorn" style="font-size: 1.1rem; color: #1e3a8a;"></i>
+                <span style="font-size: 0.75rem; background: #1e3a8a; color: white; padding: 2px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 0.5px; white-space: nowrap;">PENGUMUMAN PENTING:</span>
+            </div>
+            <div class="alert-marquee-container">
+                <div class="alert-marquee-text">
+                    @foreach($activeAlerts as $alert)
+                        <a href="{{ route('announcements.detail', $alert->slug) }}">{{ $alert->title }} &bull; </a>
+                    @endforeach
+                </div>
+            </div>
+            <button class="alert-close-btn" onclick="dismissAlertBanner()">&times;</button>
+        </div>
+    @endif
 
     <!-- HEADER -->
     <header class="{{ request()->routeIs('home') ? 'header-transparent' : '' }}" id="main-header">
@@ -565,6 +659,7 @@
                     <li><a href="{{ route('news') }}" class="{{ request()->routeIs('news*') ? 'active' : '' }}">Berita</a>
                     </li>
                 @endif
+                <li><a href="{{ route('announcements') }}" class="{{ request()->routeIs('announcements*') ? 'active' : '' }}">Pengumuman</a></li>
                 @if($profile->publish_statistics ?? true)
                     <li><a href="{{ route('statistics') }}"
                             class="{{ request()->routeIs('statistics*') ? 'active' : '' }}">Statistik</a></li>
@@ -594,7 +689,7 @@
     </header>
 
     <!-- CONTENT -->
-    <main style="padding-top: {{ request()->routeIs('home') ? '0' : '85px' }};">
+    <main style="padding-top: calc({{ request()->routeIs('home') ? '0px' : '85px' }} + var(--alert-height, 0px));">
         @yield('content')
     </main>
 
@@ -673,6 +768,7 @@
                     @if($profile->publish_news ?? true)
                         <li><a href="{{ route('news') }}">Berita Desa</a></li>
                     @endif
+                    <li><a href="{{ route('announcements') }}">Pengumuman Desa</a></li>
                     @if($profile->publish_statistics ?? true)
                         <li><a href="{{ route('statistics') }}">Statistik Penduduk</a></li>
                     @endif
@@ -831,6 +927,14 @@
             window.addEventListener('scroll', handleScroll);
             @endif
         });
+
+        function dismissAlertBanner() {
+            const banner = document.getElementById('announcement-alert-banner');
+            if (banner) {
+                banner.remove();
+                document.documentElement.style.setProperty('--alert-height', '0px');
+            }
+        }
     </script>
 </body>
 

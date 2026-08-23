@@ -621,6 +621,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-bullhorn"></i> Pengumuman Desa
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.tourism.index') }}" class="{{ request()->routeIs('admin.tourism.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-map-location-dot"></i> Tempat Wisata
                 </a>

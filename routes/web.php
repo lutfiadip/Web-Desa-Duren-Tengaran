@@ -21,6 +21,8 @@ Route::get('/organisasi', [HomeController::class, 'organizations'])->name('organ
 Route::get('/organisasi/{slug}', [HomeController::class, 'organizationDetail'])->name('organization.detail');
 Route::get('/berita', [HomeController::class, 'news'])->name('news');
 Route::get('/berita/{slug}', [HomeController::class, 'newsDetail'])->name('news.detail');
+Route::get('/pengumuman', [HomeController::class, 'announcements'])->name('announcements');
+Route::get('/pengumuman/{slug}', [HomeController::class, 'announcementDetail'])->name('announcements.detail');
 Route::get('/kontak', [HomeController::class, 'contact'])->name('contact');
 Route::get('/statistik', [HomeController::class, 'statistics'])->name('statistics');
 Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');
@@ -64,6 +66,7 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     Route::post('news/upload-image', [App\Http\Controllers\Admin\NewsController::class, 'uploadImage'])->name('news.upload-image');
     Route::resource('news/categories', App\Http\Controllers\Admin\NewsCategoryController::class)->names('news.categories')->except(['show']);
     Route::resource('news', App\Http\Controllers\Admin\NewsController::class)->except(['show']);
+    Route::resource('announcements', App\Http\Controllers\Admin\AnnouncementController::class)->except(['show']);
     
     Route::post('officials/categories/reorder', [App\Http\Controllers\Admin\OfficialCategoryController::class, 'reorder'])->name('officials.categories.reorder');
     Route::resource('officials/categories', App\Http\Controllers\Admin\OfficialCategoryController::class)->names('officials.categories')->except(['show']);

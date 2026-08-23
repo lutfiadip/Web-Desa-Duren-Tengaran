@@ -217,6 +217,23 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        z-index: 2;
+    }
+
+    .com-featured-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: rgba(245, 158, 11, 0.9);
+        backdrop-filter: blur(4px);
+        color: var(--white);
+        padding: 5px 12px;
+        border-radius: var(--radius-pill);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        z-index: 2;
     }
 
     .com-body {
@@ -464,6 +481,9 @@
                         <div class="com-card" data-title="{{ strtolower($com->title) }}" data-desc="{{ strtolower(strip_tags($com->description)) }}" data-category="{{ strtolower($com->category) }}">
                             <div class="com-img-wrapper">
                                 <span class="com-badge">{{ $com->category }}</span>
+                                @if($com->is_featured)
+                                    <span class="com-featured-badge"><i class="fa-solid fa-star"></i> Unggulan</span>
+                                @endif
                                 <img src="{{ $com->thumbnail ? (Str::startsWith($com->thumbnail, 'http') ? $com->thumbnail : asset($com->thumbnail)) : 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" alt="{{ $com->title }}" class="com-img">
                             </div>
                             <div class="com-body">

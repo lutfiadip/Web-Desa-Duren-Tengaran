@@ -1521,6 +1521,100 @@
             margin-bottom: 10px;
         }
 
+        /* --- NEWS & ANNOUNCEMENT SPLIT GRID --- */
+        .news-announcement-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .news-announcement-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+        }
+
+        .home-announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .home-announcement-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        .home-announcement-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+            border-color: var(--primary-light);
+        }
+
+        .announcement-date-badge {
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--primary);
+            min-width: 60px;
+            height: 60px;
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            line-height: 1.2;
+            flex-shrink: 0;
+            border: 1px solid rgba(37, 99, 235, 0.15);
+        }
+
+        .announcement-date-badge .day {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .announcement-date-badge .month {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .announcement-item-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .announcement-item-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .announcement-item-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         /* News Reference Card Styles */
         .news-ref-card {
             display: flex; 
@@ -1962,49 +2056,90 @@
                         <h2 class="section-title">{{ $profile->news_title ?? 'Berita & Pengumuman' }}</h2>
                     </div>
             
-                    <div class="grid-news">
-                        @foreach($news as $item)
-                        <a href="{{ route('news.detail', $item->slug) }}" class="news-ref-card">
-                            <!-- Left Vertical Label -->
-                            <div class="news-ref-label">
-                                <span>{{ $item->category->name ?? 'BERITA' }}</span>
+                    <div class="news-announcement-grid">
+                        <!-- Left Column: Announcements -->
+                        <div>
+                            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 25px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-bullhorn" style="color: var(--accent);"></i> Pengumuman Terbaru
+                            </h3>
+                            <div class="home-announcement-list">
+                                @forelse($announcements as $ann)
+                                    <a href="{{ route('announcements.detail', $ann->slug) }}" class="home-announcement-item">
+                                        <div class="announcement-date-badge">
+                                            <div class="day">{{ \Carbon\Carbon::parse($ann->created_at)->format('d') }}</div>
+                                            <div class="month">{{ \Carbon\Carbon::parse($ann->created_at)->format('M') }}</div>
+                                        </div>
+                                        <div class="announcement-item-content">
+                                            <h4 class="announcement-item-title">{{ $ann->title }}</h4>
+                                            <div class="announcement-item-meta">
+                                                @if($ann->document_file)
+                                                    <span style="color: var(--primary); font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> Lampiran</span>
+                                                @endif
+                                                <span>{{ \Carbon\Carbon::parse($ann->created_at)->diffForHumans() }}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @empty
+                                    <div style="text-align: center; color: var(--text-muted); padding: 30px; background: #f8fafc; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">Pengumuman belum tersedia.</div>
+                                @endforelse
                             </div>
-                            
-                            <!-- Right Image & Content Area -->
-                            <div class="news-ref-content">
-                                <!-- Background Image -->
-                                <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image) }}"
-                                     alt="{{ $item->title }}" class="ref-card-img">
-                                
-                                <!-- Top Left Views -->
-                                <div class="news-ref-views">
-                                    <i class="fa-solid fa-eye"></i> {{ number_format($item->views, 0, ',', '.') }}
-                                </div>
+                            <div style="margin-top: 25px;">
+                                <a href="{{ route('announcements') }}" class="btn-solid" style="display: inline-flex; align-items: center; gap: 8px; width: auto; font-size: 0.9rem; padding: 10px 20px;">
+                                    Semua Pengumuman <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
 
-                                <!-- Top Right Date Block -->
-                                <div class="news-ref-date">
-                                    <div class="day">{{ \Carbon\Carbon::parse($item->published_at)->format('d') }}</div>
-                                    <div class="month">{{ \Carbon\Carbon::parse($item->published_at)->format('M') }}</div>
-                                </div>
-                                
-                                <!-- Bottom Gradient Overlay -->
-                                <div class="news-ref-overlay">
-                                    <h3 class="news-ref-title">{{ $item->title }}</h3>
-                                    <p class="news-ref-meta">
-                                        {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 80) }}
-                                    </p>
-                                </div>
+                        <!-- Right Column: News -->
+                        <div>
+                            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 25px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-newspaper" style="color: var(--primary-light);"></i> Berita Terbaru
+                            </h3>
+                            <div style="display: flex; flex-direction: column; gap: 20px;">
+                                @forelse($news as $item)
+                                    <a href="{{ route('news.detail', $item->slug) }}" class="news-ref-card">
+                                        <!-- Left Vertical Label -->
+                                        <div class="news-ref-label">
+                                            <span>{{ $item->category->name ?? 'BERITA' }}</span>
+                                        </div>
+                                        
+                                        <!-- Right Image & Content Area -->
+                                        <div class="news-ref-content">
+                                            <!-- Background Image -->
+                                            <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image) }}"
+                                                 alt="{{ $item->title }}" class="ref-card-img">
+                                            
+                                            <!-- Top Left Views -->
+                                            <div class="news-ref-views">
+                                                <i class="fa-solid fa-eye"></i> {{ number_format($item->views, 0, ',', '.') }}
+                                            </div>
+
+                                            <!-- Top Right Date Block -->
+                                            <div class="news-ref-date">
+                                                <div class="day">{{ \Carbon\Carbon::parse($item->published_at)->format('d') }}</div>
+                                                <div class="month">{{ \Carbon\Carbon::parse($item->published_at)->format('M') }}</div>
+                                            </div>
+                                            
+                                            <!-- Bottom Gradient Overlay -->
+                                            <div class="news-ref-overlay">
+                                                <h3 class="news-ref-title">{{ $item->title }}</h3>
+                                                <p class="news-ref-meta">
+                                                    {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 80) }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @empty
+                                    <div style="text-align: center; color: var(--text-muted); padding: 30px; background: #f8fafc; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">Berita belum tersedia.</div>
+                                @endforelse
                             </div>
-                        </a>
-                        @endforeach
+                            <div style="margin-top: 25px;">
+                                <a href="{{ route('news') }}" class="btn-solid" style="display: inline-flex; align-items: center; gap: 8px; width: auto; font-size: 0.9rem; padding: 10px 20px;">
+                                    Semua Berita <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div style="text-align: center; margin-top: 40px;">
-                        <a href="{{ route('news') }}" class="btn-solid">
-                            Lihat Semua Berita <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
             </section>
             @endif
         @elseif($section === 'gallery')

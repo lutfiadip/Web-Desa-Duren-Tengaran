@@ -27,6 +27,7 @@ use App\Models\NewsCategory;
 use App\Models\PopulationStatistic;
 use App\Models\PopulationStatisticType;
 use App\Models\PublicService;
+use App\Models\Announcement;
 
 
 class HomeController extends Controller
@@ -127,7 +128,10 @@ class HomeController extends Controller
             }
         }
 
-        return view('welcome', compact('profile', 'demografi', 'umkms', 'tourisms', 'cultures', 'news', 'galleries', 'villageDetail', 'populationGender', 'sectionsOrder'));
+        // Mengambil 3 pengumuman terbaru yang aktif
+        $announcements = Announcement::active()->latest()->take(3)->get();
+
+        return view('welcome', compact('profile', 'demografi', 'umkms', 'tourisms', 'cultures', 'news', 'announcements', 'galleries', 'villageDetail', 'populationGender', 'sectionsOrder'));
     }
 
     public function globalSearch(Request $request)
@@ -404,7 +408,10 @@ class HomeController extends Controller
         $agriProfile = AgricultureProfile::first();
         $landStats = LandStatistic::orderBy('sort_order')->get();
         $farmerGroups = FarmerGroup::all();
-        $commodities = AgricultureCommodity::where('status', 'published')->get();
+        $commodities = AgricultureCommodity::where('status', 'published')
+            ->orderBy('is_featured', 'desc')
+            ->latest()
+            ->get();
 
         return view('agriculture', compact('profile', 'villageDetail', 'agriProfile', 'landStats', 'farmerGroups', 'commodities'));
     }
@@ -643,5 +650,34 @@ class HomeController extends Controller
         $galleries = \App\Models\Gallery::latest()->paginate(12);
         
         return view('gallery', compact('profile', 'villageDetail', 'galleries'));
+    }
+
+    public function announcements(Request $request)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $query = Announcement::active();
+
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('content', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $announcements = $query->latest()->paginate(10);
+
+        return view('announcements', compact('profile', 'villageDetail', 'announcements'));
+    }
+
+    public function announcementDetail($slug)
+    {
+        $profile = VillageProfile::first();
+        $villageDetail = VillageDetail::first();
+
+        $announcement = Announcement::where('slug', $slug)->active()->firstOrFail();
+
+        return view('announcement-detail', compact('profile', 'villageDetail', 'announcement'));
     }
 }
