@@ -650,6 +650,11 @@
                     <i class="fa-solid fa-images"></i> Galeri Desa
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-user-gear"></i> Kelola Admin
+                </a>
+            </li>
             <li style="margin-top: 20px;">
                 <a href="{{ route('home') }}" target="_blank">
                     <i class="fa-solid fa-globe"></i> Lihat Website
@@ -674,8 +679,8 @@
                 <h1>@yield('title', 'Admin Panel')</h1>
             </div>
             <div class="user-info">
-                <div class="user-avatar">AD</div>
-                <div style="font-weight: 700; font-size: 0.95rem;">Admin Desa</div>
+                <div class="user-avatar" style="text-transform: uppercase;">{{ substr(Auth::user()->name ?? 'AD', 0, 2) }}</div>
+                <div style="font-weight: 700; font-size: 0.95rem;">{{ Auth::user()->name ?? 'Admin Desa' }}</div>
             </div>
         </header>
 

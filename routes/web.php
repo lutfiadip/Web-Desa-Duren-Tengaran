@@ -77,6 +77,9 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     
     // Public Services
     Route::resource('public-services', App\Http\Controllers\Admin\PublicServiceController::class)->except(['show']);
+
+    // Admin Users Management
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['show']);
     
     // Statistics Management
     Route::get('/statistics', [App\Http\Controllers\Admin\StatisticController::class, 'index'])->name('statistics.index');
