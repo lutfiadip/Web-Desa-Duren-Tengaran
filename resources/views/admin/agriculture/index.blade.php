@@ -276,9 +276,14 @@
         <div class="card">
             <div class="card-header" style="margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                 <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin: 0;">Daftar Komoditas Pertanian & Peternakan</h3>
-                <a href="{{ route('admin.agriculture.commodity.create') }}" class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 5px;">
-                    <i class="fa-solid fa-plus"></i> Tambah Komoditas
-                </a>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <a href="{{ route('admin.agriculture.categories.index') }}" class="btn btn-secondary btn-sm" style="display: flex; align-items: center; gap: 5px;">
+                        <i class="fa-solid fa-tags"></i> Kelola Kategori
+                    </a>
+                    <a href="{{ route('admin.agriculture.commodity.create') }}" class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 5px;">
+                        <i class="fa-solid fa-plus"></i> Tambah Komoditas
+                    </a>
+                </div>
             </div>
 
             <div class="table-responsive">

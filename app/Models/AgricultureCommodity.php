@@ -11,4 +11,14 @@ class AgricultureCommodity extends Model
     protected $casts = [
         'gallery' => 'array',
     ];
+
+    public function commodityCategory()
+    {
+        return $this->belongsTo(CommodityCategory::class, 'category_id');
+    }
+
+    public function getCategoryAttribute()
+    {
+        return $this->commodityCategory?->name ?? '';
+    }
 }

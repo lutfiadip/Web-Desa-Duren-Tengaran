@@ -46,16 +46,14 @@
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
-                    <label for="category">Kategori <span style="color: red;">*</span></label>
-                    <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
+                    <label for="category_id">Kategori <span style="color: red;">*</span></label>
+                    <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror" required>
                         <option value="">-- Pilih Kategori --</option>
-                        <option value="Hortikultura" {{ old('category', $commodity->category) == 'Hortikultura' ? 'selected' : '' }}>Hortikultura (Sayur & Buah)</option>
-                        <option value="Perkebunan" {{ old('category', $commodity->category) == 'Perkebunan' ? 'selected' : '' }}>Perkebunan</option>
-                        <option value="Peternakan" {{ old('category', $commodity->category) == 'Peternakan' ? 'selected' : '' }}>Peternakan</option>
-                        <option value="Kehutanan" {{ old('category', $commodity->category) == 'Kehutanan' ? 'selected' : '' }}>Kehutanan</option>
-                        <option value="Pangan" {{ old('category', $commodity->category) == 'Pangan' ? 'selected' : '' }}>Pangan Utama (Padi, Jagung, dll)</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ old('category_id', $commodity->category_id) == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                        @endforeach
                     </select>
-                    @error('category')
+                    @error('category_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

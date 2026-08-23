@@ -8,6 +8,7 @@ use App\Models\AgricultureProfile;
 use App\Models\LandStatistic;
 use App\Models\FarmerGroup;
 use App\Models\AgricultureCommodity;
+use App\Models\CommodityCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -20,10 +21,11 @@ class AgricultureController extends Controller
         $landStats = LandStatistic::orderBy('sort_order')->get();
         $farmerGroups = FarmerGroup::all();
         $commodities = AgricultureCommodity::latest()->get();
+        $categories = CommodityCategory::orderBy('name')->get();
         $activeTab = $request->query('tab', 'profile');
 
         return view('admin.agriculture.index', compact(
-            'profile', 'agriProfile', 'landStats', 'farmerGroups', 'commodities', 'activeTab'
+            'profile', 'agriProfile', 'landStats', 'farmerGroups', 'commodities', 'categories', 'activeTab'
         ));
     }
 
@@ -151,14 +153,15 @@ class AgricultureController extends Controller
     public function createCommodity()
     {
         $profile = VillageProfile::first() ?? new VillageProfile();
-        return view('admin.agriculture.commodity.create', compact('profile'));
+        $categories = CommodityCategory::orderBy('name')->get();
+        return view('admin.agriculture.commodity.create', compact('profile', 'categories'));
     }
 
     public function storeCommodity(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
+            'category_id' => 'required|exists:commodity_categories,id',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'description' => 'required|string',
             'production_scale' => 'nullable|string|max:255',
@@ -171,7 +174,7 @@ class AgricultureController extends Controller
         ]);
 
         $data = $request->only([
-            'title', 'category', 'description', 'production_scale',
+            'title', 'category_id', 'description', 'production_scale',
             'harvest_time', 'address', 'contact', 'google_maps_url',
             'is_featured'
         ]);
@@ -206,7 +209,8 @@ class AgricultureController extends Controller
     {
         $commodity = AgricultureCommodity::findOrFail($id);
         $profile = VillageProfile::first() ?? new VillageProfile();
-        return view('admin.agriculture.commodity.edit', compact('commodity', 'profile'));
+        $categories = CommodityCategory::orderBy('name')->get();
+        return view('admin.agriculture.commodity.edit', compact('commodity', 'profile', 'categories'));
     }
 
     public function updateCommodity(Request $request, $id)
@@ -215,7 +219,7 @@ class AgricultureController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
+            'category_id' => 'required|exists:commodity_categories,id',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'description' => 'required|string',
             'production_scale' => 'nullable|string|max:255',
@@ -228,7 +232,7 @@ class AgricultureController extends Controller
         ]);
 
         $data = $request->only([
-            'title', 'category', 'description', 'production_scale',
+            'title', 'category_id', 'description', 'production_scale',
             'harvest_time', 'address', 'contact', 'google_maps_url',
             'is_featured'
         ]);

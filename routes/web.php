@@ -92,6 +92,7 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     // Agriculture & Livestock Management
     Route::get('/agriculture', [App\Http\Controllers\Admin\AgricultureController::class, 'index'])->name('agriculture.index');
     Route::put('/agriculture/profile', [App\Http\Controllers\Admin\AgricultureController::class, 'updateProfile'])->name('agriculture.update-profile');
+    Route::resource('agriculture/categories', App\Http\Controllers\Admin\CommodityCategoryController::class)->names('agriculture.categories')->except(['show']);
     
     Route::get('/agriculture/land-statistic/create', [App\Http\Controllers\Admin\AgricultureController::class, 'createLand'])->name('agriculture.land.create');
     Route::post('/agriculture/land-statistic', [App\Http\Controllers\Admin\AgricultureController::class, 'storeLand'])->name('agriculture.land.store');
