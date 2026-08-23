@@ -21,6 +21,10 @@ class Regulation extends Model
         'published_at',
     ];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function category()
     {
         return $this->belongsTo(RegulationCategory::class, 'category_id');

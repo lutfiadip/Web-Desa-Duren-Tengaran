@@ -39,11 +39,17 @@ class RegulationController extends Controller
             'description' => 'nullable|string',
             'document_file' => 'required|file|mimes:pdf,doc,docx,zip|max:2048',
             'status' => 'required|in:draft,published',
+            'published_at' => 'nullable|date',
         ]);
 
         $data = $request->only(['title', 'category_id', 'number', 'year', 'description', 'status']);
         $data['user_id'] = Auth::id() ?? 1;
-        $data['published_at'] = $request->status === 'published' ? now() : null;
+        
+        if ($request->status === 'published') {
+            $data['published_at'] = $request->published_at ? \Carbon\Carbon::parse($request->published_at) : now();
+        } else {
+            $data['published_at'] = null;
+        }
 
         if ($request->hasFile('document_file')) {
             $file = $request->file('document_file');
@@ -73,13 +79,14 @@ class RegulationController extends Controller
             'description' => 'nullable|string',
             'document_file' => 'nullable|file|mimes:pdf,doc,docx,zip|max:2048',
             'status' => 'required|in:draft,published',
+            'published_at' => 'nullable|date',
         ]);
 
         $data = $request->only(['title', 'category_id', 'number', 'year', 'description', 'status']);
         
-        if ($request->status === 'published' && !$regulation->published_at) {
-            $data['published_at'] = now();
-        } elseif ($request->status === 'draft') {
+        if ($request->status === 'published') {
+            $data['published_at'] = $request->published_at ? \Carbon\Carbon::parse($request->published_at) : ($regulation->published_at ?: now());
+        } else {
             $data['published_at'] = null;
         }
 

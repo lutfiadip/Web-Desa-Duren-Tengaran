@@ -60,11 +60,17 @@
                 <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Draft</span>
                 <label class="switch">
                     <input type="hidden" name="status" id="status-input" value="{{ old('status', 'draft') }}">
-                    <input type="checkbox" id="status-toggle" {{ old('status') === 'published' ? 'checked' : '' }} onchange="document.getElementById('status-input').value = this.checked ? 'published' : 'draft'">
+                    <input type="checkbox" id="status-toggle" {{ old('status') === 'published' ? 'checked' : '' }} onchange="document.getElementById('status-input').value = this.checked ? 'published' : 'draft'; document.getElementById('published-at-wrapper').style.display = this.checked ? 'block' : 'none';">
                     <span class="slider"></span>
                 </label>
                 <span style="font-size: 0.9rem; color: var(--primary-light); font-weight: 700;">Dipublikasikan</span>
             </div>
+        </div>
+
+        <div class="form-group" id="published-at-wrapper" style="display: {{ old('status', 'draft') === 'published' ? 'block' : 'none' }}; margin-bottom: 20px;">
+            <label for="published_at">Tanggal Diterbitkan</label>
+            <input type="date" id="published_at" name="published_at" class="form-control" value="{{ old('published_at', date('Y-m-d')) }}">
+            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Pilih tanggal peraturan ini diterbitkan secara resmi.</span>
         </div>
 
         <div style="margin-top: 30px; display: flex; gap: 10px;">
