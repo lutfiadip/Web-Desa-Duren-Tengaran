@@ -39,13 +39,13 @@
             <div class="form-group">
                 <label for="requirements">Persyaratan (Gunakan enter untuk memisahkan poin)</label>
                 <textarea name="requirements" id="requirements" class="form-control" rows="5"
-                    placeholder="1. Fotokopi KK&#10;2. Pengantar RT/RW&#10;3. Pas Foto 3x4...">{{ old('requirements') }}</textarea>
+                    placeholder="Tuliskan syarat-syarat yang diperlukan (pisahkan per baris)...">{{ old('requirements') }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="service_flow">Alur Layanan (Gunakan enter untuk memisahkan poin)</label>
                 <textarea name="service_flow" id="service_flow" class="form-control" rows="5"
-                    placeholder="1. Datang ke Balai Desa&#10;2. Menyerahkan Berkas&#10;3. Proses Cetak...">{{ old('service_flow') }}</textarea>
+                    placeholder="Tuliskan alur atau tahapan pengajuan layanan...">{{ old('service_flow') }}</textarea>
             </div>
 
             <div class="form-group">
@@ -59,13 +59,13 @@
                 <div class="form-group">
                     <label for="processing_time">Waktu Penyelesaian</label>
                     <input type="text" name="processing_time" id="processing_time" class="form-control"
-                        value="{{ old('processing_time') }}" placeholder="Masukkan 1 Hari Kerja...">
+                        value="{{ old('processing_time') }}" placeholder="Masukkan waktu penyelesaian...">
                 </div>
 
                 <div class="form-group">
                     <label for="service_cost">Biaya Layanan</label>
                     <input type="text" name="service_cost" id="service_cost" class="form-control"
-                        value="{{ old('service_cost') }}" placeholder="Masukkan gratis...">
+                        value="{{ old('service_cost') }}" placeholder="Masukkan biaya atau tarif...">
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
                     <div class="document-row" style="display: flex; gap: 15px; align-items: flex-start; background: #f8fafc; padding: 15px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
                         <div style="flex: 2;">
                             <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Nama Dokumen</label>
-                            <input type="text" name="document_titles[]" class="form-control" placeholder="Contoh: Formulir Permohonan KK (F-1.01)">
+                            <input type="text" name="document_titles[]" class="form-control" placeholder="Masukkan nama dokumen...">
                         </div>
                         <div style="flex: 3;">
                             <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Pilih File Dokumen</label>

@@ -51,7 +51,7 @@
 
             <div class="form-group" style="margin-bottom: 30px;">
                 <label for="caption">Keterangan / Caption Foto</label>
-                <input type="text" id="caption" name="caption" class="form-control" placeholder="Masukkan pemandangan Sawah di Dusun Miri..." value="{{ old('caption', $gallery->caption) }}">
+                <input type="text" id="caption" name="caption" class="form-control" placeholder="Masukkan keterangan atau caption foto..." value="{{ old('caption', $gallery->caption) }}">
                 <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Keterangan singkat tentang isi foto yang akan ditampilkan di halaman beranda.</span>
                 @error('caption')
                     <span style="color: #ef4444; font-size: 0.8rem; margin-top: 5px; display: block;">{{ $message }}</span>

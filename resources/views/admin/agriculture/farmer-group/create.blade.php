@@ -37,7 +37,7 @@
 
             <div class="form-group">
                 <label for="name">Nama Kelompok Tani <span style="color: red;">*</span></label>
-                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Masukkan kelompok Tani Lestari I..." required>
+                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Masukkan nama kelompok tani..." required>
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -45,7 +45,7 @@
 
             <div class="form-group">
                 <label for="sector">Sektor Usaha <span style="color: red;">*</span></label>
-                <input type="text" name="sector" id="sector" class="form-control @error('sector') is-invalid @enderror" value="{{ old('sector') }}" placeholder="Masukkan hortikultura, Padi & Palawija, Peternakan Sapi..." required>
+                <input type="text" name="sector" id="sector" class="form-control @error('sector') is-invalid @enderror" value="{{ old('sector') }}" placeholder="Masukkan sektor usaha kelompok..." required>
                 @error('sector')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -53,7 +53,7 @@
 
             <div class="form-group">
                 <label for="dusun">Wilayah / Dusun <span style="color: red;">*</span></label>
-                <input type="text" name="dusun" id="dusun" class="form-control @error('dusun') is-invalid @enderror" value="{{ old('dusun') }}" placeholder="Masukkan dusun Krajan, Dusun Babadan..." required>
+                <input type="text" name="dusun" id="dusun" class="form-control @error('dusun') is-invalid @enderror" value="{{ old('dusun') }}" placeholder="Masukkan wilayah atau dusun..." required>
                 @error('dusun')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

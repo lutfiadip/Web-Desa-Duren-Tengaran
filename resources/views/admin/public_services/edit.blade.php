@@ -60,13 +60,13 @@
                     <label for="processing_time">Waktu Penyelesaian</label>
                     <input type="text" name="processing_time" id="processing_time" class="form-control"
                         value="{{ old('processing_time', $public_service->processing_time) }}"
-                        placeholder="Masukkan 1 Hari Kerja...">
+                        placeholder="Masukkan waktu penyelesaian...">
                 </div>
 
                 <div class="form-group">
                     <label for="service_cost">Biaya Layanan</label>
                     <input type="text" name="service_cost" id="service_cost" class="form-control"
-                        value="{{ old('service_cost', $public_service->service_cost) }}" placeholder="Masukkan gratis...">
+                        value="{{ old('service_cost', $public_service->service_cost) }}" placeholder="Masukkan biaya atau tarif...">
                 </div>
             </div>
 
@@ -143,7 +143,7 @@
             newRow.innerHTML = `
                 <div style="flex: 2;">
                     <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Nama Dokumen</label>
-                    <input type="text" name="document_titles[]" class="form-control" placeholder="Contoh: Formulir Permohonan KK (F-1.01)" required>
+                    <input type="text" name="document_titles[]" class="form-control" placeholder="Masukkan nama dokumen..." required>
                 </div>
                 <div style="flex: 3;">
                     <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Pilih File Dokumen</label>

@@ -85,7 +85,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label for="contact">Nomor Kontak / WhatsApp</label>
-                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact') }}" placeholder="Masukkan 0812-3456-7890...">
+                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact') }}" placeholder="Masukkan nomor kontak...">
                     @error('contact')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

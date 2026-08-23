@@ -17,12 +17,12 @@
 
         <div class="form-group">
             <label for="name">Nama Lengkap & Gelar</label>
-            <input type="text" id="name" name="name" class="form-control" placeholder="Masukkan wahyudi, S.M...." value="{{ old('name', $official->name) }}" required>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Masukkan nama lengkap..." value="{{ old('name', $official->name) }}" required>
         </div>
 
         <div class="form-group">
             <label for="position">Jabatan</label>
-            <input type="text" id="position" name="position" class="form-control" placeholder="Masukkan sekretaris Desa..." value="{{ old('position', $official->position) }}" required>
+            <input type="text" id="position" name="position" class="form-control" placeholder="Masukkan nama jabatan..." value="{{ old('position', $official->position) }}" required>
         </div>
 
         <div class="form-group">
