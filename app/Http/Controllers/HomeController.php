@@ -36,19 +36,13 @@ class HomeController extends Controller
         $profile = VillageProfile::first();
         $villageDetail = VillageDetail::first();
         
-        // Mengambil statistik demografi
-        $demografi = new \stdClass();
-        $demografi->total_penduduk = DemographicStatistic::where('label', 'Total Penduduk')->first();
-        $demografi->rt = DemographicStatistic::where('label', 'Rukun Tetangga')->first();
-        $demografi->rw = DemographicStatistic::where('label', 'Rukun Warga')->first();
-        $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();
-
         // Mengambil statistik jenis kelamin untuk total penduduk di widget beranda
         $genderType = PopulationStatisticType::where('slug', 'gender')->first();
         $populationGender = null;
         if ($genderType) {
             $populationGender = PopulationStatistic::with('details')
                 ->where('statistic_type_id', $genderType->id)
+                ->where('is_published', true)
                 ->orderBy('year', 'desc')
                 ->orderBy('semester', 'desc')
                 ->first();
@@ -60,6 +54,25 @@ class HomeController extends Controller
                 }
             }
         }
+
+        // Mengambil statistik demografi
+        $demografi = new \stdClass();
+        
+        $maleCount = 0;
+        $femaleCount = 0;
+        if ($populationGender) {
+            $maleCount = $populationGender->details->sum('male_total');
+            $femaleCount = $populationGender->details->sum('female_total');
+        }
+        
+        $demografi->total_penduduk = (object)[
+            'male_count' => $maleCount,
+            'female_count' => $femaleCount
+        ];
+        
+        $demografi->rt = DemographicStatistic::where('label', 'Rukun Tetangga')->first();
+        $demografi->rw = DemographicStatistic::where('label', 'Rukun Warga')->first();
+        $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();
 
         // Mengambil 3 UMKM unggulan terbaru yang dipublish
         $umkms = Umkm::where('status', 'published')
@@ -182,7 +195,29 @@ class HomeController extends Controller
         
         // Mengambil statistik demografi
         $demografi = new \stdClass();
-        $demografi->total_penduduk = DemographicStatistic::where('label', 'Total Penduduk')->first();
+        
+        $genderType = PopulationStatisticType::where('slug', 'gender')->first();
+        $maleCount = 0;
+        $femaleCount = 0;
+        if ($genderType) {
+            $populationGender = PopulationStatistic::with('details')
+                ->where('statistic_type_id', $genderType->id)
+                ->where('is_published', true)
+                ->orderBy('year', 'desc')
+                ->orderBy('semester', 'desc')
+                ->first();
+                
+            if ($populationGender) {
+                $maleCount = $populationGender->details->sum('male_total');
+                $femaleCount = $populationGender->details->sum('female_total');
+            }
+        }
+        
+        $demografi->total_penduduk = (object)[
+            'male_count' => $maleCount,
+            'female_count' => $femaleCount
+        ];
+        
         $demografi->rt = DemographicStatistic::where('label', 'Rukun Tetangga')->first();
         $demografi->rw = DemographicStatistic::where('label', 'Rukun Warga')->first();
         $demografi->luas_wilayah = DemographicStatistic::where('label', 'Luas Wilayah')->first();

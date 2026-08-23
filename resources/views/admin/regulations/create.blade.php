@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <label for="year">Tahun Penetapan</label>
-                <input type="number" id="year" name="year" class="form-control" placeholder="Masukkan {{ date }}..." value="{{ old('year', date('Y')) }}" required>
+                <input type="number" id="year" name="year" class="form-control" placeholder="Masukkan tahun peraturan..." value="{{ old('year', date('Y')) }}" required>
             </div>
         </div>
 
