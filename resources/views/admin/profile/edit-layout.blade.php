@@ -283,22 +283,22 @@
                                         <div class="form-group" style="margin-bottom: 0;">
                                             <label for="north_boundary">Batas Utara</label>
                                             <input type="text" id="north_boundary" name="north_boundary" class="form-control"
-                                                value="{{ old('north_boundary', $villageDetail->north_boundary ?? '') }}" placeholder="Contoh: Desa Buntu">
+                                                value="{{ old('north_boundary', $villageDetail->north_boundary ?? '') }}" placeholder="Masukkan desa Buntu...">
                                         </div>
                                         <div class="form-group" style="margin-bottom: 0;">
                                             <label for="south_boundary">Batas Selatan</label>
                                             <input type="text" id="south_boundary" name="south_boundary" class="form-control"
-                                                value="{{ old('south_boundary', $villageDetail->south_boundary ?? '') }}" placeholder="Contoh: Desa Cukil">
+                                                value="{{ old('south_boundary', $villageDetail->south_boundary ?? '') }}" placeholder="Masukkan desa Cukil...">
                                         </div>
                                         <div class="form-group" style="margin-bottom: 0;">
                                             <label for="east_boundary">Batas Timur</label>
                                             <input type="text" id="east_boundary" name="east_boundary" class="form-control"
-                                                value="{{ old('east_boundary', $villageDetail->east_boundary ?? '') }}" placeholder="Contoh: Desa Tawang">
+                                                value="{{ old('east_boundary', $villageDetail->east_boundary ?? '') }}" placeholder="Masukkan desa Tawang...">
                                         </div>
                                         <div class="form-group" style="margin-bottom: 0;">
                                             <label for="west_boundary">Batas Barat</label>
                                             <input type="text" id="west_boundary" name="west_boundary" class="form-control"
-                                                value="{{ old('west_boundary', $villageDetail->west_boundary ?? '') }}" placeholder="Contoh: Desa Sugihan">
+                                                value="{{ old('west_boundary', $villageDetail->west_boundary ?? '') }}" placeholder="Masukkan desa Sugihan...">
                                         </div>
                                     </div>
 
@@ -558,7 +558,7 @@
                                 <div class="sortable-content">
                                     <div class="form-group" style="margin-bottom: 20px;">
                                         <label for="facilities_description">Deskripsi Seksi Sarana & Prasarana</label>
-                                        <textarea name="facilities_description" id="facilities_description" class="form-control" rows="2" placeholder="Contoh: Daftar infrastruktur dan fasilitas umum yang terdapat di Desa Duren untuk menunjang kehidupan dan kegiatan masyarakat.">{{ old('facilities_description', $profile->facilities_description) }}</textarea>
+                                        <textarea name="facilities_description" id="facilities_description" class="form-control" rows="2" placeholder="Masukkan daftar infrastruktur dan fasilitas umum yang terdapat di Desa Duren untuk menunjang kehidupan dan kegiatan masyarakat....">{{ old('facilities_description', $profile->facilities_description) }}</textarea>
                                     </div>
 
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; border-top: 1px solid var(--border-color); padding-top: 20px;">
@@ -698,11 +698,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="category_name">Nama Kategori <span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="category_name" class="form-control" required placeholder="Contoh: Pendidikan">
+                        <input type="text" name="name" id="category_name" class="form-control" required placeholder="Masukkan pendidikan...">
                     </div>
                     <div class="form-group">
                         <label for="category_icon">Ikon (FontAwesome Class)</label>
-                        <input type="text" name="icon" id="category_icon" class="form-control" placeholder="Contoh: fa-solid fa-school">
+                        <input type="text" name="icon" id="category_icon" class="form-control" placeholder="Masukkan fa-solid fa-school...">
                         <small class="form-text text-muted">Bisa cari referensi ikon di <a href="https://fontawesome.com/icons" target="_blank">fontawesome.com</a></small>
                     </div>
                 </div>
@@ -729,11 +729,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="facility_name">Nama Sarana / Prasarana <span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="facility_name" class="form-control" required placeholder="Contoh: TK Pertiwi / SD Negeri">
+                        <input type="text" name="name" id="facility_name" class="form-control" required placeholder="Masukkan tK Pertiwi / SD Negeri...">
                     </div>
                     <div class="form-group">
                         <label for="facility_quantity">Jumlah (Kosongkan/Isi 0 jika hanya ada 1 & tidak ingin menampilkan jumlah)</label>
-                        <input type="number" name="quantity" id="facility_quantity" class="form-control" min="0" placeholder="Contoh: 2">
+                        <input type="number" name="quantity" id="facility_quantity" class="form-control" min="0" placeholder="Masukkan 2...">
                     </div>
                     <div class="form-group">
                         <label>Rincian / Detail Nama (Opsional)</label>

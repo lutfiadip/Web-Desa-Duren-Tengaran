@@ -34,12 +34,12 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="number">Nomor Peraturan</label>
-                <input type="text" id="number" name="number" class="form-control" placeholder="Contoh: 03" value="{{ old('number') }}" required>
+                <input type="text" id="number" name="number" class="form-control" placeholder="Masukkan nomor peraturan..." value="{{ old('number') }}" required>
             </div>
 
             <div class="form-group">
                 <label for="year">Tahun Penetapan</label>
-                <input type="number" id="year" name="year" class="form-control" placeholder="Contoh: {{ date('Y') }}" value="{{ old('year', date('Y')) }}" required>
+                <input type="number" id="year" name="year" class="form-control" placeholder="Masukkan {{ date }}..." value="{{ old('year', date('Y')) }}" required>
             </div>
         </div>
 

@@ -44,49 +44,49 @@
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label for="profile_page_description">Halaman Profil Desa</label>
                     <textarea id="profile_page_description" name="profile_page_description" class="form-control" rows="2"
-                        placeholder="Contoh: Mengenal lebih dekat mengenai Desa Duren Tengaran.">{{ old('profile_page_description', $profile->profile_page_description ?? 'Mengenal lebih dekat mengenai Desa ' . ($profile->village_name ?? 'Duren Tengaran') . '.') }}</textarea>
+                        placeholder="Masukkan mengenal lebih dekat mengenai Desa Duren Tengaran....">{{ old('profile_page_description', $profile->profile_page_description ?? 'Mengenal lebih dekat mengenai Desa ' . ($profile->village_name ?? 'Duren Tengaran') . '.') }}</textarea>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label for="umkm_page_description">Halaman UMKM & Produk Unggulan</label>
                     <textarea id="umkm_page_description" name="umkm_page_description" class="form-control" rows="2"
-                        placeholder="Contoh: Temukan berbagai produk unggulan dan potensi UMKM masyarakat Desa Duren Tengaran.">{{ old('umkm_page_description', $profile->umkm_page_description ?? 'Temukan berbagai produk unggulan dan potensi UMKM masyarakat Desa Duren Tengaran.') }}</textarea>
+                        placeholder="Masukkan temukan berbagai produk unggulan dan potensi UMKM masyarakat Desa Duren Tengaran....">{{ old('umkm_page_description', $profile->umkm_page_description ?? 'Temukan berbagai produk unggulan dan potensi UMKM masyarakat Desa Duren Tengaran.') }}</textarea>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label for="tourism_page_description">Halaman Pariwisata</label>
                     <textarea id="tourism_page_description" name="tourism_page_description" class="form-control" rows="2"
-                        placeholder="Contoh: Jelajahi keindahan alam dan potensi wisata yang ada di Desa Duren Tengaran.">{{ old('tourism_page_description', $profile->tourism_page_description ?? 'Jelajahi keindahan alam dan potensi wisata yang ada di Desa Duren Tengaran.') }}</textarea>
+                        placeholder="Masukkan jelajahi keindahan alam dan potensi wisata yang ada di Desa Duren Tengaran....">{{ old('tourism_page_description', $profile->tourism_page_description ?? 'Jelajahi keindahan alam dan potensi wisata yang ada di Desa Duren Tengaran.') }}</textarea>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label for="news_page_description">Halaman Berita Desa</label>
                     <textarea id="news_page_description" name="news_page_description" class="form-control" rows="2"
-                        placeholder="Contoh: Ikuti terus berita dan informasi terbaru seputar kegiatan di Desa Duren Tengaran.">{{ old('news_page_description', $profile->news_page_description ?? 'Ikuti terus berita dan informasi terbaru seputar kegiatan di Desa Duren Tengaran.') }}</textarea>
+                        placeholder="Masukkan ikuti terus berita dan informasi terbaru seputar kegiatan di Desa Duren Tengaran....">{{ old('news_page_description', $profile->news_page_description ?? 'Ikuti terus berita dan informasi terbaru seputar kegiatan di Desa Duren Tengaran.') }}</textarea>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label for="officials_page_description">Halaman Aparatur Desa</label>
                     <textarea id="officials_page_description" name="officials_page_description" class="form-control" rows="2"
-                        placeholder="Contoh: Susunan perangkat desa yang bertugas melayani masyarakat Desa Duren Tengaran.">{{ old('officials_page_description', $profile->officials_page_description ?? 'Susunan perangkat desa yang bertugas melayani masyarakat Desa Duren Tengaran.') }}</textarea>
+                        placeholder="Masukkan susunan perangkat desa yang bertugas melayani masyarakat Desa Duren Tengaran....">{{ old('officials_page_description', $profile->officials_page_description ?? 'Susunan perangkat desa yang bertugas melayani masyarakat Desa Duren Tengaran.') }}</textarea>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label for="regulations_page_description">Halaman Peraturan Desa</label>
                     <textarea id="regulations_page_description" name="regulations_page_description" class="form-control" rows="2"
-                        placeholder="Contoh: Dokumen resmi dan produk hukum yang berlaku di Desa Duren Tengaran.">{{ old('regulations_page_description', $profile->regulations_page_description ?? 'Dokumen resmi dan produk hukum yang berlaku di Desa Duren Tengaran.') }}</textarea>
+                        placeholder="Masukkan dokumen resmi dan produk hukum yang berlaku di Desa Duren Tengaran....">{{ old('regulations_page_description', $profile->regulations_page_description ?? 'Dokumen resmi dan produk hukum yang berlaku di Desa Duren Tengaran.') }}</textarea>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label for="institutions_page_description">Halaman Lembaga Desa</label>
                     <textarea id="institutions_page_description" name="institutions_page_description" class="form-control" rows="2"
-                        placeholder="Contoh: Informasi mengenai berbagai lembaga kemasyarakatan yang ada di Desa Duren Tengaran.">{{ old('institutions_page_description', $profile->institutions_page_description ?? 'Informasi mengenai berbagai lembaga kemasyarakatan yang ada di Desa Duren Tengaran.') }}</textarea>
+                        placeholder="Masukkan informasi mengenai berbagai lembaga kemasyarakatan yang ada di Desa Duren Tengaran....">{{ old('institutions_page_description', $profile->institutions_page_description ?? 'Informasi mengenai berbagai lembaga kemasyarakatan yang ada di Desa Duren Tengaran.') }}</textarea>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 0;">
                     <label for="agriculture_page_description">Halaman Pertanian & Perkebunan</label>
                     <textarea id="agriculture_page_description" name="agriculture_page_description" class="form-control" rows="2"
-                        placeholder="Contoh: Potensi dan komoditas unggulan sektor pertanian dan perkebunan Desa Duren Tengaran.">{{ old('agriculture_page_description', $profile->agriculture_page_description ?? 'Potensi dan komoditas unggulan sektor pertanian dan perkebunan Desa Duren Tengaran.') }}</textarea>
+                        placeholder="Masukkan potensi dan komoditas unggulan sektor pertanian dan perkebunan Desa Duren Tengaran....">{{ old('agriculture_page_description', $profile->agriculture_page_description ?? 'Potensi dan komoditas unggulan sektor pertanian dan perkebunan Desa Duren Tengaran.') }}</textarea>
                 </div>
             </div>
 

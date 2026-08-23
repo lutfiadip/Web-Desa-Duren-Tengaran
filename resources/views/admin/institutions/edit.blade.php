@@ -98,7 +98,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label for="contact">Nomor Kontak / WhatsApp</label>
-                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact', $institution->contact) }}" placeholder="Contoh: 0812-3456-7890">
+                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact', $institution->contact) }}" placeholder="Masukkan 0812-3456-7890...">
                     @error('contact')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -106,7 +106,7 @@
 
                 <div class="form-group">
                     <label for="email">Email Resmi Lembaga</label>
-                    <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $institution->email) }}" placeholder="Contoh: pkk@duren.desa.id">
+                    <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $institution->email) }}" placeholder="Masukkan pkk@duren.desa.id...">
                     @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

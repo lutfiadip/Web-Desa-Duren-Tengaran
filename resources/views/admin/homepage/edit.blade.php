@@ -190,7 +190,7 @@
                                     <div class="sortable-content">
                                         <div class="form-group" style="margin-bottom: 20px;">
                                             <label for="about_subtitle">Subjudul Tentang Desa (Beranda)</label>
-                                            <input type="text" id="about_subtitle" name="about_subtitle" class="form-control" value="{{ old('about_subtitle', $profile->about_subtitle ?? 'TENTANG DESA') }}" placeholder="Contoh: TENTANG DESA">
+                                            <input type="text" id="about_subtitle" name="about_subtitle" class="form-control" value="{{ old('about_subtitle', $profile->about_subtitle ?? 'TENTANG DESA') }}" placeholder="Masukkan tENTANG DESA...">
                                         </div>
 
                                         <div class="form-group" style="margin-bottom: 20px;">
@@ -206,7 +206,7 @@
                                             <label for="video_url">URL / Link Video Profil Desa (YouTube)</label>
                                             <input type="text" id="video_url" name="video_url" class="form-control"
                                                 value="{{ old('video_url', $profile->video_url) }}"
-                                                placeholder="Contoh: https://www.youtube.com/watch?v=LXb3EKWsInQ">
+                                                placeholder="Masukkan https://www.youtube.com/watch?v=LXb3EKWsInQ...">
                                             <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Link ini akan digunakan untuk fitur "Tonton Profil Desa" di halaman utama.</span>
                                         </div>
                                     </div>
@@ -259,11 +259,11 @@
                                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                                             <div class="form-group">
                                                 <label for="umkm_subtitle">Subjudul Bagian UMKM (Beranda)</label>
-                                                <input type="text" id="umkm_subtitle" name="umkm_subtitle" class="form-control" value="{{ old('umkm_subtitle', $profile->umkm_subtitle ?? 'Produk Lokal') }}" placeholder="Contoh: Produk Lokal">
+                                                <input type="text" id="umkm_subtitle" name="umkm_subtitle" class="form-control" value="{{ old('umkm_subtitle', $profile->umkm_subtitle ?? 'Produk Lokal') }}" placeholder="Masukkan produk Lokal...">
                                             </div>
                                             <div class="form-group">
                                                 <label for="umkm_title">Judul Utama Bagian UMKM (Beranda)</label>
-                                                <input type="text" id="umkm_title" name="umkm_title" class="form-control" value="{{ old('umkm_title', $profile->umkm_title ?? 'UMKM Unggulan Desa') }}" placeholder="Contoh: UMKM Unggulan Desa">
+                                                <input type="text" id="umkm_title" name="umkm_title" class="form-control" value="{{ old('umkm_title', $profile->umkm_title ?? 'UMKM Unggulan Desa') }}" placeholder="Masukkan uMKM Unggulan Desa...">
                                             </div>
                                         </div>
                                     </div>
@@ -289,11 +289,11 @@
                                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                                             <div class="form-group">
                                                 <label for="tourism_subtitle">Subjudul Bagian Pariwisata (Beranda)</label>
-                                                <input type="text" id="tourism_subtitle" name="tourism_subtitle" class="form-control" value="{{ old('tourism_subtitle', $profile->tourism_subtitle ?? 'Destinasi Wisata') }}" placeholder="Contoh: Destinasi Wisata">
+                                                <input type="text" id="tourism_subtitle" name="tourism_subtitle" class="form-control" value="{{ old('tourism_subtitle', $profile->tourism_subtitle ?? 'Destinasi Wisata') }}" placeholder="Masukkan destinasi Wisata...">
                                             </div>
                                             <div class="form-group">
                                                 <label for="tourism_title">Judul Utama Bagian Pariwisata (Beranda)</label>
-                                                <input type="text" id="tourism_title" name="tourism_title" class="form-control" value="{{ old('tourism_title', $profile->tourism_title ?? 'Pariwisata & Budaya Desa') }}" placeholder="Contoh: Pariwisata & Budaya Desa">
+                                                <input type="text" id="tourism_title" name="tourism_title" class="form-control" value="{{ old('tourism_title', $profile->tourism_title ?? 'Pariwisata & Budaya Desa') }}" placeholder="Masukkan pariwisata & Budaya Desa...">
                                             </div>
                                         </div>
                                     </div>
@@ -319,11 +319,11 @@
                                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                                             <div class="form-group">
                                                 <label for="news_subtitle">Subjudul Bagian Berita (Beranda)</label>
-                                                <input type="text" id="news_subtitle" name="news_subtitle" class="form-control" value="{{ old('news_subtitle', $profile->news_subtitle ?? 'Kabar Terkini') }}" placeholder="Contoh: Kabar Terkini">
+                                                <input type="text" id="news_subtitle" name="news_subtitle" class="form-control" value="{{ old('news_subtitle', $profile->news_subtitle ?? 'Kabar Terkini') }}" placeholder="Masukkan kabar Terkini...">
                                             </div>
                                             <div class="form-group">
                                                 <label for="news_title">Judul Utama Bagian Berita (Beranda)</label>
-                                                <input type="text" id="news_title" name="news_title" class="form-control" value="{{ old('news_title', $profile->news_title ?? 'Berita & Pengumuman') }}" placeholder="Contoh: Berita & Pengumuman">
+                                                <input type="text" id="news_title" name="news_title" class="form-control" value="{{ old('news_title', $profile->news_title ?? 'Berita & Pengumuman') }}" placeholder="Masukkan berita & Pengumuman...">
                                             </div>
                                         </div>
                                     </div>
@@ -349,11 +349,11 @@
                                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                                             <div class="form-group">
                                                 <label for="gallery_subtitle">Subjudul Bagian Galeri (Beranda)</label>
-                                                <input type="text" id="gallery_subtitle" name="gallery_subtitle" class="form-control" value="{{ old('gallery_subtitle', $profile->gallery_subtitle ?? 'Pesona Desa') }}" placeholder="Contoh: Pesona Desa">
+                                                <input type="text" id="gallery_subtitle" name="gallery_subtitle" class="form-control" value="{{ old('gallery_subtitle', $profile->gallery_subtitle ?? 'Pesona Desa') }}" placeholder="Masukkan pesona Desa...">
                                             </div>
                                             <div class="form-group">
                                                 <label for="gallery_title">Judul Utama Bagian Galeri (Beranda)</label>
-                                                <input type="text" id="gallery_title" name="gallery_title" class="form-control" value="{{ old('gallery_title', $profile->gallery_title ?? 'Galeri Desa') }}" placeholder="Contoh: Galeri Desa">
+                                                <input type="text" id="gallery_title" name="gallery_title" class="form-control" value="{{ old('gallery_title', $profile->gallery_title ?? 'Galeri Desa') }}" placeholder="Masukkan galeri Desa...">
                                             </div>
                                         </div>
                                     </div>

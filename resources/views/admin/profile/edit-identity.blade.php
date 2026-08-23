@@ -50,7 +50,7 @@
                         <label for="office_hours">Jam Operasional Kantor</label>
                         <input type="text" id="office_hours" name="office_hours" class="form-control"
                             value="{{ old('office_hours', $profile->office_hours) }}"
-                            placeholder="Contoh: Senin - Jumat (08.00 - 15.30 WIB)">
+                            placeholder="Masukkan senin - Jumat...">
                     </div>
                 </div>
 

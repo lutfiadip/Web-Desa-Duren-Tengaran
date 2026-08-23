@@ -36,7 +36,7 @@
             <div class="form-group" style="margin-bottom: 20px;">
                 <label for="name">Nama Lengkap</label>
                 <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" 
-                    placeholder="Contoh: Budi Santoso" value="{{ old('name') }}" required>
+                    placeholder="Masukkan nama lengkap..." value="{{ old('name') }}" required>
                 @error('name')
                     <span style="color: var(--danger); font-size: 0.8rem; display: block; margin-top: 5px;">{{ $message }}</span>
                 @enderror
@@ -45,7 +45,7 @@
             <div class="form-group" style="margin-bottom: 20px;">
                 <label for="email">Alamat Email</label>
                 <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" 
-                    placeholder="Contoh: budi@desaduren.go.id" value="{{ old('email') }}" required>
+                    placeholder="Masukkan alamat email..." value="{{ old('email') }}" required>
                 @error('email')
                     <span style="color: var(--danger); font-size: 0.8rem; display: block; margin-top: 5px;">{{ $message }}</span>
                 @enderror

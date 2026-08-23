@@ -16,30 +16,30 @@
 
         <div class="form-group">
             <label for="title">Nama Tempat Wisata</label>
-            <input type="text" id="title" name="title" class="form-control" placeholder="Contoh: Kali Kulon Desa Duren" value="{{ old('title') }}" required>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan nama tempat wisata..." value="{{ old('title') }}" required>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="contact">Narahubung / Kontak Pengelola</label>
-                <input type="text" id="contact" name="contact" class="form-control" placeholder="Contoh: 0857-1234-5678 (Bpk. Joko)" value="{{ old('contact') }}">
+                <input type="text" id="contact" name="contact" class="form-control" placeholder="Masukkan nomor telepon atau kontak..." value="{{ old('contact') }}">
             </div>
 
             <div class="form-group">
                 <label for="operating_hours">Jam Operasional Wisata</label>
-                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Contoh: Setiap Hari (08.00 - 17.00 WIB)" value="{{ old('operating_hours') }}">
+                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Masukkan jam operasional..." value="{{ old('operating_hours') }}">
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="google_maps_url">Link Google Maps Lokasi Wisata</label>
-                <input type="url" id="google_maps_url" name="google_maps_url" class="form-control" placeholder="Contoh: https://maps.google.com/..." value="{{ old('google_maps_url') }}">
+                <input type="url" id="google_maps_url" name="google_maps_url" class="form-control" placeholder="Masukkan link Google Maps lokasi..." value="{{ old('google_maps_url') }}">
             </div>
 
             <div class="form-group">
                 <label for="facilities">Fasilitas Wisata (Pisahkan dengan koma)</label>
-                <input type="text" id="facilities" name="facilities" class="form-control" placeholder="Contoh: Gazebo, Kamar Mandi, Area Parkir, Warung Makan" value="{{ old('facilities') }}">
+                <input type="text" id="facilities" name="facilities" class="form-control" placeholder="Masukkan fasilitas (pisahkan dengan koma)..." value="{{ old('facilities') }}">
             </div>
         </div>
 
@@ -65,7 +65,7 @@
 
         <div class="form-group">
             <label for="address">Alamat Lokasi Wisata</label>
-            <input type="text" id="address" name="address" class="form-control" placeholder="Contoh: Dusun Krajan RT 01/RW 03, Desa Duren" value="{{ old('address') }}" required>
+            <input type="text" id="address" name="address" class="form-control" placeholder="Masukkan alamat lengkap..." value="{{ old('address') }}" required>
         </div>
 
         <div class="form-group">
@@ -144,7 +144,7 @@
             row.className = 'package-row';
             row.innerHTML = `
                 <div style="flex: 2;">
-                    <input type="text" name="ticket_packages[${index}][name]" class="form-control" placeholder="Contoh: Tiket Dewasa / Paket Camping" value="${name}" required>
+                    <input type="text" name="ticket_packages[${index}][name]" class="form-control" placeholder="Masukkan nama tiket atau paket..." value="${name}" required>
                 </div>
                 <div style="flex: 1; display: flex; align-items: center; gap: 8px;">
                     <span style="font-weight: 600; color: var(--text-muted);">Rp</span>

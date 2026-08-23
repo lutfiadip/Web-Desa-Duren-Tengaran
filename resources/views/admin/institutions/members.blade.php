@@ -121,7 +121,7 @@
 
                 <div class="form-group">
                     <label for="name">Nama Lengkap <span style="color: red;">*</span></label>
-                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Contoh: Sri Wahyuni, S.Pd" required>
+                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Masukkan sri Wahyuni, S.Pd..." required>
                     @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -129,7 +129,7 @@
 
                 <div class="form-group">
                     <label for="position">Jabatan <span style="color: red;">*</span></label>
-                    <input type="text" name="position" id="position" class="form-control @error('position') is-invalid @enderror" value="{{ old('position') }}" placeholder="Contoh: Ketua, Sekretaris, Bendahara" required>
+                    <input type="text" name="position" id="position" class="form-control @error('position') is-invalid @enderror" value="{{ old('position') }}" placeholder="Masukkan ketua, Sekretaris, Bendahara..." required>
                     @error('position')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

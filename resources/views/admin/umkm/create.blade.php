@@ -17,12 +17,12 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="title">Nama Usaha (UMKM)</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="Contoh: Keripik Tempe Miri" value="{{ old('title') }}" required>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan nama usaha..." value="{{ old('title') }}" required>
             </div>
 
             <div class="form-group">
                 <label for="owner_name">Nama Pemilik/Pengelola</label>
-                <input type="text" id="owner_name" name="owner_name" class="form-control" placeholder="Contoh: Ibu Ngatmini" value="{{ old('owner_name') }}" required>
+                <input type="text" id="owner_name" name="owner_name" class="form-control" placeholder="Masukkan nama pemilik atau pengelola..." value="{{ old('owner_name') }}" required>
             </div>
         </div>
 
@@ -41,31 +41,31 @@
 
             <div class="form-group">
                 <label for="whatsapp">No. WhatsApp Pemilik (Untuk Hubungi Pembeli)</label>
-                <input type="text" id="whatsapp" name="whatsapp" class="form-control" placeholder="Contoh: 628571234567 (gunakan format 62...)" value="{{ old('whatsapp') }}">
+                <input type="text" id="whatsapp" name="whatsapp" class="form-control" placeholder="Masukkan nomor WhatsApp aktif..." value="{{ old('whatsapp') }}">
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="instagram">Username Instagram (Opsional)</label>
-                <input type="text" id="instagram" name="instagram" class="form-control" placeholder="Contoh: @kulinertempe" value="{{ old('instagram') }}">
+                <input type="text" id="instagram" name="instagram" class="form-control" placeholder="Masukkan username Instagram..." value="{{ old('instagram') }}">
             </div>
 
             <div class="form-group">
                 <label for="facebook">Nama Halaman Facebook (Opsional)</label>
-                <input type="text" id="facebook" name="facebook" class="form-control" placeholder="Contoh: Tempe Ngatmini Duren" value="{{ old('facebook') }}">
+                <input type="text" id="facebook" name="facebook" class="form-control" placeholder="Masukkan nama halaman Facebook..." value="{{ old('facebook') }}">
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="operating_hours">Jam Operasional Usaha</label>
-                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Contoh: Setiap Hari (08.00 - 17.00 WIB)" value="{{ old('operating_hours') }}">
+                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Masukkan jam operasional..." value="{{ old('operating_hours') }}">
             </div>
 
             <div class="form-group">
                 <label for="google_maps_url">Link Google Maps Lokasi Usaha (Opsional)</label>
-                <input type="url" id="google_maps_url" name="google_maps_url" class="form-control" placeholder="Contoh: https://maps.google.com/..." value="{{ old('google_maps_url') }}">
+                <input type="url" id="google_maps_url" name="google_maps_url" class="form-control" placeholder="Masukkan link Google Maps lokasi..." value="{{ old('google_maps_url') }}">
             </div>
         </div>
 
@@ -76,7 +76,7 @@
 
         <div class="form-group">
             <label for="address">Alamat Lengkap Usaha</label>
-            <input type="text" id="address" name="address" class="form-control" placeholder="Contoh: Dusun Miri RT 02/RW 04, Desa Duren" value="{{ old('address') }}" required>
+            <input type="text" id="address" name="address" class="form-control" placeholder="Masukkan alamat lengkap..." value="{{ old('address') }}" required>
         </div>
 
         <div class="form-group">

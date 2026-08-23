@@ -17,14 +17,14 @@
             <div class="form-group">
                 <label for="title">Nama Layanan *</label>
                 <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required
-                    placeholder="Contoh: Pembuatan KTP Baru">
+                    placeholder="Masukkan nama layanan...">
             </div>
 
             <div class="form-group">
                 <label for="icon">Ikon (FontAwesome Class) <small
                         style="color: var(--text-muted); font-weight: normal;">(Opsional)</small></label>
                 <input type="text" name="icon" id="icon" class="form-control"
-                    value="{{ old('icon', 'fa-solid fa-file-lines') }}" placeholder="Contoh: fa-solid fa-file-lines">
+                    value="{{ old('icon', 'fa-solid fa-file-lines') }}" placeholder="Masukkan kelas ikon FontAwesome...">
                 <span style="font-size: 0.85rem; color: var(--text-muted);">Cari referensi ikon di <a
                         href="https://fontawesome.com/search?o=r&m=free" target="_blank"
                         style="color: var(--primary-light);">FontAwesome Free</a></span>
@@ -52,20 +52,20 @@
                 <label for="disclaimer">Catatan Penting <small
                         style="color: var(--text-muted); font-weight: normal;">(Opsional)</small></label>
                 <textarea name="disclaimer" id="disclaimer" class="form-control" rows="3"
-                    placeholder="Contoh: Pastikan semua dokumen dibawa dalam bentuk asli dan fotokopi...">{{ old('disclaimer') }}</textarea>
+                    placeholder="Masukkan catatan atau persyaratan layanan...">{{ old('disclaimer') }}</textarea>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label for="processing_time">Waktu Penyelesaian</label>
                     <input type="text" name="processing_time" id="processing_time" class="form-control"
-                        value="{{ old('processing_time') }}" placeholder="Contoh: 1 Hari Kerja">
+                        value="{{ old('processing_time') }}" placeholder="Masukkan 1 Hari Kerja...">
                 </div>
 
                 <div class="form-group">
                     <label for="service_cost">Biaya Layanan</label>
                     <input type="text" name="service_cost" id="service_cost" class="form-control"
-                        value="{{ old('service_cost') }}" placeholder="Contoh: Gratis">
+                        value="{{ old('service_cost') }}" placeholder="Masukkan gratis...">
                 </div>
             </div>
 

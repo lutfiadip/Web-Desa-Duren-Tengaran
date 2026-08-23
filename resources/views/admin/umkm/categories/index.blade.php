@@ -106,7 +106,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="name">Nama Kategori <span style="color: red;">*</span></label>
-                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Contoh: Makanan & Minuman" value="{{ old('name') }}" required>
+                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan nama kategori..." value="{{ old('name') }}" required>
                     @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

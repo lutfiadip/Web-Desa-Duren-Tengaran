@@ -17,20 +17,20 @@
 
             <div class="form-group">
                 <label for="title">Nama Seni / Upacara / Kebudayaan</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="Contoh: Seni Tari"
+                <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan seni Tari..."
                     value="{{ old('title', $culture->title) }}" required>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label for="location">Tempat/Lokasi Penyelenggaraan</label>
-                    <input type="text" id="location" name="location" class="form-control" placeholder="Contoh: Sanggar Seni"
+                    <input type="text" id="location" name="location" class="form-control" placeholder="Masukkan sanggar Seni..."
                         value="{{ old('location', $culture->location) }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="contact">Narahubung / Kontak</label>
-                    <input type="text" id="contact" name="contact" class="form-control" placeholder="Contoh: 0812-9876-5432"
+                    <input type="text" id="contact" name="contact" class="form-control" placeholder="Masukkan 0812-9876-5432..."
                         value="{{ old('contact', $culture->contact) }}">
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="form-group">
                 <label for="implementation_time">Waktu Penyelenggaraan / Rutinitas Pentas</label>
                 <input type="text" id="implementation_time" name="implementation_time" class="form-control"
-                    placeholder="Contoh: Dipentaskan saat upacara adat Merti Dusun atau HUT RI"
+                    placeholder="Masukkan dipentaskan saat upacara adat Merti Dusun atau HUT RI..."
                     value="{{ old('implementation_time', $culture->implementation_time) }}" required>
             </div>
 

@@ -30,12 +30,12 @@
 
             <div class="form-group" style="margin-bottom: 20px;">
                 <label for="name" style="display: block; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; font-size: 0.9rem;">Nama Jenis Statistik <span style="color: #b91c1c;">*</span></label>
-                <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $type->name) }}" placeholder="Contoh: Agama, Pendidikan Terakhir, Pekerjaan" required style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">
+                <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $type->name) }}" placeholder="Masukkan nama tipe statistik..." required style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">
             </div>
 
             <div class="form-group" style="margin-bottom: 20px;">
                 <label for="slug" style="display: block; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; font-size: 0.9rem;">Slug (URL Identifier - Opsional)</label>
-                <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $type->slug) }}" placeholder="Contoh: agama, pendidikan-terakhir. Kosongkan untuk membiarkan slug lama." style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">
+                <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $type->slug) }}" placeholder="Masukkan slug (huruf kecil dan tanda hubung)..." style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">
                 <small style="color: var(--text-muted); font-size: 0.75rem; margin-top: 4px; display: block;">Slug digunakan dalam URL halaman statistik. Jika Anda ingin menggantinya, silakan masukkan slug baru, atau kosongkan untuk membiarkan slug lama.</small>
             </div>
 

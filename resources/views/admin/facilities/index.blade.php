@@ -125,11 +125,11 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="category_name">Nama Kategori <span class="text-danger">*</span></label>
-                    <input type="text" name="name" id="category_name" class="form-control" required placeholder="Contoh: Pendidikan">
+                    <input type="text" name="name" id="category_name" class="form-control" required placeholder="Masukkan pendidikan...">
                 </div>
                 <div class="form-group">
                     <label for="category_icon">Ikon (FontAwesome Class)</label>
-                    <input type="text" name="icon" id="category_icon" class="form-control" placeholder="Contoh: fa-solid fa-school">
+                    <input type="text" name="icon" id="category_icon" class="form-control" placeholder="Masukkan fa-solid fa-school...">
                     <small class="form-text text-muted">Bisa cari referensi ikon di <a href="https://fontawesome.com/icons" target="_blank">fontawesome.com</a></small>
                 </div>
             </div>
@@ -156,7 +156,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="facility_name">Nama Sarana / Prasarana <span class="text-danger">*</span></label>
-                    <input type="text" name="name" id="facility_name" class="form-control" required placeholder="Contoh: TK Pertiwi / SD Negeri">
+                    <input type="text" name="name" id="facility_name" class="form-control" required placeholder="Masukkan tK Pertiwi / SD Negeri...">
                 </div>
                 <div class="form-group">
                     <label for="facility_quantity">Jumlah <span class="text-danger">*</span></label>

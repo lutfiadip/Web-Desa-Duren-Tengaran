@@ -60,13 +60,13 @@
                     <label for="processing_time">Waktu Penyelesaian</label>
                     <input type="text" name="processing_time" id="processing_time" class="form-control"
                         value="{{ old('processing_time', $public_service->processing_time) }}"
-                        placeholder="Contoh: 1 Hari Kerja">
+                        placeholder="Masukkan 1 Hari Kerja...">
                 </div>
 
                 <div class="form-group">
                     <label for="service_cost">Biaya Layanan</label>
                     <input type="text" name="service_cost" id="service_cost" class="form-control"
-                        value="{{ old('service_cost', $public_service->service_cost) }}" placeholder="Contoh: Gratis">
+                        value="{{ old('service_cost', $public_service->service_cost) }}" placeholder="Masukkan gratis...">
                 </div>
             </div>
 

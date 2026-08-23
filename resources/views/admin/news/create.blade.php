@@ -58,7 +58,7 @@
 
         <div class="form-group">
             <label for="image_caption">Kutipan/Keterangan Gambar (Opsional)</label>
-            <input type="text" id="image_caption" name="image_caption" class="form-control" placeholder="Contoh: Ilustrasi kegiatan warga. (Foto: Dok. Pribadi)" value="{{ old('image_caption') }}">
+            <input type="text" id="image_caption" name="image_caption" class="form-control" placeholder="Masukkan keterangan foto..." value="{{ old('image_caption') }}">
             <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Keterangan ini akan muncul tepat di bawah gambar cover pada halaman baca berita.</span>
         </div>
 

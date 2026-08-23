@@ -37,13 +37,13 @@
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="phone">No. Telepon / Fax</label>
                         <input type="text" id="phone" name="phone" class="form-control"
-                            value="{{ old('phone', $profile->phone) }}" placeholder="Contoh: (0298) 123456">
+                            value="{{ old('phone', $profile->phone) }}" placeholder="Masukkan 123456...">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="email">Email Resmi Desa</label>
                         <input type="email" id="email" name="email" class="form-control"
-                            value="{{ old('email', $profile->email) }}" placeholder="Contoh: info@desaduren.go.id">
+                            value="{{ old('email', $profile->email) }}" placeholder="Masukkan info@desaduren.go.id...">
                     </div>
                 </div>
 
@@ -71,19 +71,19 @@
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="facebook">Facebook</label>
                         <input type="text" id="facebook" name="facebook" class="form-control"
-                            value="{{ old('facebook', $profile->facebook ?: '@') }}" placeholder="Contoh: @desa.duren atau URL">
+                            value="{{ old('facebook', $profile->facebook ?: '@') }}" placeholder="Masukkan @desa.duren atau URL...">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="instagram">Instagram</label>
                         <input type="text" id="instagram" name="instagram" class="form-control"
-                            value="{{ old('instagram', $profile->instagram ?: '@') }}" placeholder="Contoh: @desa.duren atau URL">
+                            value="{{ old('instagram', $profile->instagram ?: '@') }}" placeholder="Masukkan @desa.duren atau URL...">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="youtube">YouTube</label>
                         <input type="text" id="youtube" name="youtube" class="form-control"
-                            value="{{ old('youtube', $profile->youtube ?: '@') }}" placeholder="Contoh: @durentengaran atau URL">
+                            value="{{ old('youtube', $profile->youtube ?: '@') }}" placeholder="Masukkan @durentengaran atau URL...">
                     </div>
                 </div>
             </div>

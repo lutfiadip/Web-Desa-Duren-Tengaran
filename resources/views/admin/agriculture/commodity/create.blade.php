@@ -37,7 +37,7 @@
 
             <div class="form-group">
                 <label for="title">Nama Komoditas <span style="color: red;">*</span></label>
-                <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Contoh: Cabe Keriting Merah, Susu Sapi Segar" required>
+                <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Masukkan cabe Keriting Merah, Susu Sapi Segar..." required>
                 @error('title')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -80,7 +80,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label for="production_scale">Skala / Volume Produksi</label>
-                    <input type="text" name="production_scale" id="production_scale" class="form-control @error('production_scale') is-invalid @enderror" value="{{ old('production_scale') }}" placeholder="Contoh: ± 5 Ton per Panen">
+                    <input type="text" name="production_scale" id="production_scale" class="form-control @error('production_scale') is-invalid @enderror" value="{{ old('production_scale') }}" placeholder="Masukkan ± 5 Ton per Panen...">
                     @error('production_scale')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -88,7 +88,7 @@
 
                 <div class="form-group">
                     <label for="harvest_time">Waktu Panen / Siklus</label>
-                    <input type="text" name="harvest_time" id="harvest_time" class="form-control @error('harvest_time') is-invalid @enderror" value="{{ old('harvest_time') }}" placeholder="Contoh: Setiap 3 Bulan, Musim Kemarau">
+                    <input type="text" name="harvest_time" id="harvest_time" class="form-control @error('harvest_time') is-invalid @enderror" value="{{ old('harvest_time') }}" placeholder="Masukkan setiap 3 Bulan, Musim Kemarau...">
                     @error('harvest_time')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -98,7 +98,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label for="contact">Kontak Penanggung Jawab / Gapoktan</label>
-                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact') }}" placeholder="Contoh: 0812-3456-7890 (Bpk. Mulyono)">
+                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact') }}" placeholder="Masukkan 0812-3456-7890...">
                     @error('contact')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -106,7 +106,7 @@
 
                 <div class="form-group">
                     <label for="address">Lokasi Budidaya / Alamat</label>
-                    <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Contoh: Area Persawahan Dusun Krajan">
+                    <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Masukkan area Persawahan Dusun Krajan...">
                     @error('address')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -115,7 +115,7 @@
 
             <div class="form-group">
                 <label for="google_maps_url">Link Google Maps Lokasi</label>
-                <input type="url" name="google_maps_url" id="google_maps_url" class="form-control @error('google_maps_url') is-invalid @enderror" value="{{ old('google_maps_url') }}" placeholder="Contoh: https://maps.app.goo.gl/xxxx">
+                <input type="url" name="google_maps_url" id="google_maps_url" class="form-control @error('google_maps_url') is-invalid @enderror" value="{{ old('google_maps_url') }}" placeholder="Masukkan https://maps.app.goo.gl/xxxx...">
                 @error('google_maps_url')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
