@@ -423,14 +423,14 @@
             <!-- IMAGE GALLERY DISPLAY -->
             <div class="gallery-wrapper">
                 <div class="main-image-container">
-                    <img id="main-image" src="{{ $commodity->thumbnail ?? 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' }}" alt="{{ $commodity->title }}">
+                    <img id="main-image" src="{{ $commodity->thumbnail ? (Str::startsWith($commodity->thumbnail, 'http') ? $commodity->thumbnail : asset($commodity->thumbnail)) : 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' }}" alt="{{ $commodity->title }}">
                 </div>
                 
                 @if(is_array($commodity->gallery) && count($commodity->gallery) > 1)
                     <div class="thumbnail-grid">
                         @foreach($commodity->gallery as $index => $image)
-                            <div class="thumbnail-card {{ $index === 0 ? 'active' : '' }}" data-src="{{ $image }}">
-                                <img src="{{ $image }}" alt="Galeri {{ $commodity->title }}">
+                            <div class="thumbnail-card {{ $index === 0 ? 'active' : '' }}" data-src="{{ Str::startsWith($image, 'http') ? $image : asset($image) }}">
+                                <img src="{{ Str::startsWith($image, 'http') ? $image : asset($image) }}" alt="Galeri {{ $commodity->title }}">
                             </div>
                         @endforeach
                     </div>
@@ -545,7 +545,7 @@
                         <div class="recom-card">
                             <div class="recom-img-wrapper">
                                 <span class="recom-badge">{{ $other->category }}</span>
-                                <img src="{{ $other->thumbnail ?? 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" alt="{{ $other->title }}" class="recom-img">
+                                <img src="{{ $other->thumbnail ? (Str::startsWith($other->thumbnail, 'http') ? $other->thumbnail : asset($other->thumbnail)) : 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" alt="{{ $other->title }}" class="com-img">
                             </div>
                             <div class="recom-body">
                                 <h3 class="recom-title">{{ $other->title }}</h3>

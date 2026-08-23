@@ -321,7 +321,7 @@
                                     <div class="card-top">
                                         <div class="inst-logo-wrapper">
                                             @if($inst->logo)
-                                                <img src="{{ $inst->logo }}" alt="{{ $inst->name }}" class="inst-logo">
+                                                <img src="{{ Str::startsWith($inst->logo, 'http') ? $inst->logo : asset($inst->logo) }}" alt="{{ $inst->name }}" class="inst-logo">
                                             @else
                                                 <div class="inst-initial">{{ substr($inst->name, 0, 1) }}</div>
                                             @endif

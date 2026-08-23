@@ -464,7 +464,7 @@
                         <div class="com-card" data-title="{{ strtolower($com->title) }}" data-desc="{{ strtolower(strip_tags($com->description)) }}" data-category="{{ strtolower($com->category) }}">
                             <div class="com-img-wrapper">
                                 <span class="com-badge">{{ $com->category }}</span>
-                                <img src="{{ $com->thumbnail ?? 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" alt="{{ $com->title }}" class="com-img">
+                                <img src="{{ $com->thumbnail ? (Str::startsWith($com->thumbnail, 'http') ? $com->thumbnail : asset($com->thumbnail)) : 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }}" alt="{{ $com->title }}" class="com-img">
                             </div>
                             <div class="com-body">
                                 <h3 class="com-title">{{ $com->title }}</h3>

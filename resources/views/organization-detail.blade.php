@@ -388,7 +388,7 @@
         <div class="hero-content">
             <div class="hero-logo-wrapper">
                 @if($institution->logo)
-                    <img src="{{ $institution->logo }}" alt="{{ $institution->name }}" class="hero-logo">
+                    <img src="{{ Str::startsWith($institution->logo, 'http') ? $institution->logo : asset($institution->logo) }}" alt="{{ $institution->name }}" class="hero-logo">
                 @else
                     <div class="hero-initial">{{ substr($institution->name, 0, 1) }}</div>
                 @endif
@@ -454,7 +454,7 @@
                         <div class="leader-row">
                             <div class="member-card" style="width: 240px; border-color: var(--primary); background: #eff6ff;">
                                 <div class="member-photo-wrapper" style="border-color: #dbeafe;">
-                                    <img src="{{ $leader->photo ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' }}" alt="{{ $leader->name }}" class="member-photo">
+                                    <img src="{{ $leader->photo ? (Str::startsWith($leader->photo, 'http') ? $leader->photo : asset($leader->photo)) : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' }}" alt="{{ $leader->name }}" class="member-photo">
                                 </div>
                                 <h4 class="member-name">{{ $leader->name }}</h4>
                                 <div class="member-position">{{ $leader->position }}</div>
@@ -468,7 +468,7 @@
                             @foreach($staff as $member)
                                 <div class="member-card">
                                     <div class="member-photo-wrapper">
-                                        <img src="{{ $member->photo ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' }}" alt="{{ $member->name }}" class="member-photo">
+                                        <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' }}" alt="{{ $member->name }}" class="member-photo">
                                     </div>
                                     <h4 class="member-name">{{ $member->name }}</h4>
                                     <div class="member-position">{{ $member->position }}</div>
