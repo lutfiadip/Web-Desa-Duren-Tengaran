@@ -114,6 +114,7 @@ class HomeController extends Controller
             'potency',
             'umkm',
             'tourism',
+            'announcements',
             'news',
             'gallery'
         ];

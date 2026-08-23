@@ -156,7 +156,7 @@
                     <input type="hidden" id="homepage_sections_order" name="homepage_sections_order" value="{{ $profile->homepage_sections_order }}">
 
                     @php
-                        $defaultOrder = ['about', 'potency', 'umkm', 'tourism', 'news', 'gallery'];
+                        $defaultOrder = ['about', 'potency', 'umkm', 'tourism', 'announcements', 'news', 'gallery'];
                         $sections = ($profile && $profile->homepage_sections_order) 
                             ? explode(',', $profile->homepage_sections_order) 
                             : $defaultOrder;
@@ -354,6 +354,36 @@
                                             <div class="form-group">
                                                 <label for="gallery_title">Judul Utama Bagian Galeri (Beranda)</label>
                                                 <input type="text" id="gallery_title" name="gallery_title" class="form-control" value="{{ old('gallery_title', $profile->gallery_title ?? 'Galeri Desa') }}" placeholder="Masukkan galeri Desa...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @elseif($section === 'announcements')
+                                <!-- BAGIAN: Pengumuman Desa -->
+                                <div class="sortable-item" data-section-id="announcements" id="section-announcements">
+                                    <div class="sortable-header">
+                                        <h4>
+                                            <i class="fa-solid fa-grip-vertical drag-handle"></i>
+                                            <i class="fa-solid fa-bullhorn" style="color: var(--primary-light);"></i>
+                                            Bagian Pengumuman Desa
+                                        </h4>
+                                        <div class="section-actions">
+                                            <label class="switch" style="margin: 0;" onclick="event.stopPropagation();">
+                                                <input type="checkbox" class="global-publish-toggle" data-key="publish_announcements" {{ ($profile->publish_announcements ?? true) ? 'checked' : '' }}>
+                                                <span class="slider"></span>
+                                            </label>
+                                            <button type="button" class="btn-toggle-expand" style="cursor: pointer;"><i class="fa-solid fa-chevron-down"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="sortable-content">
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                            <div class="form-group">
+                                                <label for="announcements_subtitle">Subjudul Bagian Pengumuman (Beranda)</label>
+                                                <input type="text" id="announcements_subtitle" name="announcements_subtitle" class="form-control" value="{{ old('announcements_subtitle', $profile->announcements_subtitle ?? 'Informasi Penting') }}" placeholder="Masukkan subjudul pengumuman...">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="announcements_title">Judul Utama Bagian Pengumuman (Beranda)</label>
+                                                <input type="text" id="announcements_title" name="announcements_title" class="form-control" value="{{ old('announcements_title', $profile->announcements_title ?? 'Pengumuman Desa Terbaru') }}" placeholder="Masukkan judul utama pengumuman...">
                                             </div>
                                         </div>
                                     </div>

@@ -198,6 +198,8 @@ class ProfileController extends Controller
             'news_subtitle' => 'nullable|string|max:255',
             'gallery_title' => 'nullable|string|max:255',
             'gallery_subtitle' => 'nullable|string|max:255',
+            'announcements_title' => 'nullable|string|max:255',
+            'announcements_subtitle' => 'nullable|string|max:255',
             'show_potency_on_home' => 'boolean',
             'show_umkm_on_home' => 'boolean',
             'show_news_on_home' => 'boolean',
@@ -209,7 +211,8 @@ class ProfileController extends Controller
             'umkm_title', 'umkm_subtitle',
             'tourism_title', 'tourism_subtitle',
             'news_title', 'news_subtitle',
-            'gallery_title', 'gallery_subtitle'
+            'gallery_title', 'gallery_subtitle',
+            'announcements_title', 'announcements_subtitle',
         ]);
 
         // Upload images
@@ -270,6 +273,7 @@ class ProfileController extends Controller
             'show_tourism_on_home',
             'show_news_on_home',
             'show_gallery_on_home',
+            'publish_announcements',
         ];
 
         if (in_array($key, $allowedKeys)) {

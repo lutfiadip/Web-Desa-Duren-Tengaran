@@ -1738,6 +1738,148 @@
             grid-template-columns: repeat(auto-fill, minmax(min(100%, 335px), 1fr)); /* Use auto-fill to prevent stretching */
             gap: 30px;
         }
+
+        /* --- HOME ANNOUNCEMENT GRID & CARDS --- */
+        .ann-grid-home {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+            gap: 25px;
+        }
+
+        .ann-card-home {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            min-height: 240px;
+        }
+
+        .ann-card-home:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            border-color: var(--primary-light);
+            background: var(--white);
+        }
+
+        .ann-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .ann-card-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--primary);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: var(--radius-md);
+            width: 54px;
+            height: 54px;
+            justify-content: center;
+            line-height: 1.1;
+            font-weight: 800;
+        }
+
+        .ann-card-date .day {
+            font-size: 1.15rem;
+        }
+
+        .ann-card-date .month {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .ann-card-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: flex-end;
+        }
+
+        .ann-card-badges .badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            font-weight: 800;
+            border-radius: var(--radius-pill);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .badge-warning {
+            background-color: rgba(245, 158, 11, 0.12);
+            color: #d97706;
+        }
+
+        .badge-success {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .ann-card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .ann-card-title:hover {
+            color: var(--primary);
+        }
+
+        .ann-card-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .ann-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            margin-top: auto;
+        }
+
+        .ann-card-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .ann-card-link {
+            font-size: 0.85rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .ann-card-link:hover {
+            color: var(--primary-hover);
+            gap: 8px;
+        }
     </style>
 @endsection
 
@@ -2046,100 +2188,108 @@
                 </div>
             </section>
             @endif
+        @elseif($section === 'announcements')
+            <!-- PENGUMUMAN DESA -->
+            @if($profile->publish_announcements ?? true)
+            <section id="pengumuman" class="section">
+                <div class="section-card">
+                    <div class="section-header" style="margin-bottom: 30px;">
+                        <span class="section-subtitle">Informasi Penting</span>
+                        <h2 class="section-title">Pengumuman Desa Terbaru</h2>
+                    </div>
+            
+                    <div class="ann-grid-home">
+                        @forelse($announcements as $ann)
+                            <div class="ann-card-home">
+                                <div class="ann-card-header">
+                                    <div class="ann-card-date">
+                                        <span class="day">{{ \Carbon\Carbon::parse($ann->created_at)->format('d') }}</span>
+                                        <span class="month">{{ \Carbon\Carbon::parse($ann->created_at)->format('M') }}</span>
+                                    </div>
+                                    <div class="ann-card-badges">
+                                        @if($ann->is_alert)
+                                            <span class="badge badge-warning"><i class="fa-solid fa-triangle-exclamation"></i> Penting</span>
+                                        @endif
+                                        @if($ann->document_file)
+                                            <span class="badge badge-success"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <a href="{{ route('announcements.detail', $ann->slug) }}" class="ann-card-title">{{ $ann->title }}</a>
+                                <p class="ann-card-desc">{{ Str::limit(strip_tags($ann->content), 120) }}</p>
+                                <div class="ann-card-footer">
+                                    <span class="ann-card-time"><i class="fa-solid fa-clock"></i> {{ \Carbon\Carbon::parse($ann->created_at)->diffForHumans() }}</span>
+                                    <a href="{{ route('announcements.detail', $ann->slug) }}" class="ann-card-link">Lihat Detail <i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        @empty
+                            <div style="text-align: center; color: var(--text-muted); padding: 30px; background: #f8fafc; border-radius: var(--radius-lg); border: 1px solid var(--border-color); grid-column: 1 / -1;">Belum ada pengumuman terbaru.</div>
+                        @endforelse
+                    </div>
+
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="{{ route('announcements') }}" class="btn-solid">
+                            Lihat Semua Pengumuman <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            @endif
         @elseif($section === 'news')
-            <!-- BERITA & PENGUMUMAN -->
+            <!-- BERITA DESA -->
             @if(($profile->show_news_on_home ?? true) && ($profile->publish_news ?? true))
             <section id="berita" class="section">
                 <div class="section-card">
                     <div class="section-header" style="margin-bottom: 30px;">
                         <span class="section-subtitle">{{ $profile->news_subtitle ?? 'Kabar Terkini' }}</span>
-                        <h2 class="section-title">{{ $profile->news_title ?? 'Berita & Pengumuman' }}</h2>
+                        <h2 class="section-title">{{ $profile->news_title ?? 'Berita Desa' }}</h2>
                     </div>
             
-                    <div class="news-announcement-grid">
-                        <!-- Left Column: Announcements -->
-                        <div>
-                            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 25px; display: flex; align-items: center; gap: 8px;">
-                                <i class="fa-solid fa-bullhorn" style="color: var(--accent);"></i> Pengumuman Terbaru
-                            </h3>
-                            <div class="home-announcement-list">
-                                @forelse($announcements as $ann)
-                                    <a href="{{ route('announcements.detail', $ann->slug) }}" class="home-announcement-item">
-                                        <div class="announcement-date-badge">
-                                            <div class="day">{{ \Carbon\Carbon::parse($ann->created_at)->format('d') }}</div>
-                                            <div class="month">{{ \Carbon\Carbon::parse($ann->created_at)->format('M') }}</div>
-                                        </div>
-                                        <div class="announcement-item-content">
-                                            <h4 class="announcement-item-title">{{ $ann->title }}</h4>
-                                            <div class="announcement-item-meta">
-                                                @if($ann->document_file)
-                                                    <span style="color: var(--primary); font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> Lampiran</span>
-                                                @endif
-                                                <span>{{ \Carbon\Carbon::parse($ann->created_at)->diffForHumans() }}</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                @empty
-                                    <div style="text-align: center; color: var(--text-muted); padding: 30px; background: #f8fafc; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">Pengumuman belum tersedia.</div>
-                                @endforelse
-                            </div>
-                            <div style="margin-top: 25px;">
-                                <a href="{{ route('announcements') }}" class="btn-solid" style="display: inline-flex; align-items: center; gap: 8px; width: auto; font-size: 0.9rem; padding: 10px 20px;">
-                                    Semua Pengumuman <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
+                    <div class="grid-news">
+                        @forelse($news as $item)
+                            <a href="{{ route('news.detail', $item->slug) }}" class="news-ref-card">
+                                <!-- Left Vertical Label -->
+                                <div class="news-ref-label">
+                                    <span>{{ $item->category->name ?? 'BERITA' }}</span>
+                                </div>
+                                
+                                <!-- Right Image & Content Area -->
+                                <div class="news-ref-content">
+                                    <!-- Background Image -->
+                                    <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image) }}"
+                                         alt="{{ $item->title }}" class="ref-card-img">
+                                    
+                                    <!-- Top Left Views -->
+                                    <div class="news-ref-views">
+                                        <i class="fa-solid fa-eye"></i> {{ number_format($item->views, 0, ',', '.') }}
+                                    </div>
 
-                        <!-- Right Column: News -->
-                        <div>
-                            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 25px; display: flex; align-items: center; gap: 8px;">
-                                <i class="fa-solid fa-newspaper" style="color: var(--primary-light);"></i> Berita Terbaru
-                            </h3>
-                            <div style="display: flex; flex-direction: column; gap: 20px;">
-                                @forelse($news as $item)
-                                    <a href="{{ route('news.detail', $item->slug) }}" class="news-ref-card">
-                                        <!-- Left Vertical Label -->
-                                        <div class="news-ref-label">
-                                            <span>{{ $item->category->name ?? 'BERITA' }}</span>
-                                        </div>
-                                        
-                                        <!-- Right Image & Content Area -->
-                                        <div class="news-ref-content">
-                                            <!-- Background Image -->
-                                            <img src="{{ Str::startsWith($item->featured_image, 'http') ? $item->featured_image : asset($item->featured_image) }}"
-                                                 alt="{{ $item->title }}" class="ref-card-img">
-                                            
-                                            <!-- Top Left Views -->
-                                            <div class="news-ref-views">
-                                                <i class="fa-solid fa-eye"></i> {{ number_format($item->views, 0, ',', '.') }}
-                                            </div>
-
-                                            <!-- Top Right Date Block -->
-                                            <div class="news-ref-date">
-                                                <div class="day">{{ \Carbon\Carbon::parse($item->published_at)->format('d') }}</div>
-                                                <div class="month">{{ \Carbon\Carbon::parse($item->published_at)->format('M') }}</div>
-                                            </div>
-                                            
-                                            <!-- Bottom Gradient Overlay -->
-                                            <div class="news-ref-overlay">
-                                                <h3 class="news-ref-title">{{ $item->title }}</h3>
-                                                <p class="news-ref-meta">
-                                                    {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 80) }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                @empty
-                                    <div style="text-align: center; color: var(--text-muted); padding: 30px; background: #f8fafc; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">Berita belum tersedia.</div>
-                                @endforelse
-                            </div>
-                            <div style="margin-top: 25px;">
-                                <a href="{{ route('news') }}" class="btn-solid" style="display: inline-flex; align-items: center; gap: 8px; width: auto; font-size: 0.9rem; padding: 10px 20px;">
-                                    Semua Berita <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
+                                    <!-- Top Right Date Block -->
+                                    <div class="news-ref-date">
+                                        <div class="day">{{ \Carbon\Carbon::parse($item->published_at)->format('d') }}</div>
+                                        <div class="month">{{ \Carbon\Carbon::parse($item->published_at)->format('M') }}</div>
+                                    </div>
+                                    
+                                    <!-- Bottom Gradient Overlay -->
+                                    <div class="news-ref-overlay">
+                                        <h3 class="news-ref-title">{{ $item->title }}</h3>
+                                        <p class="news-ref-meta">
+                                            {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 80) }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        @empty
+                            <div style="text-align: center; color: var(--text-muted); padding: 30px; background: #f8fafc; border-radius: var(--radius-lg); border: 1px solid var(--border-color); grid-column: 1 / -1;">Berita belum tersedia.</div>
+                        @endforelse
                     </div>
+                    
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="{{ route('news') }}" class="btn-solid">
+                            Lihat Semua Berita <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
             </section>
             @endif
         @elseif($section === 'gallery')
