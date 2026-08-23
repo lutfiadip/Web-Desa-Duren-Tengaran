@@ -362,10 +362,17 @@
         .btn-solid i {
             color: var(--accent);
             font-size: 1.2rem;
+            transition: transform 0.3s ease;
         }
 
         .btn-solid:hover {
             background-color: var(--primary-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-solid:hover i {
+            transform: translateX(6px);
         }
 
         .btn-outline {

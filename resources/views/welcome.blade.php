@@ -921,8 +921,19 @@
             transition: var(--transition);
         }
 
+        .welcome-btn i {
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+
         .welcome-btn:hover {
             background-color: var(--primary-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .welcome-btn:hover i {
+            transform: translateX(6px);
         }
 
         /* Col 3 */
@@ -1366,6 +1377,72 @@
             flex-wrap: wrap;
         }
 
+        .hero-content .hero-actions .btn-solid {
+            background-color: var(--primary);
+            color: white;
+            padding: 14px 35px;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+        }
+
+        .hero-content .hero-actions .btn-solid i {
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-content .hero-actions .btn-solid:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .hero-content .hero-actions .btn-solid:hover i {
+            transform: translateX(6px);
+        }
+
+        .hero-content .hero-actions .btn-outline {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+            padding: 14px 35px;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid rgba(255,255,255,0.5);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+        }
+
+        .hero-content .hero-actions .btn-outline i {
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-content .hero-actions .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-content .hero-actions .btn-outline:hover i {
+            transform: translateY(-2px) scale(1.1);
+        }
+
         /* --- GALLERY GRID --- */
         .gallery-grid {
             display: grid;
@@ -1589,10 +1666,10 @@
             </p>
 
             <div class="hero-actions" style="display: flex; gap: 15px; margin-top: 40px; flex-wrap: wrap; justify-content: flex-start; align-items: center; margin-left: 0; padding-left: 0;">
-                <a href="{{ route('profile') }}" class="btn-solid" style="background-color: var(--primary); color: white; padding: 14px 35px; border-radius: var(--radius-pill); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; border: 2px solid var(--primary); display: inline-flex; align-items: center; gap: 10px; margin: 0;">
+                <a href="{{ route('profile') }}" class="btn-solid">
                     Jelajahi Desa <i class="fa-solid fa-arrow-right"></i>
                 </a>
-                <a href="{{ route('news') }}" class="btn-outline" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); color: white; padding: 14px 35px; border-radius: var(--radius-pill); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.5); display: inline-flex; align-items: center; gap: 10px; margin: 0;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.2)'; this.style.borderColor='white'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.5)'">
+                <a href="{{ route('news') }}" class="btn-outline">
                     <i class="fa-regular fa-newspaper"></i> Berita Desa
                 </a>
             </div>
