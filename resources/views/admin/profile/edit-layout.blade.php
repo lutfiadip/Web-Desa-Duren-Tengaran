@@ -556,7 +556,12 @@
                                     </div>
                                 </div>
                                 <div class="sortable-content">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label for="facilities_description">Deskripsi Seksi Sarana & Prasarana</label>
+                                        <textarea name="facilities_description" id="facilities_description" class="form-control" rows="2" placeholder="Contoh: Daftar infrastruktur dan fasilitas umum yang terdapat di Desa Duren untuk menunjang kehidupan dan kegiatan masyarakat.">{{ old('facilities_description', $profile->facilities_description) }}</textarea>
+                                    </div>
+
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; border-top: 1px solid var(--border-color); padding-top: 20px;">
                                         <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
                                             Kelola kategori dan rincian sarana prasarana yang ada di Desa Duren.
                                         </p>
@@ -573,25 +578,28 @@
                                     @elseif(isset($facilityCategories))
                                         <div style="display: flex; flex-direction: column; gap: 15px;">
                                             @foreach($facilityCategories as $category)
-                                                <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); background: #f8fafc; overflow: hidden;">
-                                                    <div style="padding: 12px 16px; background: #f1f5f9; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
-                                                        <h5 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: var(--text-dark);">
+                                                <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); background: #f8fafc; overflow: hidden; margin-bottom: 12px;">
+                                                    <div style="padding: 12px 16px; background: #f1f5f9; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); cursor: pointer;" onclick="toggleCategoryContent(this)">
+                                                        <h5 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
                                                             @if($category->icon)
-                                                                <i class="{{ $category->icon }}" style="margin-right: 6px; color: var(--primary-light);"></i>
+                                                                <i class="{{ $category->icon }}" style="color: var(--primary-light);"></i>
                                                             @endif
                                                             {{ $category->name }}
                                                         </h5>
-                                                        <div style="display: flex; gap: 8px;">
-                                                            <button type="button" class="btn btn-sm btn-outline-primary" style="padding: 2px 8px; font-size: 0.8rem;" onclick="openCategoryModal({{ $category->id }}, '{{ $category->name }}', '{{ $category->icon }}')">
-                                                                <i class="fa-solid fa-edit"></i> Edit
-                                                            </button>
-                                                            <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 2px 8px; font-size: 0.8rem;" onclick="submitDeleteCategory({{ $category->id }})">
-                                                                <i class="fa-solid fa-trash"></i> Hapus
-                                                            </button>
+                                                        <div style="display: flex; gap: 12px; align-items: center;">
+                                                            <div style="display: flex; gap: 8px;" onclick="event.stopPropagation();">
+                                                                <button type="button" class="btn btn-sm btn-outline-primary" style="padding: 2px 8px; font-size: 0.8rem;" onclick="openCategoryModal({{ $category->id }}, '{{ $category->name }}', '{{ $category->icon }}')">
+                                                                    <i class="fa-solid fa-edit"></i> Edit
+                                                                </button>
+                                                                <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 2px 8px; font-size: 0.8rem;" onclick="submitDeleteCategory({{ $category->id }})">
+                                                                    <i class="fa-solid fa-trash"></i> Hapus
+                                                                </button>
+                                                            </div>
+                                                            <i class="fa-solid fa-chevron-down toggle-icon" style="transition: transform 0.3s ease; color: var(--text-muted); font-size: 0.9rem;"></i>
                                                         </div>
                                                     </div>
                                                     
-                                                    <div style="padding: 15px; background: #ffffff;">
+                                                    <div class="category-content-body" style="padding: 15px; background: #ffffff; display: none;">
                                                         <div style="margin-bottom: 12px;">
                                                             <button type="button" class="btn btn-sm btn-primary" style="padding: 4px 10px; font-size: 0.8rem;" onclick="openFacilityModal({{ $category->id }})">
                                                                 <i class="fa-solid fa-plus"></i> Tambah Sarana
@@ -755,8 +763,8 @@
             const header = item.querySelector('.sortable-header');
             
             header.addEventListener('click', function(e) {
-                // Prevent accordion toggle when clicking on drag handle, switches, inputs or buttons/forms inside header
-                if (e.target.closest('.drag-handle') || e.target.closest('.switch') || e.target.closest('input') || e.target.closest('.slider') || e.target.closest('button')) {
+                // Prevent accordion toggle when clicking on drag handle, switches, inputs or buttons (except the toggle chevron button itself)
+                if (e.target.closest('.drag-handle') || e.target.closest('.switch') || e.target.closest('input') || e.target.closest('.slider') || e.target.closest('button:not(.btn-toggle-expand)')) {
                     return;
                 }
                 
@@ -979,6 +987,20 @@
             const form = document.getElementById('global-delete-facility-form');
             form.action = `/admin/facilities/${id}`;
             form.submit();
+        }
+    }
+
+    function toggleCategoryContent(headerElement) {
+        const card = headerElement.parentElement;
+        const body = card.querySelector('.category-content-body');
+        const icon = headerElement.querySelector('.toggle-icon');
+        
+        if (body.style.display === 'none' || body.style.display === '') {
+            body.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            body.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
         }
     }
 </script>

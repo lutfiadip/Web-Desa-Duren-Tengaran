@@ -1118,7 +1118,7 @@
                     <div class="profile-section-card">
                         <h2 class="profile-section-title">Sarana dan Prasarana</h2>
                         <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 30px;">
-                            Daftar infrastruktur dan fasilitas umum yang terdapat di Desa Duren untuk menunjang kehidupan dan kegiatan masyarakat.
+                            {{ $profile->facilities_description ?? 'Daftar infrastruktur dan fasilitas umum yang terdapat di Desa Duren untuk menunjang kehidupan dan kegiatan masyarakat.' }}
                         </p>
 
                         @if(isset($facilityCategories) && $facilityCategories->isNotEmpty())

@@ -184,6 +184,7 @@ class ProfileController extends Controller
             'about_text' => 'nullable|string',
             'about_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'homepage_sections_order' => 'nullable|string',
+            'video_url' => 'nullable|string',
             'about_subtitle' => 'nullable|string|max:255',
             'umkm_title' => 'nullable|string|max:255',
             'umkm_subtitle' => 'nullable|string|max:255',
@@ -200,7 +201,7 @@ class ProfileController extends Controller
         ], $messages);
 
         $data = $request->only([
-            'about_text', 'homepage_sections_order', 'about_subtitle',
+            'about_text', 'homepage_sections_order', 'about_subtitle', 'video_url',
             'umkm_title', 'umkm_subtitle',
             'tourism_title', 'tourism_subtitle',
             'news_title', 'news_subtitle',
@@ -382,6 +383,7 @@ class ProfileController extends Controller
             'publish_village_detail' => 'nullable|boolean',
             'village_detail_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'profile_sections_order' => 'nullable|string',
+            'facilities_description' => 'nullable|string',
             'map_miri' => 'nullable|string',
             'map_dukuh' => 'nullable|string',
             'map_krajan' => 'nullable|string',
