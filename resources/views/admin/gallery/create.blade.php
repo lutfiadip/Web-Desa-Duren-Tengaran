@@ -51,6 +51,20 @@
                 @enderror
             </div>
 
+            <div class="form-group" style="margin-bottom: 25px;">
+                <label style="font-weight: 800; color: var(--text-dark); margin-bottom: 8px; display: block;">Tampilkan di Beranda (Foto Unggulan)?</label>
+                <div style="display: flex; align-items: center; gap: 10px; padding: 5px 0;">
+                    <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Sembunyikan</span>
+                    <label class="switch">
+                        <input type="hidden" name="is_featured" id="featured-input" value="{{ old('is_featured', '0') }}">
+                        <input type="checkbox" id="featured-toggle" {{ old('is_featured') == '1' ? 'checked' : '' }} onchange="document.getElementById('featured-input').value = this.checked ? '1' : '0'">
+                        <span class="slider"></span>
+                    </label>
+                    <span style="font-size: 0.9rem; color: var(--primary-light); font-weight: 700;">Tampilkan di Beranda</span>
+                </div>
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Jika diaktifkan, foto ini akan ditampilkan pada bagian Pesona Desa di halaman beranda utama.</span>
+            </div>
+
             <div style="border-top: 1px solid var(--border-color); padding-top: 20px; display: flex; gap: 10px;">
                 <button type="submit" class="btn btn-primary" style="padding: 10px 24px; cursor: pointer;">
                     <i class="fa-solid fa-circle-check"></i> Simpan Foto

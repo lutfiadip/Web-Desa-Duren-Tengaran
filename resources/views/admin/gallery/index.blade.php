@@ -125,6 +125,11 @@
                 @foreach($galleries as $gallery)
                     <div class="gallery-card">
                         <div class="gallery-card-img-wrapper">
+                            @if($gallery->is_featured)
+                                <span style="position: absolute; top: 10px; right: 10px; background: var(--accent); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-sm); z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    <i class="fa-solid fa-star"></i> Beranda
+                                </span>
+                            @endif
                             <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}" alt="{{ $gallery->caption ?? 'Galeri Desa' }}" class="gallery-card-img">
                         </div>
                         <div class="gallery-card-body">

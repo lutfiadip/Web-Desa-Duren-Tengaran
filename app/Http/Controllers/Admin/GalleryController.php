@@ -28,6 +28,7 @@ class GalleryController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'caption' => 'nullable|string|max:255',
+            'is_featured' => 'required|boolean',
         ]);
 
         $profile = VillageProfile::first();
@@ -37,6 +38,7 @@ class GalleryController extends Controller
             'galleryable_type' => VillageProfile::class,
             'galleryable_id' => $profileId,
             'caption' => $request->caption,
+            'is_featured' => $request->is_featured,
         ];
 
         if ($request->hasFile('image')) {
@@ -61,10 +63,12 @@ class GalleryController extends Controller
         $request->validate([
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'caption' => 'nullable|string|max:255',
+            'is_featured' => 'required|boolean',
         ]);
 
         $data = [
             'caption' => $request->caption,
+            'is_featured' => $request->is_featured,
         ];
 
         if ($request->hasFile('image')) {

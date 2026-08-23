@@ -102,8 +102,11 @@ class HomeController extends Controller
                     ->take(3)
                     ->get();
 
-        // Mengambil 9 galeri terbaru
-        $galleries = Gallery::latest()->take(9)->get();
+        // Mengambil galeri unggulan terbaru (maksimal 9), dengan fallback galeri terbaru jika belum ada yang unggulan
+        $galleries = Gallery::where('is_featured', true)->latest()->take(9)->get();
+        if ($galleries->isEmpty()) {
+            $galleries = Gallery::latest()->take(9)->get();
+        }
 
         $defaultOrder = [
             'about',

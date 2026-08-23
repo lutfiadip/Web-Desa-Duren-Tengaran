@@ -280,6 +280,11 @@
         @forelse($galleries as $gallery)
             <div class="gallery-card" onclick="openLightbox('{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}', '{{ addslashes($gallery->caption ?? 'Dokumentasi Kegiatan Desa') }}', '{{ $gallery->created_at ? $gallery->created_at->format('d M Y') : '' }}')">
                 <div class="gallery-image-wrapper">
+                    @if($gallery->is_featured)
+                        <span style="position: absolute; top: 15px; right: 15px; background: var(--accent); color: var(--text-dark); font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-sm); z-index: 2; box-shadow: 0 2px 10px rgba(0,0,0,0.15); display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,0.25);">
+                            <i class="fa-solid fa-star" style="color: #d97706;"></i> Beranda
+                        </span>
+                    @endif
                     <img src="{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}" 
                          alt="{{ $gallery->caption ?? 'Galeri Desa' }}"
                          loading="lazy">
