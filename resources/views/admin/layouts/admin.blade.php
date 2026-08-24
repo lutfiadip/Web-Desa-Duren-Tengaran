@@ -113,6 +113,58 @@
             font-size: 1.1rem;
         }
 
+        /* --- SUBMENU SIDEBAR --- */
+        .sidebar-menu .submenu {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .sidebar-menu .has-submenu.active-parent .submenu {
+            display: block;
+        }
+
+        .sidebar-menu .submenu li {
+            margin-bottom: 4px;
+        }
+
+        .sidebar-menu .submenu a {
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            opacity: 0.85;
+            background-color: transparent !important;
+            color: #94a3b8;
+        }
+
+        .sidebar-menu .submenu a:hover, 
+        .sidebar-menu .submenu a.active {
+            opacity: 1;
+            color: var(--white) !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .sidebar-menu .submenu a.active {
+            background-color: var(--primary-light) !important;
+        }
+
+        .sidebar-menu .submenu-toggle {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between !important;
+            align-items: center;
+        }
+
+        .sidebar-menu .submenu-toggle .arrow {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            margin-left: auto;
+        }
+
+        .sidebar-menu .has-submenu.active-parent .submenu-toggle .arrow {
+            transform: rotate(180deg);
+        }
+
         .sidebar-footer {
             padding: 16px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -570,101 +622,172 @@
         </a>
 
         <ul class="sidebar-menu">
+            <!-- 1. Dashboard -->
             <li>
                 <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="fa-solid fa-gauge"></i> Dashboard
                 </a>
             </li>
-            <li>
-                <a href="{{ route('admin.homepage.edit') }}" class="{{ request()->routeIs('admin.homepage.edit') ? 'active' : '' }}">
-                    <i class="fa-solid fa-home"></i> Beranda Desa
+
+            <!-- 2. Halaman Utama -->
+            <li class="has-submenu">
+                <a href="#" class="submenu-toggle">
+                    <i class="fa-solid fa-home"></i>
+                    <span>Halaman Utama</span>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
                 </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="{{ route('admin.homepage.edit') }}" class="{{ request()->routeIs('admin.homepage.edit') ? 'active' : '' }}">
+                            <i class="fa-solid fa-home"></i> Beranda Desa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.gallery.index') }}" class="{{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-images"></i> Galeri Desa
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li>
-                <a href="{{ route('admin.profile.edit') }}" class="{{ request()->routeIs('admin.profile.edit') || request()->routeIs('admin.profile.edit-identity') || request()->routeIs('admin.profile.edit-layout') ? 'active' : '' }}">
-                    <i class="fa-solid fa-house-chimney"></i> Profil Desa
+
+            <!-- 3. Profil & Kontak -->
+            <li class="has-submenu">
+                <a href="#" class="submenu-toggle">
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <span>Profil & Kontak</span>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
                 </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="{{ route('admin.profile.edit') }}" class="{{ request()->routeIs('admin.profile.edit') || request()->routeIs('admin.profile.edit-identity') || request()->routeIs('admin.profile.edit-layout') ? 'active' : '' }}">
+                            <i class="fa-solid fa-house-chimney"></i> Profil Desa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.profile.edit-contact') }}" class="{{ request()->routeIs('admin.profile.edit-contact') ? 'active' : '' }}">
+                            <i class="fa-solid fa-address-book"></i> Info Kontak
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li>
-                <a href="{{ route('admin.profile.edit-contact') }}" class="{{ request()->routeIs('admin.profile.edit-contact') ? 'active' : '' }}">
-                    <i class="fa-solid fa-address-book"></i> Info Kontak
+
+            <!-- 4. Pemerintahan -->
+            <li class="has-submenu">
+                <a href="#" class="submenu-toggle">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>Pemerintahan</span>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
                 </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="{{ route('admin.officials.index') }}" class="{{ request()->routeIs('admin.officials.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-users"></i> Perangkat Desa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.regulations.index') }}" class="{{ request()->routeIs('admin.regulations.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gavel"></i> Peraturan Desa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.transparency.index') }}" class="{{ request()->routeIs('admin.transparency.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-chart-line"></i> Transparansi
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li>
-                <a href="{{ route('admin.statistics.index') }}" class="{{ request()->routeIs('admin.statistics.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-chart-pie"></i> Statistik Penduduk
+
+            <!-- 5. Kemasyarakatan -->
+            <li class="has-submenu">
+                <a href="#" class="submenu-toggle">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Kemasyarakatan</span>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
                 </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="{{ route('admin.institutions.index') }}" class="{{ request()->routeIs('admin.institutions.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-landmark"></i> Lembaga
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.organizations.index') }}" class="{{ request()->routeIs('admin.organizations.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-users-rectangle"></i> Organisasi
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li>
-                <a href="{{ route('admin.officials.index') }}" class="{{ request()->routeIs('admin.officials.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-users"></i> Perangkat Desa
+
+            <!-- 6. Potensi Desa -->
+            <li class="has-submenu">
+                <a href="#" class="submenu-toggle">
+                    <i class="fa-solid fa-store"></i>
+                    <span>Potensi Desa</span>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
                 </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="{{ route('admin.tourism.index') }}" class="{{ request()->routeIs('admin.tourism.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-map-location-dot"></i> Tempat Wisata
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.culture.index') }}" class="{{ request()->routeIs('admin.culture.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-masks-theater"></i> Kebudayaan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.umkm.index') }}" class="{{ request()->routeIs('admin.umkm.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-store"></i> UMKM Desa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.agriculture.index') }}" class="{{ request()->routeIs('admin.agriculture.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-wheat-awn"></i> Pertanian & Peternakan
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li>
-                <a href="{{ route('admin.regulations.index') }}" class="{{ request()->routeIs('admin.regulations.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-gavel"></i> Peraturan Desa
+
+            <!-- 7. Informasi & Layanan -->
+            <li class="has-submenu">
+                <a href="#" class="submenu-toggle">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>Info & Layanan</span>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
                 </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="{{ route('admin.news.index') }}" class="{{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-newspaper"></i> Berita Desa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-bullhorn"></i> Pengumuman
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.public-services.index') }}" class="{{ request()->routeIs('admin.public-services.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-folder-open"></i> Panduan Layanan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.statistics.index') }}" class="{{ request()->routeIs('admin.statistics.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-chart-pie"></i> Statistik Penduduk
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li>
-                <a href="{{ route('admin.institutions.index') }}" class="{{ request()->routeIs('admin.institutions.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-landmark"></i> Lembaga Masyarakat
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.organizations.index') }}" class="{{ request()->routeIs('admin.organizations.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-people-group"></i> Organisasi Masyarakat
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.news.index') }}" class="{{ request()->routeIs('admin.news.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-newspaper"></i> Berita Desa
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-bullhorn"></i> Pengumuman Desa
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.tourism.index') }}" class="{{ request()->routeIs('admin.tourism.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-map-location-dot"></i> Tempat Wisata
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.culture.index') }}" class="{{ request()->routeIs('admin.culture.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-masks-theater"></i> Kebudayaan
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.umkm.index') }}" class="{{ request()->routeIs('admin.umkm.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-store"></i> UMKM Desa
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.public-services.index') }}" class="{{ request()->routeIs('admin.public-services.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-folder-open"></i> Panduan Layanan Publik
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.agriculture.index') }}" class="{{ request()->routeIs('admin.agriculture.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-wheat-awn"></i> Pertanian & Peternakan
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.transparency.index') }}" class="{{ request()->routeIs('admin.transparency.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-scale-balanced"></i> Transparansi
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.gallery.index') }}" class="{{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-images"></i> Galeri Desa
-                </a>
-            </li>
+
+            <!-- 8. Kelola Admin -->
             <li>
                 <a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-user-gear"></i> Kelola Admin
                 </a>
             </li>
+
+            <!-- 9. Lihat Website -->
             <li style="margin-top: 20px;">
                 <a href="{{ route('home') }}" target="_blank">
                     <i class="fa-solid fa-globe"></i> Lihat Website
@@ -916,6 +1039,33 @@
                             showToast('Terjadi kesalahan koneksi.', 'error');
                         });
                     }
+                }
+            });
+
+            // --- SIDEBAR SUBMENU ACCORDION ---
+            const submenuToggles = document.querySelectorAll('.submenu-toggle');
+            submenuToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const parent = this.parentElement;
+                    const isOpen = parent.classList.contains('active-parent');
+                    
+                    // Close other submenus first to keep it neat
+                    document.querySelectorAll('.has-submenu').forEach(item => {
+                        item.classList.remove('active-parent');
+                    });
+                    
+                    if (!isOpen) {
+                        parent.classList.add('active-parent');
+                    }
+                });
+            });
+
+            // Auto-expand parents of active submenu items on load
+            document.querySelectorAll('.submenu a.active').forEach(activeLink => {
+                const parent = activeLink.closest('.has-submenu');
+                if (parent) {
+                    parent.classList.add('active-parent');
                 }
             });
         });

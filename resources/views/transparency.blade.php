@@ -943,8 +943,8 @@
 @if($report && $report->apbdes_poster)
 <div id="poster-modal" class="pdf-modal" onclick="closePosterModal()">
     <div style="max-width: 90%; max-height: 90vh; background: none; box-shadow: none;" onclick="event.stopPropagation()">
-        <button type="button" onclick="closePosterModal()" style="position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.5); border: none; color: white; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 1.5rem;">
-            &times;
+        <button type="button" onclick="closePosterModal()" style="position: fixed; top: 20px; right: 20px; background: rgba(15, 23, 42, 0.6); border: none; color: white; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: var(--transition);">
+            <i class="fa-solid fa-xmark"></i>
         </button>
         <img src="{{ asset($report->apbdes_poster) }}" alt="Infografis APBDes" style="max-width: 100%; max-height: 85vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); object-fit: contain;">
     </div>
