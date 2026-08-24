@@ -551,6 +551,7 @@ class ProfileController extends Controller
             'statistics_page_description' => 'nullable|string|max:1000',
             'contact_page_description' => 'nullable|string|max:1000',
             'transparency_page_description' => 'nullable|string|max:1000',
+            'transparency_infographics_description' => 'nullable|string|max:1000',
         ]);
 
         $data = $request->only([
@@ -569,6 +570,7 @@ class ProfileController extends Controller
             'statistics_page_description',
             'contact_page_description',
             'transparency_page_description',
+            'transparency_infographics_description',
         ]);
 
         if ($profile->exists) {

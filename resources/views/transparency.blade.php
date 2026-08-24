@@ -377,12 +377,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .poster-img-wrapper:hover .poster-overlay {
         opacity: 1;
+        transition: opacity 0.3s ease;
     }
 
     /* --- DOCUMENTS GRID --- */
@@ -448,7 +444,7 @@
     }
 
     .btn-preview {
-        background: var(--primary-light);
+        background: var(--primary);
         color: var(--white);
         text-align: center;
         padding: 10px;
@@ -466,7 +462,7 @@
     }
 
     .btn-preview:hover {
-        background: var(--primary);
+        background: var(--primary-hover);
     }
 
     .btn-download {
@@ -609,17 +605,20 @@
         </div>
     @else
         <!-- Year Selector Bar -->
-        <div class="year-selector-wrap">
-            <h2 class="year-title">
-                <i class="fa-solid fa-calendar-days" style="color: var(--primary-light);"></i>
+        <div class="year-selector-wrap" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px;">
+            <h2 class="year-title" style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin: 0; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-calendar-days" style="color: var(--primary);"></i>
                 Tahun Anggaran APBDes:
             </h2>
-            <div class="year-pills">
-                @foreach($years as $yr)
-                    <a href="{{ route('transparency', ['year' => $yr->year]) }}" class="year-pill {{ $report->year == $yr->year ? 'active' : '' }}">
-                        {{ $yr->year }}
-                    </a>
-                @endforeach
+            <div style="position: relative;">
+                <select onchange="window.location.href = this.value" style="padding: 12px 45px 12px 20px; font-size: 1rem; font-weight: 700; color: var(--text-dark); background-color: var(--white); border: 2px solid var(--border-color); border-radius: 30px; cursor: pointer; outline: none; transition: var(--transition); appearance: none; -webkit-appearance: none; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); min-width: 160px;">
+                    @foreach($years as $yr)
+                        <option value="{{ route('transparency', ['year' => $yr->year]) }}" {{ $report->year == $yr->year ? 'selected' : '' }}>
+                            Tahun {{ $yr->year }}
+                        </option>
+                    @endforeach
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted); font-size: 0.9rem;"></i>
             </div>
         </div>
 
@@ -735,7 +734,7 @@
         <!-- Section Navigation Tabs -->
         <div class="tabs-nav">
             <button class="tab-btn active" data-tab="tab-poster">
-                <i class="fa-solid fa-image"></i> Poster Baliho APBDes
+                <i class="fa-solid fa-image"></i> Infografis APBDes
             </button>
             <button class="tab-btn" data-tab="tab-budget">
                 <i class="fa-solid fa-chart-column"></i> Anggaran & Realisasi
@@ -753,30 +752,30 @@
 
         <!-- Tab Panes Content -->
         
-        <!-- Tab 1: Poster Baliho APBDes -->
+        <!-- Tab 1: Infografis APBDes -->
         <div id="tab-poster" class="tab-pane active">
             <div class="poster-container">
                 <div class="poster-img-wrapper" onclick="openPosterModal()">
                     @if($report->apbdes_poster)
-                        <img src="{{ asset($report->apbdes_poster) }}" alt="Baliho APBDes Desa Duren Tahun {{ $report->year }}">
+                        <img src="{{ asset($report->apbdes_poster) }}" alt="Infografis APBDes Desa Duren Tahun {{ $report->year }}">
                         <div class="poster-overlay">
                             <span><i class="fa-solid fa-magnifying-glass-plus"></i> Klik untuk memperbesar gambar</span>
                         </div>
                     @else
                         <div style="padding: 100px 20px; text-align: center; color: #94a3b8; font-weight: 600;">
                             <i class="fa-solid fa-image" style="font-size: 3.5rem; display: block; margin-bottom: 15px; opacity: 0.5;"></i>
-                            Poster Infografis Baliho APBDes belum diunggah untuk tahun {{ $report->year }}.
+                            Gambar Infografis APBDes belum diunggah untuk tahun {{ $report->year }}.
                         </div>
                     @endif
                 </div>
                 <div class="poster-desc">
-                    <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin: 0 0 15px 0;">Visualisasi Baliho APBDes {{ $report->year }}</h3>
+                    <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin: 0 0 15px 0;">Infografis APBDes {{ $report->year }}</h3>
                     <p style="color: #475569; font-size: 0.98rem; line-height: 1.7; margin-bottom: 20px;">
-                        Infografis baliho merupakan sarana transparansi publik yang dipasang di sudut strategis desa untuk memudahkan warga melihat rincian alokasi anggaran pendapatan desa, anggaran belanja per bidang (pemerintahan, pembangunan, pembinaan, pemberdayaan), dan sisa anggaran secara ringkas dan komunikatif.
+                        {{ $profile->transparency_infographics_description ?? 'Infografis merupakan sarana transparansi publik yang dipasang di sudut strategis desa untuk memudahkan warga melihat rincian alokasi anggaran pendapatan desa, anggaran belanja per bidang (pemerintahan, pembangunan, pembinaan, pemberdayaan), dan sisa anggaran secara ringkas dan komunikatif.' }}
                     </p>
                     @if($report->apbdes_poster)
                         <a href="{{ asset($report->apbdes_poster) }}" download class="btn-preview" style="padding: 12px 25px; border-radius: 30px;">
-                            <i class="fa-solid fa-download"></i> Unduh Poster Baliho (Resolusi Tinggi)
+                            <i class="fa-solid fa-download"></i> Unduh Gambar Infografis
                         </a>
                     @endif
                 </div>
@@ -801,7 +800,7 @@
                             </div>
                             <div class="doc-actions">
                                 <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
-                                    <i class="fa-solid fa-eye"></i> Baca PDF
+                                    <i class="fa-solid fa-eye"></i> Lihat PDF
                                 </button>
                                 <a href="{{ asset($doc->file_path) }}" download class="btn-download">
                                     <i class="fa-solid fa-download"></i> Unduh
@@ -836,7 +835,7 @@
                             </div>
                             <div class="doc-actions">
                                 <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
-                                    <i class="fa-solid fa-eye"></i> Baca PDF
+                                    <i class="fa-solid fa-eye"></i> Lihat PDF
                                 </button>
                                 <a href="{{ asset($doc->file_path) }}" download class="btn-download">
                                     <i class="fa-solid fa-download"></i> Unduh
@@ -871,7 +870,7 @@
                             </div>
                             <div class="doc-actions">
                                 <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
-                                    <i class="fa-solid fa-eye"></i> Baca PDF
+                                    <i class="fa-solid fa-eye"></i> Lihat PDF
                                 </button>
                                 <a href="{{ asset($doc->file_path) }}" download class="btn-download">
                                     <i class="fa-solid fa-download"></i> Unduh
@@ -906,7 +905,7 @@
                             </div>
                             <div class="doc-actions">
                                 <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
-                                    <i class="fa-solid fa-eye"></i> Baca PDF
+                                    <i class="fa-solid fa-eye"></i> Lihat PDF
                                 </button>
                                 <a href="{{ asset($doc->file_path) }}" download class="btn-download">
                                     <i class="fa-solid fa-download"></i> Unduh
@@ -929,7 +928,7 @@
 <div id="pdf-viewer-modal" class="pdf-modal">
     <div class="pdf-modal-container">
         <div class="pdf-modal-header">
-            <h3 id="modal-doc-title" class="pdf-modal-title">Baca Dokumen</h3>
+            <h3 id="modal-doc-title" class="pdf-modal-title">Lihat Dokumen</h3>
             <button type="button" onclick="closePdfModal()" class="pdf-modal-close" aria-label="Tutup">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -947,7 +946,7 @@
         <button type="button" onclick="closePosterModal()" style="position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.5); border: none; color: white; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 1.5rem;">
             &times;
         </button>
-        <img src="{{ asset($report->apbdes_poster) }}" alt="Poster APBDes" style="max-width: 100%; max-height: 85vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); object-fit: contain;">
+        <img src="{{ asset($report->apbdes_poster) }}" alt="Infografis APBDes" style="max-width: 100%; max-height: 85vh; width: auto; height: auto; border-radius: 8px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); object-fit: contain;">
     </div>
 </div>
 @endif
@@ -996,6 +995,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden'; // Stop background scrolling
+
+            // Force repaint/reflow of iframe to fix Chrome/Edge PDF rendering modal bug
+            setTimeout(() => {
+                modalIframe.style.width = '99%';
+                setTimeout(() => {
+                    modalIframe.style.width = '100%';
+                }, 50);
+            }, 100);
         });
     });
 });

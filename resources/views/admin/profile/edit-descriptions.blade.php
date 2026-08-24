@@ -387,10 +387,15 @@
                         <button type="button" class="btn-toggle-expand"><i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                     <div class="accordion-content">
-                        <div class="form-group" style="margin: 0;">
+                        <div class="form-group" style="margin-bottom: 15px;">
                             <label for="transparency_page_description" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; display: block;">Deskripsi Banner Halaman</label>
                             <textarea id="transparency_page_description" name="transparency_page_description" class="form-control" rows="2"
                                 placeholder="Masukkan deskripsi halaman akuntabilitas & transparansi...">{{ old('transparency_page_description', $profile->transparency_page_description ?? 'Komitmen keterbukaan informasi publik Pemerintah Desa Duren dalam pengelolaan APBDes, proyek pembangunan fisik, serta inventaris aset desa.') }}</textarea>
+                        </div>
+                        <div class="form-group" style="margin: 0;">
+                            <label for="transparency_infographics_description" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; display: block;">Deskripsi Seksi Infografis APBDes</label>
+                            <textarea id="transparency_infographics_description" name="transparency_infographics_description" class="form-control" rows="3"
+                                placeholder="Masukkan penjelasan/deskripsi untuk seksi infografis APBDes...">{{ old('transparency_infographics_description', $profile->transparency_infographics_description ?? 'Infografis merupakan sarana transparansi publik yang dipasang di sudut strategis desa untuk memudahkan warga melihat rincian alokasi anggaran pendapatan desa, anggaran belanja per bidang (pemerintahan, pembangunan, pembinaan, pemberdayaan), dan sisa anggaran secara ringkas dan komunikatif.') }}</textarea>
                         </div>
                     </div>
                 </div>
