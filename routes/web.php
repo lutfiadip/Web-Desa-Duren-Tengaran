@@ -28,6 +28,7 @@ Route::get('/statistik', [HomeController::class, 'statistics'])->name('statistic
 Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/layanan-publik', [HomeController::class, 'publicServices'])->name('public_services');
 Route::get('/layanan-publik/{slug}', [HomeController::class, 'publicServiceDetail'])->name('public_services.detail');
+Route::get('/transparansi', [HomeController::class, 'transparency'])->name('transparency');
 
 // Admin Authentication Routes
 Route::get('/admin/login', [App\Http\Controllers\Admin\AdminAuthController::class, 'showLogin'])->name('admin.login');
@@ -143,6 +144,9 @@ Route::middleware([App\Http\Middleware\AdminAuth::class])->prefix('admin')->name
     Route::post('/facilities', [App\Http\Controllers\Admin\FacilityController::class, 'store'])->name('facilities.store');
     Route::put('/facilities/{facility}', [App\Http\Controllers\Admin\FacilityController::class, 'update'])->name('facilities.update');
     Route::delete('/facilities/{facility}', [App\Http\Controllers\Admin\FacilityController::class, 'destroy'])->name('facilities.destroy');
+
+    // Finance/Transparency Management
+    Route::resource('transparency', App\Http\Controllers\Admin\FinanceController::class)->except(['show']);
 });
 
 

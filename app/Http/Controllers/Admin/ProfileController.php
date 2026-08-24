@@ -274,6 +274,7 @@ class ProfileController extends Controller
             'show_news_on_home',
             'show_gallery_on_home',
             'publish_announcements',
+            'publish_transparency',
         ];
 
         if (in_array($key, $allowedKeys)) {
@@ -549,6 +550,7 @@ class ProfileController extends Controller
             'gallery_page_description' => 'nullable|string|max:1000',
             'statistics_page_description' => 'nullable|string|max:1000',
             'contact_page_description' => 'nullable|string|max:1000',
+            'transparency_page_description' => 'nullable|string|max:1000',
         ]);
 
         $data = $request->only([
@@ -566,6 +568,7 @@ class ProfileController extends Controller
             'gallery_page_description',
             'statistics_page_description',
             'contact_page_description',
+            'transparency_page_description',
         ]);
 
         if ($profile->exists) {

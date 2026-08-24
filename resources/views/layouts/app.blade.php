@@ -608,10 +608,10 @@
                             Desa</a></li>
                 @endif
 
-                @if(($profile->publish_officials ?? true) || ($profile->publish_regulations ?? true))
+                @if(($profile->publish_officials ?? true) || ($profile->publish_regulations ?? true) || ($profile->publish_transparency ?? true))
                     <li class="dropdown">
                         <a href="#"
-                            class="dropdown-toggle {{ request()->routeIs('officials*') || request()->routeIs('regulations*') ? 'active' : '' }}">Pemerintahan
+                            class="dropdown-toggle {{ request()->routeIs('officials*') || request()->routeIs('regulations*') || request()->routeIs('transparency*') ? 'active' : '' }}">Pemerintahan
                             <i class="fa-solid fa-chevron-down" style="font-size: 0.85rem;"></i></a>
                         <ul class="dropdown-menu">
                             @if($profile->publish_officials ?? true)
@@ -619,6 +619,9 @@
                             @endif
                             @if($profile->publish_regulations ?? true)
                                 <li><a href="{{ route('regulations') }}">Peraturan Desa</a></li>
+                            @endif
+                            @if($profile->publish_transparency ?? true)
+                                <li><a href="{{ route('transparency') }}">Akuntabilitas & Transparansi</a></li>
                             @endif
                         </ul>
                     </li>
@@ -773,6 +776,9 @@
                         <li><a href="{{ route('statistics') }}">Statistik Penduduk</a></li>
                     @endif
                     <li><a href="{{ route('gallery') }}">Galeri Desa</a></li>
+                    @if($profile->publish_transparency ?? true)
+                        <li><a href="{{ route('transparency') }}">Akuntabilitas & Transparansi</a></li>
+                    @endif
                 </ul>
             </div>
 

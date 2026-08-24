@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             AgricultureCommoditySeeder::class,
             CommunityInstitutionSeeder::class,
             PopulationStatisticSeeder::class,
+            TransparencySeeder::class,
         ]);
     }
 }

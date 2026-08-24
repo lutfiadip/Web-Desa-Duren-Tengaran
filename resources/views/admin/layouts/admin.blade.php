@@ -651,6 +651,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.transparency.index') }}" class="{{ request()->routeIs('admin.transparency.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-scale-balanced"></i> Transparansi
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.gallery.index') }}" class="{{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-images"></i> Galeri Desa
                 </a>

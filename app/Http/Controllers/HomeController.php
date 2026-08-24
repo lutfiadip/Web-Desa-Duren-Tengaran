@@ -681,4 +681,50 @@ class HomeController extends Controller
 
         return view('announcement-detail', compact('profile', 'villageDetail', 'announcement'));
     }
+
+    public function transparency(Request $request)
+    {
+        $profile = VillageProfile::first() ?? new VillageProfile();
+        $villageDetail = VillageDetail::first();
+
+        // Check if publish setting is enabled
+        if (!($profile->publish_transparency ?? true)) {
+            abort(404);
+        }
+
+        // Fetch all active finance years
+        $years = \App\Models\FinanceReport::where('is_active', true)
+            ->orderBy('year', 'desc')
+            ->get();
+
+        $selectedYear = $request->query('year');
+        $report = null;
+
+        if ($years->count() > 0) {
+            if ($selectedYear) {
+                $report = $years->firstWhere('year', $selectedYear);
+            }
+            if (!$report) {
+                $report = $years->first();
+            }
+        }
+
+        $budgetDocs = collect();
+        $developmentDocs = collect();
+        $assetDocs = collect();
+        $reportDocs = collect();
+
+        if ($report) {
+            $report->load('documents');
+            $budgetDocs = $report->documents->where('category', 'budget');
+            $developmentDocs = $report->documents->where('category', 'development');
+            $assetDocs = $report->documents->where('category', 'asset');
+            $reportDocs = $report->documents->where('category', 'report');
+        }
+
+        return view('transparency', compact(
+            'profile', 'villageDetail', 'years', 'report', 
+            'budgetDocs', 'developmentDocs', 'assetDocs', 'reportDocs'
+        ));
+    }
 }

@@ -376,6 +376,24 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 15. Halaman Akuntabilitas & Transparansi -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>
+                            <i class="fa-solid fa-scale-balanced" style="color: var(--primary-light); margin-right: 10px;"></i>
+                            Halaman Akuntabilitas & Transparansi
+                        </h4>
+                        <button type="button" class="btn-toggle-expand"><i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="form-group" style="margin: 0;">
+                            <label for="transparency_page_description" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; display: block;">Deskripsi Banner Halaman</label>
+                            <textarea id="transparency_page_description" name="transparency_page_description" class="form-control" rows="2"
+                                placeholder="Masukkan deskripsi halaman akuntabilitas & transparansi...">{{ old('transparency_page_description', $profile->transparency_page_description ?? 'Komitmen keterbukaan informasi publik Pemerintah Desa Duren dalam pengelolaan APBDes, proyek pembangunan fisik, serta inventaris aset desa.') }}</textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div style="border-top: 1px solid var(--border-color); padding-top: 20px; display: flex; gap: 10px;">
