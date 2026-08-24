@@ -329,20 +329,66 @@
             text-transform: capitalize;
         }
 
+        /* Mobile copy: hidden on desktop */
+        .hero-floating-bar--mobile {
+            display: none;
+        }
+
         @media (max-width: 768px) {
-            .hero-floating-bar {
-                flex-direction: column;
-                bottom: 20px;
-                padding: 15px;
-                border-radius: var(--radius-lg);
+            /* Hide original floating bar on mobile */
+            .hero-floating-bar:not(.hero-floating-bar--mobile) {
+                display: none !important;
             }
-            .hero-floating-item {
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
+
+            /* Show mobile copy below buttons */
+            .hero-floating-bar--mobile {
+                display: flex;
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
                 width: 100%;
+                margin-top: 20px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 8px;
+                padding: 0;
+                background: none;
+                box-shadow: none;
+                border-radius: 0;
+                z-index: 10;
             }
-            .hero-floating-item:nth-last-child(2) {
+            .hero-floating-bar--mobile .hero-floating-item {
+                flex: 1 1 calc(50% - 4px);
+                min-width: 0;
+                border-right: none;
                 border-bottom: none;
+                padding: 10px 8px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 6px;
+                background: rgba(15, 23, 42, 0.55);
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                border-radius: var(--radius-md);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                color: white;
+                text-decoration: none;
+            }
+            .hero-floating-bar--mobile .hero-floating-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+                background: rgba(250, 204, 21, 0.25);
+                color: #facc15;
+            }
+            .hero-floating-bar--mobile .hero-floating-text h4 {
+                font-size: 0.8rem;
+                font-weight: 700;
+                color: white !important;
+                margin: 0;
             }
             .hero-floating-btn {
                 width: 100%;
@@ -801,7 +847,8 @@
                     url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
                 align-items: flex-start;
                 padding-top: 25vh;
-                padding-bottom: 250px;
+                padding-bottom: 120px;
+                min-height: 100vh;
             }
             .hero-main-title {
                 font-size: 3rem;
@@ -1909,6 +1956,34 @@
                     <i class="fa-regular fa-newspaper"></i> Berita Desa
                 </a>
             </div>
+
+            {{-- Mobile-only floating bar: shown below buttons on mobile --}}
+            @if(($profile->show_potency_on_home ?? true) && (($profile->publish_agriculture ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_tourism ?? true)))
+            <div class="hero-floating-bar hero-floating-bar--mobile">
+                @if($profile->publish_agriculture ?? true)
+                <a href="{{ route('potensi.agriculture') }}" class="hero-floating-item">
+                    <div class="hero-floating-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+                    <div class="hero-floating-text"><h4>Pertanian</h4></div>
+                </a>
+                <a href="{{ route('potensi.agriculture') }}" class="hero-floating-item">
+                    <div class="hero-floating-icon"><i class="fa-solid fa-cow"></i></div>
+                    <div class="hero-floating-text"><h4>Peternakan</h4></div>
+                </a>
+                @endif
+                @if($profile->publish_umkm ?? true)
+                <a href="{{ route('umkm') }}" class="hero-floating-item">
+                    <div class="hero-floating-icon"><i class="fa-solid fa-shop"></i></div>
+                    <div class="hero-floating-text"><h4>UMKM</h4></div>
+                </a>
+                @endif
+                @if($profile->publish_tourism ?? true)
+                <a href="{{ route('tourism') }}" class="hero-floating-item">
+                    <div class="hero-floating-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+                    <div class="hero-floating-text"><h4>Pariwisata</h4></div>
+                </a>
+                @endif
+            </div>
+            @endif
         </div>
 
         <!-- Demographics Bar -->
