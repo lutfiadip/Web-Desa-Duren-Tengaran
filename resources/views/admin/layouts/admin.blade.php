@@ -49,7 +49,41 @@
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
+            transition: width 0.3s ease, transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        /* Sidebar collapsed state */
+        body.sidebar-collapsed .sidebar {
+            width: 0;
+            transform: translateX(-260px);
+        }
+
+        body.sidebar-collapsed .main-wrapper {
+            width: 100%;
+        }
+
+        /* Toggle button in header */
+        .sidebar-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: var(--transition);
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-toggle-btn:hover {
+            background-color: var(--bg-main);
+            color: var(--primary-light);
         }
 
         .sidebar-brand {
@@ -808,8 +842,13 @@
     <!-- MAIN WRAPPER -->
     <div class="main-wrapper">
         <header>
-            <div class="header-title">
-                <h1>@yield('title', 'Admin Panel')</h1>
+            <div style="display: flex; align-items: center;">
+                <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" title="Sembunyikan / Tampilkan Sidebar">
+                    <i class="fa-solid fa-bars" id="sidebar-toggle-icon"></i>
+                </button>
+                <div class="header-title">
+                    <h1>@yield('title', 'Admin Panel')</h1>
+                </div>
             </div>
             <div class="user-info">
                 <div class="user-avatar" style="text-transform: uppercase;">{{ substr(Auth::user()->name ?? 'AD', 0, 2) }}</div>
@@ -1060,6 +1099,35 @@
                     }
                 });
             });
+
+            // --- SIDEBAR TOGGLE ---
+            const toggleBtn = document.getElementById('sidebar-toggle-btn');
+            const toggleIcon = document.getElementById('sidebar-toggle-icon');
+
+            function updateToggleIcon() {
+                if (document.body.classList.contains('sidebar-collapsed')) {
+                    toggleIcon.className = 'fa-solid fa-bars';
+                    toggleBtn.title = 'Tampilkan Sidebar';
+                } else {
+                    toggleIcon.className = 'fa-solid fa-bars';
+                    toggleBtn.title = 'Sembunyikan Sidebar';
+                }
+            }
+
+            // Load saved state from localStorage
+            if (localStorage.getItem('adminSidebarCollapsed') === 'true') {
+                document.body.classList.add('sidebar-collapsed');
+            }
+            updateToggleIcon();
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                    document.body.classList.toggle('sidebar-collapsed');
+                    const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+                    localStorage.setItem('adminSidebarCollapsed', isCollapsed);
+                    updateToggleIcon();
+                });
+            }
 
             // Auto-expand parents of active submenu items on load
             document.querySelectorAll('.submenu a.active').forEach(activeLink => {

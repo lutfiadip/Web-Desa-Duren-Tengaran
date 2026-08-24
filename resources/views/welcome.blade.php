@@ -369,25 +369,23 @@
                 align-items: center;
                 text-align: center;
                 gap: 6px;
-                background: rgba(15, 23, 42, 0.55);
-                backdrop-filter: blur(6px);
-                -webkit-backdrop-filter: blur(6px);
+                background: rgba(255, 255, 255, 0.95);
                 border-radius: var(--radius-md);
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                color: var(--text-dark);
                 text-decoration: none;
             }
             .hero-floating-bar--mobile .hero-floating-icon {
                 width: 36px;
                 height: 36px;
                 font-size: 1rem;
-                background: rgba(250, 204, 21, 0.25);
-                color: #facc15;
+                background: rgba(37, 99, 235, 0.1);
+                color: var(--primary);
             }
             .hero-floating-bar--mobile .hero-floating-text h4 {
                 font-size: 0.8rem;
                 font-weight: 700;
-                color: white !important;
+                color: var(--text-dark) !important;
                 margin: 0;
             }
             .hero-floating-btn {
