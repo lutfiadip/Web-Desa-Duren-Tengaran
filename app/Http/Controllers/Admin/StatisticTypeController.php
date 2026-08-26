@@ -26,6 +26,7 @@ class StatisticTypeController extends Controller
             'slug' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'is_active' => 'nullable|boolean',
+            'show_gender_percentage' => 'nullable|boolean',
         ]);
 
         $slugSource = $request->filled('slug') ? $request->slug : $request->name;
@@ -47,6 +48,7 @@ class StatisticTypeController extends Controller
             'description' => $request->description,
             'display_order' => $maxOrder + 1,
             'is_active' => $request->has('is_active'),
+            'show_gender_percentage' => $request->has('show_gender_percentage'),
         ]);
 
         return redirect()->route('admin.statistics.index')->with('success', 'Jenis statistik berhasil ditambahkan.');
@@ -67,6 +69,7 @@ class StatisticTypeController extends Controller
             'slug' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'is_active' => 'nullable|boolean',
+            'show_gender_percentage' => 'nullable|boolean',
         ]);
 
         $slugSource = $request->filled('slug') ? $request->slug : $request->name;
@@ -84,6 +87,7 @@ class StatisticTypeController extends Controller
             'slug' => $slug,
             'description' => $request->description,
             'is_active' => $request->has('is_active'),
+            'show_gender_percentage' => $request->has('show_gender_percentage'),
         ]);
 
         return redirect()->route('admin.statistics.index')->with('success', 'Jenis statistik berhasil diperbarui.');

@@ -11,6 +11,7 @@ class PopulationStatisticType extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'show_gender_percentage' => 'boolean',
     ];
 
     public function statistics(): HasMany

@@ -132,12 +132,15 @@
     }
 
     .summary-info h3 {
-        font-size: 0.95rem;
-        font-weight: 600;
+        font-size: 0.82rem;
+        font-weight: 700;
         color: var(--text-muted);
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
+        min-height: 34px;
+        display: flex;
+        align-items: center;
     }
 
     .summary-info .val {
@@ -392,33 +395,64 @@
                             
                             <!-- Table Data -->
                             <div style="width: 100%; max-width: 800px; margin: 0 auto; overflow-x: auto; background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
-                                <h4 style="margin-top: 0; margin-bottom: 15px; font-size: 0.95rem; font-weight: 800; color: var(--text-dark); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                                    Tabel Rincian Data
-                                </h4>
+                                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: var(--text-dark);">
+                                        Tabel Rincian Data
+                                    </h4>
+                                </div>
+                                @php
+                                    $showGenderPct = $item['type']->show_gender_percentage && ($item['details']->contains(fn($d) => $d->male_total > 0 || $d->female_total > 0));
+                                @endphp
                                 <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
                                     <thead>
                                         <tr style="border-bottom: 2px solid var(--border-color); font-weight: 800; color: var(--text-dark);">
                                             <th style="padding: 8px 4px;">Kategori</th>
                                             <th style="padding: 8px 4px; text-align: center;">L</th>
+                                            @if($showGenderPct)
+                                                <th style="padding: 8px 4px; text-align: center; color: var(--text-muted);">%</th>
+                                            @endif
                                             <th style="padding: 8px 4px; text-align: center;">P</th>
+                                            @if($showGenderPct)
+                                                <th style="padding: 8px 4px; text-align: center; color: var(--text-muted);">%</th>
+                                            @endif
                                             <th style="padding: 8px 4px; text-align: center;">Total</th>
                                             <th style="padding: 8px 4px; text-align: center;">%</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($item['details'] as $detail)
+                                            @php
+                                                $malePct = $showGenderPct && $detail->total > 0 ? number_format(($detail->male_total / $detail->total) * 100, 1, ',', '.') . '%' : '';
+                                                $femalePct = $showGenderPct && $detail->total > 0 ? number_format(($detail->female_total / $detail->total) * 100, 1, ',', '.') . '%' : '';
+                                            @endphp
                                             <tr style="border-bottom: 1px solid var(--border-color);">
                                                 <td style="padding: 8px 4px; font-weight: 700; color: var(--text-dark);">{{ $detail->label }}</td>
                                                 <td style="padding: 8px 4px; text-align: center;">{{ number_format($detail->male_total, 0, ',', '.') }}</td>
+                                                @if($showGenderPct)
+                                                    <td style="padding: 8px 4px; text-align: center; color: var(--text-muted); font-weight: 600;">{{ $malePct }}</td>
+                                                @endif
                                                 <td style="padding: 8px 4px; text-align: center;">{{ number_format($detail->female_total, 0, ',', '.') }}</td>
+                                                @if($showGenderPct)
+                                                    <td style="padding: 8px 4px; text-align: center; color: var(--text-muted); font-weight: 600;">{{ $femalePct }}</td>
+                                                @endif
                                                 <td style="padding: 8px 4px; text-align: center; font-weight: 700; color: var(--primary);">{{ number_format($detail->total, 0, ',', '.') }}</td>
                                                 <td style="padding: 8px 4px; text-align: center; font-weight: 600; color: var(--text-muted);">{{ $detail->percentage }}%</td>
                                             </tr>
                                         @endforeach
+                                        @php
+                                            $totalMalePct = $showGenderPct && $item['grand_total'] > 0 ? number_format(($item['total_male'] / $item['grand_total']) * 100, 1, ',', '.') . '%' : '';
+                                            $totalFemalePct = $showGenderPct && $item['grand_total'] > 0 ? number_format(($item['total_female'] / $item['grand_total']) * 100, 1, ',', '.') . '%' : '';
+                                        @endphp
                                         <tr style="border-top: 2px solid var(--border-color); font-weight: 800; background-color: #f1f5f9; color: var(--text-dark);">
                                             <td style="padding: 8px 4px;">TOTAL</td>
                                             <td style="padding: 8px 4px; text-align: center;">{{ number_format($item['total_male'], 0, ',', '.') }}</td>
+                                            @if($showGenderPct)
+                                                <td style="padding: 8px 4px; text-align: center; color: var(--text-muted);">{{ $totalMalePct }}</td>
+                                            @endif
                                             <td style="padding: 8px 4px; text-align: center;">{{ number_format($item['total_female'], 0, ',', '.') }}</td>
+                                            @if($showGenderPct)
+                                                <td style="padding: 8px 4px; text-align: center; color: var(--text-muted);">{{ $totalFemalePct }}</td>
+                                            @endif
                                             <td style="padding: 8px 4px; text-align: center; color: var(--primary);">{{ number_format($item['grand_total'], 0, ',', '.') }}</td>
                                             <td style="padding: 8px 4px; text-align: center;">100%</td>
                                         </tr>

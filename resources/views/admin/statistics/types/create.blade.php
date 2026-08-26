@@ -43,12 +43,20 @@
                 <textarea name="description" id="description" rows="4" class="form-control" placeholder="Tulis deskripsi singkat mengenai statistik ini..." style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">{{ old('description') }}</textarea>
             </div>
 
-            <div class="form-group" style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+            <div class="form-group" style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
                 <label class="switch">
                     <input type="checkbox" name="is_active" value="1" checked>
                     <span class="slider"></span>
                 </label>
                 <span style="font-weight: 700; color: var(--text-dark); font-size: 0.9rem;">Aktifkan Modul Statistik ini</span>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                <label class="switch">
+                    <input type="checkbox" name="show_gender_percentage" value="1" checked>
+                    <span class="slider"></span>
+                </label>
+                <span style="font-weight: 700; color: var(--text-dark); font-size: 0.9rem;">Tampilkan Persentase L/P di Halaman Publik</span>
             </div>
 
             <div style="border-top: 1px solid var(--border-color); padding-top: 20px; display: flex; gap: 10px;">

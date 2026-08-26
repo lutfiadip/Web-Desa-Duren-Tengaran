@@ -119,21 +119,14 @@
                             <div style="font-weight: 800; font-size: 1.15rem; color: var(--primary);">{{ $item->year }}</div>
                         </td>
                         <td>
-                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 0.85rem;">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.85rem;">
                                 <div>
                                     <span style="font-weight: 600; color: #15803d; display: block;">Pendapatan:</span>
-                                    Target: <strong>{{ number_format($item->revenue_target, 0, ',', '.') }}</strong><br>
-                                    Realisasi: <strong>{{ number_format($item->revenue_realization, 0, ',', '.') }}</strong>
+                                    Realisasi: <strong>Rp {{ number_format($item->revenue_realization, 0, ',', '.') }}</strong>
                                 </div>
                                 <div>
                                     <span style="font-weight: 600; color: #b91c1c; display: block;">Belanja:</span>
-                                    Target: <strong>{{ number_format($item->spending_target, 0, ',', '.') }}</strong><br>
-                                    Realisasi: <strong>{{ number_format($item->spending_realization, 0, ',', '.') }}</strong>
-                                </div>
-                                <div>
-                                    <span style="font-weight: 600; color: #475569; display: block;">Pembiayaan:</span>
-                                    Target: <strong>{{ number_format($item->financing_target, 0, ',', '.') }}</strong><br>
-                                    Realisasi: <strong>{{ number_format($item->financing_realization, 0, ',', '.') }}</strong>
+                                    Realisasi: <strong>Rp {{ number_format($item->spending_realization, 0, ',', '.') }}</strong>
                                 </div>
                             </div>
                         </td>

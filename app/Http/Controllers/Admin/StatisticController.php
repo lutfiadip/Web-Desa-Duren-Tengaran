@@ -121,10 +121,15 @@ class StatisticController extends Controller
             'pdf_file' => 'nullable|file|mimes:pdf|max:5120',
             'notes' => 'nullable|string',
             'is_published' => 'nullable|boolean',
+            'show_gender_percentage' => 'nullable|boolean',
             'categories' => 'required|array|min:1',
             'categories.*.label' => 'required|string|max:255',
             'categories.*.male' => 'required|integer|min:0',
             'categories.*.female' => 'required|integer|min:0',
+        ]);
+
+        $type->update([
+            'show_gender_percentage' => $request->has('show_gender_percentage')
         ]);
 
         $statistic = PopulationStatistic::where('statistic_type_id', $type->id)

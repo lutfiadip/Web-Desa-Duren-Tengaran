@@ -259,12 +259,20 @@
                         style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">{{ old('notes', $statistic->notes) }}</textarea>
                 </div>
 
-                <div class="form-group" style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                <div class="form-group" style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
                     <label class="switch">
                         <input type="checkbox" name="is_published" id="is_published" value="1" {{ old('is_published', $statistic->is_published) ? 'checked' : '' }}>
                         <span class="slider"></span>
                     </label>
                     <span style="font-weight: 700; color: var(--text-dark); font-size: 0.9rem;">Publikasikan data statistik ini secara langsung</span>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                    <label class="switch">
+                        <input type="checkbox" name="show_gender_percentage" id="show_gender_percentage" value="1" {{ old('show_gender_percentage', $type->show_gender_percentage) ? 'checked' : '' }}>
+                        <span class="slider"></span>
+                    </label>
+                    <span style="font-weight: 700; color: var(--text-dark); font-size: 0.9rem;">Tampilkan Persentase L/P di Halaman Publik</span>
                 </div>
 
                 <!-- CATEGORIES TABLE -->
@@ -392,6 +400,7 @@
         const sourceInput = document.getElementById('source');
         const notesInput = document.getElementById('notes');
         const isPublishedInput = document.getElementById('is_published');
+        const showGenderPctInput = document.getElementById('show_gender_percentage');
         const pdfInput = document.getElementById('pdf_file');
 
         const initialPeriod = {
@@ -401,6 +410,7 @@
             notes: notesInput.value,
             is_published: isPublishedInput.checked
         };
+        const initialShowGenderPct = showGenderPctInput ? showGenderPctInput.checked : true;
 
         // Listeners for period dropdown navigation
         function handlePeriodChange() {
@@ -655,6 +665,9 @@
                 sourceInput.value = initialPeriod.source;
                 notesInput.value = initialPeriod.notes;
                 isPublishedInput.checked = initialPeriod.is_published;
+                if (showGenderPctInput) {
+                    showGenderPctInput.checked = initialShowGenderPct;
+                }
                 
                 if (pdfInput) {
                     pdfInput.value = '';
@@ -681,6 +694,7 @@
             if (sourceInput.value !== initialPeriod.source ||
                 notesInput.value !== initialPeriod.notes ||
                 isPublishedInput.checked !== initialPeriod.is_published ||
+                (showGenderPctInput && showGenderPctInput.checked !== initialShowGenderPct) ||
                 (pdfInput && pdfInput.value !== '')) {
                 isDirty = true;
             }
@@ -707,6 +721,9 @@
         sourceInput.addEventListener('input', checkDirty);
         notesInput.addEventListener('input', checkDirty);
         isPublishedInput.addEventListener('change', checkDirty);
+        if (showGenderPctInput) {
+            showGenderPctInput.addEventListener('change', checkDirty);
+        }
         if (pdfInput) {
             pdfInput.addEventListener('change', checkDirty);
         }
