@@ -8,6 +8,7 @@ class OfficialCategory extends Model
 {
     protected $fillable = [
         'name',
+        'sort_order',
     ];
 
     public function officials()

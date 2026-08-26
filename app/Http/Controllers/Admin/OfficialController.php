@@ -58,7 +58,7 @@ class OfficialController extends Controller
 
     public function create()
     {
-        $categories = OfficialCategory::orderBy('id', 'asc')->get();
+        $categories = OfficialCategory::orderBy('sort_order', 'asc')->orderBy('id', 'asc')->get();
         return view('admin.officials.create', compact('categories'));
     }
 
@@ -91,7 +91,7 @@ class OfficialController extends Controller
 
     public function edit(Official $official)
     {
-        $categories = OfficialCategory::orderBy('id', 'asc')->get();
+        $categories = OfficialCategory::orderBy('sort_order', 'asc')->orderBy('id', 'asc')->get();
         return view('admin.officials.edit', compact('official', 'categories'));
     }
 

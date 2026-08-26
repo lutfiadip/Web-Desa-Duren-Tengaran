@@ -2058,6 +2058,7 @@
                 <a href="{{ route('news') }}" class="btn-outline">
                     <i class="fa-regular fa-newspaper"></i> Berita Desa
                 </a>
+            </div>
         </div>
 
         <!-- Demographics Bar -->

@@ -264,10 +264,10 @@ class HomeController extends Controller
         }
         $villageDetail = VillageDetail::first();
 
-        // Get categories ordered by id ascending with active officials
+        // Get categories ordered by sort_order ascending with active officials
         $categories = \App\Models\OfficialCategory::with(['officials' => function($query) {
             $query->where('status', true)->orderBy('sort_order');
-        }])->orderBy('id', 'asc')->get()->filter(function($category) {
+        }])->orderBy('sort_order', 'asc')->orderBy('id', 'asc')->get()->filter(function($category) {
             return $category->officials->isNotEmpty();
         });
 
