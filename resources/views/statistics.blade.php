@@ -73,9 +73,22 @@
     /* --- SUMMARY CARD --- */
     .summary-section {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
         margin-bottom: 50px;
+    }
+
+    @media (min-width: 576px) {
+        .summary-section {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .summary-section {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
     }
 
     .summary-card {

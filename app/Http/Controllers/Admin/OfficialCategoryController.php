@@ -11,7 +11,7 @@ class OfficialCategoryController extends Controller
 {
     public function index()
     {
-        $categories = OfficialCategory::orderBy('sort_order')->get();
+        $categories = OfficialCategory::orderBy('id', 'asc')->get();
         $profile = VillageProfile::first() ?? new VillageProfile();
         return view('admin.officials.categories.index', compact('categories', 'profile'));
     }

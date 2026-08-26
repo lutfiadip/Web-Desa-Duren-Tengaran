@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \Illuminate\Pagination\Paginator::useBootstrapFour();
+
         view()->composer('*', function ($view) {
             $view->with('profile', \App\Models\VillageProfile::first() ?? new \App\Models\VillageProfile());
         });

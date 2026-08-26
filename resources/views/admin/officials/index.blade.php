@@ -23,7 +23,7 @@
 <div class="card" style="margin-bottom: 20px;">
     <div class="card-header" style="display: flex; align-items: center; justify-content: space-between;">
         <h2 style="display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-sitemap" style="color: var(--primary);"></i> Struktur Organisasi
+            <i class="fa-solid fa-sitemap" style="color: var(--primary);"></i> Struktur Organisasi dan Tata Kelola (SOTK)
         </h2>
     </div>
     
@@ -38,10 +38,10 @@
                 </label>
             </div>
 
-            <label for="organization_structure_image">Bagan Struktur Organisasi Pemerintah Desa (Gambar)</label>
+            <label for="organization_structure_image">Bagan Struktur Organisasi dan Tata Kelola (SOTK) Pemerintah Desa (Gambar)</label>
             @if(isset($profile) && $profile->organization_structure_image)
                 <div style="margin-bottom: 15px;">
-                    <img src="{{ asset($profile->organization_structure_image) }}" alt="Struktur Organisasi"
+                    <img src="{{ asset($profile->organization_structure_image) }}" alt="Struktur Organisasi dan Tata Kelola (SOTK)"
                         style="max-height: 250px; max-width: 100%; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
                 </div>
             @endif
@@ -50,7 +50,7 @@
             <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal file: 2 MB. Akan ditampilkan di bagian paling atas Halaman Perangkat Desa.</span>
         </div>
 
-        <button type="submit" class="btn btn-primary">Simpan Struktur Organisasi</button>
+        <button type="submit" class="btn btn-primary">Simpan Bagan SOTK</button>
     </form>
 </div>
 
@@ -86,7 +86,7 @@
                     <th style="width: 80px;">Foto</th>
                     <th>Nama Lengkap</th>
                     <th>Jabatan</th>
-                    <th>NIP</th>
+                    <th>Kategori</th>
                     <th>Status</th>
                     <th style="width: 120px; text-align: center;">Aksi</th>
                 </tr>
@@ -108,7 +108,7 @@
                             {{ $item->position }}
                         </td>
                         <td>
-                            {{ $item->nip ?? '-' }}
+                            {{ $item->category->name ?? '-' }}
                         </td>
                         <td>
                             @if($item->status)

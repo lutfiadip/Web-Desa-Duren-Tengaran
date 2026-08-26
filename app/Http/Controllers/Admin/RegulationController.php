@@ -25,7 +25,7 @@ class RegulationController extends Controller
 
     public function create()
     {
-        $categories = RegulationCategory::all();
+        $categories = RegulationCategory::orderBy('id', 'asc')->get();
         return view('admin.regulations.create', compact('categories'));
     }
 
@@ -65,7 +65,7 @@ class RegulationController extends Controller
 
     public function edit(Regulation $regulation)
     {
-        $categories = RegulationCategory::all();
+        $categories = RegulationCategory::orderBy('id', 'asc')->get();
         return view('admin.regulations.edit', compact('regulation', 'categories'));
     }
 

@@ -26,7 +26,7 @@ class UmkmController extends Controller
 
     public function create()
     {
-        $categories = UmkmCategory::all();
+        $categories = UmkmCategory::orderBy('id', 'asc')->get();
         return view('admin.umkm.create', compact('categories'));
     }
 
@@ -84,7 +84,7 @@ class UmkmController extends Controller
 
     public function edit(Umkm $umkm)
     {
-        $categories = UmkmCategory::all();
+        $categories = UmkmCategory::orderBy('id', 'asc')->get();
         return view('admin.umkm.edit', compact('umkm', 'categories'));
     }
 

@@ -264,10 +264,10 @@ class HomeController extends Controller
         }
         $villageDetail = VillageDetail::first();
 
-        // Get categories ordered by sort_order with active officials
+        // Get categories ordered by id ascending with active officials
         $categories = \App\Models\OfficialCategory::with(['officials' => function($query) {
             $query->where('status', true)->orderBy('sort_order');
-        }])->orderBy('sort_order')->get()->filter(function($category) {
+        }])->orderBy('id', 'asc')->get()->filter(function($category) {
             return $category->officials->isNotEmpty();
         });
 
@@ -290,7 +290,7 @@ class HomeController extends Controller
             ->get();
 
         // Get all categories for filter
-        $categories = RegulationCategory::all();
+        $categories = RegulationCategory::orderBy('id', 'asc')->get();
 
         return view('regulations', compact('profile', 'villageDetail', 'regulations', 'categories'));
     }
@@ -371,7 +371,7 @@ class HomeController extends Controller
             ->latest()
             ->get();
 
-        $categories = UmkmCategory::all();
+        $categories = UmkmCategory::orderBy('id', 'asc')->get();
 
         return view('umkm', compact('profile', 'villageDetail', 'umkms', 'categories'));
     }
@@ -534,7 +534,7 @@ class HomeController extends Controller
         }
 
         $news = $query->paginate(6)->withQueryString();
-        $categories = NewsCategory::all();
+        $categories = NewsCategory::orderBy('id', 'asc')->get();
 
         return view('news', compact('profile', 'villageDetail', 'news', 'categories'));
     }
@@ -561,7 +561,7 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-        $categories = NewsCategory::all();
+        $categories = NewsCategory::orderBy('id', 'asc')->get();
 
         return view('news-detail', compact('profile', 'villageDetail', 'article', 'recentNews', 'categories'));
     }

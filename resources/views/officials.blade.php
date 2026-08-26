@@ -322,10 +322,10 @@
         @if(($profile->publish_organization_structure ?? true) && ($profile->organization_structure_image ?? false))
             <section class="profile-section" style="margin-bottom: 40px;">
                 <div class="profile-section-card" style="text-align: center; padding: 30px; background: #fff; border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
-                    <h2 class="profile-section-title" style="margin-bottom: 20px; font-size: 1.8rem; font-weight: 800; color: var(--text-dark);">Struktur Organisasi</h2>
+                    <h2 class="profile-section-title" style="margin-bottom: 20px; font-size: 1.8rem; font-weight: 800; color: var(--text-dark);">Struktur Organisasi dan Tata Kelola (SOTK)</h2>
                     <div>
                         <img src="{{ asset($profile->organization_structure_image) }}"
-                            alt="Struktur Organisasi Desa {{ $profile->village_name ?? '' }}"
+                            alt="Struktur Organisasi dan Tata Kelola (SOTK) Desa {{ $profile->village_name ?? '' }}"
                             style="max-width: 100%; height: auto; border-radius: var(--radius-md);">
                     </div>
                 </div>

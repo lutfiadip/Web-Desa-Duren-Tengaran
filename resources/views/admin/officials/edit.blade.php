@@ -37,10 +37,7 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="nip">NIP (Nomor Induk Pegawai)</label>
-            <input type="text" id="nip" name="nip" class="form-control" placeholder="Isi '-' jika tidak ada NIP" value="{{ old('nip', $official->nip) }}">
-        </div>
+
 
         <div class="form-group">
             <label for="photo">Foto Profil Perangkat</label>

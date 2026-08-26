@@ -25,7 +25,7 @@ class NewsController extends Controller
 
     public function create()
     {
-        $categories = NewsCategory::all();
+        $categories = NewsCategory::orderBy('id', 'asc')->get();
         return view('admin.news.create', compact('categories'));
     }
 
@@ -60,7 +60,7 @@ class NewsController extends Controller
 
     public function edit(News $news)
     {
-        $categories = NewsCategory::all();
+        $categories = NewsCategory::orderBy('id', 'asc')->get();
         return view('admin.news.edit', compact('news', 'categories'));
     }
 

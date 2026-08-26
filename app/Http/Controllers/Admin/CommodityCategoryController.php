@@ -12,7 +12,7 @@ class CommodityCategoryController extends Controller
 {
     public function index()
     {
-        $categories = CommodityCategory::orderBy('name')->get();
+        $categories = CommodityCategory::orderBy('id', 'asc')->get();
         $profile = VillageProfile::first() ?? new VillageProfile();
         return view('admin.agriculture.categories.index', compact('categories', 'profile'));
     }

@@ -39,7 +39,7 @@ class OfficialController extends Controller
             $profile->fill($data)->save();
         }
 
-        return redirect()->route('admin.officials.index')->with('success', 'Struktur Organisasi berhasil diperbarui.');
+        return redirect()->route('admin.officials.index')->with('success', 'Struktur Organisasi dan Tata Kelola (SOTK) berhasil diperbarui.');
     }
 
     public function index(Request $request)
@@ -58,7 +58,7 @@ class OfficialController extends Controller
 
     public function create()
     {
-        $categories = OfficialCategory::orderBy('sort_order')->get();
+        $categories = OfficialCategory::orderBy('id', 'asc')->get();
         return view('admin.officials.create', compact('categories'));
     }
 
@@ -91,7 +91,7 @@ class OfficialController extends Controller
 
     public function edit(Official $official)
     {
-        $categories = OfficialCategory::orderBy('sort_order')->get();
+        $categories = OfficialCategory::orderBy('id', 'asc')->get();
         return view('admin.officials.edit', compact('official', 'categories'));
     }
 

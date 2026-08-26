@@ -12,7 +12,7 @@ class NewsCategoryController extends Controller
 {
     public function index()
     {
-        $categories = NewsCategory::orderBy('name')->get();
+        $categories = NewsCategory::orderBy('id', 'asc')->get();
         $profile = VillageProfile::first() ?? new VillageProfile();
         return view('admin.news.categories.index', compact('categories', 'profile'));
     }

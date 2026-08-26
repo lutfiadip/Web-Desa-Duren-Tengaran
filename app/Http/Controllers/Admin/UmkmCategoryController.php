@@ -11,7 +11,7 @@ class UmkmCategoryController extends Controller
 {
     public function index()
     {
-        $categories = UmkmCategory::orderBy('name')->get();
+        $categories = UmkmCategory::orderBy('id', 'asc')->get();
         $profile = VillageProfile::first() ?? new VillageProfile();
         return view('admin.umkm.categories.index', compact('categories', 'profile'));
     }

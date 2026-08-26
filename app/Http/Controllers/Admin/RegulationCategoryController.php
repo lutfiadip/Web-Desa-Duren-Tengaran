@@ -11,7 +11,7 @@ class RegulationCategoryController extends Controller
 {
     public function index()
     {
-        $categories = RegulationCategory::orderBy('name')->get();
+        $categories = RegulationCategory::orderBy('id', 'asc')->get();
         $profile = VillageProfile::first() ?? new VillageProfile();
         return view('admin.regulations.categories.index', compact('categories', 'profile'));
     }

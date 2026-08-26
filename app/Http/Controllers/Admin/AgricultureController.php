@@ -21,7 +21,7 @@ class AgricultureController extends Controller
         $landStats = LandStatistic::orderBy('sort_order')->get();
         $farmerGroups = FarmerGroup::all();
         $commodities = AgricultureCommodity::latest()->get();
-        $categories = CommodityCategory::orderBy('name')->get();
+        $categories = CommodityCategory::orderBy('id', 'asc')->get();
         $activeTab = $request->query('tab', 'profile');
 
         return view('admin.agriculture.index', compact(
@@ -153,7 +153,7 @@ class AgricultureController extends Controller
     public function createCommodity()
     {
         $profile = VillageProfile::first() ?? new VillageProfile();
-        $categories = CommodityCategory::orderBy('name')->get();
+        $categories = CommodityCategory::orderBy('id', 'asc')->get();
         return view('admin.agriculture.commodity.create', compact('profile', 'categories'));
     }
 
@@ -209,7 +209,7 @@ class AgricultureController extends Controller
     {
         $commodity = AgricultureCommodity::findOrFail($id);
         $profile = VillageProfile::first() ?? new VillageProfile();
-        $categories = CommodityCategory::orderBy('name')->get();
+        $categories = CommodityCategory::orderBy('id', 'asc')->get();
         return view('admin.agriculture.commodity.edit', compact('commodity', 'profile', 'categories'));
     }
 
