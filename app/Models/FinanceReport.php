@@ -51,6 +51,11 @@ class FinanceReport extends Model
 
     public function documents()
     {
-        return $query = $this->hasMany(FinanceDocument::class);
+        return $this->hasMany(FinanceDocument::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(FinanceReportDetail::class, 'finance_report_id')->orderBy('display_order', 'asc');
     }
 }

@@ -599,44 +599,32 @@
                 </div>
 
                 <!-- Rincian Pendapatan Sesuai Infografis -->
+                @php
+                    $revenueDetails = $report->details->where('type', 'revenue');
+                @endphp
                 <div class="budget-details-list">
                     <h4 style="font-size: 0.8rem; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Rincian Realisasi Pendapatan:</h4>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
-                        @php $addPercent = $report->revenue_realization > 0 ? round(($report->revenue_add / $report->revenue_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(245, 158, 11, 0.15); color: #d97706; flex-shrink: 0; margin-top: 2px;">{{ number_format($addPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Alokasi Dana Desa</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_add, 0, ',', '.') }}</span>
+                        @foreach($revenueDetails as $index => $detail)
+                            @php
+                                $pct = $report->revenue_realization > 0 ? round(($detail->value / $report->revenue_realization) * 100, 1) : 0;
+                                $colors = [
+                                    ['bg' => 'rgba(245, 158, 11, 0.15)', 'fg' => '#d97706'],
+                                    ['bg' => 'rgba(124, 58, 237, 0.15)', 'fg' => '#7c3aed'],
+                                    ['bg' => 'rgba(16, 185, 129, 0.15)', 'fg' => '#059669'],
+                                    ['bg' => 'rgba(220, 38, 38, 0.15)', 'fg' => '#dc2626'],
+                                    ['bg' => 'rgba(59, 130, 246, 0.15)', 'fg' => '#2563eb'],
+                                ];
+                                $color = $colors[$index % count($colors)];
+                            @endphp
+                            <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                                <span class="badge-percent" style="background: {{ $color['bg'] }}; color: {{ $color['fg'] }}; flex-shrink: 0; margin-top: 2px;">{{ number_format($pct, 1, ',', '.') }}%</span>
+                                <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                    <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">{{ $detail->label }}</span>
+                                    <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($detail->value, 0, ',', '.') }}</span>
+                                </div>
                             </div>
-                        </div>
-                        
-                        @php $ddPercent = $report->revenue_realization > 0 ? round(($report->revenue_dd / $report->revenue_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(124, 58, 237, 0.15); color: #7c3aed; flex-shrink: 0; margin-top: 2px;">{{ number_format($ddPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Dana Desa</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_dd, 0, ',', '.') }}</span>
-                            </div>
-                        </div>
-                        
-                        @php $pbhPercent = $report->revenue_realization > 0 ? round(($report->revenue_pbh / $report->revenue_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(16, 185, 129, 0.15); color: #059669; flex-shrink: 0; margin-top: 2px;">{{ number_format($pbhPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">BHPD & BHRD</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_pbh, 0, ',', '.') }}</span>
-                            </div>
-                        </div>
-
-                        @php $padPercent = $report->revenue_realization > 0 ? round(($report->revenue_pad / $report->revenue_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(220, 38, 38, 0.15); color: #dc2626; flex-shrink: 0; margin-top: 2px;">{{ number_format($padPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pendapatan Asli Desa</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_pad, 0, ',', '.') }}</span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -654,53 +642,32 @@
                 </div>
 
                 <!-- Rincian Belanja Sesuai Infografis -->
+                @php
+                    $spendingDetails = $report->details->where('type', 'spending');
+                @endphp
                 <div class="budget-details-list">
                     <h4 style="font-size: 0.8rem; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Rincian Realisasi Belanja:</h4>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
-                        @php $govPercent = $report->spending_realization > 0 ? round(($report->spending_pemerintahan / $report->spending_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(220, 38, 38, 0.15); color: #dc2626; flex-shrink: 0; margin-top: 2px;">{{ number_format($govPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pemerintahan Desa</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pemerintahan, 0, ',', '.') }}</span>
+                        @foreach($spendingDetails as $index => $detail)
+                            @php
+                                $pct = $report->spending_realization > 0 ? round(($detail->value / $report->spending_realization) * 100, 1) : 0;
+                                $colors = [
+                                    ['bg' => 'rgba(220, 38, 38, 0.15)', 'fg' => '#dc2626'],
+                                    ['bg' => 'rgba(59, 130, 246, 0.15)', 'fg' => '#2563eb'],
+                                    ['bg' => 'rgba(124, 58, 237, 0.15)', 'fg' => '#7c3aed'],
+                                    ['bg' => 'rgba(245, 158, 11, 0.15)', 'fg' => '#d97706'],
+                                    ['bg' => 'rgba(16, 185, 129, 0.15)', 'fg' => '#059669'],
+                                ];
+                                $color = $colors[$index % count($colors)];
+                            @endphp
+                            <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                                <span class="badge-percent" style="background: {{ $color['bg'] }}; color: {{ $color['fg'] }}; flex-shrink: 0; margin-top: 2px;">{{ number_format($pct, 1, ',', '.') }}%</span>
+                                <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                    <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">{{ $detail->label }}</span>
+                                    <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($detail->value, 0, ',', '.') }}</span>
+                                </div>
                             </div>
-                        </div>
-                        
-                        @php $devPercent = $report->spending_realization > 0 ? round(($report->spending_pembangunan / $report->spending_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(59, 130, 246, 0.15); color: #2563eb; flex-shrink: 0; margin-top: 2px;">{{ number_format($devPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pembangunan Desa</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pembangunan, 0, ',', '.') }}</span>
-                            </div>
-                        </div>
-
-                        @php $pemPercent = $report->spending_realization > 0 ? round(($report->spending_pembinaan / $report->spending_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(124, 58, 237, 0.15); color: #7c3aed; flex-shrink: 0; margin-top: 2px;">{{ number_format($pemPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pembinaan Kemasyarakatan</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pembinaan, 0, ',', '.') }}</span>
-                            </div>
-                        </div>
-
-                        @php $embPercent = $report->spending_realization > 0 ? round(($report->spending_pemberdayaan / $report->spending_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(245, 158, 11, 0.15); color: #d97706; flex-shrink: 0; margin-top: 2px;">{{ number_format($embPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pemberdayaan Masyarakat</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pemberdayaan, 0, ',', '.') }}</span>
-                            </div>
-                        </div>
-
-                        @php $emgPercent = $report->spending_realization > 0 ? round(($report->spending_penanggulangan / $report->spending_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(16, 185, 129, 0.15); color: #059669; flex-shrink: 0; margin-top: 2px;">{{ number_format($emgPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Penanggulangan Bencana</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_penanggulangan, 0, ',', '.') }}</span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

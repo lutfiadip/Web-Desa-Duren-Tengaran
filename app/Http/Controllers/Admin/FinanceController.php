@@ -28,34 +28,32 @@ class FinanceController extends Controller
     {
         $request->validate([
             'year' => 'required|integer|unique:finance_reports,year',
-            'revenue_target' => 'nullable|numeric|min:0',
-            'revenue_realization' => 'required|numeric|min:0',
-            'revenue_pad' => 'nullable|numeric|min:0',
-            'revenue_add' => 'nullable|numeric|min:0',
-            'revenue_dd' => 'nullable|numeric|min:0',
-            'revenue_pbh' => 'nullable|numeric|min:0',
-            'spending_target' => 'nullable|numeric|min:0',
-            'spending_realization' => 'required|numeric|min:0',
-            'spending_pemerintahan' => 'nullable|numeric|min:0',
-            'spending_pembangunan' => 'nullable|numeric|min:0',
-            'spending_pembinaan' => 'nullable|numeric|min:0',
-            'spending_pemberdayaan' => 'nullable|numeric|min:0',
-            'spending_penanggulangan' => 'nullable|numeric|min:0',
-            'financing_target' => 'nullable|numeric|min:0',
-            'financing_realization' => 'nullable|numeric|min:0',
             'apbdes_poster' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'is_active' => 'boolean',
             'document_titles.*' => 'nullable|string|max:255',
             'document_files.*' => 'nullable|file|mimes:pdf|max:10240',
             'document_categories.*' => 'required|string|in:budget,development,asset,report',
+            'revenue_details' => 'nullable|array',
+            'revenue_details.*.label' => 'required|string|max:255',
+            'revenue_details.*.value' => 'required|numeric|min:0',
+            'spending_details' => 'nullable|array',
+            'spending_details.*.label' => 'required|string|max:255',
+            'spending_details.*.value' => 'required|numeric|min:0',
         ]);
 
-        $data = $request->except(['document_titles', 'document_files', 'document_categories']);
-        $data['is_active'] = $request->has('is_active');
-        $data['revenue_target'] = 0;
-        $data['spending_target'] = 0;
-        $data['financing_target'] = 0;
-        $data['financing_realization'] = 0;
+        $revenueRealization = collect($request->input('revenue_details', []))->sum('value');
+        $spendingRealization = collect($request->input('spending_details', []))->sum('value');
+
+        $data = [
+            'year' => $request->year,
+            'is_active' => $request->has('is_active'),
+            'revenue_target' => 0,
+            'revenue_realization' => $revenueRealization,
+            'spending_target' => 0,
+            'spending_realization' => $spendingRealization,
+            'financing_target' => 0,
+            'financing_realization' => 0,
+        ];
 
         // Handle APBDes Poster Upload
         if ($request->hasFile('apbdes_poster')) {
@@ -66,6 +64,30 @@ class FinanceController extends Controller
         }
 
         $report = FinanceReport::create($data);
+
+        // Store revenue details
+        if ($request->has('revenue_details')) {
+            foreach ($request->input('revenue_details') as $index => $det) {
+                $report->details()->create([
+                    'type' => 'revenue',
+                    'label' => $det['label'],
+                    'value' => $det['value'],
+                    'display_order' => $index + 1,
+                ]);
+            }
+        }
+
+        // Store spending details
+        if ($request->has('spending_details')) {
+            foreach ($request->input('spending_details') as $index => $det) {
+                $report->details()->create([
+                    'type' => 'spending',
+                    'label' => $det['label'],
+                    'value' => $det['value'],
+                    'display_order' => $index + 1,
+                ]);
+            }
+        }
 
         // Handle Multiple Documents Upload
         if ($request->has('document_titles') && $request->hasFile('document_files')) {
@@ -104,21 +126,6 @@ class FinanceController extends Controller
 
         $request->validate([
             'year' => 'required|integer|unique:finance_reports,year,' . $id,
-            'revenue_target' => 'nullable|numeric|min:0',
-            'revenue_realization' => 'required|numeric|min:0',
-            'revenue_pad' => 'nullable|numeric|min:0',
-            'revenue_add' => 'nullable|numeric|min:0',
-            'revenue_dd' => 'nullable|numeric|min:0',
-            'revenue_pbh' => 'nullable|numeric|min:0',
-            'spending_target' => 'nullable|numeric|min:0',
-            'spending_realization' => 'required|numeric|min:0',
-            'spending_pemerintahan' => 'nullable|numeric|min:0',
-            'spending_pembangunan' => 'nullable|numeric|min:0',
-            'spending_pembinaan' => 'nullable|numeric|min:0',
-            'spending_pemberdayaan' => 'nullable|numeric|min:0',
-            'spending_penanggulangan' => 'nullable|numeric|min:0',
-            'financing_target' => 'nullable|numeric|min:0',
-            'financing_realization' => 'nullable|numeric|min:0',
             'apbdes_poster' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'is_active' => 'boolean',
             'existing_document_titles.*' => 'nullable|string|max:255',
@@ -126,14 +133,27 @@ class FinanceController extends Controller
             'document_titles.*' => 'nullable|string|max:255',
             'document_files.*' => 'nullable|file|mimes:pdf|max:10240',
             'document_categories.*' => 'required|string|in:budget,development,asset,report',
+            'revenue_details' => 'nullable|array',
+            'revenue_details.*.label' => 'required|string|max:255',
+            'revenue_details.*.value' => 'required|numeric|min:0',
+            'spending_details' => 'nullable|array',
+            'spending_details.*.label' => 'required|string|max:255',
+            'spending_details.*.value' => 'required|numeric|min:0',
         ]);
 
-        $data = $request->except(['document_titles', 'document_files', 'document_categories', 'delete_documents', 'existing_document_titles', 'existing_document_categories']);
-        $data['is_active'] = $request->has('is_active');
-        $data['revenue_target'] = 0;
-        $data['spending_target'] = 0;
-        $data['financing_target'] = 0;
-        $data['financing_realization'] = 0;
+        $revenueRealization = collect($request->input('revenue_details', []))->sum('value');
+        $spendingRealization = collect($request->input('spending_details', []))->sum('value');
+
+        $data = [
+            'year' => $request->year,
+            'is_active' => $request->has('is_active'),
+            'revenue_target' => 0,
+            'revenue_realization' => $revenueRealization,
+            'spending_target' => 0,
+            'spending_realization' => $spendingRealization,
+            'financing_target' => 0,
+            'financing_realization' => 0,
+        ];
 
         // Handle APBDes Poster Upload
         if ($request->hasFile('apbdes_poster')) {
@@ -154,6 +174,33 @@ class FinanceController extends Controller
         }
 
         $report->update($data);
+
+        // Delete and update details
+        $report->details()->delete();
+
+        // Store revenue details
+        if ($request->has('revenue_details')) {
+            foreach ($request->input('revenue_details') as $index => $det) {
+                $report->details()->create([
+                    'type' => 'revenue',
+                    'label' => $det['label'],
+                    'value' => $det['value'],
+                    'display_order' => $index + 1,
+                ]);
+            }
+        }
+
+        // Store spending details
+        if ($request->has('spending_details')) {
+            foreach ($request->input('spending_details') as $index => $det) {
+                $report->details()->create([
+                    'type' => 'spending',
+                    'label' => $det['label'],
+                    'value' => $det['value'],
+                    'display_order' => $index + 1,
+                ]);
+            }
+        }
 
         // 1. Handle deletion of existing documents
         if ($request->has('delete_documents')) {
