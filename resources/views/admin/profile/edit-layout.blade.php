@@ -915,7 +915,7 @@
             input.name = 'details[]';
             input.className = 'form-control';
             input.value = val;
-            input.placeholder = finalCount > 1 ? `Nama rincian ke-${i+1}` : 'Contoh: PAUD KB Harapan Bangsa';
+            input.placeholder = finalCount > 1 ? `Nama rincian ke-${i+1}` : 'Masukkan nama rincian';
             
             div.appendChild(label);
             div.appendChild(input);

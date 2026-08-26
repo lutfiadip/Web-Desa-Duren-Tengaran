@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label for="year">Tahun Anggaran</label>
                     <input type="number" name="year" id="year" class="form-control" value="{{ $report->year }}"
-                        placeholder="Contoh: 2026" required min="2000" max="2100">
+                        placeholder="Masukkan tahun anggaran" required min="2000" max="2100">
                 </div>
                 <div class="form-group" style="display: flex; align-items: center; margin-top: 25px;">
                     <label class="switch" style="margin-right: 12px;">
@@ -69,11 +69,11 @@
                             <div class="dynamic-revenue-row" style="display: grid; grid-template-columns: 3fr 2fr auto; gap: 15px; align-items: flex-end; margin-bottom: 12px;">
                                 <div class="form-group" style="margin: 0;">
                                     <label style="font-size: 0.8rem; font-weight: 600;">Nama Rincian / Indikator</label>
-                                    <input type="text" name="revenue_details[{{ $index }}][label]" class="form-control rev-label-input" value="{{ $detail->label }}" placeholder="Contoh: Alokasi Dana Desa" required>
+                                    <input type="text" name="revenue_details[{{ $index }}][label]" class="form-control rev-label-input" value="{{ $detail->label }}" placeholder="Masukkan rincian pendapatan" required>
                                 </div>
                                 <div class="form-group" style="margin: 0;">
                                     <label style="font-size: 0.8rem; font-weight: 600;">Nominal Realisasi (Rp)</label>
-                                    <input type="number" name="revenue_details[{{ $index }}][value]" class="form-control rev-val-input" value="{{ (int)$detail->value }}" placeholder="0" min="0" required>
+                                    <input type="number" name="revenue_details[{{ $index }}][value]" class="form-control rev-val-input" value="{{ (int)$detail->value }}" placeholder="Masukkan nominal" min="0" required>
                                 </div>
                                 <button type="button" class="btn btn-danger btn-remove-revenue" style="padding: 10px 14px; margin-bottom: 0;">
                                     <i class="fa-solid fa-trash-can"></i>
@@ -110,11 +110,11 @@
                             <div class="dynamic-spending-row" style="display: grid; grid-template-columns: 3fr 2fr auto; gap: 15px; align-items: flex-end; margin-bottom: 12px;">
                                 <div class="form-group" style="margin: 0;">
                                     <label style="font-size: 0.8rem; font-weight: 600;">Nama Bidang / Indikator</label>
-                                    <input type="text" name="spending_details[{{ $index }}][label]" class="form-control spend-label-input" value="{{ $detail->label }}" placeholder="Contoh: Pemerintahan Desa" required>
+                                    <input type="text" name="spending_details[{{ $index }}][label]" class="form-control spend-label-input" value="{{ $detail->label }}" placeholder="Masukkan rincian belanja" required>
                                 </div>
                                 <div class="form-group" style="margin: 0;">
                                     <label style="font-size: 0.8rem; font-weight: 600;">Nominal Realisasi (Rp)</label>
-                                    <input type="number" name="spending_details[{{ $index }}][value]" class="form-control spend-val-input" value="{{ (int)$detail->value }}" placeholder="0" min="0" required>
+                                    <input type="number" name="spending_details[{{ $index }}][value]" class="form-control spend-val-input" value="{{ (int)$detail->value }}" placeholder="Masukkan nominal" min="0" required>
                                 </div>
                                 <button type="button" class="btn btn-danger btn-remove-spending" style="padding: 10px 14px; margin-bottom: 0;">
                                     <i class="fa-solid fa-trash-can"></i>
@@ -249,11 +249,11 @@
                 row.innerHTML = `
                     <div class="form-group" style="margin: 0;">
                         <label style="font-size: 0.8rem; font-weight: 600;">Nama Rincian / Indikator</label>
-                        <input type="text" name="revenue_details[${revenueCounter}][label]" class="form-control rev-label-input" value="${label}" placeholder="Contoh: Alokasi Dana Desa" required>
+                        <input type="text" name="revenue_details[${revenueCounter}][label]" class="form-control rev-label-input" value="${label}" placeholder="Masukkan rincian pendapatan" required>
                     </div>
                     <div class="form-group" style="margin: 0;">
                         <label style="font-size: 0.8rem; font-weight: 600;">Nominal Realisasi (Rp)</label>
-                        <input type="number" name="revenue_details[${revenueCounter}][value]" class="form-control rev-val-input" value="${value}" placeholder="0" min="0" required>
+                        <input type="number" name="revenue_details[${revenueCounter}][value]" class="form-control rev-val-input" value="${value}" placeholder="Masukkan nominal" min="0" required>
                     </div>
                     <button type="button" class="btn btn-danger btn-remove-revenue" style="padding: 10px 14px; margin-bottom: 0;">
                         <i class="fa-solid fa-trash-can"></i>
@@ -303,11 +303,11 @@
                 row.innerHTML = `
                     <div class="form-group" style="margin: 0;">
                         <label style="font-size: 0.8rem; font-weight: 600;">Nama Bidang / Indikator</label>
-                        <input type="text" name="spending_details[${spendingCounter}][label]" class="form-control spend-label-input" value="${label}" placeholder="Contoh: Pemerintahan Desa" required>
+                        <input type="text" name="spending_details[${spendingCounter}][label]" class="form-control spend-label-input" value="${label}" placeholder="Masukkan rincian belanja" required>
                     </div>
                     <div class="form-group" style="margin: 0;">
                         <label style="font-size: 0.8rem; font-weight: 600;">Nominal Realisasi (Rp)</label>
-                        <input type="number" name="spending_details[${spendingCounter}][value]" class="form-control spend-val-input" value="${value}" placeholder="0" min="0" required>
+                        <input type="number" name="spending_details[${spendingCounter}][value]" class="form-control spend-val-input" value="${value}" placeholder="Masukkan nominal" min="0" required>
                     </div>
                     <button type="button" class="btn btn-danger btn-remove-spending" style="padding: 10px 14px; margin-bottom: 0;">
                         <i class="fa-solid fa-trash-can"></i>
@@ -383,7 +383,7 @@
                 row.innerHTML = `
                     <div class="form-group" style="margin: 0;">
                         <label style="font-size: 0.8rem; font-weight: 700; color: var(--primary-light);">Judul Laporan / Dokumen (Baru)</label>
-                        <input type="text" name="document_titles[${indexCounter}]" class="form-control" placeholder="Contoh: Dokumen Evaluasi Triwulan II" required>
+                        <input type="text" name="document_titles[${indexCounter}]" class="form-control" placeholder="Masukkan judul dokumen" required>
                     </div>
                     <div class="form-group" style="margin: 0;">
                         <label style="font-size: 0.8rem; font-weight: 700; color: var(--primary-light);">Kategori Halaman / Tab</label>

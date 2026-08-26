@@ -17,7 +17,7 @@
             <div class="form-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
                 <div class="form-group">
                     <label for="year">Tahun Anggaran</label>
-                    <input type="number" name="year" id="year" class="form-control" placeholder="Contoh: 2026" required
+                    <input type="number" name="year" id="year" class="form-control" placeholder="Masukkan tahun anggaran" required
                         min="2000" max="2100">
                 </div>
                 <div class="form-group" style="display: flex; align-items: center; margin-top: 25px;">
@@ -162,11 +162,11 @@
                 row.innerHTML = `
                 <div class="form-group" style="margin: 0;">
                     <label style="font-size: 0.8rem; font-weight: 600;">Nama Rincian / Indikator</label>
-                    <input type="text" name="revenue_details[${revenueCounter}][label]" class="form-control rev-label-input" value="${label}" placeholder="Contoh: Alokasi Dana Desa" required>
+                    <input type="text" name="revenue_details[${revenueCounter}][label]" class="form-control rev-label-input" value="${label}" placeholder="Masukkan rincian pendapatan" required>
                 </div>
                 <div class="form-group" style="margin: 0;">
                     <label style="font-size: 0.8rem; font-weight: 600;">Nominal Realisasi (Rp)</label>
-                    <input type="number" name="revenue_details[${revenueCounter}][value]" class="form-control rev-val-input" value="${value}" placeholder="0" min="0" required>
+                    <input type="number" name="revenue_details[${revenueCounter}][value]" class="form-control rev-val-input" value="${value}" placeholder="Masukkan nominal" min="0" required>
                 </div>
                 <button type="button" class="btn btn-danger btn-remove-revenue" style="padding: 10px 14px; margin-bottom: 0;">
                     <i class="fa-solid fa-trash-can"></i>
@@ -213,11 +213,11 @@
                 row.innerHTML = `
                 <div class="form-group" style="margin: 0;">
                     <label style="font-size: 0.8rem; font-weight: 600;">Nama Bidang / Indikator</label>
-                    <input type="text" name="spending_details[${spendingCounter}][label]" class="form-control spend-label-input" value="${label}" placeholder="Contoh: Pemerintahan Desa" required>
+                    <input type="text" name="spending_details[${spendingCounter}][label]" class="form-control spend-label-input" value="${label}" placeholder="Masukkan rincian belanja" required>
                 </div>
                 <div class="form-group" style="margin: 0;">
                     <label style="font-size: 0.8rem; font-weight: 600;">Nominal Realisasi (Rp)</label>
-                    <input type="number" name="spending_details[${spendingCounter}][value]" class="form-control spend-val-input" value="${value}" placeholder="0" min="0" required>
+                    <input type="number" name="spending_details[${spendingCounter}][value]" class="form-control spend-val-input" value="${value}" placeholder="Masukkan nominal" min="0" required>
                 </div>
                 <button type="button" class="btn btn-danger btn-remove-spending" style="padding: 10px 14px; margin-bottom: 0;">
                     <i class="fa-solid fa-trash-can"></i>
@@ -266,7 +266,7 @@
                 row.innerHTML = `
                 <div class="form-group" style="margin: 0;">
                     <label style="font-size: 0.8rem; font-weight: 700;">Judul Laporan / Dokumen</label>
-                    <input type="text" name="document_titles[${indexCounter}]" class="form-control" placeholder="Contoh: Laporan Realisasi Semester I" required>
+                    <input type="text" name="document_titles[${indexCounter}]" class="form-control" placeholder="Masukkan judul dokumen" required>
                 </div>
                 <div class="form-group" style="margin: 0;">
                     <label style="font-size: 0.8rem; font-weight: 700;">Kategori Halaman / Tab</label>
