@@ -342,16 +342,14 @@
 
             /* Show mobile copy below buttons */
             .hero-floating-bar--mobile {
-                display: flex;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
                 position: relative;
                 bottom: auto;
                 left: auto;
                 transform: none;
                 width: 100%;
                 margin-top: 20px;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-start;
                 gap: 8px;
                 padding: 0;
                 background: none;
@@ -360,15 +358,15 @@
                 z-index: 10;
             }
             .hero-floating-bar--mobile .hero-floating-item {
-                flex: 1 1 calc(50% - 4px);
+                flex: none;
                 min-width: 0;
                 border-right: none;
                 border-bottom: none;
-                padding: 10px 8px;
+                padding: 8px 4px;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                gap: 6px;
+                gap: 4px;
                 background: rgba(255, 255, 255, 0.95);
                 border-radius: var(--radius-md);
                 border: 1px solid rgba(255, 255, 255, 0.3);
@@ -376,14 +374,14 @@
                 text-decoration: none;
             }
             .hero-floating-bar--mobile .hero-floating-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
+                width: 30px;
+                height: 30px;
+                font-size: 0.85rem;
                 background: rgba(37, 99, 235, 0.1);
                 color: var(--primary);
             }
             .hero-floating-bar--mobile .hero-floating-text h4 {
-                font-size: 0.8rem;
+                font-size: 0.65rem;
                 font-weight: 700;
                 color: var(--text-dark) !important;
                 margin: 0;
@@ -862,18 +860,54 @@
                 bottom: auto;
                 left: auto;
                 transform: none;
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
                 width: 100%;
-                margin-top: 40px;
-                gap: 15px;
+                margin-top: 25px;
+                gap: 8px;
             }
             .demo-item {
                 width: 100%;
-                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 10px 4px;
+                gap: 6px;
+                border-radius: var(--radius-md);
             }
-            .demo-number { font-size: 1.1rem; }
-            .demo-icon { font-size: 1.3rem; }
-            .demo-label { font-size: 0.7rem; }
+            .demo-number { font-size: 0.85rem; }
+            .demo-icon { font-size: 1.15rem; margin: 0; }
+            .demo-label { font-size: 0.55rem; letter-spacing: 0px; text-transform: none; }
+
+            /* Horizontal Scroll for Tourism Grid */
+            .grid-3 {
+                display: flex !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                scroll-snap-type: x mandatory !important;
+                scroll-behavior: smooth !important;
+                -webkit-overflow-scrolling: touch !important;
+                gap: 15px !important;
+                padding-bottom: 20px !important;
+                margin-left: -5% !important;
+                margin-right: -5% !important;
+                padding-left: 5% !important;
+                padding-right: 5% !important;
+                width: calc(100% + 10%) !important;
+            }
+            .grid-3::-webkit-scrollbar {
+                display: none !important;
+            }
+            .grid-3 .card-item {
+                flex: 0 0 82% !important;
+                scroll-snap-align: start !important;
+                max-width: none !important;
+                min-width: 0 !important;
+                height: 460px !important;
+            }
+            .grid-3 .card-item .card-title {
+                font-size: 1.6rem !important;
+            }
         }
 
         /* --- WELCOME SECTION (NEW LAYOUT) --- */
@@ -1205,8 +1239,79 @@
             .section-card {
                 padding: 30px 20px;
             }
-            .umkm-scroll .info-card {
-                flex: 0 0 280px;
+            
+            /* Horizontal Scroll for UMKM */
+            .umkm-scroll {
+                scroll-snap-type: x mandatory !important;
+                scroll-behavior: smooth !important;
+                -webkit-overflow-scrolling: touch !important;
+                gap: 15px !important;
+                padding-bottom: 25px !important;
+                margin-left: -5% !important;
+                margin-right: -5% !important;
+                padding-left: 5% !important;
+                padding-right: 5% !important;
+                width: calc(100% + 10%) !important;
+            }
+            .umkm-scroll .info-card,
+            .umkm-scroll .umkm-card {
+                flex: 0 0 82% !important;
+                scroll-snap-align: start !important;
+                max-width: none !important;
+                min-width: 0 !important;
+                margin-bottom: 0 !important;
+            }
+            
+            /* Horizontal Scroll for Announcements Grid */
+            .ann-grid-home {
+                display: flex !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                scroll-snap-type: x mandatory !important;
+                scroll-behavior: smooth !important;
+                -webkit-overflow-scrolling: touch !important;
+                gap: 15px !important;
+                padding-bottom: 20px !important;
+                margin-left: -5% !important;
+                margin-right: -5% !important;
+                padding-left: 5% !important;
+                padding-right: 5% !important;
+                width: calc(100% + 10%) !important;
+            }
+            .ann-grid-home::-webkit-scrollbar {
+                display: none !important;
+            }
+            .ann-grid-home .ann-card-home {
+                flex: 0 0 82% !important;
+                scroll-snap-align: start !important;
+                max-width: none !important;
+                min-width: 0 !important;
+            }
+            
+            /* Horizontal Scroll for News Grid */
+            .grid-news {
+                display: flex !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                scroll-snap-type: x mandatory !important;
+                scroll-behavior: smooth !important;
+                -webkit-overflow-scrolling: touch !important;
+                gap: 15px !important;
+                padding-bottom: 20px !important;
+                margin-left: -5% !important;
+                margin-right: -5% !important;
+                padding-left: 5% !important;
+                padding-right: 5% !important;
+                width: calc(100% + 10%) !important;
+            }
+            .grid-news::-webkit-scrollbar {
+                display: none !important;
+            }
+            .grid-news .news-ref-card {
+                flex: 0 0 82% !important;
+                scroll-snap-align: start !important;
+                max-width: none !important;
+                min-width: 0 !important;
             }
         }
 
@@ -1953,35 +2058,6 @@
                 <a href="{{ route('news') }}" class="btn-outline">
                     <i class="fa-regular fa-newspaper"></i> Berita Desa
                 </a>
-            </div>
-
-            {{-- Mobile-only floating bar: shown below buttons on mobile --}}
-            @if(($profile->show_potency_on_home ?? true) && (($profile->publish_agriculture ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_tourism ?? true)))
-            <div class="hero-floating-bar hero-floating-bar--mobile">
-                @if($profile->publish_agriculture ?? true)
-                <a href="{{ route('potensi.agriculture') }}" class="hero-floating-item">
-                    <div class="hero-floating-icon"><i class="fa-solid fa-wheat-awn"></i></div>
-                    <div class="hero-floating-text"><h4>Pertanian</h4></div>
-                </a>
-                <a href="{{ route('potensi.agriculture') }}" class="hero-floating-item">
-                    <div class="hero-floating-icon"><i class="fa-solid fa-cow"></i></div>
-                    <div class="hero-floating-text"><h4>Peternakan</h4></div>
-                </a>
-                @endif
-                @if($profile->publish_umkm ?? true)
-                <a href="{{ route('umkm') }}" class="hero-floating-item">
-                    <div class="hero-floating-icon"><i class="fa-solid fa-shop"></i></div>
-                    <div class="hero-floating-text"><h4>UMKM</h4></div>
-                </a>
-                @endif
-                @if($profile->publish_tourism ?? true)
-                <a href="{{ route('tourism') }}" class="hero-floating-item">
-                    <div class="hero-floating-icon"><i class="fa-solid fa-mountain-sun"></i></div>
-                    <div class="hero-floating-text"><h4>Pariwisata</h4></div>
-                </a>
-                @endif
-            </div>
-            @endif
         </div>
 
         <!-- Demographics Bar -->
@@ -2015,6 +2091,34 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Mobile-only floating bar: shown below buttons on mobile --}}
+            @if(($profile->show_potency_on_home ?? true) && (($profile->publish_agriculture ?? true) || ($profile->publish_umkm ?? true) || ($profile->publish_tourism ?? true)))
+            <div class="hero-floating-bar hero-floating-bar--mobile">
+                @if($profile->publish_agriculture ?? true)
+                <a href="{{ route('potensi.agriculture') }}" class="hero-floating-item">
+                    <div class="hero-floating-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+                    <div class="hero-floating-text"><h4>Pertanian</h4></div>
+                </a>
+                <a href="{{ route('potensi.agriculture') }}" class="hero-floating-item">
+                    <div class="hero-floating-icon"><i class="fa-solid fa-cow"></i></div>
+                    <div class="hero-floating-text"><h4>Peternakan</h4></div>
+                </a>
+                @endif
+                @if($profile->publish_umkm ?? true)
+                <a href="{{ route('umkm') }}" class="hero-floating-item">
+                    <div class="hero-floating-icon"><i class="fa-solid fa-shop"></i></div>
+                    <div class="hero-floating-text"><h4>UMKM</h4></div>
+                </a>
+                @endif
+                @if($profile->publish_tourism ?? true)
+                <a href="{{ route('tourism') }}" class="hero-floating-item">
+                    <div class="hero-floating-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+                    <div class="hero-floating-text"><h4>Pariwisata</h4></div>
+                </a>
+                @endif
+            </div>
+            @endif
             
         
 
