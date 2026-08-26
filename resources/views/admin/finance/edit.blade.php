@@ -55,6 +55,28 @@
                     <input type="number" name="revenue_realization" id="revenue_realization" class="form-control" value="{{ (int)$report->revenue_realization }}" required min="0">
                 </div>
             </div>
+            
+            <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px;">
+                <h5 style="font-weight: 700; color: var(--text-dark); margin-bottom: 12px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">Rincian Pendapatan (Realisasi):</h5>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div class="form-group">
+                        <label for="revenue_pad" style="font-size: 0.8rem; font-weight: 600;">1. Pendapatan Asli Desa (PAD) (Rp)</label>
+                        <input type="number" name="revenue_pad" id="revenue_pad" class="form-control" value="{{ $report->revenue_pad ? (int)$report->revenue_pad : '' }}" placeholder="Contoh: 152280000" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="revenue_add" style="font-size: 0.8rem; font-weight: 600;">2. Alokasi Dana Desa (ADD) (Rp)</label>
+                        <input type="number" name="revenue_add" id="revenue_add" class="form-control" value="{{ $report->revenue_add ? (int)$report->revenue_add : '' }}" placeholder="Contoh: 518019000" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="revenue_dd" style="font-size: 0.8rem; font-weight: 600;">3. Dana Desa (DD) (Rp)</label>
+                        <input type="number" name="revenue_dd" id="revenue_dd" class="form-control" value="{{ $report->revenue_dd ? (int)$report->revenue_dd : '' }}" placeholder="Contoh: 886640000" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="revenue_pbh" style="font-size: 0.8rem; font-weight: 600;">4. BHPD & BHRD (Bagi Hasil Pajak & Retribusi) (Rp)</label>
+                        <input type="number" name="revenue_pbh" id="revenue_pbh" class="form-control" value="{{ $report->revenue_pbh ? (int)$report->revenue_pbh : '' }}" placeholder="Contoh: 162723000" min="0">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Sektor Belanja -->
@@ -70,6 +92,32 @@
                 <div class="form-group">
                     <label for="spending_realization">Realisasi Belanja (Rp)</label>
                     <input type="number" name="spending_realization" id="spending_realization" class="form-control" value="{{ (int)$report->spending_realization }}" required min="0">
+                </div>
+            </div>
+            
+            <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px;">
+                <h5 style="font-weight: 700; color: var(--text-dark); margin-bottom: 12px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">Rincian Belanja (Realisasi):</h5>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div class="form-group">
+                        <label for="spending_pemerintahan" style="font-size: 0.8rem; font-weight: 600;">1. Bidang Penyelenggaraan Pemerintahan (Rp)</label>
+                        <input type="number" name="spending_pemerintahan" id="spending_pemerintahan" class="form-control" value="{{ $report->spending_pemerintahan ? (int)$report->spending_pemerintahan : '' }}" placeholder="Contoh: 973347640" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="spending_pembangunan" style="font-size: 0.8rem; font-weight: 600;">2. Bidang Pelaksanaan Pembangunan (Rp)</label>
+                        <input type="number" name="spending_pembangunan" id="spending_pembangunan" class="form-control" value="{{ $report->spending_pembangunan ? (int)$report->spending_pembangunan : '' }}" placeholder="Contoh: 1247861400" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="spending_pembinaan" style="font-size: 0.8rem; font-weight: 600;">3. Bidang Pembinaan Kemasyarakatan (Rp)</label>
+                        <input type="number" name="spending_pembinaan" id="spending_pembinaan" class="form-control" value="{{ $report->spending_pembinaan ? (int)$report->spending_pembinaan : '' }}" placeholder="Contoh: 71115850" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="spending_pemberdayaan" style="font-size: 0.8rem; font-weight: 600;">4. Bidang Pemberdayaan Masyarakat (Rp)</label>
+                        <input type="number" name="spending_pemberdayaan" id="spending_pemberdayaan" class="form-control" value="{{ $report->spending_pemberdayaan ? (int)$report->spending_pemberdayaan : '' }}" placeholder="Contoh: 129910000" min="0">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="spending_penanggulangan" style="font-size: 0.8rem; font-weight: 600;">5. Bidang Penanggulangan Bencana, Keadaan Darurat & Mendesak (Rp)</label>
+                        <input type="number" name="spending_penanggulangan" id="spending_penanggulangan" class="form-control" value="{{ $report->spending_penanggulangan ? (int)$report->spending_penanggulangan : '' }}" placeholder="Contoh: 146991203" min="0">
+                    </div>
                 </div>
             </div>
         </div>
@@ -174,6 +222,64 @@
 @section('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // --- AUTO-CALCULATE REALIZATION FROM DETAILS ---
+    const revenueDetailInputs = [
+        document.getElementById('revenue_pad'),
+        document.getElementById('revenue_add'),
+        document.getElementById('revenue_dd'),
+        document.getElementById('revenue_pbh')
+    ];
+    const revenueRealizationInput = document.getElementById('revenue_realization');
+
+    function calculateTotalRevenueRealization() {
+        let total = 0;
+        let anyInputFilled = false;
+        revenueDetailInputs.forEach(input => {
+            if (input && input.value !== '') {
+                total += parseFloat(input.value) || 0;
+                anyInputFilled = true;
+            }
+        });
+        if (anyInputFilled && revenueRealizationInput) {
+            revenueRealizationInput.value = Math.round(total);
+        }
+    }
+
+    revenueDetailInputs.forEach(input => {
+        if (input) {
+            input.addEventListener('input', calculateTotalRevenueRealization);
+        }
+    });
+
+    const spendingDetailInputs = [
+        document.getElementById('spending_pemerintahan'),
+        document.getElementById('spending_pembangunan'),
+        document.getElementById('spending_pembinaan'),
+        document.getElementById('spending_pemberdayaan'),
+        document.getElementById('spending_penanggulangan')
+    ];
+    const spendingRealizationInput = document.getElementById('spending_realization');
+
+    function calculateTotalSpendingRealization() {
+        let total = 0;
+        let anyInputFilled = false;
+        spendingDetailInputs.forEach(input => {
+            if (input && input.value !== '') {
+                total += parseFloat(input.value) || 0;
+                anyInputFilled = true;
+            }
+        });
+        if (anyInputFilled && spendingRealizationInput) {
+            spendingRealizationInput.value = Math.round(total);
+        }
+    }
+
+    spendingDetailInputs.forEach(input => {
+        if (input) {
+            input.addEventListener('input', calculateTotalSpendingRealization);
+        }
+    });
+
     const container = document.getElementById('new-documents-container');
     const deletedContainer = document.getElementById('deleted-docs-container');
     const btnAdd = document.getElementById('btn-add-document');

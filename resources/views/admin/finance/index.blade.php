@@ -20,6 +20,75 @@
     </div>
 </div>
 
+<!-- Menu Visibility Settings Card -->
+<div class="card" style="margin-bottom: 24px;">
+    <h2 style="font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-list-check" style="color: var(--primary);"></i> Visibilitas Menu Transparansi
+    </h2>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Tentukan menu tab mana saja yang akan ditampilkan di halaman publik Akuntabilitas & Transparansi.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+        <!-- Infografis APBDes -->
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #f8fafc; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div>
+                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-dark); display: block;">Infografis APBDes</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Menampilkan poster/infografis APBDes</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" class="global-publish-toggle" data-key="transparency_show_apbdes" {{ ($profile->transparency_show_apbdes ?? true) ? 'checked' : '' }}>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- Anggaran & Realisasi -->
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #f8fafc; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div>
+                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-dark); display: block;">Anggaran & Realisasi</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Laporan Keuangan & Realisasi APBDes</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" class="global-publish-toggle" data-key="transparency_show_budget" {{ ($profile->transparency_show_budget ?? true) ? 'checked' : '' }}>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- Pembangunan & Proyek Fisik -->
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #f8fafc; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div>
+                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-dark); display: block;">Pembangunan & Proyek Fisik</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Laporan realisasi proyek pembangunan fisik</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" class="global-publish-toggle" data-key="transparency_show_development" {{ ($profile->transparency_show_development ?? true) ? 'checked' : '' }}>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- Aset & Inventaris Desa -->
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #f8fafc; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div>
+                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-dark); display: block;">Aset & Inventaris Desa</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Daftar kekayaan, aset, & inventaris desa</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" class="global-publish-toggle" data-key="transparency_show_asset" {{ ($profile->transparency_show_asset ?? true) ? 'checked' : '' }}>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- Arsip Dokumen Perencanaan -->
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #f8fafc; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div>
+                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-dark); display: block;">Arsip Dokumen Perencanaan</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Arsip dokumen resmi & perencanaan desa</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" class="global-publish-toggle" data-key="transparency_show_report" {{ ($profile->transparency_show_report ?? true) ? 'checked' : '' }}>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+</div>
+
 <div class="card">
     <div class="card-header">
         <h2>Daftar Tahun Anggaran</h2>

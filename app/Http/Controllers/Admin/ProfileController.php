@@ -275,6 +275,11 @@ class ProfileController extends Controller
             'show_gallery_on_home',
             'publish_announcements',
             'publish_transparency',
+            'transparency_show_apbdes',
+            'transparency_show_budget',
+            'transparency_show_development',
+            'transparency_show_asset',
+            'transparency_show_report',
         ];
 
         if (in_array($key, $allowedKeys)) {

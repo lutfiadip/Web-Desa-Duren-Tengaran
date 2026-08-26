@@ -125,7 +125,7 @@
     /* --- BUDGET SUMMARY GRID --- */
     .budget-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 25px;
         margin-bottom: 40px;
     }
@@ -144,10 +144,12 @@
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
+        gap: 20px;
         position: relative;
-        overflow: hidden;
+        overflow: visible;
         transition: var(--transition);
+        height: auto;
     }
 
     .budget-card:hover {
@@ -247,6 +249,40 @@
     .card-revenue .progress-bar-fill { background: #10b981; }
     .card-spending .progress-bar-fill { background: #ef4444; }
     .card-financing .progress-bar-fill { background: #3b82f6; }
+
+    /* --- BUDGET DETAIL SUB-ITEMS --- */
+    .budget-details-list {
+        margin-top: 20px;
+        border-top: 1px dashed #e2e8f0;
+        padding-top: 15px;
+    }
+    
+    .budget-detail-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+        padding: 8px 12px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border: 1px solid #f1f5f9;
+        transition: var(--transition);
+    }
+    
+    .budget-detail-item:hover {
+        background: #f1f5f9;
+        transform: translateX(3px);
+    }
+    
+    .badge-percent {
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 0.72rem;
+        letter-spacing: 0.3px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
 
     /* --- SILPA STATS --- */
     .silpa-box {
@@ -641,24 +677,51 @@
                     <div class="card-header-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
                     <h3>PENDAPATAN DESA</h3>
                     
-                    <div style="margin-bottom: 12px;">
-                        <span class="budget-label" style="display: block; margin-bottom: 4px;">Target Anggaran:</span>
-                        <span class="budget-value" style="display: block; font-size: 1.25rem; white-space: nowrap;">Rp {{ number_format($report->revenue_target, 0, ',', '.') }}</span>
-                    </div>
-                    
                     <div style="margin-bottom: 15px;">
                         <span class="budget-label" style="display: block; margin-bottom: 4px;">Realisasi Sektor:</span>
-                        <span class="budget-value realization-value" style="display: block; font-size: 1.6rem; line-height: 1.2; white-space: nowrap;">Rp {{ number_format($report->revenue_realization, 0, ',', '.') }}</span>
+                        <span class="budget-value realization-value" style="display: block; font-size: 1.8rem; line-height: 1.2; white-space: nowrap;">Rp {{ number_format($report->revenue_realization, 0, ',', '.') }}</span>
                     </div>
                 </div>
-                
-                <div class="progress-wrapper">
-                    <div class="progress-info">
-                        <span>Persentase Realisasi</span>
-                        <span>{{ $revPercent }}%</span>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" style="width: {{ $revPercent }}%"></div>
+
+                <!-- Rincian Pendapatan Sesuai Infografis -->
+                <div class="budget-details-list">
+                    <h4 style="font-size: 0.8rem; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Rincian Realisasi Pendapatan:</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        @php $padPercent = $report->revenue_realization > 0 ? round(($report->revenue_pad / $report->revenue_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(220, 38, 38, 0.15); color: #dc2626; flex-shrink: 0; margin-top: 2px;">{{ number_format($padPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pendapatan Asli Desa</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_pad, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                        
+                        @php $addPercent = $report->revenue_realization > 0 ? round(($report->revenue_add / $report->revenue_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(245, 158, 11, 0.15); color: #d97706; flex-shrink: 0; margin-top: 2px;">{{ number_format($addPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Alokasi Dana Desa</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_add, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                        
+                        @php $ddPercent = $report->revenue_realization > 0 ? round(($report->revenue_dd / $report->revenue_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(124, 58, 237, 0.15); color: #7c3aed; flex-shrink: 0; margin-top: 2px;">{{ number_format($ddPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Dana Desa</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_dd, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                        
+                        @php $pbhPercent = $report->revenue_realization > 0 ? round(($report->revenue_pbh / $report->revenue_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(16, 185, 129, 0.15); color: #059669; flex-shrink: 0; margin-top: 2px;">{{ number_format($pbhPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">BHPD & BHRD</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_pbh, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -669,52 +732,60 @@
                     <div class="card-header-icon"><i class="fa-solid fa-cart-shopping"></i></div>
                     <h3>BELANJA / PENGELUARAN</h3>
                     
-                    <div style="margin-bottom: 12px;">
-                        <span class="budget-label" style="display: block; margin-bottom: 4px;">Pagu Anggaran:</span>
-                        <span class="budget-value" style="display: block; font-size: 1.25rem; white-space: nowrap;">Rp {{ number_format($report->spending_target, 0, ',', '.') }}</span>
-                    </div>
-                    
                     <div style="margin-bottom: 15px;">
                         <span class="budget-label" style="display: block; margin-bottom: 4px;">Realisasi Sektor:</span>
-                        <span class="budget-value realization-value" style="display: block; font-size: 1.6rem; line-height: 1.2; white-space: nowrap;">Rp {{ number_format($report->spending_realization, 0, ',', '.') }}</span>
+                        <span class="budget-value realization-value" style="display: block; font-size: 1.8rem; line-height: 1.2; white-space: nowrap;">Rp {{ number_format($report->spending_realization, 0, ',', '.') }}</span>
                     </div>
                 </div>
-                
-                <div class="progress-wrapper">
-                    <div class="progress-info">
-                        <span>Persentase Penyerapan</span>
-                        <span>{{ $spendPercent }}%</span>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" style="width: {{ $spendPercent }}%"></div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Pembiayaan Card -->
-            <div class="budget-card card-financing">
-                <div>
-                    <div class="card-header-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                    <h3>PEMBIAYAAN DESA</h3>
-                    
-                    <div style="margin-bottom: 12px;">
-                        <span class="budget-label" style="display: block; margin-bottom: 4px;">Penerimaan Target:</span>
-                        <span class="budget-value" style="display: block; font-size: 1.25rem; white-space: nowrap;">Rp {{ number_format($report->financing_target, 0, ',', '.') }}</span>
-                    </div>
-                    
-                    <div style="margin-bottom: 15px;">
-                        <span class="budget-label" style="display: block; margin-bottom: 4px;">Realisasi Sektor:</span>
-                        <span class="budget-value realization-value" style="display: block; font-size: 1.6rem; line-height: 1.2; white-space: nowrap;">Rp {{ number_format($report->financing_realization, 0, ',', '.') }}</span>
-                    </div>
-                </div>
-                
-                <div class="progress-wrapper">
-                    <div class="progress-info">
-                        <span>Persentase Realisasi</span>
-                        <span>{{ $finPercent }}%</span>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" style="width: {{ $finPercent }}%"></div>
+                <!-- Rincian Belanja Sesuai Infografis -->
+                <div class="budget-details-list">
+                    <h4 style="font-size: 0.8rem; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Rincian Realisasi Belanja:</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        @php $govPercent = $report->spending_realization > 0 ? round(($report->spending_pemerintahan / $report->spending_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(220, 38, 38, 0.15); color: #dc2626; flex-shrink: 0; margin-top: 2px;">{{ number_format($govPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Penyelenggaraan Pemerintahan</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pemerintahan, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                        
+                        @php $devPercent = $report->spending_realization > 0 ? round(($report->spending_pembangunan / $report->spending_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(59, 130, 246, 0.15); color: #2563eb; flex-shrink: 0; margin-top: 2px;">{{ number_format($devPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pelaksanaan Pembangunan</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pembangunan, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                        
+                        @php $pemPercent = $report->spending_realization > 0 ? round(($report->spending_pembinaan / $report->spending_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(124, 58, 237, 0.15); color: #7c3aed; flex-shrink: 0; margin-top: 2px;">{{ number_format($pemPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pembinaan Kemasyarakatan</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pembinaan, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                        
+                        @php $embPercent = $report->spending_realization > 0 ? round(($report->spending_pemberdayaan / $report->spending_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(245, 158, 11, 0.15); color: #d97706; flex-shrink: 0; margin-top: 2px;">{{ number_format($embPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pemberdayaan Masyarakat</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pemberdayaan, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                        
+                        @php $emgPercent = $report->spending_realization > 0 ? round(($report->spending_penanggulangan / $report->spending_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(16, 185, 129, 0.15); color: #059669; flex-shrink: 0; margin-top: 2px;">{{ number_format($emgPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Penanggulangan Bencana</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_penanggulangan, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -732,195 +803,233 @@
         </div>
 
         <!-- Section Navigation Tabs -->
-        <div class="tabs-nav">
-            <button class="tab-btn active" data-tab="tab-poster">
-                <i class="fa-solid fa-image"></i> Infografis APBDes
-            </button>
-            <button class="tab-btn" data-tab="tab-budget">
-                <i class="fa-solid fa-chart-column"></i> Anggaran & Realisasi
-            </button>
-            <button class="tab-btn" data-tab="tab-development">
-                <i class="fa-solid fa-building-flag"></i> Pembangunan & Proyek Fisik
-            </button>
-            <button class="tab-btn" data-tab="tab-asset">
-                <i class="fa-solid fa-boxes-stacked"></i> Aset & Inventaris Desa
-            </button>
-            <button class="tab-btn" data-tab="tab-reports">
-                <i class="fa-solid fa-folder-closed"></i> Arsip Dokumen Perencanaan
-            </button>
-        </div>
+        @php
+            $visibleTabs = [];
+            if ($profile->transparency_show_apbdes ?? true) $visibleTabs[] = 'poster';
+            if ($profile->transparency_show_budget ?? true) $visibleTabs[] = 'budget';
+            if ($profile->transparency_show_development ?? true) $visibleTabs[] = 'development';
+            if ($profile->transparency_show_asset ?? true) $visibleTabs[] = 'asset';
+            if ($profile->transparency_show_report ?? true) $visibleTabs[] = 'reports';
 
-        <!-- Tab Panes Content -->
-        
-        <!-- Tab 1: Infografis APBDes -->
-        <div id="tab-poster" class="tab-pane active">
-            <div class="poster-container">
-                <div class="poster-img-wrapper" onclick="openPosterModal()">
-                    @if($report->apbdes_poster)
-                        <img src="{{ asset($report->apbdes_poster) }}" alt="Infografis APBDes Desa Duren Tahun {{ $report->year }}">
-                        <div class="poster-overlay">
-                            <span><i class="fa-solid fa-magnifying-glass-plus"></i> Klik untuk memperbesar gambar</span>
-                        </div>
-                    @else
-                        <div style="padding: 100px 20px; text-align: center; color: #94a3b8; font-weight: 600;">
-                            <i class="fa-solid fa-image" style="font-size: 3.5rem; display: block; margin-bottom: 15px; opacity: 0.5;"></i>
-                            Gambar Infografis APBDes belum diunggah untuk tahun {{ $report->year }}.
-                        </div>
-                    @endif
-                </div>
-                <div class="poster-desc">
-                    <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin: 0 0 15px 0;">Infografis APBDes {{ $report->year }}</h3>
-                    <p style="color: #475569; font-size: 0.98rem; line-height: 1.7; margin-bottom: 20px;">
-                        {{ $profile->transparency_infographics_description ?? 'Infografis merupakan sarana transparansi publik yang dipasang di sudut strategis desa untuk memudahkan warga melihat rincian alokasi anggaran pendapatan desa, anggaran belanja per bidang (pemerintahan, pembangunan, pembinaan, pemberdayaan), dan sisa anggaran secara ringkas dan komunikatif.' }}
-                    </p>
-                    @if($report->apbdes_poster)
-                        <a href="{{ asset($report->apbdes_poster) }}" download class="btn-preview" style="padding: 12px 25px; border-radius: 30px;">
-                            <i class="fa-solid fa-download"></i> Unduh Gambar Infografis
-                        </a>
-                    @endif
+            $activeTab = reset($visibleTabs);
+        @endphp
+
+        @if(count($visibleTabs) > 0)
+            <div class="tabs-nav">
+                @if($profile->transparency_show_apbdes ?? true)
+                <button class="tab-btn {{ $activeTab === 'poster' ? 'active' : '' }}" data-tab="tab-poster">
+                    <i class="fa-solid fa-image"></i> Infografis APBDes
+                </button>
+                @endif
+                @if($profile->transparency_show_budget ?? true)
+                <button class="tab-btn {{ $activeTab === 'budget' ? 'active' : '' }}" data-tab="tab-budget">
+                    <i class="fa-solid fa-chart-column"></i> Anggaran & Realisasi
+                </button>
+                @endif
+                @if($profile->transparency_show_development ?? true)
+                <button class="tab-btn {{ $activeTab === 'development' ? 'active' : '' }}" data-tab="tab-development">
+                    <i class="fa-solid fa-building-flag"></i> Pembangunan & Proyek Fisik
+                </button>
+                @endif
+                @if($profile->transparency_show_asset ?? true)
+                <button class="tab-btn {{ $activeTab === 'asset' ? 'active' : '' }}" data-tab="tab-asset">
+                    <i class="fa-solid fa-boxes-stacked"></i> Aset & Inventaris Desa
+                </button>
+                @endif
+                @if($profile->transparency_show_report ?? true)
+                <button class="tab-btn {{ $activeTab === 'reports' ? 'active' : '' }}" data-tab="tab-reports">
+                    <i class="fa-solid fa-folder-closed"></i> Arsip Dokumen Perencanaan
+                </button>
+                @endif
+            </div>
+
+            <!-- Tab Panes Content -->
+            
+            @if($profile->transparency_show_apbdes ?? true)
+            <!-- Tab 1: Infografis APBDes -->
+            <div id="tab-poster" class="tab-pane {{ $activeTab === 'poster' ? 'active' : '' }}">
+                <div class="poster-container">
+                    <div class="poster-img-wrapper" onclick="openPosterModal()">
+                        @if($report->apbdes_poster)
+                            <img src="{{ asset($report->apbdes_poster) }}" alt="Infografis APBDes Desa Duren Tahun {{ $report->year }}">
+                            <div class="poster-overlay">
+                                <span><i class="fa-solid fa-magnifying-glass-plus"></i> Klik untuk memperbesar gambar</span>
+                            </div>
+                        @else
+                            <div style="padding: 100px 20px; text-align: center; color: #94a3b8; font-weight: 600;">
+                                <i class="fa-solid fa-image" style="font-size: 3.5rem; display: block; margin-bottom: 15px; opacity: 0.5;"></i>
+                                Gambar Infografis APBDes belum diunggah untuk tahun {{ $report->year }}.
+                            </div>
+                        @endif
+                    </div>
+                    <div class="poster-desc">
+                        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin: 0 0 15px 0;">Infografis APBDes {{ $report->year }}</h3>
+                        <p style="color: #475569; font-size: 0.98rem; line-height: 1.7; margin-bottom: 20px;">
+                            {{ $profile->transparency_infographics_description ?? 'Infografis merupakan sarana transparansi publik yang dipasang di sudut strategis desa untuk memudahkan warga melihat rincian alokasi anggaran pendapatan desa, anggaran belanja per bidang (pemerintahan, pembangunan, pembinaan, pemberdayaan), dan sisa anggaran secara ringkas dan komunikatif.' }}
+                        </p>
+                        @if($report->apbdes_poster)
+                            <a href="{{ asset($report->apbdes_poster) }}" download class="btn-preview" style="padding: 12px 25px; border-radius: 30px;">
+                                <i class="fa-solid fa-download"></i> Unduh Gambar Infografis
+                            </a>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
+            @endif
 
-        <!-- Tab 2: Anggaran & Realisasi (PDFs) -->
-        <div id="tab-budget" class="tab-pane">
-            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark);">
-                Laporan Keuangan & Realisasi APBDes
-            </h3>
-            @if($budgetDocs->count() > 0)
-                <div class="docs-grid">
-                    @foreach($budgetDocs as $doc)
-                        <div class="doc-card">
-                            <div>
-                                <div class="doc-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                                <h4>{{ $doc->title }}</h4>
-                                <div class="doc-meta">
-                                    <i class="fa-solid fa-calendar"></i> Tahun {{ $report->year }}
+            @if($profile->transparency_show_budget ?? true)
+            <!-- Tab 2: Anggaran & Realisasi (PDFs) -->
+            <div id="tab-budget" class="tab-pane {{ $activeTab === 'budget' ? 'active' : '' }}">
+                <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark);">
+                    Laporan Keuangan & Realisasi APBDes
+                </h3>
+                @if($budgetDocs->count() > 0)
+                    <div class="docs-grid">
+                        @foreach($budgetDocs as $doc)
+                            <div class="doc-card">
+                                <div>
+                                    <div class="doc-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                                    <h4>{{ $doc->title }}</h4>
+                                    <div class="doc-meta">
+                                        <i class="fa-solid fa-calendar"></i> Tahun {{ $report->year }}
+                                    </div>
+                                </div>
+                                <div class="doc-actions">
+                                    <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
+                                        <i class="fa-solid fa-eye"></i> Lihat PDF
+                                    </button>
+                                    <a href="{{ asset($doc->file_path) }}" download class="btn-download">
+                                        <i class="fa-solid fa-download"></i> Unduh
+                                    </a>
                                 </div>
                             </div>
-                            <div class="doc-actions">
-                                <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
-                                    <i class="fa-solid fa-eye"></i> Lihat PDF
-                                </button>
-                                <a href="{{ asset($doc->file_path) }}" download class="btn-download">
-                                    <i class="fa-solid fa-download"></i> Unduh
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div style="text-align: center; padding: 60px 20px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted);">
-                    <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
-                    Belum ada lampiran berkas laporan anggaran untuk kategori ini.
-                </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div style="text-align: center; padding: 60px 20px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted);">
+                        <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
+                        Belum ada lampiran berkas laporan anggaran untuk kategori ini.
+                    </div>
+                @endif
+            </div>
             @endif
-        </div>
 
-        <!-- Tab 3: Pembangunan & Proyek Fisik -->
-        <div id="tab-development" class="tab-pane">
-            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark);">
-                Laporan Realisasi Pembangunan & Proyek Fisik Desa
-            </h3>
-            @if($developmentDocs->count() > 0)
-                <div class="docs-grid">
-                    @foreach($developmentDocs as $doc)
-                        <div class="doc-card">
-                            <div>
-                                <div class="doc-icon"><i class="fa-solid fa-helmet-safety"></i></div>
-                                <h4>{{ $doc->title }}</h4>
-                                <div class="doc-meta">
-                                    <i class="fa-solid fa-calendar"></i> Tahun {{ $report->year }}
+            @if($profile->transparency_show_development ?? true)
+            <!-- Tab 3: Pembangunan & Proyek Fisik -->
+            <div id="tab-development" class="tab-pane {{ $activeTab === 'development' ? 'active' : '' }}">
+                <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark);">
+                    Laporan Realisasi Pembangunan & Proyek Fisik Desa
+                </h3>
+                @if($developmentDocs->count() > 0)
+                    <div class="docs-grid">
+                        @foreach($developmentDocs as $doc)
+                            <div class="doc-card">
+                                <div>
+                                    <div class="doc-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+                                    <h4>{{ $doc->title }}</h4>
+                                    <div class="doc-meta">
+                                        <i class="fa-solid fa-calendar"></i> Tahun {{ $report->year }}
+                                    </div>
+                                </div>
+                                <div class="doc-actions">
+                                    <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
+                                        <i class="fa-solid fa-eye"></i> Lihat PDF
+                                    </button>
+                                    <a href="{{ asset($doc->file_path) }}" download class="btn-download">
+                                        <i class="fa-solid fa-download"></i> Unduh
+                                    </a>
                                 </div>
                             </div>
-                            <div class="doc-actions">
-                                <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
-                                    <i class="fa-solid fa-eye"></i> Lihat PDF
-                                </button>
-                                <a href="{{ asset($doc->file_path) }}" download class="btn-download">
-                                    <i class="fa-solid fa-download"></i> Unduh
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div style="text-align: center; padding: 60px 20px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted);">
-                    <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
-                    Belum ada lampiran berkas laporan proyek pembangunan fisik.
-                </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div style="text-align: center; padding: 60px 20px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted);">
+                        <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
+                        Belum ada lampiran berkas laporan proyek pembangunan fisik.
+                    </div>
+                @endif
+            </div>
             @endif
-        </div>
 
-        <!-- Tab 4: Aset & Inventaris Desa -->
-        <div id="tab-asset" class="tab-pane">
-            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark);">
-                Daftar Kekayaan, Aset, & Inventaris Pemerintah Desa
-            </h3>
-            @if($assetDocs->count() > 0)
-                <div class="docs-grid">
-                    @foreach($assetDocs as $doc)
-                        <div class="doc-card">
-                            <div>
-                                <div class="doc-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-                                <h4>{{ $doc->title }}</h4>
-                                <div class="doc-meta">
-                                    <i class="fa-solid fa-calendar"></i> Tahun {{ $report->year }}
+            @if($profile->transparency_show_asset ?? true)
+            <!-- Tab 4: Aset & Inventaris Desa -->
+            <div id="tab-asset" class="tab-pane {{ $activeTab === 'asset' ? 'active' : '' }}">
+                <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark);">
+                    Daftar Kekayaan, Aset, & Inventaris Pemerintah Desa
+                </h3>
+                @if($assetDocs->count() > 0)
+                    <div class="docs-grid">
+                        @foreach($assetDocs as $doc)
+                            <div class="doc-card">
+                                <div>
+                                    <div class="doc-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                                    <h4>{{ $doc->title }}</h4>
+                                    <div class="doc-meta">
+                                        <i class="fa-solid fa-calendar"></i> Tahun {{ $report->year }}
+                                    </div>
+                                </div>
+                                <div class="doc-actions">
+                                    <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
+                                        <i class="fa-solid fa-eye"></i> Lihat PDF
+                                    </button>
+                                    <a href="{{ asset($doc->file_path) }}" download class="btn-download">
+                                        <i class="fa-solid fa-download"></i> Unduh
+                                    </a>
                                 </div>
                             </div>
-                            <div class="doc-actions">
-                                <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
-                                    <i class="fa-solid fa-eye"></i> Lihat PDF
-                                </button>
-                                <a href="{{ asset($doc->file_path) }}" download class="btn-download">
-                                    <i class="fa-solid fa-download"></i> Unduh
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div style="text-align: center; padding: 60px 20px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted);">
-                    <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
-                    Belum ada lampiran berkas daftar kekayaan/aset desa.
-                </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div style="text-align: center; padding: 60px 20px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted);">
+                        <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
+                        Belum ada lampiran berkas daftar kekayaan/aset desa.
+                    </div>
+                @endif
+            </div>
             @endif
-        </div>
 
-        <!-- Tab 5: Arsip Dokumen Perencanaan -->
-        <div id="tab-reports" class="tab-pane">
-            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark);">
-                Arsip Dokumen Perencanaan Resmi & Dokumen Pendukung Lainnya
-            </h3>
-            @if($reportDocs->count() > 0)
-                <div class="docs-grid">
-                    @foreach($reportDocs as $doc)
-                        <div class="doc-card">
-                            <div>
-                                <div class="doc-icon"><i class="fa-solid fa-file-lines"></i></div>
-                                <h4>{{ $doc->title }}</h4>
-                                <div class="doc-meta">
-                                    <i class="fa-solid fa-calendar"></i> Tahun {{ $report->year }}
+            @if($profile->transparency_show_report ?? true)
+            <!-- Tab 5: Arsip Dokumen Perencanaan -->
+            <div id="tab-reports" class="tab-pane {{ $activeTab === 'reports' ? 'active' : '' }}">
+                <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark);">
+                    Arsip Dokumen Perencanaan Resmi & Dokumen Pendukung Lainnya
+                </h3>
+                @if($reportDocs->count() > 0)
+                    <div class="docs-grid">
+                        @foreach($reportDocs as $doc)
+                            <div class="doc-card">
+                                <div>
+                                    <div class="doc-icon"><i class="fa-solid fa-file-lines"></i></div>
+                                    <h4>{{ $doc->title }}</h4>
+                                    <div class="doc-meta">
+                                        <i class="fa-solid fa-calendar"></i> Tahun {{ $report->year }}
+                                    </div>
+                                </div>
+                                <div class="doc-actions">
+                                    <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
+                                        <i class="fa-solid fa-eye"></i> Lihat PDF
+                                    </button>
+                                    <a href="{{ asset($doc->file_path) }}" download class="btn-download">
+                                        <i class="fa-solid fa-download"></i> Unduh
+                                    </a>
                                 </div>
                             </div>
-                            <div class="doc-actions">
-                                <button type="button" class="btn-preview btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}">
-                                    <i class="fa-solid fa-eye"></i> Lihat PDF
-                                </button>
-                                <a href="{{ asset($doc->file_path) }}" download class="btn-download">
-                                    <i class="fa-solid fa-download"></i> Unduh
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div style="text-align: center; padding: 60px 20px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted);">
-                    <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
-                    Belum ada arsip dokumen perencanaan resmi.
-                </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div style="text-align: center; padding: 60px 20px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted);">
+                        <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
+                        Belum ada arsip dokumen perencanaan resmi.
+                    </div>
+                @endif
+            </div>
             @endif
-        </div>
+        @else
+            <div style="text-align: center; padding: 80px 20px; border: 2px dashed var(--border-color); border-radius: var(--radius-lg); color: var(--text-muted); margin-top: 30px;">
+                <i class="fa-solid fa-eye-slash" style="font-size: 3rem; display: block; margin-bottom: 15px; opacity: 0.5;"></i>
+                Tidak ada kategori informasi transparansi yang sedang dipublikasikan saat ini.
+            </div>
+        @endif
     @endif
 </div>
 
