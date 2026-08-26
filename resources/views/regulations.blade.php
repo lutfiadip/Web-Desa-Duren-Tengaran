@@ -261,6 +261,40 @@
         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
     }
 
+    .btn-action-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        background-color: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    
+    .btn-action-icon:hover {
+        background-color: var(--primary);
+        color: var(--white);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    }
+    
+    .btn-action-icon.btn-solid-blue {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+    
+    .btn-action-icon.btn-solid-blue:hover {
+        background-color: var(--primary-hover);
+        border-color: var(--primary-hover);
+    }
+
     .no-results {
         text-align: center;
         padding: 60px 20px;
@@ -392,11 +426,11 @@
                                 <td style="text-align: center;">
                                     @if($reg->document_file)
                                         <div style="display: flex; gap: 8px; justify-content: center;">
-                                            <button type="button" class="btn-download btn-preview-pdf" data-title="{{ $reg->title }}" data-url="{{ asset($reg->document_file) }}" style="background-color: var(--primary); color: white; border-color: var(--primary);">
-                                                <i class="fa-solid fa-eye" style="font-size: 0.9rem;"></i> Lihat PDF
+                                            <button type="button" class="btn-action-icon btn-solid-blue btn-preview-pdf" data-title="{{ $reg->title }}" data-url="{{ asset($reg->document_file) }}" title="Lihat PDF">
+                                                <i class="fa-solid fa-eye"></i>
                                             </button>
-                                            <a href="{{ asset($reg->document_file) }}" download class="btn-download">
-                                                <i class="fa-solid fa-download" style="font-size: 0.9rem;"></i> Unduh
+                                            <a href="{{ asset($reg->document_file) }}" download class="btn-action-icon" title="Unduh Peraturan">
+                                                <i class="fa-solid fa-download"></i>
                                             </a>
                                         </div>
                                     @else

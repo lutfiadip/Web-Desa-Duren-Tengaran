@@ -79,28 +79,28 @@ class HomeController extends Controller
         $umkms = Umkm::where('status', 'published')
                      ->where('is_featured', true)
                      ->latest()
-                     ->take(3)
+                     ->take(10)
                      ->get();
 
         // Mengambil 3 Wisata terbaru/unggulan
         $tourisms = TouristAttraction::where('status', 'published')
                      ->orderBy('is_featured', 'desc')
                      ->latest()
-                     ->take(3)
+                     ->take(10)
                      ->get();
 
         // Mengambil 3 Budaya terbaru/unggulan
         $cultures = Culture::where('status', 'published')
                      ->orderBy('is_featured', 'desc')
                      ->latest()
-                     ->take(3)
+                     ->take(10)
                      ->get();
 
         // Mengambil 3 berita terbaru
         $news = News::with('category')
                     ->where('status', 'published')
                     ->latest('published_at')
-                    ->take(3)
+                    ->take(10)
                     ->get();
 
         // Mengambil galeri unggulan terbaru (maksimal 9), dengan fallback galeri terbaru jika belum ada yang unggulan
@@ -130,7 +130,7 @@ class HomeController extends Controller
         }
 
         // Mengambil 3 pengumuman terbaru yang aktif
-        $announcements = Announcement::active()->latest()->take(3)->get();
+        $announcements = Announcement::active()->latest()->take(10)->get();
 
         return view('welcome', compact('profile', 'demografi', 'umkms', 'tourisms', 'cultures', 'news', 'announcements', 'galleries', 'villageDetail', 'populationGender', 'sectionsOrder'));
     }

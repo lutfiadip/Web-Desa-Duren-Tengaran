@@ -1896,6 +1896,60 @@
             gap: 25px;
         }
 
+        @media (min-width: 769px) {
+            .grid-3,
+            .umkm-scroll,
+            .ann-grid-home,
+            .grid-news {
+                display: flex !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                scroll-snap-type: x mandatory !important;
+                scroll-behavior: smooth !important;
+                -webkit-overflow-scrolling: touch !important;
+                gap: 24px !important;
+                padding-bottom: 25px !important;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05);
+            }
+            .grid-3::-webkit-scrollbar,
+            .umkm-scroll::-webkit-scrollbar,
+            .ann-grid-home::-webkit-scrollbar,
+            .grid-news::-webkit-scrollbar {
+                height: 6px;
+                display: block !important;
+            }
+            .grid-3::-webkit-scrollbar-track,
+            .umkm-scroll::-webkit-scrollbar-track,
+            .ann-grid-home::-webkit-scrollbar-track,
+            .grid-news::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 10px;
+            }
+            .grid-3::-webkit-scrollbar-thumb,
+            .umkm-scroll::-webkit-scrollbar-thumb,
+            .ann-grid-home::-webkit-scrollbar-thumb,
+            .grid-news::-webkit-scrollbar-thumb {
+                background: rgba(0, 0, 0, 0.2);
+                border-radius: 10px;
+            }
+            .grid-3::-webkit-scrollbar-thumb:hover,
+            .umkm-scroll::-webkit-scrollbar-thumb:hover,
+            .ann-grid-home::-webkit-scrollbar-thumb:hover,
+            .grid-news::-webkit-scrollbar-thumb:hover {
+                background: rgba(0, 0, 0, 0.4);
+            }
+            
+            .grid-3 .card-item,
+            .umkm-scroll .umkm-card,
+            .ann-grid-home .ann-card-home,
+            .grid-news .news-ref-card {
+                flex: 0 0 calc((100% - 48px) / 3.3) !important;
+                min-width: 320px !important;
+                scroll-snap-align: start !important;
+            }
+        }
+
         .ann-card-home {
             background: #f8fafc;
             border: 1px solid var(--border-color);
