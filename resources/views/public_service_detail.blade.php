@@ -529,9 +529,14 @@
                                 <i class="fa-solid fa-file-lines" style="color: var(--primary); font-size: 1.4rem;"></i>
                                 <span style="font-weight: 700; color: var(--text-dark); font-size: 0.95rem;">{{ $doc->title }}</span>
                             </div>
-                            <a href="{{ asset($doc->file_path) }}" download class="btn-download" style="background-color: var(--primary); text-decoration: none;">
-                                <i class="fa-solid fa-download"></i> Unduh Dokumen
-                            </a>
+                            <div style="display: flex; gap: 10px;">
+                                <button type="button" class="btn-download btn-preview-pdf" data-title="{{ $doc->title }}" data-url="{{ asset($doc->file_path) }}" style="background-color: var(--primary); border: none; cursor: pointer; color: white;">
+                                    <i class="fa-solid fa-eye"></i> Lihat PDF
+                                </button>
+                                <a href="{{ asset($doc->file_path) }}" download class="btn-download" style="background-color: transparent; border: 2px solid var(--primary); color: var(--primary); text-decoration: none;">
+                                    <i class="fa-solid fa-download"></i> Unduh
+                                </a>
+                            </div>
                         </div>
                     @endforeach
                 </div>

@@ -390,9 +390,18 @@
                                     {{ $reg->description ?? '-' }}
                                 </td>
                                 <td style="text-align: center;">
-                                    <button class="btn-download" onclick="alert('File dokumen &quot;{{ $reg->title }}&quot; sedang dalam proses pengunggahan ke server. Silakan hubungi sekretariat kantor desa jika membutuhkan salinan fisik.')">
-                                        <i class="fa-solid fa-file-pdf" style="font-size: 1.1rem; color: #ef4444;"></i> Unduh PDF
-                                    </button>
+                                    @if($reg->document_file)
+                                        <div style="display: flex; gap: 8px; justify-content: center;">
+                                            <button type="button" class="btn-download btn-preview-pdf" data-title="{{ $reg->title }}" data-url="{{ asset($reg->document_file) }}" style="background-color: var(--primary); color: white; border-color: var(--primary);">
+                                                <i class="fa-solid fa-eye" style="font-size: 0.9rem;"></i> Lihat PDF
+                                            </button>
+                                            <a href="{{ asset($reg->document_file) }}" download class="btn-download">
+                                                <i class="fa-solid fa-download" style="font-size: 0.9rem;"></i> Unduh
+                                            </a>
+                                        </div>
+                                    @else
+                                        <span style="font-size: 0.85rem; color: var(--text-muted); font-style: italic;">Berkas belum tersedia</span>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

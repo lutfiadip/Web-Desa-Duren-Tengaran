@@ -28,21 +28,21 @@ class FinanceController extends Controller
     {
         $request->validate([
             'year' => 'required|integer|unique:finance_reports,year',
-            'revenue_target' => 'required|numeric|min:0',
+            'revenue_target' => 'nullable|numeric|min:0',
             'revenue_realization' => 'required|numeric|min:0',
             'revenue_pad' => 'nullable|numeric|min:0',
             'revenue_add' => 'nullable|numeric|min:0',
             'revenue_dd' => 'nullable|numeric|min:0',
             'revenue_pbh' => 'nullable|numeric|min:0',
-            'spending_target' => 'required|numeric|min:0',
+            'spending_target' => 'nullable|numeric|min:0',
             'spending_realization' => 'required|numeric|min:0',
             'spending_pemerintahan' => 'nullable|numeric|min:0',
             'spending_pembangunan' => 'nullable|numeric|min:0',
             'spending_pembinaan' => 'nullable|numeric|min:0',
             'spending_pemberdayaan' => 'nullable|numeric|min:0',
             'spending_penanggulangan' => 'nullable|numeric|min:0',
-            'financing_target' => 'required|numeric|min:0',
-            'financing_realization' => 'required|numeric|min:0',
+            'financing_target' => 'nullable|numeric|min:0',
+            'financing_realization' => 'nullable|numeric|min:0',
             'apbdes_poster' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'is_active' => 'boolean',
             'document_titles.*' => 'nullable|string|max:255',
@@ -52,6 +52,10 @@ class FinanceController extends Controller
 
         $data = $request->except(['document_titles', 'document_files', 'document_categories']);
         $data['is_active'] = $request->has('is_active');
+        $data['revenue_target'] = 0;
+        $data['spending_target'] = 0;
+        $data['financing_target'] = 0;
+        $data['financing_realization'] = 0;
 
         // Handle APBDes Poster Upload
         if ($request->hasFile('apbdes_poster')) {
@@ -100,21 +104,21 @@ class FinanceController extends Controller
 
         $request->validate([
             'year' => 'required|integer|unique:finance_reports,year,' . $id,
-            'revenue_target' => 'required|numeric|min:0',
+            'revenue_target' => 'nullable|numeric|min:0',
             'revenue_realization' => 'required|numeric|min:0',
             'revenue_pad' => 'nullable|numeric|min:0',
             'revenue_add' => 'nullable|numeric|min:0',
             'revenue_dd' => 'nullable|numeric|min:0',
             'revenue_pbh' => 'nullable|numeric|min:0',
-            'spending_target' => 'required|numeric|min:0',
+            'spending_target' => 'nullable|numeric|min:0',
             'spending_realization' => 'required|numeric|min:0',
             'spending_pemerintahan' => 'nullable|numeric|min:0',
             'spending_pembangunan' => 'nullable|numeric|min:0',
             'spending_pembinaan' => 'nullable|numeric|min:0',
             'spending_pemberdayaan' => 'nullable|numeric|min:0',
             'spending_penanggulangan' => 'nullable|numeric|min:0',
-            'financing_target' => 'required|numeric|min:0',
-            'financing_realization' => 'required|numeric|min:0',
+            'financing_target' => 'nullable|numeric|min:0',
+            'financing_realization' => 'nullable|numeric|min:0',
             'apbdes_poster' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'is_active' => 'boolean',
             'existing_document_titles.*' => 'nullable|string|max:255',
@@ -126,6 +130,10 @@ class FinanceController extends Controller
 
         $data = $request->except(['document_titles', 'document_files', 'document_categories', 'delete_documents', 'existing_document_titles', 'existing_document_categories']);
         $data['is_active'] = $request->has('is_active');
+        $data['revenue_target'] = 0;
+        $data['spending_target'] = 0;
+        $data['financing_target'] = 0;
+        $data['financing_realization'] = 0;
 
         // Handle APBDes Poster Upload
         if ($request->hasFile('apbdes_poster')) {
@@ -138,6 +146,11 @@ class FinanceController extends Controller
             $filename = time() . '_' . uniqid() . '_apbdes_poster.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/finance'), $filename);
             $data['apbdes_poster'] = 'uploads/finance/' . $filename;
+        } elseif ($request->has('delete_poster') && $request->input('delete_poster') == '1') {
+            if ($report->apbdes_poster && file_exists(public_path($report->apbdes_poster))) {
+                @unlink(public_path($report->apbdes_poster));
+            }
+            $data['apbdes_poster'] = null;
         }
 
         $report->update($data);

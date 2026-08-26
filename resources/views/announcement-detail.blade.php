@@ -310,9 +310,14 @@
                             <p>Silakan unduh berkas lampiran resmi pengumuman ini.</p>
                         </div>
                     </div>
-                    <a href="{{ asset($announcement->document_file) }}" download class="download-btn">
-                        <i class="fa-solid fa-download"></i> Unduh Berkas
-                    </a>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" class="download-btn btn-preview-pdf" data-title="{{ $announcement->title }}" data-url="{{ asset($announcement->document_file) }}" style="background-color: var(--primary); border: none; cursor: pointer;">
+                            <i class="fa-solid fa-eye"></i> Lihat PDF
+                        </button>
+                        <a href="{{ asset($announcement->document_file) }}" download class="download-btn" style="background-color: #475569; box-shadow: 0 4px 12px rgba(71, 85, 105, 0.15);">
+                            <i class="fa-solid fa-download"></i> Unduh Berkas
+                        </a>
+                    </div>
                 </div>
             @endif
 

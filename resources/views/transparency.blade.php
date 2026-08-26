@@ -282,6 +282,11 @@
         font-size: 0.72rem;
         letter-spacing: 0.3px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        width: 58px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
     }
 
     /* --- SILPA STATS --- */
@@ -521,96 +526,6 @@
         background: #e2e8f0;
         color: var(--text-dark);
     }
-
-    /* --- LIGHTBOX MODAL --- */
-    .pdf-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(15, 23, 42, 0.8);
-        backdrop-filter: blur(8px);
-        z-index: 9999;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        padding: 20px;
-    }
-
-    .pdf-modal.active {
-        display: flex;
-        opacity: 1;
-    }
-
-    .pdf-modal-container {
-        background: var(--white);
-        border-radius: var(--radius-lg);
-        width: 90%;
-        max-width: 1000px;
-        height: 85vh;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        overflow: hidden;
-        animation: modalSlide 0.3s ease;
-    }
-
-    @keyframes modalSlide {
-        from { transform: translateY(30px) scale(0.95); opacity: 0; }
-        to { transform: translateY(0) scale(1); opacity: 1; }
-    }
-
-    .pdf-modal-header {
-        padding: 15px 25px;
-        background: #fafafa;
-        border-bottom: 1px solid var(--border-color);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .pdf-modal-title {
-        font-weight: 700;
-        font-size: 1.1rem;
-        color: var(--text-dark);
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 70%;
-    }
-
-    .pdf-modal-close {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: #64748b;
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .pdf-modal-close:hover {
-        color: #ef4444;
-        transform: scale(1.1);
-    }
-
-    .pdf-modal-body {
-        flex-grow: 1;
-        background: #f1f5f9;
-        position: relative;
-    }
-
-    .pdf-iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
 </style>
 @endsection
 
@@ -687,15 +602,6 @@
                 <div class="budget-details-list">
                     <h4 style="font-size: 0.8rem; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Rincian Realisasi Pendapatan:</h4>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
-                        @php $padPercent = $report->revenue_realization > 0 ? round(($report->revenue_pad / $report->revenue_realization) * 100, 1) : 0; @endphp
-                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
-                            <span class="badge-percent" style="background: rgba(220, 38, 38, 0.15); color: #dc2626; flex-shrink: 0; margin-top: 2px;">{{ number_format($padPercent, 1, ',', '.') }}%</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pendapatan Asli Desa</span>
-                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_pad, 0, ',', '.') }}</span>
-                            </div>
-                        </div>
-                        
                         @php $addPercent = $report->revenue_realization > 0 ? round(($report->revenue_add / $report->revenue_realization) * 100, 1) : 0; @endphp
                         <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
                             <span class="badge-percent" style="background: rgba(245, 158, 11, 0.15); color: #d97706; flex-shrink: 0; margin-top: 2px;">{{ number_format($addPercent, 1, ',', '.') }}%</span>
@@ -722,6 +628,15 @@
                                 <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_pbh, 0, ',', '.') }}</span>
                             </div>
                         </div>
+
+                        @php $padPercent = $report->revenue_realization > 0 ? round(($report->revenue_pad / $report->revenue_realization) * 100, 1) : 0; @endphp
+                        <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
+                            <span class="badge-percent" style="background: rgba(220, 38, 38, 0.15); color: #dc2626; flex-shrink: 0; margin-top: 2px;">{{ number_format($padPercent, 1, ',', '.') }}%</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pendapatan Asli Desa</span>
+                                <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->revenue_pad, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -746,7 +661,7 @@
                         <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
                             <span class="badge-percent" style="background: rgba(220, 38, 38, 0.15); color: #dc2626; flex-shrink: 0; margin-top: 2px;">{{ number_format($govPercent, 1, ',', '.') }}%</span>
                             <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Penyelenggaraan Pemerintahan</span>
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pemerintahan Desa</span>
                                 <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pemerintahan, 0, ',', '.') }}</span>
                             </div>
                         </div>
@@ -755,11 +670,11 @@
                         <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
                             <span class="badge-percent" style="background: rgba(59, 130, 246, 0.15); color: #2563eb; flex-shrink: 0; margin-top: 2px;">{{ number_format($devPercent, 1, ',', '.') }}%</span>
                             <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; text-align: left;">
-                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pelaksanaan Pembangunan</span>
+                                <span style="font-weight: 600; color: #475569; font-size: 0.8rem; line-height: 1.3;">Pembangunan Desa</span>
                                 <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pembangunan, 0, ',', '.') }}</span>
                             </div>
                         </div>
-                        
+
                         @php $pemPercent = $report->spending_realization > 0 ? round(($report->spending_pembinaan / $report->spending_realization) * 100, 1) : 0; @endphp
                         <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
                             <span class="badge-percent" style="background: rgba(124, 58, 237, 0.15); color: #7c3aed; flex-shrink: 0; margin-top: 2px;">{{ number_format($pemPercent, 1, ',', '.') }}%</span>
@@ -768,7 +683,7 @@
                                 <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pembinaan, 0, ',', '.') }}</span>
                             </div>
                         </div>
-                        
+
                         @php $embPercent = $report->spending_realization > 0 ? round(($report->spending_pemberdayaan / $report->spending_realization) * 100, 1) : 0; @endphp
                         <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
                             <span class="badge-percent" style="background: rgba(245, 158, 11, 0.15); color: #d97706; flex-shrink: 0; margin-top: 2px;">{{ number_format($embPercent, 1, ',', '.') }}%</span>
@@ -777,7 +692,7 @@
                                 <span style="font-weight: 700; color: #1e293b; font-size: 0.85rem;">Rp {{ number_format($report->spending_pemberdayaan, 0, ',', '.') }}</span>
                             </div>
                         </div>
-                        
+
                         @php $emgPercent = $report->spending_realization > 0 ? round(($report->spending_penanggulangan / $report->spending_realization) * 100, 1) : 0; @endphp
                         <div class="budget-detail-item" style="display: flex; align-items: flex-start; gap: 12px; justify-content: flex-start;">
                             <span class="badge-percent" style="background: rgba(16, 185, 129, 0.15); color: #059669; flex-shrink: 0; margin-top: 2px;">{{ number_format($emgPercent, 1, ',', '.') }}%</span>
@@ -788,17 +703,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- SILPA Realisasi Box -->
-        <div class="silpa-box">
-            <div class="silpa-text">
-                <h3>Sisa Lebih Pembiayaan Anggaran (SILPA) Tahun {{ $report->year }}</h3>
-                <p>Formula Penghitungan: (Realisasi Pendapatan + Realisasi Pembiayaan) &minus; Realisasi Belanja</p>
-            </div>
-            <div class="silpa-amount">
-                Rp {{ number_format($silpa, 0, ',', '.') }}
             </div>
         </div>
 
@@ -1033,21 +937,6 @@
     @endif
 </div>
 
-<!-- Embedded PDF Lightbox Modal -->
-<div id="pdf-viewer-modal" class="pdf-modal">
-    <div class="pdf-modal-container">
-        <div class="pdf-modal-header">
-            <h3 id="modal-doc-title" class="pdf-modal-title">Lihat Dokumen</h3>
-            <button type="button" onclick="closePdfModal()" class="pdf-modal-close" aria-label="Tutup">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        <div class="pdf-modal-body">
-            <iframe id="pdf-iframe-viewer" class="pdf-iframe" src=""></iframe>
-        </div>
-    </div>
-</div>
-
 <!-- Poster Zoom Modal -->
 @if($report && $report->apbdes_poster)
 <div id="poster-modal" class="pdf-modal" onclick="closePosterModal()">
@@ -1087,50 +976,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- PDF PREVIEW LIGHTBOX ---
-    const modal = document.getElementById('pdf-viewer-modal');
-    const modalTitle = document.getElementById('modal-doc-title');
-    const modalIframe = document.getElementById('pdf-iframe-viewer');
-    const previewButtons = document.querySelectorAll('.btn-preview-pdf');
 
-    previewButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const url = this.getAttribute('data-url');
-            const title = this.getAttribute('data-title');
-
-            modalTitle.textContent = title;
-            // Append #toolbar=1 to instruct native browser PDF viewer to render toolbar
-            modalIframe.src = url + '#toolbar=1';
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Stop background scrolling
-
-            // Force repaint/reflow of iframe to fix Chrome/Edge PDF rendering modal bug
-            setTimeout(() => {
-                modalIframe.style.width = '99%';
-                setTimeout(() => {
-                    modalIframe.style.width = '100%';
-                }, 50);
-            }, 100);
-        });
+    // Close poster modal on pressing Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closePosterModal();
+        }
     });
-});
-
-function closePdfModal() {
-    const modal = document.getElementById('pdf-viewer-modal');
-    const modalIframe = document.getElementById('pdf-iframe-viewer');
-    
-    modal.classList.remove('active');
-    modalIframe.src = ''; // Clear source to stop loading/performance footprint
-    document.body.style.overflow = ''; // Restore scrolling
-}
-
-// Close PDF modal on pressing Escape
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closePdfModal();
-        closePosterModal();
-    }
 });
 
 // --- POSTER MODAL ---

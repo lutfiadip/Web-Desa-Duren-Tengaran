@@ -53,16 +53,16 @@
             <label for="document_file">Berkas Lampiran Dokumen (Opsional)</label>
             
             @if($announcement->document_file)
-                <div id="document-preview-wrapper" style="display: flex; align-items: center; gap: 15px; margin-bottom: 12px; padding: 12px; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                <div id="document-preview-wrapper" style="position: relative; display: flex; align-items: center; gap: 15px; margin-bottom: 12px; padding: 12px; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <button type="button" onclick="markDocumentDeleted()" style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.15); z-index: 10;" title="Hapus Berkas">
+                        <i class="fa-solid fa-xmark" style="font-size: 0.75rem;"></i>
+                    </button>
                     <div style="font-size: 1.5rem; color: #ef4444;"><i class="fa-solid fa-file-pdf"></i></div>
                     <div style="flex-grow: 1;">
                         <div style="font-weight: 700; font-size: 0.9rem;">Berkas Terlampir</div>
                         <a href="{{ asset($announcement->document_file) }}" target="_blank" style="font-size: 0.8rem; color: var(--primary-light); text-decoration: none;">Lihat Berkas Saat Ini</a>
                     </div>
                     <input type="hidden" name="delete_document" id="delete_document_input" value="0">
-                    <button type="button" class="btn btn-secondary" onclick="markDocumentDeleted()" style="color: #ef4444; background: #fee2e2; border-color: #fca5a5; display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; cursor: pointer;">
-                        <i class="fa-solid fa-trash-can"></i> Hapus Berkas
-                    </button>
                 </div>
             @endif
 

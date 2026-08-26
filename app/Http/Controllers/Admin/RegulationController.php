@@ -99,6 +99,11 @@ class RegulationController extends Controller
             $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/regulations'), $filename);
             $data['document_file'] = 'uploads/regulations/' . $filename;
+        } elseif ($request->has('delete_document') && $request->input('delete_document') == '1') {
+            if ($regulation->document_file && file_exists(public_path($regulation->document_file))) {
+                @unlink(public_path($regulation->document_file));
+            }
+            $data['document_file'] = null;
         }
 
         $regulation->update($data);

@@ -52,10 +52,14 @@
         <div class="form-group">
             <label for="document_file">Berkas Dokumen (PDF, Word, Zip)</label>
             @if($regulation->document_file)
-                <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 0.85rem; color: var(--text-muted);">Berkas saat ini:</span>
-                    <a href="{{ asset($regulation->document_file) }}" target="_blank" class="btn btn-secondary" style="padding: 5px 12px; font-size: 0.8rem;">
-                        <i class="fa-solid fa-file-pdf" style="color: #ef4444; margin-right: 5px;"></i> Lihat File
+                <div id="document-preview-container" style="position: relative; display: inline-flex; align-items: center; background: #f8fafc; padding: 8px 30px 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 12px;">
+                    <button type="button" id="btn-delete-document" style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.15); z-index: 10;" title="Hapus Berkas">
+                        <i class="fa-solid fa-xmark" style="font-size: 0.75rem;"></i>
+                    </button>
+                    <input type="hidden" name="delete_document" id="delete-document-input" value="0">
+                    <span style="font-size: 0.85rem; color: var(--text-muted); margin-right: 8px;">Berkas saat ini:</span>
+                    <a href="{{ asset($regulation->document_file) }}" target="_blank" style="text-decoration: none; font-weight: 700; font-size: 0.85rem; color: var(--primary); display: inline-flex; align-items: center; gap: 5px;">
+                        <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> Lihat File
                     </a>
                 </div>
             @endif
@@ -90,4 +94,15 @@
         </div>
     </form>
 </div>
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('btn-delete-document')?.addEventListener('click', function() {
+        if (confirm('Apakah Anda yakin ingin menghapus berkas dokumen ini? Berkas akan dihapus secara permanen saat Anda menyimpan perubahan.')) {
+            document.getElementById('delete-document-input').value = '1';
+            document.getElementById('document-preview-container').style.display = 'none';
+        }
+    });
+});
+</script>
 @endsection

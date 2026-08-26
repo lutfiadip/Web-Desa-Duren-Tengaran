@@ -40,35 +40,29 @@
             <h4 style="font-weight: 700; color: #15803d; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
                 <span style="width: 8px; height: 8px; background: #15803d; border-radius: 50%;"></span> Sektor Pendapatan Desa
             </h4>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                <div class="form-group">
-                    <label for="revenue_target">Target Pendapatan (Rp)</label>
-                    <input type="number" name="revenue_target" id="revenue_target" class="form-control" placeholder="Contoh: 1500000000" required min="0">
-                </div>
-                <div class="form-group">
-                    <label for="revenue_realization">Realisasi Pendapatan (Rp)</label>
-                    <input type="number" name="revenue_realization" id="revenue_realization" class="form-control" placeholder="Contoh: 1200000000" required min="0">
-                </div>
+            <div class="form-group">
+                <label for="revenue_realization">Realisasi Pendapatan (Rp)</label>
+                <input type="number" name="revenue_realization" id="revenue_realization" class="form-control" placeholder="Contoh: 1200000000" required min="0">
             </div>
             
             <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px;">
                 <h5 style="font-weight: 700; color: var(--text-dark); margin-bottom: 12px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">Rincian Pendapatan (Realisasi):</h5>
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
                     <div class="form-group">
-                        <label for="revenue_pad" style="font-size: 0.8rem; font-weight: 600;">1. Pendapatan Asli Desa (PAD) (Rp)</label>
-                        <input type="number" name="revenue_pad" id="revenue_pad" class="form-control" placeholder="Contoh: 152280000" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="revenue_add" style="font-size: 0.8rem; font-weight: 600;">2. Alokasi Dana Desa (ADD) (Rp)</label>
+                        <label for="revenue_add" style="font-size: 0.8rem; font-weight: 600;">1. Alokasi Dana Desa (ADD) (Rp)</label>
                         <input type="number" name="revenue_add" id="revenue_add" class="form-control" placeholder="Contoh: 518019000" min="0">
                     </div>
                     <div class="form-group">
-                        <label for="revenue_dd" style="font-size: 0.8rem; font-weight: 600;">3. Dana Desa (DD) (Rp)</label>
+                        <label for="revenue_dd" style="font-size: 0.8rem; font-weight: 600;">2. Dana Desa (DD) (Rp)</label>
                         <input type="number" name="revenue_dd" id="revenue_dd" class="form-control" placeholder="Contoh: 886640000" min="0">
                     </div>
                     <div class="form-group">
-                        <label for="revenue_pbh" style="font-size: 0.8rem; font-weight: 600;">4. BHPD & BHRD (Bagi Hasil Pajak & Retribusi) (Rp)</label>
+                        <label for="revenue_pbh" style="font-size: 0.8rem; font-weight: 600;">3. BHPD & BHRD (Bagi Hasil Pajak & Retribusi) (Rp)</label>
                         <input type="number" name="revenue_pbh" id="revenue_pbh" class="form-control" placeholder="Contoh: 162723000" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="revenue_pad" style="font-size: 0.8rem; font-weight: 600;">4. Pendapatan Asli Desa (PAD) (Rp)</label>
+                        <input type="number" name="revenue_pad" id="revenue_pad" class="form-control" placeholder="Contoh: 152280000" min="0">
                     </div>
                 </div>
             </div>
@@ -79,26 +73,20 @@
             <h4 style="font-weight: 700; color: #b91c1c; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
                 <span style="width: 8px; height: 8px; background: #b91c1c; border-radius: 50%;"></span> Sektor Belanja / Pengeluaran Desa
             </h4>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                <div class="form-group">
-                    <label for="spending_target">Target Belanja (Rp)</label>
-                    <input type="number" name="spending_target" id="spending_target" class="form-control" placeholder="Contoh: 1450000000" required min="0">
-                </div>
-                <div class="form-group">
-                    <label for="spending_realization">Realisasi Belanja (Rp)</label>
-                    <input type="number" name="spending_realization" id="spending_realization" class="form-control" placeholder="Contoh: 1100000000" required min="0">
-                </div>
+            <div class="form-group">
+                <label for="spending_realization">Realisasi Belanja (Rp)</label>
+                <input type="number" name="spending_realization" id="spending_realization" class="form-control" placeholder="Contoh: 1100000000" required min="0">
             </div>
             
             <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px;">
                 <h5 style="font-weight: 700; color: var(--text-dark); margin-bottom: 12px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">Rincian Belanja (Realisasi):</h5>
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
                     <div class="form-group">
-                        <label for="spending_pemerintahan" style="font-size: 0.8rem; font-weight: 600;">1. Bidang Penyelenggaraan Pemerintahan (Rp)</label>
+                        <label for="spending_pemerintahan" style="font-size: 0.8rem; font-weight: 600;">1. Bidang Pemerintahan Desa (Rp)</label>
                         <input type="number" name="spending_pemerintahan" id="spending_pemerintahan" class="form-control" placeholder="Contoh: 973347640" min="0">
                     </div>
                     <div class="form-group">
-                        <label for="spending_pembangunan" style="font-size: 0.8rem; font-weight: 600;">2. Bidang Pelaksanaan Pembangunan (Rp)</label>
+                        <label for="spending_pembangunan" style="font-size: 0.8rem; font-weight: 600;">2. Bidang Pembangunan Desa (Rp)</label>
                         <input type="number" name="spending_pembangunan" id="spending_pembangunan" class="form-control" placeholder="Contoh: 1247861400" min="0">
                     </div>
                     <div class="form-group">
@@ -113,23 +101,6 @@
                         <label for="spending_penanggulangan" style="font-size: 0.8rem; font-weight: 600;">5. Bidang Penanggulangan Bencana, Keadaan Darurat & Mendesak (Rp)</label>
                         <input type="number" name="spending_penanggulangan" id="spending_penanggulangan" class="form-control" placeholder="Contoh: 146991203" min="0">
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sektor Pembiayaan -->
-        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-bottom: 20px;">
-            <h4 style="font-weight: 700; color: #475569; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-                <span style="width: 8px; height: 8px; background: #475569; border-radius: 50%;"></span> Sektor Pembiayaan Desa
-            </h4>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                <div class="form-group">
-                    <label for="financing_target">Target Pembiayaan (Rp)</label>
-                    <input type="number" name="financing_target" id="financing_target" class="form-control" placeholder="Contoh: 50000000" required min="0">
-                </div>
-                <div class="form-group">
-                    <label for="financing_realization">Realisasi Pembiayaan (Rp)</label>
-                    <input type="number" name="financing_realization" id="financing_realization" class="form-control" placeholder="Contoh: 50000000" required min="0">
                 </div>
             </div>
         </div>
@@ -176,10 +147,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- AUTO-CALCULATE REALIZATION FROM DETAILS ---
     const revenueDetailInputs = [
-        document.getElementById('revenue_pad'),
         document.getElementById('revenue_add'),
         document.getElementById('revenue_dd'),
-        document.getElementById('revenue_pbh')
+        document.getElementById('revenue_pbh'),
+        document.getElementById('revenue_pad')
     ];
     const revenueRealizationInput = document.getElementById('revenue_realization');
 
