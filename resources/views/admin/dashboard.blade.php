@@ -39,19 +39,31 @@
         /* --- STATS GRID --- */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin-bottom: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .stat-card {
             background-color: var(--white);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 24px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             transition: var(--transition);
             text-decoration: none;
@@ -65,30 +77,31 @@
         }
 
         .stat-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             flex-shrink: 0;
         }
 
         .stat-info {
             display: flex;
             flex-direction: column;
+            gap: 2px;
         }
 
         .stat-number {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.1;
             color: var(--text-dark);
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-muted);
         }
@@ -124,14 +137,45 @@
             color: #e11d48;
         }
 
+        .icon-ann {
+            background-color: #fff7ed;
+            color: #ea580c;
+        }
+
+        .icon-fac {
+            background-color: #f0fdfa;
+            color: #0d9488;
+        }
+
+        .icon-inst {
+            background-color: #f5f3ff;
+            color: #6d28d9;
+        }
+
+        .icon-agri {
+            background-color: #fefce8;
+            color: #ca8a04;
+        }
+
+        .icon-serv {
+            background-color: #f0f9ff;
+            color: #0284c7;
+        }
+
+        .icon-gall {
+            background-color: #faf5ff;
+            color: #7e22ce;
+        }
+
         /* --- QUICK ACTIONS --- */
         .quick-actions {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 0.8fr;
             gap: 25px;
+            margin-top: 30px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .quick-actions {
                 grid-template-columns: 1fr;
             }
@@ -239,54 +283,159 @@
                 <span class="stat-label">Karya Budaya</span>
             </div>
         </a>
+
+        <a href="{{ route('admin.announcements.index') }}" class="stat-card">
+            <div class="stat-icon icon-ann">
+                <i class="fa-solid fa-bullhorn"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number">{{ $counts['announcements'] }}</span>
+                <span class="stat-label">Pengumuman</span>
+            </div>
+        </a>
+
+        <a href="{{ route('admin.facilities.index') }}" class="stat-card">
+            <div class="stat-icon icon-fac">
+                <i class="fa-solid fa-building-shield"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number">{{ $counts['facilities'] }}</span>
+                <span class="stat-label">Fasilitas Desa</span>
+            </div>
+        </a>
+
+        <a href="{{ route('admin.institutions.index') }}" class="stat-card">
+            <div class="stat-icon icon-inst">
+                <i class="fa-solid fa-landmark"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number">{{ $counts['institutions'] }}</span>
+                <span class="stat-label">Lembaga Desa</span>
+            </div>
+        </a>
+
+        <a href="{{ route('admin.agriculture.index') }}" class="stat-card">
+            <div class="stat-icon icon-agri">
+                <i class="fa-solid fa-wheat-awn"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number">{{ $counts['agriculture'] }}</span>
+                <span class="stat-label">Pertanian & Peternakan</span>
+            </div>
+        </a>
+
+        <a href="{{ route('admin.public-services.index') }}" class="stat-card">
+            <div class="stat-icon icon-serv">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number">{{ $counts['services'] }}</span>
+                <span class="stat-label">Layanan Publik</span>
+            </div>
+        </a>
+
+        <a href="{{ route('admin.gallery.index') }}" class="stat-card">
+            <div class="stat-icon icon-gall">
+                <i class="fa-solid fa-images"></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-number">{{ $counts['gallery'] }}</span>
+                <span class="stat-label">Galeri Desa</span>
+            </div>
+        </a>
     </div>
 
     <!-- QUICK ACTIONS & RECENT WORK -->
     <div class="quick-actions">
         <!-- QUICK SHORTCUTS CARD -->
-        <div class="card" style="margin-bottom: 0;">
-            <div class="card-header">
-                <h2><i class="fa-solid fa-bolt" style="color: var(--accent); margin-right: 8px;"></i> Pintasan Cepat</h2>
+        <div class="card" style="margin-bottom: 0; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+            <div class="card-header" style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+                <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin: 0; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-bolt" style="color: var(--accent);"></i> Pintasan Cepat
+                </h2>
+                <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">Akses Kilat Form Tambah</span>
             </div>
-            <ul class="action-list">
-                <li class="action-item">
-                    <a href="{{ route('admin.news.create') }}" class="action-link">
-                        <i class="fa-solid fa-circle-plus" style="color: var(--primary-light);"></i> Tulis Berita Baru
-                    </a>
-                    <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
-                </li>
-                <li class="action-item">
-                    <a href="{{ route('admin.regulations.create') }}" class="action-link">
-                        <i class="fa-solid fa-circle-plus" style="color: var(--primary-light);"></i> Unggah Regulasi/Perdes
-                    </a>
-                    <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
-                </li>
-                <li class="action-item">
-                    <a href="{{ route('admin.officials.create') }}" class="action-link">
-                        <i class="fa-solid fa-circle-plus" style="color: var(--primary-light);"></i> Tambah Perangkat Desa
-                    </a>
-                    <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
-                </li>
-                <li class="action-item">
-                    <a href="{{ route('admin.umkm.create') }}" class="action-link">
-                        <i class="fa-solid fa-circle-plus" style="color: var(--primary-light);"></i> Daftarkan UMKM Baru
-                    </a>
-                    <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
-                </li>
-            </ul>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                <a href="{{ route('admin.news.create') }}" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-dark); background: #f8fafc; transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary-light)'; this.style.background='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='#f8fafc';">
+                    <span style="width: 36px; height: 36px; border-radius: 50%; background: #eff6ff; color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0;"><i class="fa-solid fa-newspaper"></i></span>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-weight: 700; font-size: 0.85rem; line-height: 1.2;">Tulis Berita</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Kabar & Berita</span>
+                    </div>
+                </a>
+
+                <a href="{{ route('admin.regulations.create') }}" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-dark); background: #f8fafc; transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary-light)'; this.style.background='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='#f8fafc';">
+                    <span style="width: 36px; height: 36px; border-radius: 50%; background: #fef3c7; color: #d97706; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0;"><i class="fa-solid fa-gavel"></i></span>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-weight: 700; font-size: 0.85rem; line-height: 1.2;">Unggah Perdes</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Peraturan Desa</span>
+                    </div>
+                </a>
+
+                <a href="{{ route('admin.officials.create') }}" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-dark); background: #f8fafc; transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary-light)'; this.style.background='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='#f8fafc';">
+                    <span style="width: 36px; height: 36px; border-radius: 50%; background: #f0fdf4; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0;"><i class="fa-solid fa-users"></i></span>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-weight: 700; font-size: 0.85rem; line-height: 1.2;">Perangkat Desa</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Tambah Pengurus</span>
+                    </div>
+                </a>
+
+                <a href="{{ route('admin.umkm.create') }}" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-dark); background: #f8fafc; transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary-light)'; this.style.background='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='#f8fafc';">
+                    <span style="width: 36px; height: 36px; border-radius: 50%; background: #faf5ff; color: #9333ea; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0;"><i class="fa-solid fa-store"></i></span>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-weight: 700; font-size: 0.85rem; line-height: 1.2;">Daftar UMKM</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Produk Warga</span>
+                    </div>
+                </a>
+
+                <a href="{{ route('admin.transparency.create') }}" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-dark); background: #f8fafc; transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary-light)'; this.style.background='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='#f8fafc';">
+                    <span style="width: 36px; height: 36px; border-radius: 50%; background: #fff1f2; color: #e11d48; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0;"><i class="fa-solid fa-file-invoice-dollar"></i></span>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-weight: 700; font-size: 0.85rem; line-height: 1.2;">Input APBDes</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Laporan Keuangan</span>
+                    </div>
+                </a>
+
+                <a href="{{ route('admin.announcements.create') }}" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-dark); background: #f8fafc; transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary-light)'; this.style.background='#fff';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='#f8fafc';">
+                    <span style="width: 36px; height: 36px; border-radius: 50%; background: #fff7ed; color: #ea580c; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0;"><i class="fa-solid fa-bullhorn"></i></span>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-weight: 700; font-size: 0.85rem; line-height: 1.2;">Tulis Pengumuman</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Info Mendesak</span>
+                    </div>
+                </a>
+            </div>
         </div>
 
-        <!-- CONTACT & INFO CONFIG CARD -->
-        <div class="card" style="margin-bottom: 0;">
-            <div class="card-header">
-                <h2><i class="fa-solid fa-circle-info" style="color: var(--primary-light); margin-right: 8px;"></i>
-                    Informasi Umum</h2>
+        <!-- RECENT ACTIVITY CARD -->
+        <div class="card" style="margin-bottom: 0; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+            <div class="card-header" style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+                <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin: 0; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-clock-rotate-left" style="color: var(--primary-light);"></i> Aktivitas Terbaru
+                </h2>
+                <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">5 Unggahan Terakhir</span>
             </div>
-            <div style="font-size: 0.95rem; line-height: 1.8; color: var(--text-muted);">
-                <p style="margin-bottom: 15px;">Semua data yang diunggah atau disunting di panel admin ini akan langsung
-                    tercermin secara real-time pada portal publik Desa Duren.</p>
-                <p style="margin-bottom: 15px;">Gunakan berkas gambar berformat <strong>JPG, JPEG, PNG, WEBP</strong> untuk
-                    foto/gambar dengan ukuran maksimal 2MB per gambar agar loading website publik tetap optimal.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                @forelse($recentActivities as $activity)
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="width: 32px; height: 32px; border-radius: var(--radius-md); background: {{ $activity['bg'] }}; color: {{ $activity['color'] }}; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; margin-top: 2px;">
+                            <i class="fa-solid {{ $activity['icon'] }}"></i>
+                        </span>
+                        <div style="display: flex; flex-direction: column; min-width: 0; flex: 1;">
+                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ $activity['title'] }}">{{ $activity['title'] }}</span>
+                            <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 600;">
+                                @if($activity['type'] == 'news') Berita @elseif($activity['type'] == 'regulation') Peraturan @else UMKM @endif
+                                &bull; <span style="font-weight: 500; text-transform: none;">{{ $activity['time']->diffForHumans() }}</span>
+                            </span>
+                        </div>
+                    </div>
+                @empty
+                    <div style="text-align: center; padding: 30px 0; color: var(--text-muted); font-size: 0.85rem;">
+                        <i class="fa-solid fa-folder-open" style="font-size: 2rem; opacity: 0.3; margin-bottom: 10px; display: block;"></i>
+                        Belum ada aktivitas unggahan terbaru.
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
