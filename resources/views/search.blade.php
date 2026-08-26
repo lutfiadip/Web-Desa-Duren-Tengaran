@@ -314,6 +314,148 @@
                 </div>
             @endif
 
+            <!-- Regulations -->
+            @if($results['regulations']->count() > 0)
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-gavel"></i> Peraturan Desa
+                    </h3>
+                    <div class="search-grid">
+                        @foreach($results['regulations'] as $item)
+                        <div class="search-card">
+                            <h5 class="search-card-title">
+                                <a href="{{ route('regulations') }}">
+                                    {{ $item->title }} (No. {{ $item->number }} Tahun {{ $item->year }})
+                                </a>
+                            </h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->description), 120) }}</p>
+                            <a href="{{ route('regulations') }}" class="search-card-link">Lihat Regulasi <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- Perangkat Desa -->
+            @if($results['officials']->count() > 0)
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-user-tie"></i> Perangkat Desa
+                    </h3>
+                    <div class="search-grid">
+                        @foreach($results['officials'] as $item)
+                        <div class="search-card">
+                            <h5 class="search-card-title">
+                                <a href="{{ route('officials') }}">
+                                    {{ $item->name }}
+                                </a>
+                            </h5>
+                            <p class="search-card-desc" style="font-weight: 600; color: var(--primary);">Jabatan: {{ $item->position }}</p>
+                            @if($item->nip)
+                                <p class="search-card-desc" style="margin-top: -15px; font-size: 0.85rem;">NIP: {{ $item->nip }}</p>
+                            @endif
+                            <a href="{{ route('officials') }}" class="search-card-link">Lihat Perangkat Desa <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- Lembaga & Organisasi -->
+            @if($results['institutions']->count() > 0)
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-users"></i> Lembaga & Organisasi Desa
+                    </h3>
+                    <div class="search-grid">
+                        @foreach($results['institutions'] as $item)
+                        <div class="search-card">
+                            <h5 class="search-card-title">
+                                @php
+                                    $isOrg = str_contains(strtolower($item->category->name ?? ''), 'organisasi');
+                                    $detailRoute = $isOrg ? route('organization.detail', $item->slug) : route('institution.detail', $item->slug);
+                                @endphp
+                                <a href="{{ $detailRoute }}">
+                                    {{ $item->name }}
+                                </a>
+                            </h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->description), 120) }}</p>
+                            <a href="{{ $detailRoute }}" class="search-card-link">Lihat Detail Kelembagaan <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- Pertanian & Peternakan -->
+            @if($results['commodities']->count() > 0)
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-seedling"></i> Potensi Pertanian & Peternakan
+                    </h3>
+                    <div class="search-grid">
+                        @foreach($results['commodities'] as $item)
+                        <div class="search-card">
+                            <h5 class="search-card-title">
+                                <a href="{{ route('potensi.agriculture') }}">
+                                    {{ $item->title }}
+                                </a>
+                            </h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->description), 120) }}</p>
+                            <a href="{{ route('potensi.agriculture') }}" class="search-card-link">Lihat Komoditas <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- Pengumuman -->
+            @if($results['announcements']->count() > 0)
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-bullhorn"></i> Pengumuman Terbaru
+                    </h3>
+                    <div class="search-grid">
+                        @foreach($results['announcements'] as $item)
+                        <div class="search-card">
+                            <h5 class="search-card-title">
+                                <a href="{{ route('announcements.detail', $item->slug) }}">
+                                    {{ $item->title }}
+                                </a>
+                            </h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->content), 120) }}</p>
+                            <a href="{{ route('announcements.detail', $item->slug) }}" class="search-card-link">Baca Pengumuman <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- Galeri -->
+            @if($results['galleries']->count() > 0)
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fa-solid fa-images"></i> Galeri Kegiatan
+                    </h3>
+                    <div class="search-grid">
+                        @foreach($results['galleries'] as $item)
+                        <div class="search-card">
+                            @if($item->image)
+                                <div style="width: 100%; height: 150px; background: url('{{ asset($item->image) }}') center/cover no-repeat; border-radius: var(--radius-md); margin-bottom: 15px;"></div>
+                            @endif
+                            <h5 class="search-card-title">
+                                <a href="{{ route('gallery') }}">
+                                    Galeri Foto
+                                </a>
+                            </h5>
+                            <p class="search-card-desc">{{ Str::limit(strip_tags($item->caption), 120) }}</p>
+                            <a href="{{ route('gallery') }}" class="search-card-link">Buka Galeri <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
         @endif
     @endif
 </div>

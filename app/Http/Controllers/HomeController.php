@@ -147,7 +147,13 @@ class HomeController extends Controller
             'umkm' => collect(),
             'tourism' => collect(),
             'public_services' => collect(),
-            'cultures' => collect()
+            'cultures' => collect(),
+            'regulations' => collect(),
+            'officials' => collect(),
+            'institutions' => collect(),
+            'commodities' => collect(),
+            'announcements' => collect(),
+            'galleries' => collect()
         ];
 
         if (!empty($query)) {
@@ -187,6 +193,54 @@ class HomeController extends Controller
                         $q->where('title', 'LIKE', '%' . $query . '%')
                           ->orWhere('description', 'LIKE', '%' . $query . '%');
                     })->limit(10)->get();
+            }
+
+            if ($profile->publish_regulations ?? true) {
+                $results['regulations'] = Regulation::with('category')
+                    ->where('status', 'published')
+                    ->where(function($q) use ($query) {
+                        $q->where('title', 'LIKE', '%' . $query . '%')
+                          ->orWhere('number', 'LIKE', '%' . $query . '%')
+                          ->orWhere('description', 'LIKE', '%' . $query . '%');
+                    })->limit(10)->get();
+            }
+
+            if ($profile->publish_officials ?? true) {
+                $results['officials'] = Official::where('status', 1)
+                    ->where(function($q) use ($query) {
+                        $q->where('name', 'LIKE', '%' . $query . '%')
+                          ->orWhere('position', 'LIKE', '%' . $query . '%');
+                    })->limit(10)->get();
+            }
+
+            if ($profile->publish_institutions ?? true) {
+                $results['institutions'] = CommunityInstitution::where('status', 'published')
+                    ->where(function($q) use ($query) {
+                        $q->where('name', 'LIKE', '%' . $query . '%')
+                          ->orWhere('description', 'LIKE', '%' . $query . '%')
+                          ->orWhere('address', 'LIKE', '%' . $query . '%');
+                    })->limit(10)->get();
+            }
+
+            if ($profile->publish_agriculture ?? true) {
+                $results['commodities'] = AgricultureCommodity::where('status', 'published')
+                    ->where(function($q) use ($query) {
+                        $q->where('title', 'LIKE', '%' . $query . '%')
+                          ->orWhere('description', 'LIKE', '%' . $query . '%');
+                    })->limit(10)->get();
+            }
+
+            if ($profile->publish_announcements ?? true) {
+                $results['announcements'] = Announcement::active()
+                    ->where(function($q) use ($query) {
+                        $q->where('title', 'LIKE', '%' . $query . '%')
+                          ->orWhere('content', 'LIKE', '%' . $query . '%');
+                    })->limit(10)->get();
+            }
+
+            if ($profile->show_gallery_on_home ?? true) {
+                $results['galleries'] = Gallery::where('caption', 'LIKE', '%' . $query . '%')
+                    ->limit(10)->get();
             }
         }
 
