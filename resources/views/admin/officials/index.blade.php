@@ -23,7 +23,7 @@
 <div class="card" style="margin-bottom: 20px;">
     <div class="card-header" style="display: flex; align-items: center; justify-content: space-between;">
         <h2 style="display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-sitemap" style="color: var(--primary);"></i> Struktur Organisasi dan Tata Kelola (SOTK)
+            <i class="fa-solid fa-sitemap" style="color: var(--primary);"></i> Struktur Organisasi dan Tata Kerja (SOTK)
         </h2>
     </div>
     
@@ -37,11 +37,11 @@
                     <span class="slider"></span>
                 </label>
             </div>
-
-            <label for="organization_structure_image">Bagan Struktur Organisasi dan Tata Kelola (SOTK) Pemerintah Desa (Gambar)</label>
+ 
+            <label for="organization_structure_image">Bagan Struktur Organisasi dan Tata Kerja (SOTK) Pemerintah Desa (Gambar)</label>
             @if(isset($profile) && $profile->organization_structure_image)
                 <div style="margin-bottom: 15px;">
-                    <img src="{{ asset($profile->organization_structure_image) }}" alt="Struktur Organisasi dan Tata Kelola (SOTK)"
+                    <img src="{{ asset($profile->organization_structure_image) }}" alt="Struktur Organisasi dan Tata Kerja (SOTK)"
                         style="max-height: 250px; max-width: 100%; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
                 </div>
             @endif

@@ -39,7 +39,7 @@ class OfficialController extends Controller
             $profile->fill($data)->save();
         }
 
-        return redirect()->route('admin.officials.index')->with('success', 'Struktur Organisasi dan Tata Kelola (SOTK) berhasil diperbarui.');
+        return redirect()->route('admin.officials.index')->with('success', 'Struktur Organisasi dan Tata Kerja (SOTK) berhasil diperbarui.');
     }
 
     public function index(Request $request)
