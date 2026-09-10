@@ -666,7 +666,7 @@
     <!-- HEADER -->
     <header class="{{ request()->routeIs('home') ? 'header-transparent' : '' }}" id="main-header">
         <a href="{{ route('home') }}" class="logo-wrapper">
-            <img src="{{ asset('img/logo-semarang.png') }}" alt="Logo Kab Semarang" class="logo-img">
+            <img src="{{ (isset($profile) && $profile->logo) ? asset($profile->logo) : asset('img/logo-semarang.png') }}" alt="Logo Desa" class="logo-img">
             <div class="logo-text">
                 <span class="logo-title">DESA DUREN</span>
                 <span class="logo-subtitle">KECAMATAN TENGARAN<br>KABUPATEN SEMARANG</span>
@@ -791,7 +791,7 @@
         <div class="footer-grid">
             <div>
                 <a href="{{ route('home') }}" class="logo-wrapper" style="margin-bottom: 20px; text-decoration: none;">
-                    <img src="{{ asset('img/logo-semarang.png') }}" alt="Logo Kab Semarang" class="logo-img">
+                    <img src="{{ (isset($profile) && $profile->logo) ? asset($profile->logo) : asset('img/logo-semarang.png') }}" alt="Logo Desa" class="logo-img">
                     <div class="logo-text">
                         <span class="logo-title">DESA DUREN</span>
                         <span class="logo-subtitle">KECAMATAN TENGARAN<br>KABUPATEN SEMARANG</span>
