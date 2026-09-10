@@ -837,17 +837,22 @@
         
         @media (max-width: 768px) {
             .hero {
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                align-items: stretch !important;
+                padding: 18vh 5% 80px 5% !important;
+                min-height: 100vh;
                 background: 
                     linear-gradient(to bottom, transparent 80%, var(--bg-main) 100%),
                     linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.95) 60%),
                     url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
-                align-items: flex-start;
-                padding-top: 25vh;
-                padding-bottom: 120px;
-                min-height: 100vh;
+            }
+            .hero-content {
+                width: 100% !important;
+                max-width: 100% !important;
             }
             .hero-main-title {
-                font-size: 3rem;
+                font-size: 2.8rem;
             }
             .hero-subtitle {
                 font-size: 0.85rem;
@@ -855,29 +860,46 @@
             .hero p {
                 font-size: 1rem;
             }
+            .hero-actions {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                gap: 12px !important;
+                width: 100% !important;
+                margin-top: 30px !important;
+            }
+            .hero-actions a {
+                flex: 1 1 140px !important;
+                text-align: center !important;
+                justify-content: center !important;
+                padding: 12px 18px !important;
+                font-size: 0.95rem !important;
+            }
             .hero-demographics {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                transform: none;
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                width: 100%;
-                margin-top: 25px;
-                gap: 8px;
+                position: relative !important;
+                bottom: auto !important;
+                left: auto !important;
+                transform: none !important;
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                width: 100% !important;
+                margin-top: 35px !important;
+                gap: 8px !important;
+                box-sizing: border-box !important;
             }
             .demo-item {
-                width: 100%;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 10px 4px;
-                gap: 6px;
-                border-radius: var(--radius-md);
+                width: 100% !important;
+                min-width: 0 !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                padding: 10px 4px !important;
+                gap: 6px !important;
+                border-radius: var(--radius-md) !important;
+                box-sizing: border-box !important;
             }
             .demo-number { font-size: 0.85rem; }
             .demo-icon { font-size: 1.15rem; margin: 0; }
-            .demo-label { font-size: 0.55rem; letter-spacing: 0px; text-transform: none; }
+            .demo-label { font-size: 0.55rem; letter-spacing: 0px; text-transform: none; word-break: break-word; }
 
             /* Horizontal Scroll for Tourism Grid */
             .grid-3 {
