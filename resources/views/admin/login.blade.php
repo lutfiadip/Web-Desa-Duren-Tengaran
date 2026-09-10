@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - Pemerintah Desa Duren</title>
+    <title>Login Admin - Pemerintah Desa {{ $profile->village_name ?? 'Duren' }}</title>
+    <!-- Dynamic Favicon -->
+    <link rel="icon" type="image/png" href="{{ (!empty($profile->logo)) ? (Str::startsWith($profile->logo, 'http') ? $profile->logo : asset($profile->logo)) : asset('img/logo-semarang.png') }}">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -206,8 +209,8 @@
 
     <div class="login-card">
         <div class="login-logo">
-            <img src="{{ asset('img/logo-semarang.png') }}" alt="Logo">
-            <span>PORTAL DESA<br>DUREN TENGARAN</span>
+            <img src="{{ (!empty($profile->logo)) ? (Str::startsWith($profile->logo, 'http') ? $profile->logo : asset($profile->logo)) : asset('img/logo-semarang.png') }}" alt="Logo">
+            <span>PORTAL DESA<br>{{ strtoupper($profile->village_name ?? 'DUREN TENGARAN') }}</span>
         </div>
 
         <div class="login-header">

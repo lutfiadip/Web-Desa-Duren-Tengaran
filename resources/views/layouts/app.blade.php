@@ -9,6 +9,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Portal Informasi Desa Duren Tengaran')</title>
+    <!-- Dynamic Favicon -->
+    <link rel="icon" type="image/png" href="{{ (isset($profile) && $profile->logo) ? (Str::startsWith($profile->logo, 'http') ? $profile->logo : asset($profile->logo)) : asset('img/logo-semarang.png') }}">
+
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -666,9 +669,9 @@
     <!-- HEADER -->
     <header class="{{ request()->routeIs('home') ? 'header-transparent' : '' }}" id="main-header">
         <a href="{{ route('home') }}" class="logo-wrapper">
-            <img src="{{ (isset($profile) && $profile->logo) ? asset($profile->logo) : asset('img/logo-semarang.png') }}" alt="Logo Desa" class="logo-img">
+            <img src="{{ (isset($profile) && $profile->logo) ? (Str::startsWith($profile->logo, 'http') ? $profile->logo : asset($profile->logo)) : asset('img/logo-semarang.png') }}" alt="Logo Desa" class="logo-img">
             <div class="logo-text">
-                <span class="logo-title">DESA DUREN</span>
+                <span class="logo-title">DESA {{ strtoupper($profile->village_name ?? 'DUREN') }}</span>
                 <span class="logo-subtitle">KECAMATAN TENGARAN<br>KABUPATEN SEMARANG</span>
             </div>
         </a>
@@ -791,9 +794,9 @@
         <div class="footer-grid">
             <div>
                 <a href="{{ route('home') }}" class="logo-wrapper" style="margin-bottom: 20px; text-decoration: none;">
-                    <img src="{{ (isset($profile) && $profile->logo) ? asset($profile->logo) : asset('img/logo-semarang.png') }}" alt="Logo Desa" class="logo-img">
+                    <img src="{{ (isset($profile) && $profile->logo) ? (Str::startsWith($profile->logo, 'http') ? $profile->logo : asset($profile->logo)) : asset('img/logo-semarang.png') }}" alt="Logo Desa" class="logo-img">
                     <div class="logo-text">
-                        <span class="logo-title">DESA DUREN</span>
+                        <span class="logo-title">DESA {{ strtoupper($profile->village_name ?? 'DUREN') }}</span>
                         <span class="logo-subtitle">KECAMATAN TENGARAN<br>KABUPATEN SEMARANG</span>
                     </div>
                 </a>

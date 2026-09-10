@@ -202,8 +202,12 @@
             /* Dark gradient on the left, fading to transparent on the right */
             background: 
                 linear-gradient(to bottom, transparent 75%, var(--bg-main) 100%),
-                linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 40%, rgba(15, 23, 42, 0) 100%),
-                url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : asset('assets/images/hero-bg.jpg') }}') center/cover no-repeat;
+                linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 40%, rgba(15, 23, 42, 0) 100%)
+                @if($profile && $profile->hero_bg_image)
+                , url('{{ Str::startsWith($profile->hero_bg_image, 'http') ? $profile->hero_bg_image : asset($profile->hero_bg_image) }}') center/cover no-repeat
+                @endif
+                ;
+            background-color: #0f172a;
             min-height: 200vh; /* Made extremely long downwards */
             display: flex;
             align-items: flex-start;
@@ -845,7 +849,8 @@
                 background: 
                     linear-gradient(to bottom, transparent 80%, var(--bg-main) 100%),
                     linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.95) 60%),
-                    url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : "" }}') center/cover no-repeat;
+                    url('{{ $profile && $profile->hero_bg_image ? (Str::startsWith($profile->hero_bg_image, 'http') ? $profile->hero_bg_image : asset($profile->hero_bg_image)) : "" }}') center/cover no-repeat;
+                background-color: #0f172a;
             }
             .hero-content {
                 width: 100% !important;

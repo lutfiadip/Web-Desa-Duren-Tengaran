@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard') - Admin Panel Desa Duren</title>
+    <title>@yield('title', 'Dashboard') - Admin Panel {{ $profile->village_name ?? 'Desa Duren' }}</title>
+    <!-- Dynamic Favicon -->
+    <link rel="icon" type="image/png" href="{{ (!empty($profile->logo)) ? (Str::startsWith($profile->logo, 'http') ? $profile->logo : asset($profile->logo)) : asset('img/logo-semarang.png') }}">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -651,8 +654,8 @@
     <!-- SIDEBAR -->
     <div class="sidebar">
         <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
-            <img src="{{ asset('img/logo-semarang.png') }}" alt="Logo">
-            <span>ADMIN<br>DESA DUREN</span>
+            <img src="{{ (!empty($profile->logo)) ? (Str::startsWith($profile->logo, 'http') ? $profile->logo : asset($profile->logo)) : asset('img/logo-semarang.png') }}" alt="Logo">
+            <span>ADMIN<br>{{ strtoupper($profile->village_name ?? 'DESA DUREN') }}</span>
         </a>
 
         <ul class="sidebar-menu">

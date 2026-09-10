@@ -6,8 +6,12 @@
 <style>
     /* --- HERO SECTION --- */
     .hero-section {
-        background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%),
-                    url('{{ $profile && $profile->hero_bg_image ? asset($profile->hero_bg_image) : asset('img/desa-hero.jpg') }}') center/cover no-repeat;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%)
+                    @if($profile && $profile->hero_bg_image)
+                    , url('{{ Str::startsWith($profile->hero_bg_image, 'http') ? $profile->hero_bg_image : asset($profile->hero_bg_image) }}') center/cover no-repeat
+                    @endif
+                    ;
+        background-color: #0f172a;
         padding: 160px 5% 140px;
         text-align: center;
         color: var(--white);

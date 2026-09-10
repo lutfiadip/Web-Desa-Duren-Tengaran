@@ -101,8 +101,8 @@ class ProfileController extends Controller
         $imageFields = ['logo', 'headman_photo', 'organization_structure_image', 'history_image', 'village_detail_image'];
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
-                // Delete old image
-                if ($profile->$field && file_exists(public_path($profile->$field))) {
+                // Delete old image (safeguarding default assets in img/)
+                if ($profile->$field && !str_starts_with($profile->$field, 'img/') && file_exists(public_path($profile->$field))) {
                     @unlink(public_path($profile->$field));
                 }
 
@@ -219,8 +219,8 @@ class ProfileController extends Controller
         $imageFields = ['hero_bg_image', 'about_image'];
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
-                // Delete old image
-                if ($profile->$field && file_exists(public_path($profile->$field))) {
+                // Delete old image (safeguarding default assets in img/)
+                if ($profile->$field && !str_starts_with($profile->$field, 'img/') && file_exists(public_path($profile->$field))) {
                     @unlink(public_path($profile->$field));
                 }
 
@@ -311,7 +311,7 @@ class ProfileController extends Controller
         $data = $request->only(['village_name', 'office_hours', 'video_url']);
 
         if ($request->hasFile('logo')) {
-            if ($profile->logo && file_exists(public_path($profile->logo))) {
+            if ($profile->logo && !str_starts_with($profile->logo, 'img/') && file_exists(public_path($profile->logo))) {
                 @unlink(public_path($profile->logo));
             }
 
@@ -453,7 +453,7 @@ class ProfileController extends Controller
         $imageFields = ['headman_photo', 'organization_structure_image', 'history_image', 'village_detail_image'];
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
-                if ($profile->$field && file_exists(public_path($profile->$field))) {
+                if ($profile->$field && !str_starts_with($profile->$field, 'img/') && file_exists(public_path($profile->$field))) {
                     @unlink(public_path($profile->$field));
                 }
 

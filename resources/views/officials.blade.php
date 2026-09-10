@@ -367,7 +367,7 @@
                             @foreach($category->officials as $member)
                             <div class="apparatus-card" data-name="{{ strtolower($member->name) }}" data-position="{{ strtolower($member->position) }}">
                                 <div class="apparatus-img-wrapper">
-                                    <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
+                                    <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.svg') }}" alt="{{ $member->name }}" class="apparatus-img">
                                 </div>
                                 <h3 class="apparatus-name">{{ $member->name }}</h3>
                                 <span class="apparatus-position">{{ $member->position }}</span>
@@ -379,7 +379,7 @@
                             @foreach($category->officials as $member)
                             <div class="apparatus-card" data-name="{{ strtolower($member->name) }}" data-position="{{ strtolower($member->position) }}">
                                 <div class="apparatus-img-wrapper">
-                                    <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.png') }}" alt="{{ $member->name }}" class="apparatus-img">
+                                    <img src="{{ $member->photo ? (Str::startsWith($member->photo, 'http') ? $member->photo : asset($member->photo)) : asset('img/default-avatar.svg') }}" alt="{{ $member->name }}" class="apparatus-img">
                                 </div>
                                 <h3 class="apparatus-name">{{ $member->name }}</h3>
                                 <span class="apparatus-position">{{ $member->position }}</span>
