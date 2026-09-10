@@ -21,26 +21,33 @@
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
-                <label for="contact">Narahubung / Kontak Pengelola</label>
-                <input type="text" id="contact" name="contact" class="form-control" placeholder="Masukkan nomor telepon atau kontak..." value="{{ old('contact') }}">
+                <label for="contact_person">Nama Narahubung / Pengelola</label>
+                <input type="text" id="contact_person" name="contact_person" class="form-control" placeholder="Masukkan nama narahubung atau pengelola..." value="{{ old('contact_person') }}">
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 4px;">Nama penanggung jawab atau nama pengelola kontak.</span>
             </div>
 
             <div class="form-group">
-                <label for="operating_hours">Jam Operasional Wisata</label>
-                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Masukkan jam operasional..." value="{{ old('operating_hours') }}">
+                <label for="contact">No. WhatsApp / Telepon Pengelola</label>
+                <input type="text" id="contact" name="contact" class="form-control" placeholder="Masukkan nomor telepon atau WhatsApp aktif (contoh: 081234567890)..." value="{{ old('contact') }}">
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 4px;">Nomor telepon yang terhubung ke tombol chat WhatsApp.</span>
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
-                <label for="google_maps_url">Link Google Maps Lokasi Wisata</label>
-                <input type="url" id="google_maps_url" name="google_maps_url" class="form-control" placeholder="Masukkan link Google Maps lokasi..." value="{{ old('google_maps_url') }}">
+                <label for="operating_hours">Jam Operasional Wisata</label>
+                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Masukkan jam dan hari operasional wisata..." value="{{ old('operating_hours') }}">
             </div>
 
             <div class="form-group">
-                <label for="facilities">Fasilitas Wisata (Pisahkan dengan koma)</label>
-                <input type="text" id="facilities" name="facilities" class="form-control" placeholder="Masukkan fasilitas (pisahkan dengan koma)..." value="{{ old('facilities') }}">
+                <label for="google_maps_url">Link Google Maps Lokasi Wisata</label>
+                <input type="url" id="google_maps_url" name="google_maps_url" class="form-control" placeholder="Masukkan tautan Google Maps (https://maps.google.com/...)..." value="{{ old('google_maps_url') }}">
             </div>
+        </div>
+
+        <div class="form-group">
+            <label for="facilities">Fasilitas Wisata (Pisahkan dengan koma)</label>
+            <input type="text" id="facilities" name="facilities" class="form-control" placeholder="Tuliskan fasilitas yang tersedia (contoh: Area Parkir, Mushola, Toilet)..." value="{{ old('facilities') }}">
         </div>
 
         <!-- Harga Tiket / Paket Wisata -->
@@ -60,12 +67,12 @@
 
         <div class="form-group">
             <label for="description">Deskripsi Lengkap Wisata</label>
-            <textarea id="description" name="description" class="form-control" placeholder="Jelaskan daya tarik, keunikan, rute, atau imbauan bagi wisatawan..." required style="min-height: 150px;">{{ old('description') }}</textarea>
+            <textarea id="description" name="description" class="form-control" placeholder="Tuliskan deskripsi lengkap mengenai daya tarik, keunikan, serta rute wisata..." required style="min-height: 150px;">{{ old('description') }}</textarea>
         </div>
 
         <div class="form-group">
             <label for="address">Alamat Lokasi Wisata</label>
-            <input type="text" id="address" name="address" class="form-control" placeholder="Masukkan alamat lengkap..." value="{{ old('address') }}" required>
+            <input type="text" id="address" name="address" class="form-control" placeholder="Masukkan alamat lengkap lokasi wisata..." value="{{ old('address') }}" required>
         </div>
 
         <div class="form-group">

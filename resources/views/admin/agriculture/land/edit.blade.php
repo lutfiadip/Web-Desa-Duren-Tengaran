@@ -38,7 +38,7 @@
 
             <div class="form-group">
                 <label for="label">Label / Jenis Lahan <span style="color: red;">*</span></label>
-                <input type="text" name="label" id="label" class="form-control @error('label') is-invalid @enderror" value="{{ old('label', $land->label) }}" required>
+                <input type="text" name="label" id="label" class="form-control @error('label') is-invalid @enderror" value="{{ old('label', $land->label) }}" placeholder="Masukkan jenis penggunaan lahan (contoh: Lahan Sawah, Perkebunan)..." required>
                 @error('label')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -47,14 +47,14 @@
             <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px;">
                 <div class="form-group">
                     <label for="area">Luas Lahan <span style="color: red;">*</span></label>
-                    <input type="number" step="0.01" name="area" id="area" class="form-control @error('area') is-invalid @enderror" value="{{ old('area', $land->area) }}" required>
+                    <input type="number" step="0.01" name="area" id="area" class="form-control @error('area') is-invalid @enderror" value="{{ old('area', $land->area) }}" placeholder="Masukkan angka luas lahan (contoh: 125.5)..." required>
                     @error('area')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="unit">Satuan <span style="color: red;">*</span></label>
-                    <input type="text" name="unit" id="unit" class="form-control @error('unit') is-invalid @enderror" value="{{ old('unit', $land->unit) }}" required>
+                    <input type="text" name="unit" id="unit" class="form-control @error('unit') is-invalid @enderror" value="{{ old('unit', $land->unit) }}" placeholder="Contoh: Ha / m²..." required>
                     @error('unit')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -63,7 +63,7 @@
 
             <div class="form-group">
                 <label for="icon">Icon FontAwesome</label>
-                <input type="text" name="icon" id="icon" class="form-control @error('icon') is-invalid @enderror" value="{{ old('icon', $land->icon) }}">
+                <input type="text" name="icon" id="icon" class="form-control @error('icon') is-invalid @enderror" value="{{ old('icon', $land->icon) }}" placeholder="Masukkan kelas ikon FontAwesome (contoh: fa-solid fa-wheat-awn)...">
                 <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;">Masukkan class FontAwesome 6, contoh: <code>fa-solid fa-tree</code> atau <code>fa-solid fa-cow</code>.</span>
                 @error('icon')
                     <div class="invalid-feedback">{{ $message }}</div>

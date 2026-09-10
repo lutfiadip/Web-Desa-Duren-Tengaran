@@ -19,40 +19,40 @@
             <div class="form-group">
                 <label for="title">Nama Layanan *</label>
                 <input type="text" name="title" id="title" class="form-control"
-                    value="{{ old('title', $public_service->title) }}" required>
+                    value="{{ old('title', $public_service->title) }}" placeholder="Masukkan nama layanan publik atau surat permohonan..." required>
             </div>
 
             <div class="form-group">
                 <label for="icon">Ikon (FontAwesome Class) <small
                         style="color: var(--text-muted); font-weight: normal;">(Opsional)</small></label>
                 <input type="text" name="icon" id="icon" class="form-control"
-                    value="{{ old('icon', $public_service->icon) }}">
+                    value="{{ old('icon', $public_service->icon) }}" placeholder="Masukkan kelas ikon FontAwesome (contoh: fa-solid fa-file-lines)...">
                 <span style="font-size: 0.85rem; color: var(--text-muted);">Contoh: fa-solid fa-file-lines</span>
             </div>
 
             <div class="form-group">
                 <label for="description">Deskripsi Singkat</label>
                 <textarea name="description" id="description" class="form-control"
-                    rows="3">{{ old('description', $public_service->description) }}</textarea>
+                    rows="3" placeholder="Tuliskan penjelasan singkat mengenai maksud dan tujuan layanan ini...">{{ old('description', $public_service->description) }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="requirements">Persyaratan (Gunakan enter untuk memisahkan poin)</label>
                 <textarea name="requirements" id="requirements" class="form-control"
-                    rows="5">{{ old('requirements', $public_service->requirements) }}</textarea>
+                    rows="5" placeholder="Tuliskan syarat atau dokumen yang diperlukan oleh pemohon (satu syarat per baris)...">{{ old('requirements', $public_service->requirements) }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="service_flow">Alur Layanan (Gunakan enter untuk memisahkan poin)</label>
                 <textarea name="service_flow" id="service_flow" class="form-control"
-                    rows="5">{{ old('service_flow', $public_service->service_flow) }}</textarea>
+                    rows="5" placeholder="Tuliskan alur atau tahapan pengajuan layanan dari awal hingga selesai (satu tahapan per baris)...">{{ old('service_flow', $public_service->service_flow) }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="disclaimer">Catatan Penting <small
                         style="color: var(--text-muted); font-weight: normal;">(Opsional)</small></label>
                 <textarea name="disclaimer" id="disclaimer" class="form-control"
-                    rows="3">{{ old('disclaimer', $public_service->disclaimer) }}</textarea>
+                    rows="3" placeholder="Tuliskan catatan khusus, ketentuan tambahan, atau informasi penting lainnya...">{{ old('disclaimer', $public_service->disclaimer) }}</textarea>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -60,13 +60,13 @@
                     <label for="processing_time">Waktu Penyelesaian</label>
                     <input type="text" name="processing_time" id="processing_time" class="form-control"
                         value="{{ old('processing_time', $public_service->processing_time) }}"
-                        placeholder="Masukkan waktu penyelesaian...">
+                        placeholder="Masukkan estimasi waktu penyelesaian (contoh: 1-2 Hari Kerja)...">
                 </div>
 
                 <div class="form-group">
                     <label for="service_cost">Biaya Layanan</label>
                     <input type="text" name="service_cost" id="service_cost" class="form-control"
-                        value="{{ old('service_cost', $public_service->service_cost) }}" placeholder="Masukkan biaya atau tarif...">
+                        value="{{ old('service_cost', $public_service->service_cost) }}" placeholder="Masukkan biaya layanan (contoh: Gratis / Bebas Biaya)...">
                 </div>
             </div>
 

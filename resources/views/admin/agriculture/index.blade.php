@@ -108,17 +108,15 @@
                 
                 <div class="form-group">
                     <label for="title">Judul Banner <span style="color: red;">*</span></label>
-                    <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $agriProfile->title) }}" required>
+                    <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $agriProfile->title) }}" placeholder="Masukkan judul banner profil pertanian..." required>
                     @error('title')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
-
-
                 <div class="form-group">
                     <label for="description_1">Deskripsi Utama <span style="color: red;">*</span></label>
-                    <textarea name="description_1" id="description_1" rows="5" class="form-control @error('description_1') is-invalid @enderror">{{ old('description_1', $agriProfile->description_1) }}</textarea>
+                    <textarea name="description_1" id="description_1" rows="5" class="form-control @error('description_1') is-invalid @enderror" placeholder="Tuliskan gambaran umum dan potensi sektor pertanian desa...">{{ old('description_1', $agriProfile->description_1) }}</textarea>
                     @error('description_1')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -126,7 +124,7 @@
 
                 <div class="form-group">
                     <label for="description_2">Deskripsi Pendukung (Paragraf Kedua)</label>
-                    <textarea name="description_2" id="description_2" rows="5" class="form-control @error('description_2') is-invalid @enderror">{{ old('description_2', $agriProfile->description_2) }}</textarea>
+                    <textarea name="description_2" id="description_2" rows="5" class="form-control @error('description_2') is-invalid @enderror" placeholder="Tuliskan penjelasan pendukung atau komoditas unggulan desa (opsional)...">{{ old('description_2', $agriProfile->description_2) }}</textarea>
                     @error('description_2')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

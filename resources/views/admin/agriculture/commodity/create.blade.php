@@ -37,7 +37,7 @@
 
             <div class="form-group">
                 <label for="title">Nama Komoditas <span style="color: red;">*</span></label>
-                <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Masukkan nama komoditas..." required>
+                <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Masukkan nama komoditas pertanian atau peternakan..." required>
                 @error('title')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -69,7 +69,7 @@
 
             <div class="form-group">
                 <label for="description">Deskripsi Lengkap <span style="color: red;">*</span></label>
-                <textarea name="description" id="description" rows="6" class="form-control @error('description') is-invalid @enderror" placeholder="Tuliskan info lengkap mengenai komoditas ini, potensi hasil panen, cara pengolahan, dll." required>{{ old('description') }}</textarea>
+                <textarea name="description" id="description" rows="6" class="form-control @error('description') is-invalid @enderror" placeholder="Tuliskan info lengkap mengenai komoditas ini, potensi panen, metode pengolahan, serta keunggulannya..." required>{{ old('description') }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -78,7 +78,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label for="production_scale">Skala / Volume Produksi</label>
-                    <input type="text" name="production_scale" id="production_scale" class="form-control @error('production_scale') is-invalid @enderror" value="{{ old('production_scale') }}" placeholder="Masukkan skala atau volume produksi...">
+                    <input type="text" name="production_scale" id="production_scale" class="form-control @error('production_scale') is-invalid @enderror" value="{{ old('production_scale') }}" placeholder="Masukkan estimasi skala produksi (contoh: 10 Ton / Bulan)...">
                     @error('production_scale')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -86,7 +86,7 @@
 
                 <div class="form-group">
                     <label for="harvest_time">Waktu Panen / Siklus</label>
-                    <input type="text" name="harvest_time" id="harvest_time" class="form-control @error('harvest_time') is-invalid @enderror" value="{{ old('harvest_time') }}" placeholder="Masukkan waktu panen atau siklus...">
+                    <input type="text" name="harvest_time" id="harvest_time" class="form-control @error('harvest_time') is-invalid @enderror" value="{{ old('harvest_time') }}" placeholder="Masukkan siklus atau waktu panen (contoh: Setiap 3 Bulan)...">
                     @error('harvest_time')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -95,28 +95,38 @@
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
-                    <label for="contact">Kontak Penanggung Jawab / Gapoktan</label>
-                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact') }}" placeholder="Masukkan nomor kontak...">
-                    @error('contact')
+                    <label for="contact_person">Nama Narahubung / Petani / Gapoktan</label>
+                    <input type="text" name="contact_person" id="contact_person" class="form-control @error('contact_person') is-invalid @enderror" value="{{ old('contact_person') }}" placeholder="Masukkan nama narahubung atau kelompok tani...">
+                    @error('contact_person')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Lokasi Budidaya / Alamat</label>
-                    <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Masukkan alamat lokasi budidaya...">
-                    @error('address')
+                    <label for="contact">No. WhatsApp / Telepon Narahubung</label>
+                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact') }}" placeholder="Masukkan nomor telepon atau WhatsApp aktif (contoh: 081234567890)...">
+                    @error('contact')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="google_maps_url">Link Google Maps Lokasi</label>
-                <input type="url" name="google_maps_url" id="google_maps_url" class="form-control @error('google_maps_url') is-invalid @enderror" value="{{ old('google_maps_url') }}" placeholder="Masukkan link Google Maps lokasi...">
-                @error('google_maps_url')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label for="address">Lokasi Budidaya / Alamat</label>
+                    <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Masukkan alamat atau lokasi lahan budidaya...">
+                    @error('address')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="google_maps_url">Link Google Maps Lokasi</label>
+                    <input type="url" name="google_maps_url" id="google_maps_url" class="form-control @error('google_maps_url') is-invalid @enderror" value="{{ old('google_maps_url') }}" placeholder="Masukkan tautan Google Maps (https://maps.google.com/...)...">
+                    @error('google_maps_url')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
             </div>
 
             <div class="form-group">

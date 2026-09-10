@@ -37,7 +37,7 @@
             <div class="form-group" style="margin-bottom: 20px;">
                 <label for="name">Nama Lengkap</label>
                 <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" 
-                    placeholder="Masukkan nama lengkap..." value="{{ old('name', $user->name) }}" required>
+                    placeholder="Masukkan nama lengkap pengelola/admin..." value="{{ old('name', $user->name) }}" required>
                 @error('name')
                     <span style="color: var(--danger); font-size: 0.8rem; display: block; margin-top: 5px;">{{ $message }}</span>
                 @enderror
@@ -46,7 +46,7 @@
             <div class="form-group" style="margin-bottom: 20px;">
                 <label for="email">Alamat Email</label>
                 <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" 
-                    placeholder="Masukkan alamat email..." value="{{ old('email', $user->email) }}" required>
+                    placeholder="Masukkan alamat email akun admin..." value="{{ old('email', $user->email) }}" required>
                 @error('email')
                     <span style="color: var(--danger); font-size: 0.8rem; display: block; margin-top: 5px;">{{ $message }}</span>
                 @enderror
@@ -61,7 +61,7 @@
                     <label for="password">Password Baru (Opsional)</label>
                     <div style="position: relative;">
                         <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" 
-                            placeholder="Minimal 8 karakter" style="padding-right: 40px;">
+                            placeholder="Kosongkan jika tidak diubah (minimal 8 karakter)..." style="padding-right: 40px;">
                         <button type="button" onclick="togglePasswordVisibility('password', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: none; background: none; color: var(--text-muted); cursor: pointer; padding: 0;">
                             <i class="fa-solid fa-eye"></i>
                         </button>
@@ -75,7 +75,7 @@
                     <label for="password_confirmation">Konfirmasi Password Baru</label>
                     <div style="position: relative;">
                         <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" 
-                            placeholder="Ketik ulang password baru" style="padding-right: 40px;">
+                            placeholder="Ketik ulang kata sandi baru untuk konfirmasi..." style="padding-right: 40px;">
                         <button type="button" onclick="togglePasswordVisibility('password_confirmation', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: none; background: none; color: var(--text-muted); cursor: pointer; padding: 0;">
                             <i class="fa-solid fa-eye"></i>
                         </button>

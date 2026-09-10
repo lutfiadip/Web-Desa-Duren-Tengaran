@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <label for="title">Judul Pengumuman <span style="color: red;">*</span></label>
-            <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Masukkan judul pengumuman..." value="{{ old('title') }}" required>
+            <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Masukkan judul atau perihal pengumuman resmi..." value="{{ old('title') }}" required>
             @error('title')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -42,7 +42,7 @@
 
         <div class="form-group">
             <label for="content">Isi Pengumuman <span style="color: red;">*</span></label>
-            <textarea id="content" name="content" class="form-control @error('content') is-invalid @enderror" placeholder="Tuliskan isi pengumuman..." required style="min-height: 250px;">{{ old('content') }}</textarea>
+            <textarea id="content" name="content" class="form-control @error('content') is-invalid @enderror" placeholder="Tuliskan rincian lengkap isi pengumuman atau surat edaran..." required style="min-height: 250px;">{{ old('content') }}</textarea>
             @error('content')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror

@@ -59,13 +59,14 @@ class CommunityInstitutionController extends Controller
             'vision' => 'nullable|string',
             'mission' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'address' => 'nullable|string',
         ]);
 
         $category = $this->getCategory('lkd');
-        $data = $request->only(['name', 'description', 'vision', 'mission', 'contact', 'email', 'address']);
+        $data = $request->only(['name', 'description', 'vision', 'mission', 'contact_person', 'contact', 'email', 'address']);
         $data['status'] = $request->has('status') ? 'published' : 'draft';
         $data['category_id'] = $category->id;
         $data['user_id'] = Auth::id() ?? 1;
@@ -100,12 +101,13 @@ class CommunityInstitutionController extends Controller
             'vision' => 'nullable|string',
             'mission' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'address' => 'nullable|string',
         ]);
 
-        $data = $request->only(['name', 'description', 'vision', 'mission', 'contact', 'email', 'address']);
+        $data = $request->only(['name', 'description', 'vision', 'mission', 'contact_person', 'contact', 'email', 'address']);
         $data['status'] = $request->has('status') ? 'published' : 'draft';
 
         if ($institution->name !== $request->name) {
@@ -180,13 +182,14 @@ class CommunityInstitutionController extends Controller
             'vision' => 'nullable|string',
             'mission' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'address' => 'nullable|string',
         ]);
 
         $category = $this->getCategory('ormas');
-        $data = $request->only(['name', 'description', 'vision', 'mission', 'contact', 'email', 'address']);
+        $data = $request->only(['name', 'description', 'vision', 'mission', 'contact_person', 'contact', 'email', 'address']);
         $data['status'] = $request->has('status') ? 'published' : 'draft';
         $data['category_id'] = $category->id;
         $data['user_id'] = Auth::id() ?? 1;
@@ -221,12 +224,13 @@ class CommunityInstitutionController extends Controller
             'vision' => 'nullable|string',
             'mission' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'address' => 'nullable|string',
         ]);
 
-        $data = $request->only(['name', 'description', 'vision', 'mission', 'contact', 'email', 'address']);
+        $data = $request->only(['name', 'description', 'vision', 'mission', 'contact_person', 'contact', 'email', 'address']);
         $data['status'] = $request->has('status') ? 'published' : 'draft';
 
         if ($institution->name !== $request->name) {

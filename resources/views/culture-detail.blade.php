@@ -354,21 +354,29 @@
                             {{ $culture->implementation_time ?? 'Mengikuti kalender event adat desa' }}
                         </div>
                     </li>
-                    @if($culture->contact)
+                    @if($culture->contact || $culture->contact_person)
                         <li class="info-item">
                             <i class="fa-solid fa-phone"></i>
                             <div>
-                                <strong>Kontak Pengelola</strong>
-                                {{ $culture->contact }}
+                                <strong>Kontak Pengelola / Paguyuban</strong>
+                                @if($culture->contact_person)
+                                    <span style="font-weight: 700; color: var(--text-dark); display: block; font-size: 0.95rem;">{{ $culture->contact_person }}</span>
+                                @endif
+                                @if($culture->contact)
+                                    <span style="color: var(--text-muted); font-size: 0.9rem;">{{ $culture->contact }}</span>
+                                @endif
                             </div>
                         </li>
                     @endif
                 </ul>
 
-                @if($culture->contact)
+                @if($culture->clean_contact)
+                    @php
+                        $cultureWaGreeting = 'Halo ' . ($culture->contact_person ? $culture->contact_person : 'Pengelola') . ', saya ingin bertanya informasi seputar kesenian ' . $culture->title . ' di Desa Duren.';
+                    @endphp
                     <div class="action-buttons" style="margin-top: 25px;">
-                        <a href="https://wa.me/{{ $culture->clean_contact }}" target="_blank" class="btn-side wa">
-                            <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Hubungi Paguyuban
+                        <a href="https://wa.me/{{ $culture->clean_contact }}?text={{ urlencode($cultureWaGreeting) }}" target="_blank" class="btn-side wa">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Hubungi via WhatsApp
                         </a>
                     </div>
                 @endif

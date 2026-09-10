@@ -16,7 +16,7 @@
 
         <div class="form-group">
             <label for="title">Judul/Tentang Peraturan</label>
-            <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan perihal atau judul peraturan" value="{{ old('title') }}" required>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan judul atau perihal peraturan desa" value="{{ old('title') }}" required>
         </div>
 
         <div class="form-group">
@@ -34,18 +34,18 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="number">Nomor Peraturan</label>
-                <input type="text" id="number" name="number" class="form-control" placeholder="Masukkan nomor peraturan..." value="{{ old('number') }}" required>
+                <input type="text" id="number" name="number" class="form-control" placeholder="Masukkan nomor surat atau penetapan peraturan..." value="{{ old('number') }}" required>
             </div>
 
             <div class="form-group">
                 <label for="year">Tahun Penetapan</label>
-                <input type="number" id="year" name="year" class="form-control" placeholder="Masukkan tahun peraturan..." value="{{ old('year', date('Y')) }}" required>
+                <input type="number" id="year" name="year" class="form-control" placeholder="Masukkan tahun penetapan peraturan..." value="{{ old('year', date('Y')) }}" required>
             </div>
         </div>
 
         <div class="form-group">
             <label for="description">Deskripsi Singkat / Penjelasan</label>
-            <textarea id="description" name="description" class="form-control" placeholder="Tuliskan ringkasan singkat dari peraturan ini (opsional)">{{ old('description') }}</textarea>
+            <textarea id="description" name="description" class="form-control" placeholder="Tuliskan ringkasan singkat mengenai isi dan tujuan peraturan ini...">{{ old('description') }}</textarea>
         </div>
 
         <div class="form-group">

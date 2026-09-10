@@ -18,12 +18,12 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="title">Nama Usaha (UMKM)</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan nama usaha..." value="{{ old('title', $umkm->title) }}" required>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan nama usaha atau produk UMKM..." value="{{ old('title', $umkm->title) }}" required>
             </div>
 
             <div class="form-group">
                 <label for="owner_name">Nama Pemilik/Pengelola</label>
-                <input type="text" id="owner_name" name="owner_name" class="form-control" placeholder="Masukkan nama pemilik atau pengelola..." value="{{ old('owner_name', $umkm->owner_name) }}" required>
+                <input type="text" id="owner_name" name="owner_name" class="form-control" placeholder="Masukkan nama pemilik atau pengelola usaha..." value="{{ old('owner_name', $umkm->owner_name) }}" required>
             </div>
         </div>
 
@@ -42,42 +42,42 @@
 
             <div class="form-group">
                 <label for="whatsapp">No. WhatsApp Pemilik (Gunakan format 62...)</label>
-                <input type="text" id="whatsapp" name="whatsapp" class="form-control" placeholder="Masukkan nomor WhatsApp aktif..." value="{{ old('whatsapp', $umkm->whatsapp) }}">
+                <input type="text" id="whatsapp" name="whatsapp" class="form-control" placeholder="Masukkan nomor WhatsApp aktif pemesanan (contoh: 08123456789)..." value="{{ old('whatsapp', $umkm->whatsapp) }}">
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="instagram">Username Instagram (Opsional)</label>
-                <input type="text" id="instagram" name="instagram" class="form-control" placeholder="Masukkan username Instagram..." value="{{ old('instagram', $umkm->instagram) }}">
+                <input type="text" id="instagram" name="instagram" class="form-control" placeholder="Masukkan username atau tautan profil Instagram..." value="{{ old('instagram', $umkm->instagram) }}">
             </div>
 
             <div class="form-group">
                 <label for="facebook">Nama Halaman Facebook (Opsional)</label>
-                <input type="text" id="facebook" name="facebook" class="form-control" placeholder="Masukkan nama halaman Facebook..." value="{{ old('facebook', $umkm->facebook) }}">
+                <input type="text" id="facebook" name="facebook" class="form-control" placeholder="Masukkan nama akun atau halaman Facebook..." value="{{ old('facebook', $umkm->facebook) }}">
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="operating_hours">Jam Operasional Usaha</label>
-                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Masukkan jam operasional..." value="{{ old('operating_hours', $umkm->operating_hours) }}">
+                <input type="text" id="operating_hours" name="operating_hours" class="form-control" placeholder="Masukkan jadwal atau jam operasional (contoh: Setiap Hari, 08:00 - 17:00)..." value="{{ old('operating_hours', $umkm->operating_hours) }}">
             </div>
 
             <div class="form-group">
                 <label for="google_maps_url">Link Google Maps Lokasi Usaha (Opsional)</label>
-                <input type="url" id="google_maps_url" name="google_maps_url" class="form-control" placeholder="Masukkan link Google Maps lokasi..." value="{{ old('google_maps_url', $umkm->google_maps_url) }}">
+                <input type="url" id="google_maps_url" name="google_maps_url" class="form-control" placeholder="Masukkan tautan Google Maps lokasi usaha..." value="{{ old('google_maps_url', $umkm->google_maps_url) }}">
             </div>
         </div>
 
         <div class="form-group">
             <label for="description">Deskripsi Usaha & Produk</label>
-            <textarea id="description" name="description" class="form-control" placeholder="Jelaskan produk..." required style="min-height: 120px;">{{ old('description', $umkm->description) }}</textarea>
+            <textarea id="description" name="description" class="form-control" placeholder="Tuliskan deskripsi lengkap mengenai produk atau jasa yang ditawarkan, keunggulan, serta perkiraan harga..." required style="min-height: 120px;">{{ old('description', $umkm->description) }}</textarea>
         </div>
 
         <div class="form-group">
             <label for="address">Alamat Lengkap Usaha</label>
-            <input type="text" id="address" name="address" class="form-control" placeholder="Masukkan alamat lengkap..." value="{{ old('address', $umkm->address) }}" required>
+            <input type="text" id="address" name="address" class="form-control" placeholder="Masukkan alamat lengkap lokasi usaha atau toko..." value="{{ old('address', $umkm->address) }}" required>
         </div>
 
         <div class="form-group">

@@ -35,6 +35,7 @@ class CultureController extends Controller
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'location' => 'required|string|max:255',
             'implementation_time' => 'required|string|max:255',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:100',
             'status' => 'required|in:draft,published',
             'is_featured' => 'required|boolean',
@@ -43,7 +44,7 @@ class CultureController extends Controller
 
         $data = $request->only([
             'title', 'description', 'location', 'implementation_time',
-            'contact', 'status', 'is_featured'
+            'contact_person', 'contact', 'status', 'is_featured'
         ]);
 
         $data['user_id'] = Auth::id() ?? 1;
@@ -84,6 +85,7 @@ class CultureController extends Controller
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'location' => 'required|string|max:255',
             'implementation_time' => 'required|string|max:255',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:100',
             'status' => 'required|in:draft,published',
             'is_featured' => 'required|boolean',
@@ -92,7 +94,7 @@ class CultureController extends Controller
 
         $data = $request->only([
             'title', 'description', 'location', 'implementation_time',
-            'contact', 'status', 'is_featured'
+            'contact_person', 'contact', 'status', 'is_featured'
         ]);
 
         if ($culture->title !== $request->title) {

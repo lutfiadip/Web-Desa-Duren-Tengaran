@@ -167,6 +167,7 @@ class AgricultureController extends Controller
             'production_scale' => 'nullable|string|max:255',
             'harvest_time' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:255',
             'google_maps_url' => 'nullable|url',
             'is_featured' => 'required|boolean',
@@ -175,7 +176,7 @@ class AgricultureController extends Controller
 
         $data = $request->only([
             'title', 'category_id', 'description', 'production_scale',
-            'harvest_time', 'address', 'contact', 'google_maps_url',
+            'harvest_time', 'address', 'contact_person', 'contact', 'google_maps_url',
             'is_featured'
         ]);
 
@@ -225,6 +226,7 @@ class AgricultureController extends Controller
             'production_scale' => 'nullable|string|max:255',
             'harvest_time' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:255',
             'google_maps_url' => 'nullable|url',
             'is_featured' => 'required|boolean',
@@ -233,7 +235,7 @@ class AgricultureController extends Controller
 
         $data = $request->only([
             'title', 'category_id', 'description', 'production_scale',
-            'harvest_time', 'address', 'contact', 'google_maps_url',
+            'harvest_time', 'address', 'contact_person', 'contact', 'google_maps_url',
             'is_featured'
         ]);
 

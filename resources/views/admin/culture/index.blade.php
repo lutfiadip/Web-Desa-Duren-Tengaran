@@ -30,7 +30,7 @@
     <!-- Search Form -->
     <div style="margin-bottom: 20px;">
         <form action="{{ route('admin.culture.index') }}" method="GET" style="display: flex; gap: 10px;">
-            <input type="text" name="search" class="form-control" placeholder="Cari nama budaya..." value="{{ request('search') }}" style="max-width: 300px;">
+            <input type="text" name="search" class="form-control" placeholder="Cari nama kesenian atau tradisi..." value="{{ request('search') }}" style="max-width: 300px;">
             <button type="submit" class="btn btn-secondary">Cari</button>
             @if(request('search'))
                 <a href="{{ route('admin.culture.index') }}" class="btn btn-secondary">Reset</a>
@@ -43,9 +43,9 @@
         <table>
             <thead>
                 <tr>
-                    <th style="width: 80px;">Thumbnail</th>
-                    <th>Nama Seni / Budaya</th>
-                    <th>Lokasi/Tempat Pentas</th>
+                    <th style="width: 80px;">Gambar</th>
+                    <th>Nama & Narahubung</th>
+                    <th>Lokasi</th>
                     <th>Waktu Pelaksanaan</th>
                     <th>Status</th>
                     <th style="width: 120px; text-align: center;">Aksi</th>
@@ -68,7 +68,17 @@
                                     <i class="fa-solid fa-star" style="color: #f59e0b; margin-left: 4px;" title="Seni Budaya Unggulan"></i>
                                 @endif
                             </div>
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">Kontak: {{ $item->contact ?? '-' }}</span>
+                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+                                @if($item->contact_person)
+                                    <span style="font-weight: 600; color: var(--text-dark);">{{ $item->contact_person }}</span>
+                                @endif
+                                @if($item->contact)
+                                    <span>{{ $item->contact_person ? '(' . $item->contact . ')' : $item->contact }}</span>
+                                @endif
+                                @if(!$item->contact_person && !$item->contact)
+                                    <span>Kontak: -</span>
+                                @endif
+                            </div>
                         </td>
                         <td>
                             {{ $item->location }}

@@ -233,7 +233,7 @@
                     <div class="form-group">
                         <label for="source">Sumber Data <span style="color: #ef4444;">*</span></label>
                         <input type="text" name="source" id="source" class="form-control" 
-                            value="{{ old('source', $statistic->source) }}" placeholder="Masukkan sumber data statistik..." required
+                            value="{{ old('source', $statistic->source) }}" placeholder="Masukkan sumber data (contoh: SIAK Kemendagri / Arsip Desa)..." required
                             style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">
                         <div class="error-feedback" id="source-error">Sumber data wajib diisi.</div>
                     </div>

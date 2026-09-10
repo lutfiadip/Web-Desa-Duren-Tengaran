@@ -257,6 +257,15 @@
         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
     }
 
+    .action-btn.wa {
+        background-color: #25d366;
+    }
+
+    .action-btn.wa:hover {
+        background-color: #20ba5a;
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+    }
+
     /* --- RECOMMENDATIONS --- */
     .recom-section {
         background-color: #f8fafc;
@@ -513,24 +522,40 @@
                     @endif
 
                     <!-- Kontak Hubung -->
-                    @if($commodity->contact)
+                    @if($commodity->contact || $commodity->contact_person)
                         <div class="info-item">
                             <div class="info-icon">
                                 <i class="fa-solid fa-phone"></i>
                             </div>
                             <div class="info-text-wrapper">
-                                <div class="info-label">Kontak Pengelola</div>
-                                <div class="info-val">{{ $commodity->contact }}</div>
+                                <div class="info-label">Kontak Pengelola / Gapoktan</div>
+                                @if($commodity->contact_person)
+                                    <div style="font-weight: 700; color: var(--text-dark); margin-bottom: 2px;">{{ $commodity->contact_person }}</div>
+                                @endif
+                                @if($commodity->contact)
+                                    <div class="info-val" style="color: var(--text-muted); font-size: 0.9rem;">{{ $commodity->contact }}</div>
+                                @endif
                             </div>
                         </div>
                     @endif
                 </div>
 
-                @if($commodity->google_maps_url)
-                    <a href="{{ $commodity->google_maps_url }}" target="_blank" class="action-btn">
-                        <i class="fa-solid fa-map-location-dot"></i> Petunjuk Rute Lokasi
-                    </a>
-                @endif
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    @if($commodity->clean_contact)
+                        @php
+                            $agriWaGreeting = 'Halo ' . ($commodity->contact_person ? $commodity->contact_person : 'Pengelola') . ', saya ingin bertanya seputar komoditas ' . $commodity->title . ' di Desa Duren.';
+                        @endphp
+                        <a href="https://wa.me/{{ $commodity->clean_contact }}?text={{ urlencode($agriWaGreeting) }}" target="_blank" class="action-btn wa">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Hubungi via WhatsApp
+                        </a>
+                    @endif
+
+                    @if($commodity->google_maps_url)
+                        <a href="{{ $commodity->google_maps_url }}" target="_blank" class="action-btn">
+                            <i class="fa-solid fa-map-location-dot"></i> Petunjuk Rute Lokasi
+                        </a>
+                    @endif
+                </div>
             </div>
         </div>
 

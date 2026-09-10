@@ -36,6 +36,7 @@ class TourismController extends Controller
             'address' => 'required|string',
             'google_maps_url' => 'nullable|url',
             'operating_hours' => 'nullable|string|max:255',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:100',
             'facilities' => 'nullable|string',
             'status' => 'required|in:draft,published',
@@ -48,7 +49,7 @@ class TourismController extends Controller
 
         $data = $request->only([
             'title', 'description', 'address', 'google_maps_url', 'operating_hours',
-            'contact', 'facilities', 'status', 'is_featured'
+            'contact_person', 'contact', 'facilities', 'status', 'is_featured'
         ]);
 
         // Filter out empty packages
@@ -108,6 +109,7 @@ class TourismController extends Controller
             'address' => 'required|string',
             'google_maps_url' => 'nullable|url',
             'operating_hours' => 'nullable|string|max:255',
+            'contact_person' => 'nullable|string|max:100',
             'contact' => 'nullable|string|max:100',
             'facilities' => 'nullable|string',
             'status' => 'required|in:draft,published',
@@ -120,7 +122,7 @@ class TourismController extends Controller
 
         $data = $request->only([
             'title', 'description', 'address', 'google_maps_url', 'operating_hours',
-            'contact', 'facilities', 'status', 'is_featured'
+            'contact_person', 'contact', 'facilities', 'status', 'is_featured'
         ]);
 
         // Filter out empty packages

@@ -28,19 +28,18 @@
             @csrf
 
             <div class="form-group" style="margin-bottom: 20px;">
-                <label for="name" style="display: block; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; font-size: 0.9rem;">Nama Jenis Statistik <span style="color: #b91c1c;">*</span></label>
-                <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" placeholder="Masukkan nama tipe statistik..." required style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">
+                <label for="name">Nama Kategori Statistik <span style="color: #ef4444;">*</span></label>
+                <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" placeholder="Masukkan nama kategori statistik (contoh: Kelompok Umur, Pekerjaan)..." required style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">
             </div>
 
             <div class="form-group" style="margin-bottom: 20px;">
-                <label for="slug" style="display: block; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; font-size: 0.9rem;">Slug (URL Identifier - Opsional)</label>
-                <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug') }}" placeholder="Masukkan slug (huruf kecil dan tanda hubung)..." style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">
-                <small style="color: var(--text-muted); font-size: 0.75rem; margin-top: 4px; display: block;">Slug digunakan dalam URL halaman statistik. Jika dikosongkan, slug akan dibuat otomatis berdasarkan nama.</small>
+                <label for="slug">Slug URL <small style="color: var(--text-muted);">(Biarkan kosong untuk otomatis)</small></label>
+                <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug') }}" placeholder="Masukkan slug URL (contoh: kelompok-umur, jenis-pekerjaan)..." style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">
             </div>
 
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label for="description" style="display: block; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; font-size: 0.9rem;">Keterangan / Deskripsi</label>
-                <textarea name="description" id="description" rows="4" class="form-control" placeholder="Tulis deskripsi singkat mengenai statistik ini..." style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">{{ old('description') }}</textarea>
+            <div class="form-group" style="margin-bottom: 25px;">
+                <label for="description">Deskripsi Singkat</label>
+                <textarea name="description" id="description" rows="4" class="form-control" placeholder="Tuliskan deskripsi ringkas mengenai cakupan data statistik ini..." style="width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none;">{{ old('description') }}</textarea>
             </div>
 
             <div class="form-group" style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">

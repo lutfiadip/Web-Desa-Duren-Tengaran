@@ -17,14 +17,14 @@
             <div class="form-group">
                 <label for="title">Nama Layanan *</label>
                 <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required
-                    placeholder="Masukkan nama layanan...">
+                    placeholder="Masukkan nama layanan publik atau surat permohonan...">
             </div>
 
             <div class="form-group">
                 <label for="icon">Ikon (FontAwesome Class) <small
                         style="color: var(--text-muted); font-weight: normal;">(Opsional)</small></label>
                 <input type="text" name="icon" id="icon" class="form-control"
-                    value="{{ old('icon', 'fa-solid fa-file-lines') }}" placeholder="Masukkan kelas ikon FontAwesome...">
+                    value="{{ old('icon', 'fa-solid fa-file-lines') }}" placeholder="Masukkan kelas ikon FontAwesome (contoh: fa-solid fa-file-lines)...">
                 <span style="font-size: 0.85rem; color: var(--text-muted);">Cari referensi ikon di <a
                         href="https://fontawesome.com/search?o=r&m=free" target="_blank"
                         style="color: var(--primary-light);">FontAwesome Free</a></span>
@@ -33,39 +33,39 @@
             <div class="form-group">
                 <label for="description">Deskripsi Singkat</label>
                 <textarea name="description" id="description" class="form-control" rows="3"
-                    placeholder="Jelaskan secara singkat mengenai layanan ini.">{{ old('description') }}</textarea>
+                    placeholder="Tuliskan penjelasan singkat mengenai maksud dan tujuan layanan ini...">{{ old('description') }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="requirements">Persyaratan (Gunakan enter untuk memisahkan poin)</label>
                 <textarea name="requirements" id="requirements" class="form-control" rows="5"
-                    placeholder="Tuliskan syarat-syarat yang diperlukan (pisahkan per baris)...">{{ old('requirements') }}</textarea>
+                    placeholder="Tuliskan syarat atau dokumen yang diperlukan oleh pemohon (satu syarat per baris)...">{{ old('requirements') }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="service_flow">Alur Layanan (Gunakan enter untuk memisahkan poin)</label>
                 <textarea name="service_flow" id="service_flow" class="form-control" rows="5"
-                    placeholder="Tuliskan alur atau tahapan pengajuan layanan...">{{ old('service_flow') }}</textarea>
+                    placeholder="Tuliskan alur atau tahapan pengajuan layanan dari awal hingga selesai (satu tahapan per baris)...">{{ old('service_flow') }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="disclaimer">Catatan Penting <small
                         style="color: var(--text-muted); font-weight: normal;">(Opsional)</small></label>
                 <textarea name="disclaimer" id="disclaimer" class="form-control" rows="3"
-                    placeholder="Masukkan catatan atau persyaratan layanan...">{{ old('disclaimer') }}</textarea>
+                    placeholder="Tuliskan catatan khusus, ketentuan tambahan, atau informasi penting lainnya...">{{ old('disclaimer') }}</textarea>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label for="processing_time">Waktu Penyelesaian</label>
                     <input type="text" name="processing_time" id="processing_time" class="form-control"
-                        value="{{ old('processing_time') }}" placeholder="Masukkan waktu penyelesaian...">
+                        value="{{ old('processing_time') }}" placeholder="Masukkan estimasi waktu penyelesaian (contoh: 1-2 Hari Kerja)...">
                 </div>
 
                 <div class="form-group">
                     <label for="service_cost">Biaya Layanan</label>
                     <input type="text" name="service_cost" id="service_cost" class="form-control"
-                        value="{{ old('service_cost') }}" placeholder="Masukkan biaya atau tarif...">
+                        value="{{ old('service_cost') }}" placeholder="Masukkan biaya layanan (contoh: Gratis / Bebas Biaya)...">
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
                     <div class="document-row" style="display: flex; gap: 15px; align-items: flex-start; background: #f8fafc; padding: 15px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
                         <div style="flex: 2;">
                             <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Nama Dokumen</label>
-                            <input type="text" name="document_titles[]" class="form-control" placeholder="Masukkan nama dokumen...">
+                            <input type="text" name="document_titles[]" class="form-control" placeholder="Masukkan judul atau nama formulir (contoh: Formulir Permohonan)...">
                         </div>
                         <div style="flex: 3;">
                             <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; display: block;">Pilih File Dokumen</label>

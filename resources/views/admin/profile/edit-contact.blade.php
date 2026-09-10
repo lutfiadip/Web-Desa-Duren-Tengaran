@@ -37,13 +37,13 @@
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="phone">No. Telepon / Fax</label>
                         <input type="text" id="phone" name="phone" class="form-control"
-                            value="{{ old('phone', $profile->phone) }}" placeholder="Masukkan 123456...">
+                            value="{{ old('phone', $profile->phone) }}" placeholder="Masukkan nomor telepon kantor desa (contoh: 0298-123456)...">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="email">Email Resmi Desa</label>
                         <input type="email" id="email" name="email" class="form-control"
-                            value="{{ old('email', $profile->email) }}" placeholder="Masukkan info@desaduren.go.id...">
+                            value="{{ old('email', $profile->email) }}" placeholder="Masukkan alamat email resmi kantor desa (contoh: pemdes@duren.desa.id)...">
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
                     <label for="office_maps_url">Link Google Maps Balai Desa / Kantor Desa</label>
                     <input type="text" id="office_maps_url" name="office_maps_url" class="form-control"
                         value="{{ old('office_maps_url', $profile->office_maps_url) }}"
-                        placeholder="Masukkan link atau kode <iframe> dari Google Maps">
+                        placeholder="Masukkan tautan atau kode embed <iframe> Google Maps balai desa...">
                     <span style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 8px; line-height: 1.5;">
                         <i class="fa-solid fa-circle-info" style="color: var(--primary-light);"></i> <strong>Tips:</strong> Agar titik peta akurat, buka Google Maps > Cari Lokasi > Klik "Bagikan" > Pilih tab <strong>"Sematkan peta"</strong> (Embed a map) > Salin kode HTML <code>&lt;iframe...&gt;</code> dan tempel di sini.
                     </span>
@@ -71,19 +71,19 @@
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="facebook">Facebook</label>
                         <input type="text" id="facebook" name="facebook" class="form-control"
-                            value="{{ old('facebook', $profile->facebook ?: '@') }}" placeholder="Masukkan @desa.duren atau URL...">
+                            value="{{ old('facebook', $profile->facebook ?: '@') }}" placeholder="Masukkan tautan profil atau nama akun Facebook...">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="instagram">Instagram</label>
                         <input type="text" id="instagram" name="instagram" class="form-control"
-                            value="{{ old('instagram', $profile->instagram ?: '@') }}" placeholder="Masukkan @desa.duren atau URL...">
+                            value="{{ old('instagram', $profile->instagram ?: '@') }}" placeholder="Masukkan tautan profil atau nama akun Instagram...">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="youtube">YouTube</label>
                         <input type="text" id="youtube" name="youtube" class="form-control"
-                            value="{{ old('youtube', $profile->youtube ?: '@') }}" placeholder="Masukkan @durentengaran atau URL...">
+                            value="{{ old('youtube', $profile->youtube ?: '@') }}" placeholder="Masukkan tautan kanal atau nama akun YouTube...">
                     </div>
                 </div>
             </div>

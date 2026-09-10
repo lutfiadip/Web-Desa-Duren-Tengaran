@@ -421,20 +421,28 @@
                             {{ $attraction->address }}
                         </div>
                     </li>
-                    @if($attraction->contact)
+                    @if($attraction->contact || $attraction->contact_person)
                         <li class="info-item">
                             <i class="fa-solid fa-phone"></i>
                             <div>
                                 <strong>Kontak Pengelola</strong>
-                                {{ $attraction->contact }}
+                                @if($attraction->contact_person)
+                                    <span style="font-weight: 700; color: var(--text-dark); display: block; font-size: 0.95rem;">{{ $attraction->contact_person }}</span>
+                                @endif
+                                @if($attraction->contact)
+                                    <span style="color: var(--text-muted); font-size: 0.9rem;">{{ $attraction->contact }}</span>
+                                @endif
                             </div>
                         </li>
                     @endif
                 </ul>
 
                 <div class="action-buttons">
-                    @if($attraction->contact)
-                        <a href="https://wa.me/{{ $attraction->clean_contact }}" target="_blank" class="btn-side wa">
+                    @if($attraction->clean_contact)
+                        @php
+                            $waGreeting = 'Halo ' . ($attraction->contact_person ? $attraction->contact_person : 'Pengelola') . ', saya ingin bertanya informasi & reservasi seputar wisata ' . $attraction->title . ' di Desa Duren.';
+                        @endphp
+                        <a href="https://wa.me/{{ $attraction->clean_contact }}?text={{ urlencode($waGreeting) }}" target="_blank" class="btn-side wa">
                             <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Reservasi WhatsApp
                         </a>
                     @endif

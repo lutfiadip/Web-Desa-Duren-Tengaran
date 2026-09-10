@@ -74,7 +74,15 @@
                             Rp {{ number_format($item->ticket_price, 0, ',', '.') }}
                         </td>
                         <td>
-                            {{ $item->contact ?? '-' }}
+                            @if($item->contact_person)
+                                <div style="font-weight: 600; color: var(--text-dark);">{{ $item->contact_person }}</div>
+                            @endif
+                            @if($item->contact)
+                                <div style="font-size: 0.82rem; color: var(--text-muted);">{{ $item->contact }}</div>
+                            @endif
+                            @if(!$item->contact_person && !$item->contact)
+                                <span style="color: var(--text-muted);">-</span>
+                            @endif
                         </td>
                         <td>
                             @if($item->status === 'published')

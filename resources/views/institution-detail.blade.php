@@ -522,15 +522,20 @@
                         </div>
                     </div>
 
-                    <!-- Telepon -->
-                    @if($institution->contact)
+                    <!-- Telepon & Narahubung -->
+                    @if($institution->contact || $institution->contact_person)
                         <div class="info-item">
                             <div class="info-icon">
                                 <i class="fa-solid fa-phone"></i>
                             </div>
                             <div class="info-text-wrapper">
-                                <div class="info-label">No. Telepon / WhatsApp</div>
-                                <div class="info-val">{{ $institution->contact }}</div>
+                                <div class="info-label">Narahubung / Kontak</div>
+                                @if($institution->contact_person)
+                                    <div style="font-weight: 700; color: var(--text-dark); margin-bottom: 2px;">{{ $institution->contact_person }}</div>
+                                @endif
+                                @if($institution->contact)
+                                    <div class="info-val">{{ $institution->contact }}</div>
+                                @endif
                             </div>
                         </div>
                     @endif
@@ -548,6 +553,17 @@
                         </div>
                     @endif
                 </div>
+
+                @if($institution->clean_contact)
+                    @php
+                        $instWaGreeting = 'Halo ' . ($institution->contact_person ? $institution->contact_person : 'Pengurus') . ', saya ingin bertanya informasi seputar ' . $institution->name . ' di Desa Duren.';
+                    @endphp
+                    <div style="margin-top: 20px;">
+                        <a href="https://wa.me/{{ $institution->clean_contact }}?text={{ urlencode($instWaGreeting) }}" target="_blank" style="background-color: #25d366; color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: var(--radius-md); font-weight: 700; transition: var(--transition);">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Hubungi via WhatsApp
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
 

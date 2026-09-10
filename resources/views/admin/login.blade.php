@@ -244,13 +244,13 @@
             @csrf
             <div class="form-group">
                 <label for="email">Alamat Email</label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="admin@duren.desa.id"
+                <input type="email" id="email" name="email" class="form-control" placeholder="Masukkan alamat email terdaftar..."
                     required autofocus value="{{ old('email') }}">
             </div>
 
             <div class="form-group" style="margin-bottom: 25px;">
                 <label for="password">Kata Sandi</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="••••••••"
+                <input type="password" id="password" name="password" class="form-control" placeholder="Masukkan kata sandi akun..."
                     required>
             </div>
 

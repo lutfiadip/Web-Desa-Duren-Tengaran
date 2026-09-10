@@ -17,7 +17,7 @@
 
         <div class="form-group">
             <label for="title">Judul/Tentang Peraturan</label>
-            <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan perihal peraturan" value="{{ old('title', $regulation->title) }}" required>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan judul atau perihal peraturan desa" value="{{ old('title', $regulation->title) }}" required>
         </div>
 
         <div class="form-group">
@@ -35,18 +35,18 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label for="number">Nomor Peraturan</label>
-                <input type="text" id="number" name="number" class="form-control" placeholder="Masukkan nomor peraturan..." value="{{ old('number', $regulation->number) }}" required>
+                <input type="text" id="number" name="number" class="form-control" placeholder="Masukkan nomor surat atau penetapan peraturan..." value="{{ old('number', $regulation->number) }}" required>
             </div>
 
             <div class="form-group">
                 <label for="year">Tahun Penetapan</label>
-                <input type="number" id="year" name="year" class="form-control" placeholder="Masukkan tahun peraturan..." value="{{ old('year', $regulation->year) }}" required>
+                <input type="number" id="year" name="year" class="form-control" placeholder="Masukkan tahun penetapan peraturan..." value="{{ old('year', $regulation->year) }}" required>
             </div>
         </div>
 
         <div class="form-group">
             <label for="description">Deskripsi Singkat / Penjelasan</label>
-            <textarea id="description" name="description" class="form-control" placeholder="Tuliskan ringkasan singkat dari peraturan ini (opsional)">{{ old('description', $regulation->description) }}</textarea>
+            <textarea id="description" name="description" class="form-control" placeholder="Tuliskan ringkasan singkat mengenai isi dan tujuan peraturan ini...">{{ old('description', $regulation->description) }}</textarea>
         </div>
 
         <div class="form-group">

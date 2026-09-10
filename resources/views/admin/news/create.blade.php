@@ -24,7 +24,7 @@
 
         <div class="form-group">
             <label for="title">Judul Berita</label>
-            <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan judul berita yang menarik" value="{{ old('title') }}" required>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan judul berita atau artikel desa..." value="{{ old('title') }}" required>
         </div>
 
         <div class="form-group">
@@ -41,12 +41,12 @@
 
         <div class="form-group">
             <label for="content">Isi Berita</label>
-            <textarea id="content" name="content" class="form-control" placeholder="Tuliskan detail berita di sini..." required style="min-height: 250px;">{{ old('content') }}</textarea>
+            <textarea id="content" name="content" class="form-control" placeholder="Tuliskan isi berita lengkap di sini..." required style="min-height: 250px;">{{ old('content') }}</textarea>
         </div>
 
         <div class="form-group">
             <label for="excerpt">Ringkasan Berita (Excerpt)</label>
-            <textarea id="excerpt" name="excerpt" class="form-control" placeholder="Tuliskan ringkasan singkat untuk ditampilkan di thumbnail (opsional)..." style="min-height: 80px;">{{ old('excerpt') }}</textarea>
+            <textarea id="excerpt" name="excerpt" class="form-control" placeholder="Tuliskan ringkasan singkat berita sebagai cuplikan artikel (opsional)..." style="min-height: 80px;">{{ old('excerpt') }}</textarea>
             <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Maksimal 500 karakter. Jika dikosongkan, sistem akan memotong otomatis dari isi berita.</span>
         </div>
 
@@ -58,7 +58,7 @@
 
         <div class="form-group">
             <label for="image_caption">Kutipan/Keterangan Gambar (Opsional)</label>
-            <input type="text" id="image_caption" name="image_caption" class="form-control" placeholder="Masukkan keterangan foto..." value="{{ old('image_caption') }}">
+            <input type="text" id="image_caption" name="image_caption" class="form-control" placeholder="Masukkan keterangan singkat mengenai gambar cover (opsional)..." value="{{ old('image_caption') }}">
             <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 5px;">Keterangan ini akan muncul tepat di bawah gambar cover pada halaman baca berita.</span>
         </div>
 

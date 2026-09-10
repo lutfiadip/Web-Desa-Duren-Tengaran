@@ -16,35 +16,47 @@
             @method('PUT')
 
             <div class="form-group">
-                <label for="title">Nama Seni / Upacara / Kebudayaan</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan nama kebudayaan..."
+                <label for="title">Nama Kebudayaan / Kesenian</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan nama kesenian atau tradisi kebudayaan..."
                     value="{{ old('title', $culture->title) }}" required>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
-                    <label for="location">Tempat/Lokasi Penyelenggaraan</label>
-                    <input type="text" id="location" name="location" class="form-control" placeholder="Masukkan nama sanggar atau lokasi..."
+                    <label for="location">Tempat Penyelenggaraan / Sanggar</label>
+                    <input type="text" id="location" name="location" class="form-control" placeholder="Masukkan lokasi pentas, sanggar, atau dusun..."
                         value="{{ old('location', $culture->location) }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="contact">Narahubung / Kontak</label>
-                    <input type="text" id="contact" name="contact" class="form-control" placeholder="Masukkan nomor kontak..."
+                    <label for="implementation_time">Waktu Penyelenggaraan</label>
+                    <input type="text" id="implementation_time" name="implementation_time" class="form-control"
+                        placeholder="Masukkan waktu atau jadwal pelaksanaan kegiatan..."
+                        value="{{ old('implementation_time', $culture->implementation_time) }}" required>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label for="contact_person">Nama Narahubung / Ketua Paguyuban</label>
+                    <input type="text" id="contact_person" name="contact_person" class="form-control"
+                        placeholder="Masukkan nama narahubung atau ketua paguyuban..."
+                        value="{{ old('contact_person', $culture->contact_person) }}">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 4px;">Nama penanggung jawab atau pengurus kesenian.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">No. WhatsApp / Telepon Narahubung</label>
+                    <input type="text" id="contact" name="contact" class="form-control"
+                        placeholder="Masukkan nomor telepon atau WhatsApp aktif (contoh: 081234567890)..."
                         value="{{ old('contact', $culture->contact) }}">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 4px;">Nomor kontak yang terhubung ke tombol WhatsApp.</span>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="implementation_time">Waktu Penyelenggaraan / Rutinitas Pentas</label>
-                <input type="text" id="implementation_time" name="implementation_time" class="form-control"
-                    placeholder="Masukkan waktu pelaksanaan kegiatan..."
-                    value="{{ old('implementation_time', $culture->implementation_time) }}" required>
-            </div>
-
-            <div class="form-group">
                 <label for="description">Deskripsi Lengkap Kebudayaan</label>
-                <textarea id="description" name="description" class="form-control" placeholder="Tuliskan latar belakang..."
+                <textarea id="description" name="description" class="form-control" placeholder="Tuliskan latar belakang sejarah, ciri khas gerakan, alat musik, atau makna tradisi..."
                     required style="min-height: 150px;">{{ old('description', $culture->description) }}</textarea>
             </div>
 

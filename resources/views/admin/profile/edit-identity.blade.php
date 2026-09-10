@@ -43,14 +43,14 @@
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="village_name">Nama Desa</label>
                         <input type="text" id="village_name" name="village_name" class="form-control"
-                            value="{{ old('village_name', $profile->village_name) }}" required>
+                            value="{{ old('village_name', $profile->village_name) }}" placeholder="Masukkan nama resmi desa..." required>
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="office_hours">Jam Operasional Kantor</label>
                         <input type="text" id="office_hours" name="office_hours" class="form-control"
                             value="{{ old('office_hours', $profile->office_hours) }}"
-                            placeholder="Masukkan senin - Jumat...">
+                            placeholder="Masukkan hari dan jam pelayanan kantor (contoh: Senin - Jumat, 08.00 - 15.00 WIB)...">
                     </div>
                 </div>
 

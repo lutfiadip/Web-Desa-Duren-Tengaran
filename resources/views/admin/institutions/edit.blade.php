@@ -43,7 +43,7 @@
 
             <div class="form-group">
                 <label for="name">Nama Lembaga <span style="color: red;">*</span></label>
-                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $institution->name) }}" required>
+                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $institution->name) }}" placeholder="Masukkan nama lembaga desa (contoh: BPD, LPMD, PKK, Karang Taruna)..." required>
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -65,7 +65,7 @@
 
             <div class="form-group">
                 <label for="description">Profil / Deskripsi Singkat <span style="color: red;">*</span></label>
-                <textarea name="description" id="description" rows="5" class="form-control @error('description') is-invalid @enderror" required>{{ old('description', $institution->description) }}</textarea>
+                <textarea name="description" id="description" rows="5" class="form-control @error('description') is-invalid @enderror" placeholder="Tuliskan profil atau deskripsi singkat mengenai peran, tugas, dan kegiatan utama lembaga ini..." required>{{ old('description', $institution->description) }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -73,7 +73,7 @@
 
             <div class="form-group">
                 <label for="vision">Visi Lembaga</label>
-                <textarea name="vision" id="vision" rows="3" class="form-control @error('vision') is-invalid @enderror" placeholder="Tulis visi lembaga jika ada...">{{ old('vision', $institution->vision) }}</textarea>
+                <textarea name="vision" id="vision" rows="3" class="form-control @error('vision') is-invalid @enderror" placeholder="Tuliskan visi lembaga jika ada (opsional)...">{{ old('vision', $institution->vision) }}</textarea>
                 @error('vision')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -81,7 +81,7 @@
 
             <div class="form-group">
                 <label for="mission">Misi Lembaga</label>
-                <textarea name="mission" id="mission" rows="4" class="form-control @error('mission') is-invalid @enderror" placeholder="Tulis poin-poin misi lembaga jika ada...">{{ old('mission', $institution->mission) }}</textarea>
+                <textarea name="mission" id="mission" rows="4" class="form-control @error('mission') is-invalid @enderror" placeholder="Tuliskan poin-poin misi lembaga jika ada (opsional)...">{{ old('mission', $institution->mission) }}</textarea>
                 @error('mission')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -89,7 +89,7 @@
 
             <div class="form-group">
                 <label for="address">Alamat Sekretariat</label>
-                <textarea name="address" id="address" rows="2" class="form-control @error('address') is-invalid @enderror" placeholder="Tulis alamat sekretariat lembaga jika ada...">{{ old('address', $institution->address) }}</textarea>
+                <textarea name="address" id="address" rows="2" class="form-control @error('address') is-invalid @enderror" placeholder="Masukkan alamat lengkap kantor atau sekretariat lembaga...">{{ old('address', $institution->address) }}</textarea>
                 @error('address')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -97,20 +97,28 @@
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
-                    <label for="contact">Nomor Kontak / WhatsApp</label>
-                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact', $institution->contact) }}" placeholder="Masukkan nomor kontak...">
-                    @error('contact')
+                    <label for="contact_person">Nama Narahubung / Ketua Lembaga</label>
+                    <input type="text" name="contact_person" id="contact_person" class="form-control @error('contact_person') is-invalid @enderror" value="{{ old('contact_person', $institution->contact_person) }}" placeholder="Masukkan nama ketua atau penanggung jawab lembaga...">
+                    @error('contact_person')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email Resmi Lembaga</label>
-                    <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $institution->email) }}" placeholder="Masukkan pkk@duren.desa.id...">
-                    @error('email')
+                    <label for="contact">No. Telepon / WhatsApp Narahubung</label>
+                    <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact', $institution->contact) }}" placeholder="Masukkan nomor telepon atau WhatsApp aktif (contoh: 081234567890)...">
+                    @error('contact')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Resmi Lembaga</label>
+                <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $institution->email) }}" placeholder="Masukkan alamat email resmi lembaga (opsional)...">
+                @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
