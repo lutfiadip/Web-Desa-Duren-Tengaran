@@ -25,6 +25,15 @@
         display: block;
     }
 
+    .period-select-wrapper {
+        position: relative;
+    }
+
+    .period-select-wrapper:focus-within i.select-arrow-icon {
+        transform: translateY(-50%) rotate(180deg) !important;
+        color: var(--primary-light) !important;
+    }
+
     /* Unsaved changes indicator banner */
     .unsaved-banner {
         display: none;
@@ -197,27 +206,56 @@
         <div class="card" style="padding: 30px; background-color: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin: 0;">
             
             <!-- PERIOD FILTER SECTION -->
+            <!-- PERIOD FILTER SECTION -->
             <div style="background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-bottom: 25px;">
-                <h4 style="font-size: 0.85rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-calendar-days"></i> Periode Pengelolaan Statistik
-                </h4>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <h4 style="font-size: 0.85rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin: 0; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-calendar-days" style="color: var(--primary-light);"></i> Periode Pengelolaan Statistik
+                        </h4>
+                        @if(!$isNew)
+                            <span style="background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
+                                <i class="fa-solid fa-circle-check"></i> Data Tersimpan
+                            </span>
+                        @else
+                            <span style="background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
+                                <i class="fa-solid fa-circle-plus"></i> Periode Baru (Belum Disimpan)
+                            </span>
+                        @endif
+                    </div>
+                    <button type="button" id="btnAddNewPeriod" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; font-size: 0.82rem; font-weight: 700; border-radius: var(--radius-md); box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); cursor: pointer;">
+                        <i class="fa-solid fa-calendar-plus"></i> Tambah Periode Baru
+                    </button>
+                </div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
                         <label for="semester">Semester</label>
-                        <select id="semester" class="form-control" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-weight: 600; cursor: pointer; outline: none;">
-                            <option value="1" {{ $semester == 1 ? 'selected' : '' }}>Semester I (Ganjil)</option>
-                            <option value="2" {{ $semester == 2 ? 'selected' : '' }}>Semester II (Genap)</option>
-                        </select>
+                        <div class="period-select-wrapper">
+                            <select id="semester" class="form-control" style="width: 100%; padding: 10px 38px 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-weight: 600; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; -moz-appearance: none;">
+                                <option value="1" {{ $semester == 1 ? 'selected' : '' }}>Semester I (Ganjil)</option>
+                                <option value="2" {{ $semester == 2 ? 'selected' : '' }}>Semester II (Genap)</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow-icon" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; font-size: 0.85rem; transition: transform 0.25s ease, color 0.2s ease;"></i>
+                        </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="year">Tahun</label>
-                        <select id="year" class="form-control" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-weight: 600; cursor: pointer; outline: none;">
-                            @foreach($filterYears as $y)
-                                <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>{{ $y }}</option>
-                            @endforeach
-                        </select>
+                        <div class="period-select-wrapper">
+                            <select id="year" class="form-control" style="width: 100%; padding: 10px 38px 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-weight: 600; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; -moz-appearance: none;">
+                                @foreach($filterYears as $y)
+                                    @php
+                                        $isSavedForPeriod = in_array($y . '-' . $semester, $savedPeriods ?? []);
+                                    @endphp
+                                    <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>
+                                        {{ $y }} {{ $isSavedForPeriod ? '(Tersimpan)' : '' }}
+                                    </option>
+                                @endforeach
+                                <option value="custom" style="color: var(--primary-light); font-weight: 700;">+ Masukkan Tahun Lain...</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow-icon" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; font-size: 0.85rem; transition: transform 0.25s ease, color 0.2s ease;"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -412,10 +450,71 @@
         };
         const initialShowGenderPct = showGenderPctInput ? showGenderPctInput.checked : true;
 
+        // SweetAlert2 Modal to Add / Select New Period
+        function promptAddNewPeriod(defaultYear = {{ $year ?? date('Y') }}, defaultSemester = {{ $semester ?? 1 }}) {
+            Swal.fire({
+                title: 'Kelola / Tambah Periode',
+                html: `
+                    <p style="color: #64748b; font-size: 0.88rem; margin-bottom: 20px;">
+                        Tentukan tahun dan semester untuk mengelola data statistik kependudukan. Jika periode ini belum pernah disimpan, data baru akan disiapkan untuk diisi.
+                    </p>
+                    <div style="text-align: left; margin-bottom: 16px;">
+                        <label style="display: block; font-weight: 700; font-size: 0.85rem; color: #1e293b; margin-bottom: 6px;">Semester <span style="color: #ef4444;">*</span></label>
+                        <select id="swal-semester" class="swal2-select" style="width: 100%; margin: 0; padding: 10px; height: auto; box-sizing: border-box; font-size: 0.95rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+                            <option value="1" ${defaultSemester == 1 ? 'selected' : ''}>Semester I (Ganjil)</option>
+                            <option value="2" ${defaultSemester == 2 ? 'selected' : ''}>Semester II (Genap)</option>
+                        </select>
+                    </div>
+                    <div style="text-align: left;">
+                        <label style="display: block; font-weight: 700; font-size: 0.85rem; color: #1e293b; margin-bottom: 6px;">Tahun (4 Digit) <span style="color: #ef4444;">*</span></label>
+                        <input id="swal-year" type="number" min="1900" max="2100" class="swal2-input" placeholder="Contoh: 2026 atau 2027" value="${defaultYear}" style="width: 100%; margin: 0; padding: 10px; height: auto; box-sizing: border-box; font-size: 0.95rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    </div>
+                `,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#2563eb',
+                cancelButtonColor: '#94a3b8',
+                confirmButtonText: '<i class="fa-solid fa-arrow-right"></i> Buka Periode',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                preConfirm: () => {
+                    const sem = document.getElementById('swal-semester').value;
+                    const yr = parseInt(document.getElementById('swal-year').value);
+                    if (!yr || isNaN(yr) || yr < 1900 || yr > 2100) {
+                        Swal.showValidationMessage('Masukkan tahun yang valid antara 1900 dan 2100');
+                        return false;
+                    }
+                    return { year: yr, semester: sem };
+                }
+            }).then((result) => {
+                if (result.isConfirmed && result.value) {
+                    checkDirty();
+                    const isDirty = (unsavedIndicator.style.display === 'flex');
+                    let proceed = true;
+                    if (isDirty) {
+                        proceed = confirm('Anda memiliki perubahan data yang belum disimpan. Pindah ke periode ini akan membatalkan perubahan Anda. Apakah Anda ingin melanjutkan?');
+                    }
+                    if (proceed) {
+                        window.location.href = "{{ route('admin.statistics.manage', $type->id) }}?year=" + result.value.year + "&semester=" + result.value.semester;
+                    } else {
+                        yearInput.value = "{{ $year }}";
+                        semesterInput.value = "{{ $semester }}";
+                    }
+                } else {
+                    yearInput.value = "{{ $year }}";
+                }
+            });
+        }
+
         // Listeners for period dropdown navigation
         function handlePeriodChange() {
             const selectedYear = yearInput.value;
             const selectedSemester = semesterInput.value;
+
+            if (selectedYear === 'custom') {
+                promptAddNewPeriod({{ $year }}, selectedSemester);
+                return;
+            }
             
             if (selectedYear != "{{ $year }}" || selectedSemester != "{{ $semester }}") {
                 let proceed = true;
@@ -433,6 +532,13 @@
                     yearInput.value = "{{ $year }}";
                 }
             }
+        }
+
+        const btnAddNewPeriod = document.getElementById('btnAddNewPeriod');
+        if (btnAddNewPeriod) {
+            btnAddNewPeriod.addEventListener('click', function() {
+                promptAddNewPeriod({{ $year }}, {{ $semester }});
+            });
         }
 
         semesterInput.addEventListener('change', handlePeriodChange);

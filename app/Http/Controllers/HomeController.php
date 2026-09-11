@@ -627,7 +627,7 @@ class HomeController extends Controller
         return view('contact', compact('profile', 'villageDetail'));
     }
 
-    public function statistics()
+    public function statistics(Request $request)
     {
         $profile = VillageProfile::first();
         if ($profile && !$profile->publish_statistics) {
@@ -640,18 +640,54 @@ class HomeController extends Controller
             ->orderBy('display_order')
             ->get();
 
+        // Fetch all distinct published periods (year, semester)
+        $availablePeriods = PopulationStatistic::where('is_published', true)
+            ->whereHas('type', function ($q) {
+                $q->where('is_active', true);
+            })
+            ->select('year', 'semester')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->orderBy('semester', 'desc')
+            ->get();
+
+        // Determine selected period
+        $selectedYear = $request->query('year');
+        $selectedSemester = $request->query('semester');
+
+        if ($selectedYear && $selectedSemester) {
+            $selectedYear = intval($selectedYear);
+            $selectedSemester = intval($selectedSemester);
+        } elseif ($availablePeriods->isNotEmpty()) {
+            $selectedYear = $availablePeriods->first()->year;
+            $selectedSemester = $availablePeriods->first()->semester;
+        } else {
+            $selectedYear = intval(date('Y'));
+            $selectedSemester = 2;
+        }
+
+        // Available years array for dropdown: include published years, current and nearby years
+        $dbYears = PopulationStatistic::pluck('year')->map(fn($y) => intval($y))->unique()->toArray();
+        $currentYear = intval(date('Y'));
+        $mergeYears = [$currentYear - 2, $currentYear - 1, $currentYear, $currentYear + 1, $currentYear + 2];
+        if ($selectedYear) {
+            $mergeYears[] = $selectedYear;
+        }
+        $availableYears = array_values(array_unique(array_merge($mergeYears, $dbYears)));
+        rsort($availableYears);
+
         $statisticsData = [];
         foreach ($statisticTypes as $type) {
-            $latestStat = PopulationStatistic::with('details')
+            $stat = PopulationStatistic::with('details')
                 ->where('statistic_type_id', $type->id)
                 ->where('is_published', true)
-                ->orderBy('year', 'desc')
-                ->orderBy('semester', 'desc')
+                ->where('year', $selectedYear)
+                ->where('semester', $selectedSemester)
                 ->first();
                 
-            if ($latestStat) {
+            if ($stat) {
                 // Calculate dynamic totals and percentages
-                $details = $latestStat->details;
+                $details = $stat->details;
                 $sumTotal = $details->sum(function($d) {
                     return $d->male_total + $d->female_total;
                 });
@@ -663,7 +699,7 @@ class HomeController extends Controller
                 
                 $statisticsData[] = [
                     'type' => $type,
-                    'statistic' => $latestStat,
+                    'statistic' => $stat,
                     'details' => $details,
                     'total_male' => $details->sum('male_total'),
                     'total_female' => $details->sum('female_total'),
@@ -672,7 +708,19 @@ class HomeController extends Controller
             }
         }
 
-        return view('statistics', compact('profile', 'villageDetail', 'statisticsData'));
+        // Available semesters for the selected year (to indicate or highlight)
+        $yearSemesters = $availablePeriods->where('year', $selectedYear)->pluck('semester')->toArray();
+
+        return view('statistics', compact(
+            'profile', 
+            'villageDetail', 
+            'statisticsData', 
+            'availableYears', 
+            'availablePeriods', 
+            'selectedYear', 
+            'selectedSemester',
+            'yearSemesters'
+        ));
     }
 
     public function publicServices()

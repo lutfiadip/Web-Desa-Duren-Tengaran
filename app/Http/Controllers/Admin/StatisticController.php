@@ -54,6 +54,9 @@ class StatisticController extends Controller
             $semester = $latest ? $latest->semester : 2;
         }
 
+        $year = intval($year);
+        $semester = intval($semester);
+
         $statistic = PopulationStatistic::with('details')
             ->where('statistic_type_id', $type->id)
             ->where('year', $year)
@@ -96,18 +99,25 @@ class StatisticController extends Controller
         }
 
         // Years range for period filter dropdown
-        $dbYears = PopulationStatistic::where('statistic_type_id', $type->id)->pluck('year')->unique()->toArray();
+        $dbYears = PopulationStatistic::pluck('year')->map(fn($y) => intval($y))->unique()->toArray();
         $currentYear = intval(date('Y'));
         
         $mergeYears = [$currentYear - 2, $currentYear - 1, $currentYear, $currentYear + 1, $currentYear + 2];
         if ($year) {
-            $mergeYears[] = intval($year);
+            $mergeYears[] = $year;
         }
         
         $filterYears = array_unique(array_merge($mergeYears, $dbYears));
-        sort($filterYears);
+        rsort($filterYears);
 
-        return view('admin.statistics.manage', compact('type', 'statistic', 'year', 'semester', 'filterYears', 'isNew'));
+        // Fetch all distinct saved periods for this statistic type to show indicators
+        $savedPeriods = PopulationStatistic::where('statistic_type_id', $type->id)
+            ->select('year', 'semester')
+            ->get()
+            ->map(fn($p) => $p->year . '-' . $p->semester)
+            ->toArray();
+
+        return view('admin.statistics.manage', compact('type', 'statistic', 'year', 'semester', 'filterYears', 'isNew', 'savedPeriods'));
     }
 
     public function saveManage(Request $request, $type_id)
@@ -115,8 +125,8 @@ class StatisticController extends Controller
         $type = PopulationStatisticType::findOrFail($type_id);
 
         $request->validate([
-            'year' => 'required|integer|min:2000|max:' . (date('Y') + 10),
-            'semester' => 'required|integer|min:1|max:2',
+            'year' => 'required|integer|min:1900|max:2100',
+            'semester' => 'required|integer|in:1,2',
             'source' => 'required|string|max:255',
             'pdf_file' => 'nullable|file|mimes:pdf|max:5120',
             'notes' => 'nullable|string',
@@ -194,6 +204,10 @@ class StatisticController extends Controller
 
         $statistic->touch();
 
-        return redirect()->route('admin.statistics.index')->with('success', 'Statistik kependudukan berhasil disimpan.');
+        return redirect()->route('admin.statistics.manage', [
+            'type_id' => $type->id,
+            'year' => $statistic->year,
+            'semester' => $statistic->semester
+        ])->with('success', 'Statistik kependudukan periode Semester ' . ($statistic->semester == 1 ? 'I (Ganjil)' : 'II (Genap)') . ' ' . $statistic->year . ' berhasil disimpan.');
     }
 }

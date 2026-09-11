@@ -11,6 +11,8 @@ class PopulationStatistic extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'year' => 'integer',
+        'semester' => 'integer',
         'is_published' => 'boolean',
         'published_at' => 'datetime',
     ];

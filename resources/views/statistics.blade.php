@@ -275,6 +275,242 @@
     .chart-card.hidden {
         display: none !important;
     }
+
+    /* --- PERIOD FILTER BAR --- */
+    .period-filter-wrapper {
+        background: var(--white);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 24px 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .period-filter-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .period-filter-header-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .period-filter-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background-color: #eff6ff;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        flex-shrink: 0;
+    }
+
+    .period-filter-title-box h3 {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin: 0 0 4px 0;
+    }
+
+    .period-filter-title-box p {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        margin: 0;
+    }
+
+    .period-filter-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background-color: #f0fdf4;
+        color: #166534;
+        border: 1px solid #bbf7d0;
+        padding: 6px 14px;
+        border-radius: var(--radius-pill);
+        font-size: 0.82rem;
+        font-weight: 600;
+    }
+
+    .period-filter-form {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .period-select-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .period-select-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .period-select-box {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .period-select {
+        padding: 10px 38px 10px 16px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        background-color: #f8fafc;
+        color: var(--text-dark);
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        outline: none;
+        transition: var(--transition);
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    #filterYear {
+        width: 120px;
+    }
+
+    #filterSemester {
+        width: 230px;
+    }
+
+    .period-select::-ms-expand {
+        display: none;
+    }
+
+    .period-select:focus {
+        border-color: var(--primary);
+        background-color: var(--white);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .select-arrow-icon {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        pointer-events: none;
+        font-size: 0.82rem;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+    }
+
+    .period-select-box:focus-within .select-arrow-icon,
+    .period-select-box.is-open .select-arrow-icon {
+        transform: translateY(-50%) rotate(180deg);
+        color: var(--primary);
+    }
+
+    .btn-filter-period {
+        padding: 10px 22px;
+        background-color: var(--primary, #2563eb) !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: var(--radius-md, 8px);
+        font-weight: 700;
+        font-size: 0.92rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        outline: none;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .btn-filter-period * {
+        color: #ffffff !important;
+    }
+
+    .btn-filter-period:hover {
+        background-color: #1d4ed8 !important;
+        color: #ffffff !important;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-filter-period:active,
+    .btn-filter-period:focus,
+    .btn-filter-period:focus-visible {
+        background-color: #1e40af !important;
+        color: #ffffff !important;
+        transform: translateY(0);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-filter-period:disabled,
+    .btn-filter-period.loading {
+        background-color: #2563eb !important;
+        color: #ffffff !important;
+        opacity: 0.9;
+        cursor: wait;
+        transform: none !important;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-filter-period.btn-pending {
+        background-color: #2563eb !important;
+        color: #ffffff !important;
+        animation: pulseButton 1.5s infinite;
+    }
+
+    @keyframes pulseButton {
+        0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5); }
+        70% { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+    }
+
+    @media (max-width: 768px) {
+        .period-filter-wrapper {
+            padding: 18px 20px;
+        }
+
+        .period-filter-form {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 14px;
+        }
+
+        .period-select-group {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 6px;
+        }
+        
+        #filterYear, #filterSemester {
+            width: 100%;
+        }
+
+        .btn-filter-period {
+            justify-content: center;
+            width: 100%;
+        }
+    }
 </style>
 @endsection
 
@@ -298,6 +534,55 @@
 
     <!-- STATS CONTAINER -->
     <div class="stats-container">
+
+        <!-- PERIOD FILTER BAR -->
+        <div class="period-filter-wrapper">
+            <!-- TOP: Title & Active Period Status -->
+            <div class="period-filter-header">
+                <div class="period-filter-header-left">
+                    <div class="period-filter-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div class="period-filter-title-box">
+                        <h3>Periode Data Kependudukan</h3>
+                        <p>Pilih tahun dan semester di bawah ini, lalu klik tombol <strong>Terapkan</strong> untuk memuat data.</p>
+                    </div>
+                </div>
+                <div class="period-filter-badge">
+                    <i class="fa-solid fa-circle-check"></i> Data Ditampilkan: <strong>Semester {{ $selectedSemester == 1 ? 'I (Ganjil)' : 'II (Genap)' }} {{ $selectedYear }}</strong>
+                </div>
+            </div>
+
+            <!-- BOTTOM: Form Controls Underneath Title -->
+            <form action="{{ route('statistics') }}" method="GET" class="period-filter-form" id="periodFilterForm">
+                <div class="period-select-group">
+                    <label for="filterYear" class="period-select-label"><i class="fa-solid fa-calendar-days"></i> Tahun:</label>
+                    <div class="period-select-box">
+                        <select name="year" id="filterYear" class="period-select">
+                            @foreach($availableYears as $y)
+                                <option value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>{{ $y }}</option>
+                            @endforeach
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-arrow-icon"></i>
+                    </div>
+                </div>
+
+                <div class="period-select-group">
+                    <label for="filterSemester" class="period-select-label"><i class="fa-solid fa-clock"></i> Semester:</label>
+                    <div class="period-select-box">
+                        <select name="semester" id="filterSemester" class="period-select">
+                            <option value="1" {{ $selectedSemester == 1 ? 'selected' : '' }}>Semester I (Ganjil)</option>
+                            <option value="2" {{ $selectedSemester == 2 ? 'selected' : '' }}>Semester II (Genap)</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-arrow-icon"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-filter-period" id="btnFilterSubmit">
+                    <i class="fa-solid fa-check"></i> Terapkan
+                </button>
+            </form>
+        </div>
 
         @if(count($statisticsData) > 0)
             <!-- SUMMARY SECTION -->
@@ -474,7 +759,14 @@
             <div class="empty-state">
                 <i class="fa-solid fa-chart-pie"></i>
                 <h3>Data Statistik Belum Tersedia</h3>
-                <p>Silakan hubungi administrator desa atau aktifkan modul jenis statistik kependudukan di dashboard admin.</p>
+                <p style="margin-bottom: 25px; max-width: 550px; margin-left: auto; margin-right: auto;">
+                    Data statistik kependudukan untuk periode <strong>Semester {{ $selectedSemester == 1 ? 'I (Ganjil)' : 'II (Genap)' }} Tahun {{ $selectedYear }}</strong> belum tersedia atau belum dipublikasikan.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                    <a href="{{ route('statistics') }}" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: var(--radius-pill); text-decoration: none; font-weight: 700; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);">
+                        <i class="fa-solid fa-rotate-left"></i> Lihat Periode Terbaru
+                    </a>
+                </div>
             </div>
         @endif
 
@@ -618,4 +910,58 @@
         });
     </script>
 @endif
+
+<script>
+    // Period filter: interactive arrow animation and manual "Terapkan" submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterYear = document.getElementById('filterYear');
+        const filterSemester = document.getElementById('filterSemester');
+        const periodFilterForm = document.getElementById('periodFilterForm');
+        const btnFilterSubmit = document.getElementById('btnFilterSubmit');
+
+        const initialYear = "{{ $selectedYear }}";
+        const initialSemester = "{{ $selectedSemester }}";
+
+        // Interactive chevron rotation animation on focus, click, and blur
+        document.querySelectorAll('.period-select-box').forEach(box => {
+            const sel = box.querySelector('select');
+            if (sel) {
+                sel.addEventListener('focus', () => box.classList.add('is-open'));
+                sel.addEventListener('blur', () => box.classList.remove('is-open'));
+                sel.addEventListener('change', () => box.classList.remove('is-open'));
+                sel.addEventListener('click', () => box.classList.toggle('is-open'));
+            }
+        });
+
+        // Highlight "Terapkan" button when user changes selection
+        function checkFilterChanges() {
+            if (btnFilterSubmit && filterYear && filterSemester) {
+                const hasChanged = (filterYear.value !== initialYear || filterSemester.value !== initialSemester);
+                if (hasChanged) {
+                    btnFilterSubmit.classList.add('btn-pending');
+                } else {
+                    btnFilterSubmit.classList.remove('btn-pending');
+                }
+            }
+        }
+
+        if (filterYear) {
+            filterYear.addEventListener('change', checkFilterChanges);
+        }
+        if (filterSemester) {
+            filterSemester.addEventListener('change', checkFilterChanges);
+        }
+
+        // Handle submit button: show loading state
+        if (periodFilterForm) {
+            periodFilterForm.addEventListener('submit', function() {
+                if (btnFilterSubmit) {
+                    btnFilterSubmit.classList.add('loading');
+                    btnFilterSubmit.style.pointerEvents = 'none';
+                    btnFilterSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="color:#ffffff !important;"></i> <span style="color:#ffffff !important;">Menerapkan...</span>';
+                }
+            });
+        }
+    });
+</script>
 @endsection
