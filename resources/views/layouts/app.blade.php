@@ -1064,14 +1064,15 @@
 
     <script>
         // Global PDF preview modal functions
-        function openPdfModal(url, title) {
+        function openPdfModal(url, title, previewOnly = false) {
             const modal = document.getElementById('pdf-viewer-modal');
             const modalTitle = document.getElementById('modal-doc-title');
             const modalIframe = document.getElementById('pdf-iframe-viewer');
             if (modal && modalTitle && modalIframe) {
                 modalTitle.textContent = title;
-                // Append #toolbar=1 to instruct native browser PDF viewer to render toolbar
-                modalIframe.src = url + '#toolbar=1';
+                // If previewOnly is true, instruct browser PDF viewer to hide download/print toolbar
+                const param = previewOnly ? '#toolbar=0&navpanes=0' : '#toolbar=1';
+                modalIframe.src = url + param;
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden'; // Stop background scrolling
 
@@ -1103,7 +1104,8 @@
                     e.preventDefault();
                     const url = btn.getAttribute('data-url');
                     const title = btn.getAttribute('data-title');
-                    openPdfModal(url, title);
+                    const previewOnly = btn.getAttribute('data-preview-only') === 'true';
+                    openPdfModal(url, title, previewOnly);
                 }
             });
 

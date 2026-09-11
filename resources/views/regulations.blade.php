@@ -295,6 +295,32 @@
         border-color: var(--primary-hover);
     }
 
+    .btn-preview-regulation {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 9px 18px;
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: #ffffff !important;
+        border: none;
+        border-radius: var(--radius-md, 8px);
+        font-weight: 700;
+        font-size: 0.88rem;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .btn-preview-regulation:hover {
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+    }
+
     .no-results {
         text-align: center;
         padding: 60px 20px;
@@ -425,14 +451,9 @@
                                 </td>
                                 <td style="text-align: center;">
                                     @if($reg->document_file)
-                                        <div style="display: flex; gap: 8px; justify-content: center;">
-                                            <button type="button" class="btn-action-icon btn-solid-blue btn-preview-pdf" data-title="{{ $reg->title }}" data-url="{{ asset($reg->document_file) }}" title="Lihat PDF">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
-                                            <a href="{{ asset($reg->document_file) }}" download class="btn-action-icon" title="Unduh Peraturan">
-                                                <i class="fa-solid fa-download"></i>
-                                            </a>
-                                        </div>
+                                        <button type="button" class="btn-preview-regulation btn-preview-pdf" data-title="{{ $reg->title }}" data-url="{{ asset($reg->document_file) }}" data-preview-only="true" title="Lihat Pratinjau Dokumen">
+                                            <i class="fa-solid fa-eye"></i> Pratinjau
+                                        </button>
                                     @else
                                         <span style="font-size: 0.85rem; color: var(--text-muted); font-style: italic;">Berkas belum tersedia</span>
                                     @endif
