@@ -308,6 +308,9 @@
             border-top: 1px solid var(--border-color);
             padding-top: 15px;
             margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .card-btn {
@@ -324,6 +327,66 @@
         .card-btn:hover {
             color: var(--primary-hover);
             gap: 10px;
+        }
+
+        .btn-card-quick-share {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #f8fafc;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-card-quick-share:hover {
+            background-color: #eff6ff;
+            color: var(--primary);
+            border-color: #bfdbfe;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Floating Toast for news.blade.php */
+        .news-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            z-index: 99999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        .news-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 640px) {
+            .news-toast {
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+                justify-content: center;
+                text-align: center;
+            }
         }
 
         /* --- PAGINATION --- */
@@ -484,6 +547,13 @@
                             <a href="{{ route('news.detail', $item->slug) }}" class="card-btn">
                                 Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
                             </a>
+                            <button type="button" class="btn-card-quick-share btn-quick-share" 
+                                    title="Bagikan Berita"
+                                    data-url="{{ route('news.detail', $item->slug) }}"
+                                    data-title="{{ $item->title }}"
+                                    data-desc="{{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -524,4 +594,85 @@
         @endif
 
     </div>
+
+    <!-- Floating Toast for news.blade.php -->
+    <div class="news-toast" id="newsToast">
+        <i class="fa-solid fa-circle-check" style="color: #22c55e; font-size: 1.25rem;"></i>
+        <span id="newsToastMsg">Tautan berhasil disalin!</span>
+    </div>
+@endsection
+
+@section('scripts')
+<script>
+    (function() {
+        const toast = document.getElementById('newsToast');
+        const toastMsg = document.getElementById('newsToastMsg');
+        let toastTimeout = null;
+
+        function showToast(message) {
+            if (!toast || !toastMsg) return;
+            toastMsg.textContent = message;
+            toast.classList.add('show');
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function copyLink(url) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('Tautan berita berhasil disalin ke clipboard!');
+                }).catch(() => {
+                    fallbackCopy(url);
+                });
+            } else {
+                fallbackCopy(url);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast('Tautan berita berhasil disalin!');
+            } catch (err) {
+                showToast('Gagal menyalin link.');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        document.querySelectorAll('.btn-quick-share').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const url = this.getAttribute('data-url');
+                const title = this.getAttribute('data-title');
+                const text = this.getAttribute('data-desc');
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: title,
+                        text: text,
+                        url: url
+                    }).then(() => {
+                        showToast('Berita berhasil dibagikan!');
+                    }).catch((err) => {
+                        if (err.name !== 'AbortError') {
+                            copyLink(url);
+                        }
+                    });
+                } else {
+                    copyLink(url);
+                }
+            });
+        });
+    })();
+</script>
 @endsection

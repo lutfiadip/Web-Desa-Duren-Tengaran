@@ -2,6 +2,29 @@
 
 @section('title', $article->title . ' - Berita Desa Duren')
 
+@section('meta')
+    @php
+        $cleanDesc = Str::limit(strip_tags($article->content), 160);
+        $imageUrl = $article->featured_image ? (Str::startsWith($article->featured_image, 'http') ? $article->featured_image : asset($article->featured_image)) : asset('img/logo-semarang.png');
+    @endphp
+    <meta name="description" content="{{ $cleanDesc }}">
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Portal Informasi Desa Duren">
+    <meta property="og:title" content="{{ $article->title }}">
+    <meta property="og:description" content="{{ $cleanDesc }}">
+    <meta property="og:image" content="{{ $imageUrl }}">
+    <meta property="og:url" content="{{ request()->url() }}">
+    <meta property="article:published_time" content="{{ $article->published_at }}">
+    <meta property="article:section" content="{{ $article->category->name ?? 'Berita' }}">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $article->title }}">
+    <meta name="twitter:description" content="{{ $cleanDesc }}">
+    <meta name="twitter:image" content="{{ $imageUrl }}">
+@endsection
+
 @section('styles')
 <style>
     /* --- HERO HEADER --- */
@@ -318,6 +341,273 @@
             font-size: 2.2rem;
         }
     }
+
+    /* --- ARTICLE SHARE SECTION & TEMPLATE --- */
+    .article-share-section {
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 2px dashed var(--border-color);
+    }
+
+    .share-card-box {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg, 16px);
+        padding: 30px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .share-card-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #2563eb 0%, #38bdf8 50%, #10b981 100%);
+    }
+
+    .share-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 22px;
+    }
+
+    .share-header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .share-icon-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        flex-shrink: 0;
+    }
+
+    .share-title-text h4 {
+        margin: 0 0 4px 0;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--text-dark);
+    }
+
+    .share-title-text p {
+        margin: 0;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+    }
+
+    .share-buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+        gap: 12px;
+        margin-bottom: 22px;
+    }
+
+    .btn-share {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 11px 14px;
+        border-radius: var(--radius-md, 10px);
+        font-size: 0.88rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: #ffffff !important;
+        transition: all 0.25s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        user-select: none;
+    }
+
+    .btn-share:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-share.wa {
+        background: linear-gradient(135deg, #25D366, #128C7E);
+    }
+    .btn-share.wa:hover {
+        background: linear-gradient(135deg, #22c55e, #0f766e);
+    }
+
+    .btn-share.fb {
+        background: linear-gradient(135deg, #1877F2, #0d65d9);
+    }
+    .btn-share.fb:hover {
+        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    }
+
+    .btn-share.x {
+        background: linear-gradient(135deg, #0f172a, #000000);
+    }
+    .btn-share.x:hover {
+        background: linear-gradient(135deg, #1e293b, #0f172a);
+    }
+
+    .btn-share.tg {
+        background: linear-gradient(135deg, #2AABEE, #229ED9);
+    }
+    .btn-share.tg:hover {
+        background: linear-gradient(135deg, #0284c7, #0369a1);
+    }
+
+    .btn-share.in {
+        background: linear-gradient(135deg, #0A66C2, #004182);
+    }
+    .btn-share.in:hover {
+        background: linear-gradient(135deg, #0284c7, #075985);
+    }
+
+    .btn-share.mail {
+        background: linear-gradient(135deg, #ea580c, #c2410c);
+    }
+    .btn-share.mail:hover {
+        background: linear-gradient(135deg, #c2410c, #9a3412);
+    }
+
+    .btn-share.copy {
+        background: #ffffff;
+        color: var(--text-dark) !important;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+    }
+    .btn-share.copy:hover {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+        color: var(--primary) !important;
+    }
+
+    .btn-share.native {
+        background: linear-gradient(135deg, #6366f1, #4f46e5);
+    }
+    .btn-share.native:hover {
+        background: linear-gradient(135deg, #4f46e5, #4338ca);
+    }
+
+    /* Template Message Accordion Box */
+    .share-template-container {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--radius-md, 12px);
+        padding: 18px 20px;
+    }
+
+    .share-template-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .share-template-header span {
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .share-template-header span i {
+        color: #25D366;
+    }
+
+    .share-template-box {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 14px 16px;
+        font-size: 0.88rem;
+        color: #334155;
+        line-height: 1.65;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-family: inherit;
+        max-height: 170px;
+        overflow-y: auto;
+        border-left: 4px solid #25D366;
+    }
+
+    .btn-copy-template {
+        background: #25D366;
+        color: #ffffff;
+        border: none;
+        padding: 7px 16px;
+        border-radius: 6px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 6px rgba(37, 211, 102, 0.25);
+    }
+
+    .btn-copy-template:hover {
+        background: #128C7E;
+        transform: translateY(-1px);
+    }
+
+    /* Floating Toast Notification */
+    .share-toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #0f172a;
+        color: #ffffff;
+        padding: 14px 24px;
+        border-radius: 50px;
+        font-size: 0.92rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        z-index: 99999;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+    }
+
+    .share-toast.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+        .share-toast {
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            justify-content: center;
+            text-align: center;
+        }
+        .share-buttons-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
 </style>
 @endsection
 
@@ -363,6 +653,111 @@
                 
                 <div class="article-body">
                     {!! $article->content !!}
+                </div>
+
+                @php
+                    $shareUrl = request()->url();
+                    $shareTitle = $article->title;
+                    $cleanExcerpt = Str::limit(strip_tags($article->content), 160);
+                    $shareDate = \Carbon\Carbon::parse($article->published_at)->translatedFormat('d F Y');
+                    $kategoriName = $article->category->name ?? 'Berita Desa';
+                    
+                    // Formatted broadcast message template for WhatsApp, Telegram, etc.
+                    $shareBroadcastTemplate = "📢 *KABAR RESMI DESA DUREN*\n"
+                                           . "Pemerintah Desa Duren, Kec. Tengaran, Kab. Semarang\n"
+                                           . "━━━━━━━━━━━━━━━━━━━━━\n\n"
+                                           . "📰 *" . $shareTitle . "*\n\n"
+                                           . $cleanExcerpt . "...\n\n"
+                                           . "🗓️ *Tanggal:* " . $shareDate . "\n"
+                                           . "🏷️ *Kategori:* " . $kategoriName . "\n"
+                                           . "🏛️ *Penerbit:* Pemerintah Desa Duren\n\n"
+                                           . "━━━━━━━━━━━━━━━━━━━━━\n"
+                                           . "🔗 *Baca selengkapnya melalui tautan resmi:*\n"
+                                           . $shareUrl . "\n\n"
+                                           . "#DesaDuren #Tengaran #Semarang #KabarDesa";
+
+                    $waShareUrl = "https://api.whatsapp.com/send?text=" . urlencode($shareBroadcastTemplate);
+                    $fbShareUrl = "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($shareUrl);
+                    $twShareUrl = "https://twitter.com/intent/tweet?url=" . urlencode($shareUrl) . "&text=" . urlencode($shareTitle . " - Pemdes Duren");
+                    $tgShareUrl = "https://t.me/share/url?url=" . urlencode($shareUrl) . "&text=" . urlencode("📢 *" . $shareTitle . "*\n\n" . $cleanExcerpt);
+                    $inShareUrl = "https://www.linkedin.com/sharing/share-offsite/?url=" . urlencode($shareUrl);
+                    $mailShareUrl = "mailto:?subject=" . rawurlencode("Berita Desa Duren: " . $shareTitle) . "&body=" . rawurlencode($shareBroadcastTemplate);
+                @endphp
+
+                <!-- SHARE SECTION & TEMPLATE SHOWCASE -->
+                <div class="article-share-section" id="shareSection">
+                    <div class="share-card-box">
+                        <div class="share-header">
+                            <div class="share-header-left">
+                                <div class="share-icon-circle">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </div>
+                                <div class="share-title-text">
+                                    <h4>Bagikan Berita Ini</h4>
+                                    <p>Bantu sebarkan informasi resmi ini kepada warga, keluarga, dan media sosial Anda.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buttons Grid -->
+                        <div class="share-buttons-grid">
+                            <!-- WhatsApp -->
+                            <a href="{{ $waShareUrl }}" target="_blank" rel="noopener noreferrer" class="btn-share wa" title="Bagikan ke WhatsApp">
+                                <i class="fa-brands fa-whatsapp" style="font-size: 1.15rem;"></i> WhatsApp
+                            </a>
+
+                            <!-- Facebook -->
+                            <a href="{{ $fbShareUrl }}" target="_blank" rel="noopener noreferrer" class="btn-share fb" title="Bagikan ke Facebook">
+                                <i class="fa-brands fa-facebook-f"></i> Facebook
+                            </a>
+
+                            <!-- Telegram -->
+                            <a href="{{ $tgShareUrl }}" target="_blank" rel="noopener noreferrer" class="btn-share tg" title="Bagikan ke Telegram">
+                                <i class="fa-brands fa-telegram" style="font-size: 1.1rem;"></i> Telegram
+                            </a>
+
+                            <!-- X / Twitter -->
+                            <a href="{{ $twShareUrl }}" target="_blank" rel="noopener noreferrer" class="btn-share x" title="Bagikan ke X / Twitter">
+                                <i class="fa-brands fa-x-twitter"></i> Twitter
+                            </a>
+
+                            <!-- LinkedIn -->
+                            <a href="{{ $inShareUrl }}" target="_blank" rel="noopener noreferrer" class="btn-share in" title="Bagikan ke LinkedIn">
+                                <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+                            </a>
+
+                            <!-- Email -->
+                            <a href="{{ $mailShareUrl }}" class="btn-share mail" title="Bagikan via Email">
+                                <i class="fa-solid fa-envelope"></i> Email
+                            </a>
+
+                            <!-- Copy Link -->
+                            <button type="button" class="btn-share copy btn-copy-article-link" title="Salin Tautan Berita" data-url="{{ $shareUrl }}">
+                                <i class="fa-solid fa-link"></i> Salin Link
+                            </button>
+
+                            <!-- Native Web Share API -->
+                            <button type="button" class="btn-share native btn-native-share" title="Bagikan ke Aplikasi Lain"
+                                    data-title="{{ $shareTitle }}" 
+                                    data-text="{{ $cleanExcerpt }}" 
+                                    data-url="{{ $shareUrl }}">
+                                <i class="fa-solid fa-arrow-up-from-bracket"></i> Lainnya
+                            </button>
+                        </div>
+
+                        <!-- Template Format Pesan WhatsApp -->
+                        <div class="share-template-container">
+                            <div class="share-template-header">
+                                <span>
+                                    <i class="fa-brands fa-whatsapp"></i> Pratinjau Format Pesan Broadcast
+                                </span>
+                                <button type="button" class="btn-copy-template btn-copy-template-text" data-template="{{ $shareBroadcastTemplate }}">
+                                    <i class="fa-solid fa-copy"></i> Salin Teks Format
+                                </button>
+                            </div>
+                            <div class="share-template-box" id="templateBoxPreview">{{ $shareBroadcastTemplate }}</div>
+                        </div>
+                    </div>
                 </div>
             </article>
         </div>
@@ -421,7 +816,147 @@
                 </div>
             @endif
 
+            <!-- Sidebar Share Widget -->
+            <div class="sidebar-widget" style="background: linear-gradient(145deg, #f0fdf4 0%, #ffffff 100%); border: 1px solid #bbf7d0;">
+                <h3 class="widget-title" style="color: #166534; border-bottom: 2px solid #86efac; padding-bottom: 8px;">
+                    <i class="fa-solid fa-share-nodes" style="color: #16a34a;"></i> Bagikan Berita
+                </h3>
+                <p style="font-size: 0.85rem; color: #475569; margin-bottom: 15px; line-height: 1.5;">
+                    Sebarkan kabar penting ini ke grup warga, WhatsApp, atau media sosial Anda:
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 9px;">
+                    <a href="{{ $waShareUrl }}" target="_blank" rel="noopener noreferrer" class="btn-share wa" style="width: 100%; justify-content: center; font-size: 0.88rem; padding: 10px 14px;">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.15rem;"></i> Bagikan ke WhatsApp
+                    </a>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <a href="{{ $fbShareUrl }}" target="_blank" rel="noopener noreferrer" class="btn-share fb" style="font-size: 0.82rem; padding: 9px 10px;">
+                            <i class="fa-brands fa-facebook-f"></i> Facebook
+                        </a>
+                        <a href="{{ $tgShareUrl }}" target="_blank" rel="noopener noreferrer" class="btn-share tg" style="font-size: 0.82rem; padding: 9px 10px;">
+                            <i class="fa-brands fa-telegram"></i> Telegram
+                        </a>
+                    </div>
+                    <button type="button" class="btn-share copy btn-copy-article-link" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 9px 14px;" data-url="{{ $shareUrl }}">
+                        <i class="fa-solid fa-link"></i> Salin Tautan Berita
+                    </button>
+                </div>
+            </div>
+
         </div>
 
     </div>
+
+    <!-- Floating Toast Notification -->
+    <div class="share-toast" id="shareToast">
+        <i class="fa-solid fa-circle-check" style="color: #22c55e; font-size: 1.25rem;"></i>
+        <span id="toastMsg">Tautan berhasil disalin!</span>
+    </div>
+@endsection
+
+@section('scripts')
+<script>
+    (function() {
+        const toast = document.getElementById('shareToast');
+        const toastMsg = document.getElementById('toastMsg');
+        let toastTimeout = null;
+
+        function showToast(message) {
+            if (!toast || !toastMsg) return;
+            toastMsg.textContent = message;
+            toast.classList.add('show');
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3200);
+        }
+
+        function copyTextToClipboard(text, successMessage) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(successMessage);
+                }).catch(() => {
+                    fallbackCopy(text, successMessage);
+                });
+            } else {
+                fallbackCopy(text, successMessage);
+            }
+        }
+
+        function fallbackCopy(text, successMessage) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(successMessage);
+            } catch (err) {
+                showToast('Gagal menyalin secara otomatis. Silakan salin manual.');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Copy Article Link buttons (in main card & sidebar)
+        document.querySelectorAll('.btn-copy-article-link').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.getAttribute('data-url') || window.location.href;
+                copyTextToClipboard(url, 'Tautan berita berhasil disalin!');
+                
+                // Visual feedback on button
+                const originalHtml = this.innerHTML;
+                this.innerHTML = '<i class="fa-solid fa-check" style="color: #16a34a;"></i> Tersalin!';
+                setTimeout(() => {
+                    this.innerHTML = originalHtml;
+                }, 2000);
+            });
+        });
+
+        // Copy Template Text button
+        document.querySelectorAll('.btn-copy-template-text').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const template = this.getAttribute('data-template') || document.getElementById('templateBoxPreview')?.innerText || '';
+                copyTextToClipboard(template, 'Format pesan broadcast disalin! Siap ditempel di WhatsApp atau grup.');
+
+                const originalHtml = this.innerHTML;
+                this.innerHTML = '<i class="fa-solid fa-check"></i> Format Tersalin!';
+                this.style.background = '#15803d';
+                setTimeout(() => {
+                    this.innerHTML = originalHtml;
+                    this.style.background = '';
+                }, 2500);
+            });
+        });
+
+        // Native Web Share API (Mobile / Modern Browsers)
+        document.querySelectorAll('.btn-native-share').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const title = this.getAttribute('data-title') || document.title;
+                const text = this.getAttribute('data-text') || '';
+                const url = this.getAttribute('data-url') || window.location.href;
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: title,
+                        text: text,
+                        url: url
+                    }).then(() => {
+                        showToast('Berita berhasil dibagikan!');
+                    }).catch((err) => {
+                        if (err.name !== 'AbortError') {
+                            copyTextToClipboard(url, 'Tautan berita disalin ke clipboard.');
+                        }
+                    });
+                } else {
+                    copyTextToClipboard(url, 'Tautan berita disalin! (Gunakan menu aplikasi Anda untuk membagikan)');
+                }
+            });
+        });
+    })();
+</script>
 @endsection

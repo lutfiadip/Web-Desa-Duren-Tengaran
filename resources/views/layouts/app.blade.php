@@ -12,6 +12,17 @@
     <!-- Dynamic Favicon -->
     <link rel="icon" type="image/png" href="{{ (isset($profile) && $profile->logo) ? (Str::startsWith($profile->logo, 'http') ? $profile->logo : asset($profile->logo)) : asset('img/logo-semarang.png') }}">
 
+    <!-- SEO & Social Media Meta Tags -->
+    @hasSection('meta')
+        @yield('meta')
+    @else
+        <meta property="og:site_name" content="Portal Informasi Desa Duren">
+        <meta property="og:title" content="@yield('title', 'Pemerintah Desa Duren Tengaran')">
+        <meta property="og:description" content="{{ $profile->hero_subtitle ?? 'Portal Informasi Resmi Pemerintah Desa Duren, Kecamatan Tengaran, Kabupaten Semarang.' }}">
+        <meta property="og:image" content="{{ (isset($profile) && $profile->logo) ? asset($profile->logo) : asset('img/logo-semarang.png') }}">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ request()->url() }}">
+    @endif
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1104,6 +1115,7 @@
             });
         });
     </script>
+    @yield('scripts')
 </body>
 
 </html>
