@@ -1191,8 +1191,6 @@
         </div>
     </footer>
 
-    @yield('scripts')
-
     @if(request()->routeIs('home'))
         <style>
             /* CSS Khusus untuk Header Transparan di Beranda */

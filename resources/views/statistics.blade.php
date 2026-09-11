@@ -874,8 +874,12 @@
                         }
                     };
 
-                    const chart = new ApexCharts(document.querySelector("#chart-{{ $item['type']->slug }}"), options);
-                    chart.render();
+                    const chartEl = document.querySelector("#chart-{{ $item['type']->slug }}");
+                    if (chartEl) {
+                        chartEl.innerHTML = '';
+                        const chart = new ApexCharts(chartEl, options);
+                        chart.render();
+                    }
                 })();
             @endforeach
 
