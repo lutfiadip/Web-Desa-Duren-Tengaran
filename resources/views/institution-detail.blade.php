@@ -492,6 +492,15 @@
                 </div>
             @endif
 
+            <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <a href="{{ route('institutions') }}" style="color: var(--text-muted); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Lembaga Desa
+                </a>
+                <button type="button" class="btn-share-trigger" data-title="{{ $institution->name }}" data-url="{{ url()->current() }}">
+                    <i class="fa-solid fa-share-nodes"></i> Bagikan
+                </button>
+            </div>
+
         </div>
 
         <!-- RIGHT COLUMN: SIDEBAR CONTACT INFO -->
@@ -564,6 +573,12 @@
                         </a>
                     </div>
                 @endif
+
+                <div style="margin-top: 12px;">
+                    <button type="button" class="btn-share-trigger" data-title="{{ $institution->name }}" data-url="{{ url()->current() }}" style="width: 100%; padding: 12px 20px; font-size: 0.95rem; justify-content: center; border-radius: var(--radius-md);">
+                        <i class="fa-solid fa-share-nodes"></i> Bagikan Lembaga
+                    </button>
+                </div>
             </div>
         </div>
 

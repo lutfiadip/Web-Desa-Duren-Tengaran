@@ -124,6 +124,255 @@
             border: none;
         }
 
+        /* Global Share Trigger Button & Modal */
+        .btn-share-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.15rem;
+            background: #ffffff;
+            color: #0284c7;
+            border: 1.5px solid #bae6fd;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-share-trigger:hover {
+            background: #f0f9ff;
+            border-color: #38bdf8;
+            color: #0369a1;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.15);
+            text-decoration: none;
+        }
+
+        .btn-share-trigger i {
+            font-size: 0.95rem;
+        }
+
+        /* Modal Overlay */
+        .global-share-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .global-share-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .global-share-card {
+            background: #ffffff;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            animation: sharePopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid #f1f5f9;
+        }
+
+        @keyframes sharePopIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .global-share-header {
+            padding: 1.1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .global-share-header h4 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .global-share-close {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+            line-height: 1;
+        }
+
+        .global-share-close:hover {
+            color: #0f172a;
+            background: #f1f5f9;
+        }
+
+        .global-share-body {
+            padding: 1.25rem;
+        }
+
+        .global-share-target-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            padding: 0.6rem 0.85rem;
+            border-radius: 8px;
+            border-left: 3px solid #0284c7;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .global-share-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .share-platform-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            text-decoration: none;
+            padding: 0.75rem 0.5rem;
+            border-radius: 12px;
+            transition: all 0.15s ease;
+            color: #334155;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid #f1f5f9;
+            background: #fafafa;
+        }
+
+        .share-platform-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            text-decoration: none;
+        }
+
+        .share-platform-btn .icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+
+        .share-platform-btn.wa .icon-box { background: #25D366; }
+        .share-platform-btn.wa:hover { background: #f0fdf4; color: #15803d; border-color: #86efac; }
+
+        .share-platform-btn.fb .icon-box { background: #1877F2; }
+        .share-platform-btn.fb:hover { background: #eff6ff; color: #1d4ed8; border-color: #93c5fd; }
+
+        .share-platform-btn.tg .icon-box { background: #229ED9; }
+        .share-platform-btn.tg:hover { background: #f0f9ff; color: #0369a1; border-color: #7dd3fc; }
+
+        .share-platform-btn.tw .icon-box { background: #000000; }
+        .share-platform-btn.tw:hover { background: #f8fafc; color: #000000; border-color: #cbd5e1; }
+
+        .share-copy-box {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f8fafc;
+            padding: 0.4rem 0.4rem 0.4rem 0.75rem;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .share-copy-input {
+            flex-grow: 1;
+            border: none;
+            background: transparent;
+            font-size: 0.8rem;
+            color: #64748b;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .btn-copy-url {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.45rem 0.85rem;
+            background: #0284c7;
+            color: #ffffff;
+            border: none;
+            border-radius: 7px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .btn-copy-url:hover {
+            background: #0369a1;
+        }
+
+        /* Toast notification */
+        .global-share-toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(50px);
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.65rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10001;
+        }
+
+        .global-share-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
         :root {
             /* Colors based on Blue & White modern layout */
             --primary: #2563eb;
@@ -1062,6 +1311,51 @@
         </div>
     </div>
 
+    <!-- Embedded Share Modal (Global) -->
+    <div id="globalShareModal" class="global-share-modal" onclick="if(event.target === this) closeGlobalShareModal()">
+        <div class="global-share-card">
+            <div class="global-share-header">
+                <h4><i class="fa-solid fa-share-nodes" style="color: #0284c7;"></i> Bagikan Halaman</h4>
+                <button type="button" class="global-share-close" onclick="closeGlobalShareModal()" aria-label="Tutup">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="global-share-body">
+                <div id="globalShareDocTitle" class="global-share-target-title">Judul Halaman</div>
+                <div class="global-share-grid">
+                    <a id="shareWaBtn" href="#" target="_blank" rel="noopener noreferrer" class="share-platform-btn wa">
+                        <div class="icon-box"><i class="fa-brands fa-whatsapp"></i></div>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a id="shareFbBtn" href="#" target="_blank" rel="noopener noreferrer" class="share-platform-btn fb">
+                        <div class="icon-box"><i class="fa-brands fa-facebook-f"></i></div>
+                        <span>Facebook</span>
+                    </a>
+                    <a id="shareTgBtn" href="#" target="_blank" rel="noopener noreferrer" class="share-platform-btn tg">
+                        <div class="icon-box"><i class="fa-brands fa-telegram"></i></div>
+                        <span>Telegram</span>
+                    </a>
+                    <a id="shareTwBtn" href="#" target="_blank" rel="noopener noreferrer" class="share-platform-btn tw">
+                        <div class="icon-box"><i class="fa-brands fa-x-twitter"></i></div>
+                        <span>X / Twitter</span>
+                    </a>
+                </div>
+                <div class="share-copy-box">
+                    <input type="text" id="globalShareUrlInput" class="share-copy-input" readonly>
+                    <button type="button" class="btn-copy-url" onclick="copyGlobalShareUrl()">
+                        <i class="fa-regular fa-clone"></i> Salin
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Toast Notification -->
+    <div id="globalShareToast" class="global-share-toast">
+        <i class="fa-solid fa-circle-check" style="color: #34d399;"></i>
+        <span id="globalShareToastMsg">Tautan berhasil disalin!</span>
+    </div>
+
     <script>
         // Global PDF preview modal functions
         function openPdfModal(url, title, previewOnly = false) {
@@ -1092,7 +1386,100 @@
             if (modal && modalIframe) {
                 modal.classList.remove('active');
                 modalIframe.src = ''; // Clear source to stop loading/performance footprint
-                document.body.style.overflow = ''; // Restore scrolling
+                // Only restore overflow if share modal is not active
+                const shareModal = document.getElementById('globalShareModal');
+                if (!shareModal || !shareModal.classList.contains('active')) {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // Global Share System
+        let currentShareUrl = '';
+        let currentShareTitle = '';
+
+        function triggerGlobalShare(title, url) {
+            currentShareTitle = title || document.title;
+            currentShareUrl = url || window.location.href;
+
+            // If mobile device supports native Web Share API
+            if (navigator.share && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+                navigator.share({
+                    title: currentShareTitle,
+                    url: currentShareUrl
+                }).catch((err) => {
+                    // Fallback to modal if error wasn't user cancelling
+                    if (err.name !== 'AbortError') {
+                        openGlobalShareModal(currentShareTitle, currentShareUrl);
+                    }
+                });
+            } else {
+                openGlobalShareModal(currentShareTitle, currentShareUrl);
+            }
+        }
+
+        function openGlobalShareModal(title, url) {
+            const modal = document.getElementById('globalShareModal');
+            const titleEl = document.getElementById('globalShareDocTitle');
+            const inputEl = document.getElementById('globalShareUrlInput');
+            const waBtn = document.getElementById('shareWaBtn');
+            const fbBtn = document.getElementById('shareFbBtn');
+            const tgBtn = document.getElementById('shareTgBtn');
+            const twBtn = document.getElementById('shareTwBtn');
+
+            if (!modal) return;
+
+            titleEl.textContent = title;
+            inputEl.value = url;
+
+            // Prepare share URLs
+            const encodedUrl = encodeURIComponent(url);
+            const encodedTitle = encodeURIComponent(title);
+            const waText = encodeURIComponent(`${title}\n${url}`);
+
+            if (waBtn) waBtn.href = `https://api.whatsapp.com/send?text=${waText}`;
+            if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+            if (tgBtn) tgBtn.href = `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
+            if (twBtn) twBtn.href = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGlobalShareModal() {
+            const modal = document.getElementById('globalShareModal');
+            if (modal) {
+                modal.classList.remove('active');
+                // Only restore overflow if pdf modal is not active
+                const pdfModal = document.getElementById('pdf-viewer-modal');
+                if (!pdfModal || !pdfModal.classList.contains('active')) {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        function showShareToast(message) {
+            const toast = document.getElementById('globalShareToast');
+            const msgEl = document.getElementById('globalShareToastMsg');
+            if (toast) {
+                if (msgEl) msgEl.textContent = message || 'Tautan berhasil disalin!';
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2800);
+            }
+        }
+
+        function copyGlobalShareUrl() {
+            const inputEl = document.getElementById('globalShareUrlInput');
+            if (inputEl) {
+                inputEl.select();
+                navigator.clipboard.writeText(inputEl.value).then(() => {
+                    showShareToast('Tautan berhasil disalin ke papan klip!');
+                }).catch(() => {
+                    document.execCommand('copy');
+                    showShareToast('Tautan berhasil disalin!');
+                });
             }
         }
 
@@ -1107,12 +1494,22 @@
                     const previewOnly = btn.getAttribute('data-preview-only') === 'true';
                     openPdfModal(url, title, previewOnly);
                 }
+
+                // Event delegation for share buttons
+                const shareBtn = e.target.closest('.btn-share-trigger');
+                if (shareBtn) {
+                    e.preventDefault();
+                    const title = shareBtn.getAttribute('data-title') || document.title;
+                    const url = shareBtn.getAttribute('data-url') || window.location.href;
+                    triggerGlobalShare(title, url);
+                }
             });
 
             // Close on Escape key press
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     closePdfModal();
+                    closeGlobalShareModal();
                 }
             });
         });

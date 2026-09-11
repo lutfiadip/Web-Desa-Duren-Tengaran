@@ -321,11 +321,14 @@
                 </div>
             @endif
 
-            <!-- Back Button -->
-            <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 25px;">
+            <!-- Actions Bar: Back Button & Share Button -->
+            <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
                 <a href="{{ route('announcements') }}" class="btn-icon" style="color: var(--text-muted); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
                     <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Pengumuman
                 </a>
+                <button type="button" class="btn-share-trigger" data-title="{{ $announcement->title }}" data-url="{{ url()->current() }}">
+                    <i class="fa-solid fa-share-nodes"></i> Bagikan
+                </button>
             </div>
         </div>
     </div>

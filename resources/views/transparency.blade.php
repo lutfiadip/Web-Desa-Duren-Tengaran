@@ -561,15 +561,20 @@
                 <i class="fa-solid fa-calendar-days" style="color: var(--primary);"></i>
                 Tahun Anggaran APBDes:
             </h2>
-            <div style="position: relative;">
-                <select onchange="window.location.href = this.value" style="padding: 12px 45px 12px 20px; font-size: 1rem; font-weight: 700; color: var(--text-dark); background-color: var(--white); border: 2px solid var(--border-color); border-radius: 30px; cursor: pointer; outline: none; transition: var(--transition); appearance: none; -webkit-appearance: none; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); min-width: 160px;">
-                    @foreach($years as $yr)
-                        <option value="{{ route('transparency', ['year' => $yr->year]) }}" {{ $report->year == $yr->year ? 'selected' : '' }}>
-                            Tahun {{ $yr->year }}
-                        </option>
-                    @endforeach
-                </select>
-                <i class="fa-solid fa-chevron-down" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted); font-size: 0.9rem;"></i>
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <div style="position: relative;">
+                    <select onchange="window.location.href = this.value" style="padding: 12px 45px 12px 20px; font-size: 1rem; font-weight: 700; color: var(--text-dark); background-color: var(--white); border: 2px solid var(--border-color); border-radius: 30px; cursor: pointer; outline: none; transition: var(--transition); appearance: none; -webkit-appearance: none; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); min-width: 160px;">
+                        @foreach($years as $yr)
+                            <option value="{{ route('transparency', ['year' => $yr->year]) }}" {{ $report->year == $yr->year ? 'selected' : '' }}>
+                                Tahun {{ $yr->year }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <i class="fa-solid fa-chevron-down" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted); font-size: 0.9rem;"></i>
+                </div>
+                <button type="button" class="btn-share-trigger" data-title="Transparansi APBDes Tahun {{ $report->year }} - Desa Duren" data-url="{{ url()->current() }}">
+                    <i class="fa-solid fa-share-nodes"></i> Bagikan
+                </button>
             </div>
         </div>
 

@@ -362,6 +362,15 @@
                 <div class="description-text">
                     {!! nl2br(e($umkm->description)) !!}
                 </div>
+
+                <div style="margin-top: 35px; border-top: 1px solid var(--border-color); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <a href="{{ route('umkm') }}" style="color: var(--text-muted); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog UMKM
+                    </a>
+                    <button type="button" class="btn-share-trigger" data-title="{{ $umkm->title }}" data-url="{{ url()->current() }}">
+                        <i class="fa-solid fa-share-nodes"></i> Bagikan
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -428,6 +437,10 @@
                             <i class="fa-solid fa-route"></i> Petunjuk Arah Peta
                         </a>
                     @endif
+
+                    <button type="button" class="btn-share-trigger" data-title="{{ $umkm->title }}" data-url="{{ url()->current() }}" style="width: 100%; padding: 12px 20px; font-size: 0.95rem; justify-content: center; border-radius: var(--radius-md);">
+                        <i class="fa-solid fa-share-nodes"></i> Bagikan UMKM
+                    </button>
                 </div>
             </div>
         </div>

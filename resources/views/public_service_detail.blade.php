@@ -547,10 +547,13 @@
             </div>
         @endif
 
-        <div style="margin-top: 50px; text-align: center;">
-            <a href="{{ route('public_services') }}" style="color: var(--text-muted); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition);">
+        <div style="margin-top: 50px; border-top: 1px solid var(--border-color); padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <a href="{{ route('public_services') }}" style="color: var(--text-muted); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition);">
                 <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Layanan
             </a>
+            <button type="button" class="btn-share-trigger" data-title="{{ $service->title }}" data-url="{{ url()->current() }}">
+                <i class="fa-solid fa-share-nodes"></i> Bagikan
+            </button>
         </div>
     </div>
 </div>

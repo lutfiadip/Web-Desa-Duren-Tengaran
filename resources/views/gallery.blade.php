@@ -276,6 +276,15 @@
 
 <!-- Gallery Grid Section -->
 <div class="gallery-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+        <div style="color: var(--text-muted); font-size: 0.95rem; font-weight: 500;">
+            Menampilkan album & dokumentasi kegiatan Pemerintah dan Warga Desa Duren
+        </div>
+        <button type="button" class="btn-share-trigger" data-title="Galeri Kegiatan Desa Duren" data-url="{{ url()->current() }}">
+            <i class="fa-solid fa-share-nodes"></i> Bagikan Galeri
+        </button>
+    </div>
+
     <div class="gallery-grid">
         @forelse($galleries as $gallery)
             <div class="gallery-card" onclick="openLightbox('{{ Str::startsWith($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}', '{{ addslashes($gallery->caption ?? 'Dokumentasi Kegiatan Desa') }}', '{{ $gallery->created_at ? $gallery->created_at->format('d M Y') : '' }}')">

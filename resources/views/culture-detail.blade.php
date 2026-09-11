@@ -332,6 +332,15 @@
                 <div class="description-text">
                     {!! nl2br(e($culture->description)) !!}
                 </div>
+
+                <div style="margin-top: 35px; border-top: 1px solid var(--border-color); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <a href="{{ route('culture') }}" style="color: var(--text-muted); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Ragam Budaya
+                    </a>
+                    <button type="button" class="btn-share-trigger" data-title="{{ $culture->title }}" data-url="{{ url()->current() }}">
+                        <i class="fa-solid fa-share-nodes"></i> Bagikan
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -370,16 +379,19 @@
                     @endif
                 </ul>
 
-                @if($culture->clean_contact)
-                    @php
-                        $cultureWaGreeting = 'Halo ' . ($culture->contact_person ? $culture->contact_person : 'Pengelola') . ', saya ingin bertanya informasi seputar kesenian ' . $culture->title . ' di Desa Duren.';
-                    @endphp
-                    <div class="action-buttons" style="margin-top: 25px;">
+                <div class="action-buttons" style="margin-top: 25px;">
+                    @if($culture->clean_contact)
+                        @php
+                            $cultureWaGreeting = 'Halo ' . ($culture->contact_person ? $culture->contact_person : 'Pengelola') . ', saya ingin bertanya informasi seputar kesenian ' . $culture->title . ' di Desa Duren.';
+                        @endphp
                         <a href="https://wa.me/{{ $culture->clean_contact }}?text={{ urlencode($cultureWaGreeting) }}" target="_blank" class="btn-side wa">
                             <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Hubungi via WhatsApp
                         </a>
-                    </div>
-                @endif
+                    @endif
+                    <button type="button" class="btn-share-trigger" data-title="{{ $culture->title }}" data-url="{{ url()->current() }}" style="width: 100%; padding: 12px 20px; font-size: 0.95rem; justify-content: center; border-radius: var(--radius-md);">
+                        <i class="fa-solid fa-share-nodes"></i> Bagikan Budaya
+                    </button>
+                </div>
             </div>
         </div>
 

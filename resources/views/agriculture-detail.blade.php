@@ -461,6 +461,15 @@
                 <div class="com-description">
                     {!! nl2br(e($commodity->description)) !!}
                 </div>
+
+                <div style="margin-top: 35px; border-top: 1px solid var(--border-color); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <a href="{{ route('potensi.agriculture') }}" style="color: var(--text-muted); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Pertanian & Peternakan
+                    </a>
+                    <button type="button" class="btn-share-trigger" data-title="{{ $commodity->title }}" data-url="{{ url()->current() }}">
+                        <i class="fa-solid fa-share-nodes"></i> Bagikan
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -555,6 +564,10 @@
                             <i class="fa-solid fa-map-location-dot"></i> Petunjuk Rute Lokasi
                         </a>
                     @endif
+
+                    <button type="button" class="btn-share-trigger" data-title="{{ $commodity->title }}" data-url="{{ url()->current() }}" style="width: 100%; padding: 12px 20px; font-size: 0.95rem; justify-content: center; border-radius: var(--radius-md);">
+                        <i class="fa-solid fa-share-nodes"></i> Bagikan Komoditas
+                    </button>
                 </div>
             </div>
         </div>
