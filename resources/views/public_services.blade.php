@@ -223,7 +223,7 @@
         </div>
         
         @if($services->hasPages())
-            <div style="margin-top: 50px; display: flex; justify-content: center;">
+            <div class="pagination-wrapper">
                 {{ $services->links('pagination::bootstrap-4') }}
             </div>
         @endif

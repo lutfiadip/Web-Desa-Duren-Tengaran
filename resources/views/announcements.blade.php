@@ -359,7 +359,7 @@
     </div>
 
     <!-- Pagination -->
-    <div style="margin-top: 40px; display: flex; justify-content: center;">
+    <div class="pagination-wrapper">
         {{ $announcements->links() }}
     </div>
 </div>

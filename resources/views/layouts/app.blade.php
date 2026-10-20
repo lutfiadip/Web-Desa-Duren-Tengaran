@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Portal Informasi Desa Duren Tengaran')</title>
+    <meta name="description" content="@yield('meta_description', 'Website Resmi Desa Duren, Kecamatan Tengaran, Kabupaten Semarang. Menyediakan informasi profil desa, layanan masyarakat, potensi desa, dan berita terbaru.')">
     <!-- Dynamic Favicon -->
     <link rel="icon" type="image/png" href="{{ (isset($profile) && $profile->logo) ? (Str::startsWith($profile->logo, 'http') ? $profile->logo : asset($profile->logo)) : asset('img/logo-semarang.png') }}">
 
@@ -902,6 +903,87 @@
         @keyframes alertMarquee {
             0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* --- GLOBAL PAGINATION STYLES (Bootstrap 4/5 & Custom Support) --- */
+        .pagination-wrapper {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        nav .pagination,
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pagination .page-item,
+        .pagination li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pagination .page-item .page-link,
+        .pagination li a,
+        .pagination li span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 42px;
+            height: 42px;
+            padding: 0 14px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--white);
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            user-select: none;
+        }
+
+        .pagination .page-item:not(.disabled):not(.active) .page-link:hover,
+        .pagination li:not(.disabled):not(.active) a:hover {
+            background-color: #eff6ff;
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+
+        .pagination .page-item.active .page-link,
+        .pagination li.active span {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .pagination .page-item.disabled .page-link,
+        .pagination li.disabled span,
+        .pagination .page-item[aria-disabled="true"] .page-link {
+            color: #94a3b8;
+            border-color: #f1f5f9;
+            background-color: #f8fafc;
+            cursor: not-allowed;
+            pointer-events: none;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.6;
         }
     </style>
     @yield('styles')
